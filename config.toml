@@ -1,0 +1,10 @@
+baseURL = "https://docs.repsy.io/"
+languageCode = "en-us"
+title = "Repsy Documentation"
+theme = "hugo-theme-learn"
+repo = "https://github.com/matcornic/hugo-theme-learn"
+
+[params]
+  # Change default color scheme with a variant one. Can be "red", "blue", "green".
+  themeVariant = "repsy"
+  editURL = "https://github.com/repsyio/docs/edit/master/content/"

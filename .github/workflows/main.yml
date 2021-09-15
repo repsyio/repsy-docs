@@ -1,0 +1,51 @@
+name: Repsy Docs CI
+
+on:
+  push:
+    branches: [ main, staging ]
+  workflow_dispatch:
+
+jobs:
+  deploy-staging:
+    environment: 'staging'
+    if: github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build docker image
+        env:
+          DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: sh ./package.sh staging
+        
+      - name: Install kubectl
+        uses: Azure/setup-kubectl@v1
+
+      - name: Deploy to environment
+        env:
+          K8S_CONFIG: ${{ secrets.K8S_CONFIG }}
+        run: sh ./deploy.sh staging
+
+  deploy-prod:
+    environment: 'prod'
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build docker image
+        env:
+          DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: sh ./package.sh latest
+
+      - name: Install kubectl
+        uses: Azure/setup-kubectl@v1
+
+      - name: Deploy to environment
+        env:
+          K8S_CONFIG: ${{ secrets.K8S_CONFIG }}
+        run: sh ./deploy.sh latest

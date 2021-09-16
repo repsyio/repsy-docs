@@ -7,4 +7,4 @@ repo = "https://github.com/matcornic/hugo-theme-learn"
 [params]
   # Change default color scheme with a variant one. Can be "red", "blue", "green".
   themeVariant = "repsy"
-  editURL = "https://github.com/repsyio/docs/edit/master/content/"
+  editURL = "https://github.com/repsyio/repsy-docs/edit/main/content/"

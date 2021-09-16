@@ -9,7 +9,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: repsy-docs
-  namespace: repsy
+  namespace: repsy-docs
 spec:
   replicas: 1
   selector:
@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: repsy-docs
-          image: repsy/docs:$1
+          image: repsy/repsy-docs:$1
           imagePullPolicy: Always
           ports:
             - containerPort: 80

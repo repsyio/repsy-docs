@@ -1,7 +1,7 @@
 +++
 title = "Docker"
 chapter = true
-weight = 2
+weight = 4
 +++
 
 Coming Soon

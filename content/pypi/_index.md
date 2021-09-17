@@ -1,6 +1,7 @@
 +++
 title = "PyPI"
 chapter = true
+weight = 3
 +++
 
 # PyPI

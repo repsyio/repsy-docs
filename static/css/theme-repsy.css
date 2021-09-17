@@ -8,7 +8,7 @@
     --MENU-HEADER-BG-color:#ffffff; /* Background color of menu header */
     --MENU-HEADER-BORDER-color:#ffffff; /*Color of menu header border */ 
 
-    --MENU-SEARCH-BG-color:#9C95AC; /* Search field background color (by default borders + icons) */
+    --MENU-SEARCH-BG-color:#beb8cc; /* Search field background color (by default borders + icons) */
     --MENU-SEARCH-BOX-color: #353232; /* Override search field border color */
     --MENU-SEARCH-BOX-ICONS-color: #353232; /* Override search field icons color */
 
@@ -48,6 +48,9 @@ a:hover {
     color: var(--MAIN-LINK-HOVER-color);
 }
 
+#header-wrapper {
+    text-align: left;
+}
 
 #sidebar ul li.visited > a .read-icon {
 	color: var(--MENU-VISITED-color);
@@ -68,6 +71,7 @@ a:hover {
 	background-color: var(--MENU-SECTIONS-BG-color);
     box-shadow: 0 0 7px 2px rgb(163, 163, 163);
     border-radius: 0 0 20% 0;
+    font-size: 17px;
 }
 #sidebar #header-wrapper {
     background: var(--MENU-HEADER-BG-color);

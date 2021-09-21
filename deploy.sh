@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-tag="$1$-(date '+%y%m%d%H%M')"
+tag="$1-$(date '+%y%m%d%H%M')"
 
 docker login -u "$DOCKER_HUB_LOGIN" -p "$DOCKER_HUB_TOKEN"
 docker build . --file Dockerfile --tag repsy/repsy-docs:"$tag"
@@ -9,7 +9,7 @@ docker push repsy/repsy-docs:"$tag"
 
 if [[ $1 = "prod" ]];
 then
-  docker push repsy/repsy-docs:;latest
+  docker push repsy/repsy-docs:latest
 fi
 
 mkdir -p ~/.kube

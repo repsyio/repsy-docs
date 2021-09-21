@@ -13,19 +13,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        
+      - name: Install kubectl
+        uses: Azure/setup-kubectl@v1
 
       - name: Build docker image
         env:
           DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-        run: sh ./package.sh staging
-        
-      - name: Install kubectl
-        uses: Azure/setup-kubectl@v1
-
-      - name: Deploy to environment
-        env:
-          K8S_CONFIG: ${{ secrets.K8S_CONFIG }}
         run: sh ./deploy.sh staging
 
   deploy-prod:
@@ -36,16 +31,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build docker image
-        env:
-          DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
-          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-        run: sh ./package.sh latest
-
       - name: Install kubectl
         uses: Azure/setup-kubectl@v1
 
-      - name: Deploy to environment
+      - name: Build and deploy docker image
         env:
-          K8S_CONFIG: ${{ secrets.K8S_CONFIG }}
-        run: sh ./deploy.sh latest
+          DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: sh ./deploy.sh prod

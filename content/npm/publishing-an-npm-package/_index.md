@@ -1,5 +1,5 @@
 +++
-title = "Creating and Publishing a Package"
+title = "Creating and Publishing an NPM Package"
 weight = 2
 +++
 

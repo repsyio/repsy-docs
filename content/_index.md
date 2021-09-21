@@ -6,7 +6,6 @@ weight = 1
 
 # Repsy Documentation 
 
-You can find the user documentation and examples here. 
-
+You can find the user documentation and examples here.
 
 ![Example image](images/bg.png)

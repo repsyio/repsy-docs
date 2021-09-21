@@ -1,5 +1,5 @@
 +++
-title = "Creating a Registry"
+title = "Creating a Private NPM Registry"
 weight = 1
 +++
 

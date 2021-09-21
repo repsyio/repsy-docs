@@ -1,5 +1,5 @@
 +++
-title = "Installing a Package from Registry"
+title = "Installing an NPM Package from Registry"
 weight = 3
 +++
 

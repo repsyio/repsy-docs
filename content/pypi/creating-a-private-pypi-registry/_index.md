@@ -1,5 +1,5 @@
 +++
-title = "Creating a Registry"
+title = "Creating a private PyPI Registry"
 weight = 1
 +++
 

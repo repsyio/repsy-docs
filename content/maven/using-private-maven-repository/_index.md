@@ -1,5 +1,5 @@
 +++
-title = "Using Private Maven Repository"
+title = "Using a Private Maven Repository"
 weight = 2
 +++
 
@@ -19,17 +19,17 @@ You can create the `.m2` directory under the home directory first - which is sup
 mkdir -p ~/.m2/
 cat << EOF > ~/.m2/settings.xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
-    http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+  http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
-    <servers>
-        <server>
-        <id>repsy</id>
-        <username>MY REPSY USERNAME</username>
-        <password>MY REPSY PASSWORD</password>
-        </server>
-    </servers>
+  <servers>
+    <server>
+      <id>repsy</id>
+      <username>MY REPSY USERNAME</username>
+      <password>MY REPSY PASSWORD</password>
+    </server>
+  </servers>
 </settings>
 EOF
 ```
@@ -42,17 +42,17 @@ Inside the `.m2` folder create a text file and rename it as `settings.xml`. Copy
 
 ```xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
-    http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+  http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
-    <servers>
-        <server>
-        <id>repsy</id>
-        <username>MY REPSY USERNAME</username>
-        <password>MY REPSY PASSWORD</password>
-        </server>
-    </servers>
+  <servers>
+    <server>
+      <id>repsy</id>
+      <username>MY REPSY USERNAME</username>
+      <password>MY REPSY PASSWORD</password>
+    </server>
+  </servers>
 </settings>
 ```
 You can now save and close the settings file.
@@ -62,8 +62,13 @@ You can now save and close the settings file.
 If you consider deploying your Java library to your private Maven repository,  you should first define a distribution repository in your `pom.xml` file as seen in the following example. In order to adapt the following content to your needs,  please modify the *{MY REPSY USERNAME}* and *{MY REPOSITORY NAME}* fields in the repository URL to match your project.
 
 ```xml
-<project   >
+<project>
   <!-- ... Other project settings -->
+
+  <groupId>com.example</groupId>
+  <artifactId>demo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>demo</name>
 
   <distributionManagement>
     <!-- ... Some other Distribution repository definitions -->
@@ -98,8 +103,9 @@ You can find a deployment example in [GitHub](https://github.com/repsyio/example
 You have deployed your Java library and now want to use it in your Java projects. First, you need to add a repository section in your `pom.xml` file, similar to distribution repository. Please do not forget to modify the *{MY REPSY USERNAME}* and *{MY REPOSITORY NAME}* fields in the repository URL to match your project.
 
 ```xml
-<project   >
+<project>
   <!-- ... Other project settings -->
+
   <repositories>
     <!-- ... some other repository definitions -->
 
@@ -118,21 +124,22 @@ You have deployed your Java library and now want to use it in your Java projects
 
 Secondly, you need to define your dependency in `pom.xml` as well.
 
-
 ```xml
-<project   >
+<project>
   <!-- ... Other project settings -->
-  <repositories>
-    <!-- ... some other repository definitions -->
 
-    <repository>
-      <id>repsy</id>
-      <name>My Private Maven Repository on Repsy</name>
-      <url>https://repo.repsy.io/mvn/{MY REPSY USERNAME}/{MY REPOSITORY NAME}</url>
-    </repository>
+  <dependencies>
 
-    <!-- ... some other repository definitions -->
-  </repositories>
+    <!-- ... some other dependency definitions -->
+
+    <dependency>
+      <groupId>com.example</groupId>
+      <artifactId>demo</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+    <!-- ... some other dependency definitions -->
+  </dependencies>
   
   <!-- ... Other project settings -->
 </project>
@@ -141,6 +148,7 @@ Secondly, you need to define your dependency in `pom.xml` as well.
 You are now ready to compile the project!
 
 Please run
+
 ```bash
 mvn compile
 ```
@@ -152,4 +160,4 @@ You can also have a look at example implementation in [GitHub](https://github.co
 
 ## Further Reading
 
-Please refer to the official [documentation](https://maven.apache.org/plugins/maven-deploy-plugin/index.html) of Apache Maven Deploy Plug-in for further information.
+Please refer to the official [documentation of Apache Maven Deploy Plug-in](https://maven.apache.org/plugins/maven-deploy-plugin/index.html) for further information.

@@ -1,5 +1,5 @@
 +++
-title = "Uploading Packages"
+title = "Publishing a PyPI Package"
 weight = 2
 +++
 

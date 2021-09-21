@@ -21,7 +21,7 @@ jobs:
         env:
           DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-        run: sh ./deploy.sh staging
+        run: bash ./deploy.sh staging
 
   deploy-prod:
     environment: 'prod'
@@ -38,4 +38,4 @@ jobs:
         env:
           DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-        run: sh ./deploy.sh prod
+        run: bash ./deploy.sh prod

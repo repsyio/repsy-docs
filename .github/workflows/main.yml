@@ -21,6 +21,7 @@ jobs:
         env:
           DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+          K8S_CONFIG: ${{ secrets.K8S_CONFIG }}
         run: bash ./deploy.sh staging
 
   deploy-prod:
@@ -38,4 +39,5 @@ jobs:
         env:
           DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+          K8S_CONFIG: ${{ secrets.K8S_CONFIG }}
         run: bash ./deploy.sh prod

@@ -13,6 +13,7 @@ then
 fi
 
 mkdir -p ~/.kube
+echo "$K8S_CONFIG" | md5sum
 echo "$K8S_CONFIG" > ~/.kube/config
 
 echo "

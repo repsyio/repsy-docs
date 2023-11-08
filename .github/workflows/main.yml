@@ -9,6 +9,7 @@ on:
 
 jobs:
   deploy-prod:
+    timeout-minutes: 5
     environment: prod
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/github-actions'
     runs-on: ubuntu-latest

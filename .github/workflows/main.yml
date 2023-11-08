@@ -5,13 +5,12 @@ on:
   push:
     branches:
       - main
-      - github-actions
 
 jobs:
   deploy-prod:
     timeout-minutes: 5
     environment: prod
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/github-actions'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:

@@ -23,6 +23,8 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 80
+      imagePullSecrets:
+        - name: gitlab-auth
 ---
 apiVersion: v1
 kind: Service

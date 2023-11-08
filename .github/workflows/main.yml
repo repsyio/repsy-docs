@@ -8,7 +8,8 @@ on:
       - github-actions
 
 jobs:
-  deploy:
+  deploy-prod:
+    environment: prod
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/github-actions'
     runs-on: ubuntu-latest
 
@@ -32,6 +33,16 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           push: true
-          tags: registry.gitlab.com/fria/repsy/repsy-cloud/repsy-maven-node:${{ env.DOCKER_IMAGE_TAG }},registry.gitlab.com/fria/repsy/repsy-cloud/repsy-docs:latest
+          tags: registry.gitlab.com/fria/repsy/repsy-cloud/repsy-docs:${{ env.DOCKER_IMAGE_TAG }},registry.gitlab.com/fria/repsy/repsy-cloud/repsy-docs:latest
 
+      - name: Set Kubernetes Context
+        uses: Azure/k8s-set-context@v3.0
+        with:
+          kubeconfig: ${{secrets.KUBE_CONFIG}}
 
+      - name: Deploy
+        uses: Azure/k8s-deploy@v4.10.0
+        with:
+          namespace: repsy-docs
+          manifests: infrastructure/repsy-docs.yml
+          images: registry.gitlab.com/fria/repsy/repsy-cloud/repsy-docs:${{ env.DOCKER_IMAGE_TAG }}

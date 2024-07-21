@@ -45,7 +45,7 @@ Press `Win + R` key and write `%USERPROFILE%` in the prompt section to go to you
 
 Please open the file in `~/.gradle/gradle.properties` path. If the properties file does not exist, you may create one.
 
-Please add the following variables into your `gradle.properies` file by adjusting values to your repository settings.
+Please add the following variables into your `gradle.properties` file by adjusting values to your repository settings.
 
 ```properties
 repsyUrl=https://repo.repsy.io/mvn/{MY REPSY USERNAME}/{MY REPOSITORY NAME}

@@ -1,0 +1,24 @@
+name: Deploy Repsy Docs Production to Vercel
+env:
+    VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+    VERCEL_PROJECT_ID: ${{ secrets.VERCEL_REPSY_DOCS_PROD_PROJECT_ID }}
+on:
+    push:
+        branches:
+            - '*'
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./panel-frontend
+        steps:
+            - uses: actions/checkout@v3
+            - name: Install Vercel CLI
+              run: npm install --global vercel@latest
+            - name: Deploy to Preview
+              if: github.ref != 'refs/heads/main'
+              run: vercel --token ${{ secrets.VERCEL_TOKEN }} --yes
+            - name: Deploy to Prod
+              if: github.ref == 'refs/heads/main'
+              run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --yes

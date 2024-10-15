@@ -1,0 +1,31 @@
+name: Install Hugo and Theme
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Hugo
+        run: |
+          wget https://github.com/gohugoio/hugo/releases/download/v0.135.0/hugo_0.135.0_linux-amd64.deb
+          sudo dpkg -i hugo_0.135.0_linux-amd64.deb
+
+      - name: Download and Setup Hugo Theme
+        run: |
+          wget -q --no-check-certificate https://github.com/matcornic/hugo-theme-learn/archive/2.5.0.tar.gz
+          rm -rf themes/*
+          mv 2.5.0.tar.gz themes/
+          cd themes
+          tar xvf 2.5.0.tar.gz
+          mv hugo-theme-learn-2.5.0 hugo-theme-learn
+
+      - name: Build Hugo Site
+        run: hugo --minify

@@ -1,5 +1,5 @@
 +++
-title = "Api Docs"
+title = "API Integration"
 chapter = true
 weight = 5
 +++

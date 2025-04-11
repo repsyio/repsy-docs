@@ -1,40 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --MAIN-TEXT-color                       : #323232; /* Color of text by default */
-  --MAIN-TITLES-TEXT-color                : #5E5E5E; /* Color of titles h2-h3-h4-h5 */
-  --MAIN-LINK-color                       : #2525AF; /* Color of links */
-  --MAIN-LINK-HOVER-color                 : #494949; /* Color of hovered links */
+  --MAIN-TEXT-color                       : #fdfdfd; /* Color of text by default */
+  --MAIN-BG-color                         : #07080A; /* Background color of the page */
+  --MAIN-TITLES-TEXT-color                : #fdfdfd; /* Color of titles h1,h2-h3-h4-h5 */
+  --MAIN-LINK-color                       : #fdfdfd; /* Color of links */
+  --MAIN-LINK-HOVER-color                 : #FF69B4; /* Color of hovered links */
   --MAIN-ANCHOR-color                     : #494949; /* color of anchors on titles */
 
-  --MENU-HEADER-BG-color                  : #FFFFFF; /* Background color of menu header */
-  --MENU-HEADER-BORDER-color              : #FFFFFF; /*Color of menu header border */
+  --MENU-HEADER-BG-color                  : #07080A; /* Background color of menu header */
+  --MENU-HEADER-BORDER-color              : #404141; /*Color of menu header border */
 
-  --MENU-SEARCH-BG-color                  : #BEB8CC; /* Search field background color (by default borders + icons) */
-  --MENU-SEARCH-BOX-color                 : #353232; /* Override search field border color */
-  --MENU-SEARCH-BOX-ICONS-color           : #353232; /* Override search field icons color */
+  --MENU-SEARCH-BG-color                  : #404141; /* Search field background color (by default borders + icons) */
+  --MENU-SEARCH-BOX-color                 : #fdfdfd; /* Override search field border color */
+  --MENU-SEARCH-BOX-ICONS-color           : #fdfdfd; /* Override search field icons color */
 
-  --MENU-SECTIONS-ACTIVE-BG-color         : #FFFFFF; /* Background color of the active section and its childs */
-  --MENU-SECTIONS-BG-color                : #FFFFFF; /* Background color of other sections */
-  --MENU-SECTIONS-LINK-color              : #3F3A49; /* Color of links in menu */
-  --MENU-SECTIONS-LINK-HOVER-color        : #9C95AC; /* Color of links in menu, when hovered */
-  --MENU-SECTION-ACTIVE-CATEGORY-color    : #FFFFFF; /* Color of active category text */
-  --MENU-SECTION-ACTIVE-CATEGORY-BG-color : #4D3964; /* Color of background for the active category (only) */
+  --MENU-SECTIONS-ACTIVE-BG-color         : #07080A; /* Background color of the active section and its childs */
+  --MENU-SECTIONS-BG-color                : #07080A; /* Background color of other sections */
+  --MENU-SECTIONS-LINK-color              : #9FA0A0; /* Color of links in menu */
+  --MENU-SECTIONS-LINK-HOVER-color        : #FF69B4; /* Color of links in menu, when hovered */
+  --MENU-SECTION-ACTIVE-CATEGORY-color    : #fdfdfd; /* Color of active category text */
+  --MENU-SECTION-ACTIVE-CATEGORY-BG-color : #333333; /* Color of background for the active category (only) */
 
-  --MENU-VISITED-color                    : #33A1FF; /* Color of 'page visited' icons in menu */
+  --MENU-VISITED-color                    : #fdfdfd; /* Color of 'page visited' icons in menu */
   --MENU-SECTION-HR-color                 : #20272B; /* Color of <hr> separator in menu */
 }
 
 body {
   color : var(--MAIN-TEXT-color) !important;
+  background-color: var(--MAIN-BG-color) !important;
 }
+
 
 textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus, input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, select[multiple=multiple]:focus {
   border-color : unset;
   box-shadow   : none;
 }
 
-h2, h3, h4, h5 {
+h1, h2, h3, h4, h5 {
   color : var(--MAIN-TITLES-TEXT-color) !important;
 }
 
@@ -82,7 +85,7 @@ a:hover {
 #sidebar .searchbox {
   border        : none;
   background    : var(--MENU-SEARCH-BG-color);
-  border-radius : 30px;
+  border-radius : 6px;
 }
 
 #sidebar .searchbox input {
@@ -104,7 +107,7 @@ a:hover {
 }
 
 #sidebar ul.topics > li > a {
-  font-size : 28px;
+  font-size : 22px;
 }
 
 #sidebar ul.topics > li.parent, #sidebar ul.topics > li.active {

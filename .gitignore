@@ -15,4 +15,4 @@ hugo.linux
 .DS_Store
 
 # Binary archives
-*.tar.gz
+.tar.gz

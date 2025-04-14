@@ -22,17 +22,17 @@ jobs:
       - uses: actions/checkout@v3
       - name: Download and Setup Hugo Theme
         run: |
-          wget -q --no-check-certificate https://github.com/matcornic/hugo-theme-learn/archive/2.5.0.tar.gz
+          THEME_VERSION=2.5.0
+          wget -q --no-check-certificate "https://github.com/matcornic/hugo-theme-learn/archive/${THEME_VERSION}.tar.gz"
           rm -rf themes/*
-          mv 2.5.0.tar.gz themes/
+          mv "${THEME_VERSION}.tar.gz" themes/
           cd themes
-          tar xvf 2.5.0.tar.gz
-          mv hugo-theme-learn-2.5.0 hugo-theme-learn
+          tar xzf "${THEME_VERSION}.tar.gz"
+          mv "hugo-theme-learn-${THEME_VERSION}" hugo-theme-learn
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Deploy to Preview
-        if: github.ref != 'refs/heads/main'
-        run: vercel --token ${{ secrets.VERCEL_TOKEN }} --yes
-      - name: Deploy to Prod
+
+      - name: Deploy to Vercel
         if: startsWith(github.ref, 'refs/tags/') && github.ref == 'refs/head/main'
         run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --yes

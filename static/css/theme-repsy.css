@@ -139,3 +139,16 @@ a:hover {
 #sidebar ul li li {
   text-indent: 0;
 }
+
+#top-bar {
+  background: none !important;
+}
+
+code {
+  border-color: #9FA0A0;
+  background: #20272B;
+}
+
+#TableOfContents {
+  background: #20272B;
+}

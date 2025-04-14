@@ -20,12 +20,13 @@ jobs:
 
       - name: Download and Setup Hugo Theme
         run: |
-          wget -q --no-check-certificate https://github.com/matcornic/hugo-theme-learn/archive/2.5.0.tar.gz
+          THEME_VERSION=2.5.0
+          wget -q --no-check-certificate "https://github.com/matcornic/hugo-theme-learn/archive/${THEME_VERSION}.tar.gz"
           rm -rf themes/*
-          mv 2.5.0.tar.gz themes/
+          mv "${THEME_VERSION}.tar.gz" themes/
           cd themes
-          tar xvf 2.5.0.tar.gz
-          mv hugo-theme-learn-2.5.0 hugo-theme-learn
+          tar xzf "${THEME_VERSION}.tar.gz"
+          mv "hugo-theme-learn-${THEME_VERSION}" hugo-theme-learn
 
       - name: Build Hugo Site
         run: hugo --minify

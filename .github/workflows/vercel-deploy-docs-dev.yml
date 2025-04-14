@@ -8,10 +8,6 @@ on:
     workflows: [ "Install Hugo and Theme" ]
     types:
       - completed
-
-  pull_request:
-    branches:
-      - '*'
 jobs:
   deploy:
     runs-on: ubuntu-latest

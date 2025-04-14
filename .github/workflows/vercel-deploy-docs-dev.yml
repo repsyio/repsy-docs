@@ -3,11 +3,13 @@ env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_REPSY_DOCS_DEV_PROJECT_ID }}
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: [ "Install Hugo and Theme" ]
     types:
       - completed
-  push:
+
+  pull_request:
     branches:
       - '*'
 jobs:
@@ -32,5 +34,4 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Deploy to Vercel
-        if: github.ref == 'refs/heads/main'
         run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --yes

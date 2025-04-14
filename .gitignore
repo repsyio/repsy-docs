@@ -10,3 +10,9 @@
 hugo.exe
 hugo.darwin
 hugo.linux
+
+# macOS system files
+.DS_Store
+
+# Binary archives
+.tar.gz

@@ -152,3 +152,11 @@ code {
 #TableOfContents {
   background: #20272B;
 }
+
+.nav  {
+  background-color: transparent;
+}
+
+.nav:hover {
+  background-color: #212121 !important;
+}

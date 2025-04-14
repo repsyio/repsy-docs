@@ -8,9 +8,7 @@ on:
     workflows: [ "Install Hugo and Theme" ]
     types:
       - completed
-  push:
-    branches:
-      - '*'
+
   pull_request:
     branches:
         - '*'

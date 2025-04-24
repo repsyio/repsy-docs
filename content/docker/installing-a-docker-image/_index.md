@@ -8,13 +8,13 @@ When you create a registry, it will be private by default. Before you install an
 You can now install any image from the registry. Please run:
 
 ```bash
-docker pull https://repo.repsy.io/<username>/<registryName>/<imageName>:<imageTag>
+docker pull repo.repsy.io/<username>/<registryName>/<imageName>:<imageTag>
 ```
 
 Or
 
 ```bash
-docker pull https://repo.repsy.io/<username>/<registryName>/<imageName>@<digest>
+docker pull repo.repsy.io/<username>/<registryName>/<imageName>@<digest>
 ```
 
 That’s all! If you have completed all required steps as described, docker CLI will install your image from your registry successfully.

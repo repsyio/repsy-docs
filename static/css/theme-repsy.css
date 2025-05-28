@@ -574,3 +574,8 @@ strong {
 .footer-nav a:hover {
   color: var(--color-secondary-500);
 }
+
+/* Code Snippet Color */
+pre {
+  color: var(--color-secondary-500) !important;
+}

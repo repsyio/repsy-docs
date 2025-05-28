@@ -1,7 +1,7 @@
 +++
 title = "NuGet"
 chapter = true
-weight = 5
+weight = 60
 +++
 
 Coming Soon

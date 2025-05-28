@@ -1,6 +1,6 @@
 +++
 title = "Creating a Private NPM Registry"
-weight = 1
+weight = 31
 +++
 
 Before creating a registry, you need to [register to Repsy](https://docs.repsy.io/npm/register-and-create-registry/)  with a username, password, and e-mail. When you register, Repsy will create a `default` registry for you and will publish a hello world package under it! This is how fast you can get started. 

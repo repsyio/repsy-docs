@@ -1,6 +1,6 @@
 +++
 title = "Publishing a PyPI Package"
-weight = 2
+weight = 42
 +++
 
 Let's create a basic Python package to upload. Before proceeding, please make sure that you have the latest versions of necessary tools used to build and upload Python packages.

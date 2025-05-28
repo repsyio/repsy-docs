@@ -4,6 +4,9 @@ title = "Repsy Documentation"
 theme = "hugo-theme-learn"
 repo = "https://github.com/matcornic/hugo-theme-learn"
 
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
 [params]
   # Change default color scheme with a variant one. Can be "red", "blue", "green".
   themeVariant = "repsy"

@@ -1,0 +1,38 @@
+<footer class="repsy-footer">
+  <hr class="gradient-divider">
+  <div class="footer-inner-container">
+    <div class="footer-brand-socials">
+      <a href="{{ .Site.BaseURL | absURL }}" class="logo footer-logo">
+        <img src="{{ "images/logomark.svg" | absURL }}" alt="{{ .Site.Title }} Logo">
+      </a>
+      <div class="footer-social-icons">
+        <a href="https://www.linkedin.com/company/repsy" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <img src="{{ "images/linkedin.svg" | absURL }}" alt="LinkedIn">
+        </a>
+        <a href="https://github.com/repsyio" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <img src="{{ "images/github.svg" | absURL }}" alt="GitHub">
+        </a>
+        <a href="https://x.com/repsyio" target="_blank" rel="noopener noreferrer" aria-label="X">
+          <img src="{{ "images/x.svg" | absURL }}" alt="X" />
+        </a>
+      </div>
+    </div>
+    <nav class="footer-nav">
+      {{ if .Site.Menus.footer }}
+      {{ range .Site.Menus.footer }}
+      {{ $target := "" }}
+      {{ if .Params.externalLink }}
+      {{ $target = "target=\"_blank\" rel=\"noopener noreferrer\"" }}
+      {{ end }}
+      <a href="{{ .URL | absURL }}" {{ $target | safeHTMLAttr }}>{{ .Name }}</a>
+      {{ end }}
+      {{ else }}
+      <a href="https://repsy.io/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+      <a href="https://status.repsy.io/" target="_blank" rel="noopener noreferrer">Status</a>
+      <a href="https://repsy.io/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+      <a href="https://repsy.io/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+      <a href="https://repsy.io/security-and-compliance" target="_blank" rel="noopener noreferrer">Security & Compliance</a>
+      {{ end }}
+    </nav>
+  </div>
+</footer>

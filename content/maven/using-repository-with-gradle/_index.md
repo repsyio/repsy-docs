@@ -1,6 +1,6 @@
 +++
 title = "Using Repository with Gradle"
-weight = 4
+weight = 24
 +++
 
 If you are using Gradle as a dependency management tool, [Repsy](https://repsy.io) is quite convenient for both deploying and downloading operations as well.

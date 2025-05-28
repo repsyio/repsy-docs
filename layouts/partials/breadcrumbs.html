@@ -1,0 +1,11 @@
+<nav class="breadcrumbs">
+  <a href="{{ "/" | relLangURL }}">Docs</a>
+  {{ if .CurrentSection }}
+  <img src="{{ "images/chevron-right.svg" | relURL }}" class="breadcrumb-separator" alt=">">
+  <a href="{{ .CurrentSection.Permalink }}">{{ .CurrentSection.Title }}</a>
+  {{ end }}
+  {{ if and (not .IsHome) (ne .Title .CurrentSection.Title) }}
+  <img src="{{ "images/chevron-right.svg" | relURL }}" class="breadcrumb-separator" alt=">">
+  <span>{{ .Title }}</span>
+  {{ end }}
+</nav>

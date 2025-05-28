@@ -1,7 +1,7 @@
 +++
 title = "Maven"
 chapter = true
-weight = 1
+weight = 20
 +++
 
 # Maven

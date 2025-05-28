@@ -1,0 +1,32 @@
+<aside class="sidebar">
+  <div class="sidebar-searchbox">
+    {{ $icon := "images/search.svg" | relURL }}
+    <img src="{{ $icon }}" alt="Search icon" class="search-icon" />
+    <input
+      data-search-input
+      id="search-by"
+      type="search"
+      placeholder="Search Docs..."
+    />
+  </div>
+  <nav class="sidebar-nav">
+    {{ $current := .RelPermalink }}
+    {{ range sort site.Sections "Weight" }}
+    <details class="sidebar-group" {{ if or (eq $current .RelPermalink) (in $current .RelPermalink) }}open{{ end }}>
+      <summary class="sidebar-toggle">
+        <strong>{{ .Title }}</strong>
+        <img src="{{ "images/chevron-down.svg" | relURL }}" alt="" class="chevron-icon" />
+      </summary>
+      <ul class="sidebar-subpages">
+        {{ range .Pages }}
+        <li>
+          <a href="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $current }}active{{ end }}">
+            {{ .Title }}
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+    </details>
+    {{ end }}
+  </nav>
+</aside>

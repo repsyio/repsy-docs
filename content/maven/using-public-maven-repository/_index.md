@@ -1,6 +1,6 @@
 +++
 title = "Using a Public Maven Repository"
-weight = 3
+weight = 23
 +++
 
 You may want to share some of your artifacts publicly in some cases. It is quite possible to make them publicly available in [Repsy](https://repsy.io) whenever you want.

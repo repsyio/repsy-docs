@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{ partial "head.html" . }}
+  <link rel="stylesheet" href="{{ "css/theme-repsy.css" | relURL }}">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    var baseurl = "{{ .Site.BaseURL }}";
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{{ "js/lunr.min.js" | relURL }}"></script>
+  <script src="{{ "js/auto-complete.js" | relURL }}"></script>
+  <script src="{{ "js/search.js" | relURL }}"></script>
+  <script src="{{ "js/learn.js" | relURL }}"></script>
+  <script src="{{ "js/jquery.sticky.js" | relURL }}"></script>
+</head>
+<body>
+
+{{ partial "header.html" . }}
+
+<div id="container" class="layout-container">
+  {{ partial "sidebar.html" . }}
+
+  <main id="main-content" class="layout-main">
+    <div class="main-header">
+      {{ partial "breadcrumbs.html" . }}
+      {{ if .File }}
+      {{ with .File.Path }}
+      <a href="{{ $.Site.Params.editURL }}{{ . }}" class="edit-page-link">
+        <img src="{{ "images/edit.svg" | relURL }}" alt="Edit icon" class="edit-icon" />
+        Edit This Page
+      </a>
+      {{ end }}
+      {{ end }}
+    </div>
+
+    {{ block "main" . }}{{ .Content }}{{ end }}
+
+    {{ $sectionPages := where .Site.Pages "Kind" "section" }}
+    {{ $sortedPages := $sectionPages.ByWeight }}
+
+    {{ $currentPageIndex := -1 }}
+    {{ $prevPage := "" }}
+    {{ $nextPage := "" }}
+
+    {{ range $index, $page := $sortedPages }}
+    {{ if eq $page.Permalink $.Permalink }}
+    {{ $currentPageIndex = $index }}
+    {{ end }}
+    {{ end }}
+
+    {{ if and (ge $currentPageIndex 0) (gt $currentPageIndex 0) }}
+    {{ $prevPage = index $sortedPages (sub $currentPageIndex 1) }}
+    {{ end }}
+
+    {{ if and (ge $currentPageIndex 0) (lt $currentPageIndex (sub (len $sortedPages) 1)) }}
+    {{ $nextPage = index $sortedPages (add $currentPageIndex 1) }}
+    {{ end }}
+
+    {{ if or $prevPage $nextPage }}
+    <div class="page-navigation">
+      {{ with $prevPage }}
+      <a href="{{ .Permalink }}" class="nav-link prev-link">
+        <img src="{{ "images/chevron-left.svg" | relURL }}" alt="Previous" class="nav-icon">
+        <span>{{ .Title }}</span>
+      </a>
+      {{ end }}
+
+      {{ with $nextPage }}
+      <a href="{{ .Permalink }}" class="nav-link next-link">
+        <span>{{ .Title }}</span>
+        <img src="{{ "images/chevron-right.svg" | relURL }}" alt="Next" class="nav-icon">
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    <div class="page-feedback">
+      <span class="page-feedback-question">Was this page helpful?</span>
+      <div class="feedback-buttons">
+        <button class="thumb-button">
+          <img src="{{ "images/thumbs-up.svg" | relURL }}" alt="Thumbs up" />
+          Yes
+        </button>
+        <button class="thumb-button">
+          <img src="{{ "images/thumbs-down.svg" | relURL }}" alt="Thumbs down" />
+          No
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+
+{{ partial "footer.html" . }}
+
+</body>
+</html>

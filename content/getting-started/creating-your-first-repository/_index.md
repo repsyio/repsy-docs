@@ -20,8 +20,8 @@ Here, you can:
 - Check recent activity, such as repository creation or package uploads
 - Quickly create a new repository using the button at the top right
 
-
-### 1. Create New Repository
+{{< steps >}}
+### Create New Repository
 
 On the Dashboard, locate the **Create New Repository** button at the top right corner of the page.
 
@@ -30,7 +30,7 @@ Clicking this button will open a modal where you can define the basic settings f
 You can also create repositories later via the **Repositories** tab in the sidebar — but using the Dashboard is the fastest way to start.
 
 
-### 2. Configure repository settings
+### Configure repository settings
 
 After clicking **Create New Repository**, a modal will appear.
 
@@ -46,8 +46,7 @@ In this modal, you’ll be asked to configure:
 
 Once you're done, click **Create** to proceed.
 
-
-### 3. View and Access Your Repository
+### View and Access Your Repository
 
 After creating a repository, you’ll be redirected to the **Repositories** page.
 
@@ -59,3 +58,4 @@ From here, you can:
 - Search, filter, or sort repositories using the controls at the top
 - Use the more options menu (⋮) to open Settings or Delete the repository
 - Create another repository anytime using the **Create New Repository** button in the top right
+{{< /steps >}}

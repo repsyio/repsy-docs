@@ -5,7 +5,7 @@ chapter = true
 +++
 
 
-## Understanding Public vs Private Repositories
+### Understanding Public vs Private Repositories
 
 Repsy repositories can be either private or public.  
 Each visibility type serves different use cases depending on how you want others to access your packages.

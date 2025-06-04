@@ -14,6 +14,7 @@
   <script src="{{ "js/search.js" | relURL }}"></script>
   <script src="{{ "js/learn.js" | relURL }}"></script>
   <script src="{{ "js/jquery.sticky.js" | relURL }}"></script>
+  <script src="{{ "js/clipboard.min.js" | relURL }}"></script>
 </head>
 <body>
 
@@ -94,5 +95,84 @@
 
 {{ partial "footer.html" . }}
 
+<script>
+  hljs.highlightAll();
+  hljs.initLineNumbersOnLoad();
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const codeBlocks = document.querySelectorAll('div.highlight pre code, pre code.hljs');
+
+    if (codeBlocks.length > 0) {
+      codeBlocks.forEach((codeBlock) => {
+        const wrapper = codeBlock.closest('div.highlight') || codeBlock.closest('pre');
+
+        if (wrapper) {
+          const button = document.createElement('button');
+          button.className = 'copy-btn';
+          button.setAttribute('aria-label', 'Copy');
+
+          const icon = document.createElement('img');
+          icon.src = '{{ "images/copy.svg" | relURL }}';
+
+          button.appendChild(icon);
+          button.setAttribute('data-clipboard-text', codeBlock.innerText);
+          wrapper.appendChild(button);
+        }
+      });
+
+      new ClipboardJS('.copy-btn').on('success', function(e) {
+        const button = e.trigger;
+        const originalIconSrc = button.querySelector('img').src;
+        const checkIconPath = '{{ "images/check.svg" | relURL }}';
+
+        if (originalIconSrc.includes('copy.svg')) {
+            button.querySelector('img').src = checkIconPath;
+            setTimeout(() => {
+                button.querySelector('img').src = originalIconSrc;
+            }, 2000);
+        }
+        e.clearSelection();
+      });
+    }
+
+    const inlineCodeElements = document.querySelectorAll('p > code, li > code, span > code');
+
+    inlineCodeElements.forEach(codeElement => {
+        codeElement.style.cursor = 'pointer';
+        codeElement.classList.add('copyable-inline-code');
+        codeElement.setAttribute('data-clipboard-text', codeElement.innerText.trim());
+    });
+
+    if (document.querySelector('.copyable-inline-code')) {
+      new ClipboardJS('.copyable-inline-code').on('success', function(e) {
+        const inlineCodeElement = e.trigger;
+        e.clearSelection();
+
+        const existingTooltips = document.querySelectorAll('.copy-tooltip');
+        existingTooltips.forEach(tt => tt.remove());
+
+        const tooltip = document.createElement('span');
+        tooltip.className = 'copy-tooltip';
+        tooltip.textContent = 'Copied!';
+
+        document.body.appendChild(tooltip);
+        const rect = inlineCodeElement.getBoundingClientRect();
+
+        tooltip.style.left = `${rect.left + window.scrollX + (rect.width / 2) - (tooltip.offsetWidth / 2)}px`;
+        tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
+        tooltip.classList.add('show');
+
+        setTimeout(() => {
+            tooltip.classList.remove('show');
+            setTimeout(() => {
+                if (tooltip.parentNode) {
+                    tooltip.parentNode.removeChild(tooltip);
+                }
+            }, 300);
+        }, 1800);
+      });
+    }
+  });
+</script>
 </body>
 </html>

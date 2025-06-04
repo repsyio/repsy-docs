@@ -1,9 +1,30 @@
 <nav class="breadcrumbs">
   <a href="{{ "/" | relLangURL }}">Docs</a>
-  {{ if .CurrentSection }}
-  <img src="{{ "images/chevron-right.svg" | relURL }}" class="breadcrumb-separator" alt=">">
-  <a href="{{ .CurrentSection.Permalink }}">{{ .CurrentSection.Title }}</a>
+
+  {{ $sections := slice }}
+  {{ $section := .CurrentSection }}
+
+  {{ with $section }}
+  {{ $current := . }}
+  {{- range seq 1 10 }}
+  {{ $sections = $sections | append $current }}
+  {{ if not $current.Parent }}
+  {{ break }}
   {{ end }}
+  {{ $current = $current.Parent }}
+  {{ end }}
+  {{ end }}
+
+  {{ $len := len $sections }}
+  {{ range $i := seq 0 (sub $len 1) }}
+  {{ $index := sub $len (add $i 1) }}
+  {{ $sec := index $sections $index }}
+  {{ if ne $i 0 }}
+  <img src="{{ "images/chevron-right.svg" | relURL }}" class="breadcrumb-separator" alt=">">
+  {{ end }}
+  <a href="{{ $sec.Permalink }}">{{ $sec.Title }}</a>
+  {{ end }}
+
   {{ if and (not .IsHome) (ne .Title .CurrentSection.Title) }}
   <img src="{{ "images/chevron-right.svg" | relURL }}" class="breadcrumb-separator" alt=">">
   <span>{{ .Title }}</span>

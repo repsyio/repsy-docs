@@ -9,9 +9,10 @@ It is now time to use this repository in your projects. Instead of inserting the
 
 Let’s begin creating the settings file.
 
-## Creating settings.xml file
+{{< steps >}}
+### Creating settings.xml file
 
-### In Linux and Mac
+## In Linux and Mac
 
 You can create the `.m2` directory under the home directory first - which is supposed to be created earlier by Maven - and the settings file by typing the following commands in the command line. Please do not forget to change the *MY REPSY USERNAME* and *MY REPSY PASSWORD* place holders  with your exact Repsy credentials.
 
@@ -34,7 +35,7 @@ cat << EOF > ~/.m2/settings.xml
 EOF
 ```
 
-### In Windows
+## In Windows
 
 Press `Win + R` key and write `%USERPROFILE%` in the prompt section to go to your home directory. You can now create a `.m2` folder.
 
@@ -57,7 +58,7 @@ Inside the `.m2` folder create a text file and rename it as `settings.xml`. Copy
 ```
 You can now save and close the settings file.
 
-## Deploying your Java library to Private Maven Repository
+### Deploying your Java library to Private Maven Repository
 
 If you consider deploying your Java library to your private Maven repository,  you should first define a distribution repository in your `pom.xml` file as seen in the following example. In order to adapt the following content to your needs,  please modify the *{MY REPSY USERNAME}* and *{MY REPOSITORY NAME}* fields in the repository URL to match your project.
 
@@ -98,7 +99,7 @@ Meanwhile, most modern IDEs and editors also provide other methodologies for exe
 
 You can find a deployment example in [GitHub](https://github.com/repsyio/example-maven-deploy) as well.
 
-## Using your Java library from your Private Maven Repository
+### Using your Java library from your Private Maven Repository
 
 You have deployed your Java library and now want to use it in your Java projects. First, you need to add a repository section in your `pom.xml` file, similar to distribution repository. Please do not forget to modify the *{MY REPSY USERNAME}* and *{MY REPOSITORY NAME}* fields in the repository URL to match your project.
 
@@ -157,7 +158,8 @@ from the command line.
 If Maven has not been installed before, you can run `./mvwn compile` for Linux/Mac or `mvnw compile` for Windows.
 
 You can also have a look at example implementation in [GitHub](https://github.com/repsyio/example-maven-usage).
+{{< /steps >}}
 
-## Further Reading
+### Further Reading
 
 Please refer to the official [documentation of Apache Maven Deploy Plug-in](https://maven.apache.org/plugins/maven-deploy-plugin/index.html) for further information.

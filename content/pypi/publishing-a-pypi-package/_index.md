@@ -12,7 +12,8 @@ python -m pip install setuptools wheel twine
 The `setuptools` is used to build Python packages and to create distribution archives. You will also need a package wheel to be able to create wheel archives. The `twine` is a utility tool
 that is used to upload packages to Python package index (PyPI), which is required to upload distribution archives to Repsy repository.
 
-#### Create a Python project
+{{< steps >}}
+### Create a Python project
 
 Let's create a simple Python project called 'example-package'. First, open up your terminal/command prompt and create a base directory to hold your project files by typing the following command:
 
@@ -37,7 +38,7 @@ Save and close the file.
 
 Your project is now ready to build!
 
-#### Create distribution archives
+### Create distribution archives
 
 In order to build the project and create distribution archives, you need to add one more file called `setup.py` to the root directory of your project. This file will contain information about the distribution. Please run:
 
@@ -72,7 +73,7 @@ The `sdist` command tells `setuptools` to create a source distribution which is 
 
 When the command is executed successfully, you will see two distribution archives created in the `dist/` directory. Now all you have to do is to upload them to your registry.
 
-#### Upload distribution archives
+### Upload distribution archives
 
 No matter if your repository is public or private, you must authenticate in order to upload packages. There are several ways to authenticate.
 
@@ -108,3 +109,4 @@ from the command line.
 Note that the `-r` argument is the name of the registry from the configuration file. 
 
 That's all! You can now check out your new package on the Repsy panel.
+{{< /steps >}}

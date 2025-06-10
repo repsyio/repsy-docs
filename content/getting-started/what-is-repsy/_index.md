@@ -16,7 +16,7 @@ It supports publishing and hosting packages in the following formats:
 - Docker
 
 
-## Key Features
+# Key Features
 
 1. **Multi-format support**  
    Host packages for different ecosystems from one account.
@@ -37,7 +37,7 @@ It supports publishing and hosting packages in the following formats:
    Easily integrate with your existing build pipelines.
 
 
-## Supported Use Cases
+# Supported Use Cases
 
 - Private internal package hosting
 - Open-source libraries
@@ -45,7 +45,7 @@ It supports publishing and hosting packages in the following formats:
 - Docker image publishing
 
 
-## Infrastructure Highlights
+# Infrastructure Highlights
 
 - Global redundancy
 - Fast CDN-based delivery

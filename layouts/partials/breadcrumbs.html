@@ -2,31 +2,38 @@
   <a href="{{ "/" | relLangURL }}">Docs</a>
 
   {{ $sections := slice }}
-  {{ $section := .CurrentSection }}
+  {{ $currentSection := .CurrentSection }}
 
-  {{ with $section }}
+  {{ with $currentSection }}
   {{ $current := . }}
-  {{- range seq 1 10 }}
+  {{ $continueLoop := true }}
+  {{- range seq 1 20 }}
+  {{ if $continueLoop }}
   {{ $sections = $sections | append $current }}
   {{ if not $current.Parent }}
-  {{ break }}
-  {{ end }}
+  {{ $continueLoop = false }}
+  {{ else }}
   {{ $current = $current.Parent }}
+  {{ end }}
+  {{ end }}
   {{ end }}
   {{ end }}
 
   {{ $len := len $sections }}
-  {{ range $i := seq 0 (sub $len 1) }}
-  {{ $index := sub $len (add $i 1) }}
-  {{ $sec := index $sections $index }}
-  {{ if ne $i 0 }}
+  {{ if gt $len 0 }}
+  {{ range $i := seq (sub $len 1) -1 0 }}
+  {{ $sec := index $sections $i }}
+  {{ if $sec.Title }}
   <img src="{{ "images/chevron-right.svg" | relURL }}" class="breadcrumb-separator" alt=">">
-  {{ end }}
   <a href="{{ $sec.Permalink }}">{{ $sec.Title }}</a>
+  {{ end }}
+  {{ end }}
   {{ end }}
 
   {{ if and (not .IsHome) (ne .Title .CurrentSection.Title) }}
+  {{ if .Title }}
   <img src="{{ "images/chevron-right.svg" | relURL }}" class="breadcrumb-separator" alt=">">
   <span>{{ .Title }}</span>
+  {{ end }}
   {{ end }}
 </nav>

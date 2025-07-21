@@ -11,7 +11,7 @@ Repsy is a cloud-native artifact repository service for developers and teams.
 It supports publishing and hosting packages in the following formats:
 
 - Maven
-- npm
+- Npm
 - PyPI
 - Docker
 

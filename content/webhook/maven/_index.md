@@ -1,6 +1,6 @@
 +++
 title = "Maven"
-weight = 10
+weight = 81
 +++
 
 Repsy allows you to receive webhook notifications whenever specific Maven repository events occur, such as new artifact deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.
@@ -85,19 +85,20 @@ To ensure webhook authenticity, Repsy signs every request using an HMAC SHA-256 
 
 Two custom headers are sent with each request:
 
-* **`X-Repsy-Signature`**: A Base64-encoded HMAC SHA-256 signature of the request. You can use this to verify the authenticity of the webhook.
-* **`X-Repsy-Timestamp`**: The ISO 8601 UTC timestamp indicating when the event was triggered.
+* `X-Repsy-Signature`: A Base64-encoded HMAC SHA-256 signature of the request. You can use this to verify the authenticity of the webhook.
+* `X-Repsy-Timestamp`: The ISO 8601 UTC timestamp indicating when the event was triggered.
 
 #### Signature Calculation
 
 You can verify the request by recalculating the signature with the following logic:
 
 ```java
-final String timestampedData = timestamp + "." + rawJsonBody;
-Mac sha256Hmac = Mac.getInstance("HmacSHA256");
-SecretKeySpec keySpec = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+final String timestampedData = timestamp + "." + payload;
+final Mac sha256Hmac = Mac.getInstance("HmacSHA256");
+final byte[] keyBytes = Base64.getUrlDecoder().decode(this.secretKey);
+final SecretKeySpec keySpec = new SecretKeySpec(keyBytes, "HmacSHA256");
 sha256Hmac.init(keySpec);
-byte[] rawHmac = sha256Hmac.doFinal(timestampedData.getBytes(StandardCharsets.UTF_8));
+final byte[] rawHmac = sha256Hmac.doFinal(timestampedData.getBytes(StandardCharsets.UTF_8));
 String expectedSignature = Base64.getEncoder().encodeToString(rawHmac);
 ```
 
@@ -105,23 +106,6 @@ You should reject requests if:
 
 * The timestamp is older than a few minutes (to prevent replay attacks).
 * The signature doesn't match.
-
-### Generating a Secret Key
-
-You can generate a secure webhook secret key using:
-
-```java
-SecureRandom secureRandom = new SecureRandom();
-byte[] bytes = new byte[24];
-secureRandom.nextBytes(bytes);
-String secretKey = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
-```
-
-Store this secret securely. You’ll need it to validate webhook requests.
-
-### Handling Failures
-
-If your webhook endpoint is unavailable or returns a non-2xx status code, Repsy may retry the request after some delay.
 
 To prevent duplicate processing, always use the `event_id` to ensure idempotency.
 
@@ -137,33 +121,35 @@ Example Endpoint:
 ```java
 @PostMapping("/webhook")
 public ResponseEntity<Void> handleWebhook(
-    @RequestBody final @NotNull WebhookEvent event,
+    @RequestBody final @NotNull String payload,
     @RequestHeader("X-Repsy-Signature") final @NotNull String signature,
-    @RequestHeader("X-Repsy-Timestamp") final @NotNull String timestamp
-) {
-    if (!validateSignature(event, signature, timestamp)) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    }
-    
-    return ResponseEntity.ok().build();
+    @RequestHeader("X-Repsy-Timestamp") final @NotNull String timestamp) {
+  if (!validateSignature(payload, signature, timestamp)) {
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+  }
+  
+  ...
+
+  return ResponseEntity.ok().build();
 }
 ```
 
 Example Validation Method:
 
 ```java
-public boolean validateSignature(
-  final @NotNull WebhookEvent event, 
-  final @NotNull String signature, 
-  final @NotNull String timestamp) {
+private boolean validateSignature(
+    final @NotNull String payload,
+    final @NotNull String signature,
+    final @NotNull String timestamp) {
   try {
-    final String eventJson = convertEventToJson(event);
-    final String data = timestamp + "." + eventJson;
-
+    final String timestampedData = timestamp + "." + payload;
     final Mac sha256Hmac = Mac.getInstance("HmacSHA256");
-    final SecretKeySpec keySpec = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+
+    final byte[] keyBytes = Base64.getUrlDecoder().decode(this.secretKey);
+    final SecretKeySpec keySpec = new SecretKeySpec(keyBytes, "HmacSHA256");
+
     sha256Hmac.init(keySpec);
-    byte[] rawHmac = sha256Hmac.doFinal(data.getBytes(StandardCharsets.UTF_8));
+    final byte[] rawHmac = sha256Hmac.doFinal(timestampedData.getBytes(StandardCharsets.UTF_8));
     String expectedSignature = Base64.getEncoder().encodeToString(rawHmac);
 
     return expectedSignature.equals(signature);
@@ -172,8 +158,6 @@ public boolean validateSignature(
   }
 }
 ```
-
-You can find example webhook consumers in [GitHub](https://github.com/repsyio/example-webhook-handler).
 
 {{< /steps >}}
 

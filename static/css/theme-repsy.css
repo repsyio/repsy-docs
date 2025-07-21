@@ -95,6 +95,10 @@ body {
   min-height: 100vh;
 }
 
+* {
+  scrollbar-color: #666 #222;
+}
+
 img {
   -webkit-user-drag: none;
   user-select: none;

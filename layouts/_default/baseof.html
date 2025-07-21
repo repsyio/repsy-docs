@@ -29,13 +29,14 @@
         {{ partial "breadcrumbs.html" . }}
         {{ if .File }}
         {{ with .File.Path }}
-        <a href="{{ $.Site.Params.editURL }}{{ . }}" class="edit-page-link">
-          <img src="{{ "images/edit.svg" | relURL }}" alt="Edit icon" class="edit-icon" />
-          Edit This Page
-        </a>
         {{ end }}
         {{ end }}
       </div>
+
+      <a href="{{ $.Site.Params.editURL }}{{ . }}" class="edit-page-link">
+        <img src="{{ "images/edit.svg" | relURL }}" alt="Edit icon" class="edit-icon" />
+        Edit This Page
+      </a>
 
       {{ block "main" . }}{{ .Content }}{{ end }}
 

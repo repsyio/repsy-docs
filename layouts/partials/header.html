@@ -11,6 +11,26 @@
         <span class="docs-text">DOCS</span>
       </a>
     </div>
+    <!-- Mobile dropdown menu toggle -->
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-expanded="false" aria-label="Toggle Menu">
+      <svg class="caret-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </button>
+
+
+    <!-- Mobile dropdown -->
+    <div class="mobile-nav-dropdown" id="mobileNavDropdown">
+      <a href="/">Home</a>
+      <a href="https://blog.repsy.io/" target="_blank" rel="noopener noreferrer">Blog</a>
+      <a href="https://repsy.io/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+      <a href="https://github.com/repsyio" target="_blank" rel="noopener">
+        <img src="{{ "images/github.svg" | relURL }}" alt="GitHub" />
+      </a>
+    </div>
+
+
+    <!-- Navigation links -->
     <nav class="header-nav">
       <a href="/">Home</a>
       <a href="https://blog.repsy.io/" target="_blank" rel="noopener noreferrer">Blog</a>
@@ -19,6 +39,7 @@
         <img src="{{ "images/github.svg" | relURL }}" alt="GitHub" />
       </a>
     </nav>
+
   </div>
   <hr class="gradient-divider">
 </header>
@@ -31,4 +52,14 @@
       header.classList.remove("smaller");
     }
   });
+
+
+function toggleMobileMenu() {
+  const dropdown = document.getElementById("mobileNavDropdown");
+  const btn = document.querySelector(".mobile-menu-btn");
+  const isOpen = dropdown.classList.toggle("open");
+  btn.setAttribute("aria-expanded", isOpen);
+}
+
+
 </script>

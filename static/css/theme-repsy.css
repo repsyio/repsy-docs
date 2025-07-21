@@ -141,6 +141,7 @@ strong {
 }
 
 .layout-container main {
+overflow-x: auto;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -173,7 +174,7 @@ strong {
 .header-row {
   gap: 16px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   padding: 32px 0px 32px 0px;
   transition: padding 0.15s ease-in-out;
@@ -331,6 +332,58 @@ strong {
   color: var(--color-secondary-500);
 }
 
+#mobileNavDropdown {
+  display: none;
+  position: absolute;
+  top: 75px;
+  right: 32px;
+  background-color: var(--color-neutral-100);
+  padding: 16px;
+  flex-direction: column;
+  gap: 16px;
+  width: 200px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  z-index: 20;
+}
+
+.mobile-menu-btn[aria-expanded="true"] .caret-icon {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+.mobile-menu-btn .caret-icon {
+  stroke: var(--color-neutral-200);
+  transition: transform 0.3s ease;
+}
+
+#mobileNavDropdown a {
+  font: var(--font-body-regular);
+  color: var(--color-neutral-400);
+  text-decoration: none;
+  display: block;
+}
+
+#mobileNavDropdown a:hover {
+  color: var(--color-secondary-500);
+}
+
+  .header-nav {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    background-color: var(--color-primary-500);
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  #mobileNavDropdown.open {
+    display: flex;
+  }
+
+
 @media (min-width: 768px) {
   .sidebar {
     transform: translateX(0) !important;
@@ -347,15 +400,6 @@ strong {
     display: none;
   }
 
-  .header-row {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .header-nav {
-    margin-left: 0px;
-  }
-
   .repsy-footer {
     display: flex;
     flex-direction: row;
@@ -363,6 +407,18 @@ strong {
     align-items: center;
     flex-wrap: wrap;
   }
+
+    .header-nav {
+      display: flex;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+    }
+
+    #mobileNavDropdown.open {
+       display: none;
+    }
 }
 
 .sidebar-nav {

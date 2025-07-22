@@ -1,4 +1,17 @@
-<aside class="sidebar">
+<!-- Sidebar -->
+<aside id="sidebar" class="sidebar">
+  <div style="display: flex">
+    <a href="/" class="logo">
+      <img src="{{ "images/logo.svg" | relURL }}" alt="Repsy logo" />
+      <span class="docs-text">DOCS</span>
+    </a>
+    <button class="sidebar-close-btn"  onclick="toggleSidebar()" aria-label="Toggle Sidebar">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.595215 14.4052L14.4047 0.595703" fill="#9FA0A0" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14.4047 14.4052L0.595215 0.595703" fill="#9FA0A0" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
   <div class="sidebar-searchbox">
     {{ $icon := "images/search.svg" | relURL }}
     <img src="{{ $icon }}" alt="Search icon" class="search-icon" />
@@ -9,6 +22,7 @@
       placeholder="Search Docs..."
     />
   </div>
+
   <nav class="sidebar-nav">
     {{ $current := .RelPermalink }}
     {{ range sort site.Sections "Weight" }}
@@ -30,3 +44,10 @@
     {{ end }}
   </nav>
 </aside>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+  }
+</script>

@@ -1,43 +1,64 @@
 <div class="code-tabs">
   <div class="tab-buttons">
-    {{ with .Get "java" }}<button class="tab-button active" data-tab="java">Java</button>{{ end }}
-    {{ with .Get "csharp" }}<button class="tab-button" data-tab="csharp">C#</button>{{ end }}
-    {{ with .Get "javascript" }}<button class="tab-button" data-tab="javascript">JS</button>{{ end }}
-
+    {{ with .Get "java" }}
+    <button class="tab-button active" data-tab="java">Java</button>
+    {{ end }}
+    {{ with .Get "csharp" }}
+    <button class="tab-button" data-tab="csharp">C#</button>
+    {{ end }}
+    {{ with .Get "javascript" }}
+    <button class="tab-button" data-tab="javascript">JS</button>
+    {{ end }}
     <button class="copy-button">Copy</button>
   </div>
 
   {{ with .Get "java" }}
+  {{ $javaContent := readFile (printf "%s" .) }}
   <div class="tab-content active" id="java">
-    <pre><code class="language-java">{{ . | safeHTML }}</code></pre>
+    <pre><code class="language-java">{{ $javaContent | safeHTML }}</code></pre>
   </div>
   {{ end }}
 
   {{ with .Get "csharp" }}
+  {{ $csharpContent := readFile (printf "%s" .) }}
   <div class="tab-content" id="csharp">
-    <pre><code class="language-csharp">{{ . | safeHTML }}</code></pre>
+    <pre><code class="language-csharp">{{ $csharpContent | safeHTML }}</code></pre>
   </div>
   {{ end }}
 
   {{ with .Get "javascript" }}
+  {{ $jsContent := readFile (printf "%s" .) }}
   <div class="tab-content" id="javascript">
-    <pre><code class="language-javascript">{{ . | safeHTML }}</code></pre>
+    <pre><code class="language-javascript">{{ $jsContent | safeHTML }}</code></pre>
   </div>
   {{ end }}
 </div>
 
 <script>
-  // Event delegation: Copy button click
-  document.addEventListener('click', function (e) {
-    if (e.target.matches('.copy-button')) {
-      const tabsContainer = e.target.closest('.code-tabs');
-      const activeCode = tabsContainer.querySelector('.tab-content.active pre code');
-      if (activeCode) {
-        navigator.clipboard.writeText(activeCode.innerText).then(() => {
-          e.target.innerText = 'Copied!';
-          setTimeout(() => e.target.innerText = "Copy", 1500);
-        });
-      }
-    }
+  document.querySelectorAll('.tab-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const container = button.closest('.code-tabs');
+      container.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const tab = button.getAttribute('data-tab');
+      container.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.toggle('active', content.id === tab);
+      });
+    });
+  });
+
+  document.querySelectorAll('.copy-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const container = button.closest('.code-tabs');
+      const activeCode = container.querySelector('.tab-content.active pre code');
+      if (!activeCode) return;
+
+      navigator.clipboard.writeText(activeCode.innerText).then(() => {
+        const originalText = button.innerText;
+        button.innerText = 'Copied!';
+        setTimeout(() => button.innerText = originalText, 1500);
+      });
+    });
   });
 </script>

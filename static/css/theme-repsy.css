@@ -907,3 +907,55 @@ pre.hljs {
   line-height: 1;
   z-index: 3;
 }
+
+/* Code Tabs */
+.code-tabs {
+  margin: 1.5rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+.tab-buttons {
+  display: flex;
+  align-items: center;
+  background: #f3f3f3;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.tab-button:hover {
+  background-color: #e6e6e6;
+}
+
+.tab-button.active {
+  background-color: #ffffff;
+  border-bottom: 2px solid #007acc;
+  color: #007acc;
+}
+
+.tab-content {
+  display: none;
+  background-color: #fdfdfd;
+}
+
+.tab-content pre {
+  border-radius: 0px;
+}
+
+.tab-content pre code {
+  border-radius: 0px;
+}
+
+.tab-content.active {
+  display: block;
+}

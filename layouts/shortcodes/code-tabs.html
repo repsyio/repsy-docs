@@ -1,0 +1,62 @@
+<div class="code-tabs">
+  <div class="tab-buttons">
+    {{ with .Get "java" }}<button class="tab-button active" data-tab="java">Java</button>{{ end }}
+    {{ with .Get "csharp" }}<button class="tab-button" data-tab="csharp">C#</button>{{ end }}
+    {{ with .Get "javascript" }}<button class="tab-button" data-tab="javascript">JS</button>{{ end }}
+
+    <button class="copy-button">Copy</button>
+  </div>
+
+  {{ with .Get "java" }}
+  <div class="tab-content active" id="java">
+    <pre><code class="language-java">{{ . | safeHTML }}</code></pre>
+  </div>
+  {{ end }}
+
+  {{ with .Get "csharp" }}
+  <div class="tab-content" id="csharp">
+    <pre><code class="language-csharp">{{ . | safeHTML }}</code></pre>
+  </div>
+  {{ end }}
+
+  {{ with .Get "javascript" }}
+  <div class="tab-content" id="javascript">
+    <pre><code class="language-javascript">{{ . | safeHTML }}</code></pre>
+  </div>
+  {{ end }}
+</div>
+
+<script>
+  // Event delegation: Copy button click
+  document.addEventListener('click', function (e) {
+    if (e.target.matches('.copy-button')) {
+      const tabsContainer = e.target.closest('.code-tabs');
+      const activeCode = tabsContainer.querySelector('.tab-content.active pre code');
+      if (activeCode) {
+        navigator.clipboard.writeText(activeCode.innerText).then(() => {
+          e.target.innerText = 'Copied!';
+          setTimeout(() => e.target.innerText = "Copy", 1500);
+        });
+      }
+    }
+  });
+</script>
+
+<style>
+  .copy-button {
+    height: 28px;
+    margin-left: auto;
+    margin-right: 4px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.875rem;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .copy-button:hover {
+    background-color: #ddd;
+  }
+</style>

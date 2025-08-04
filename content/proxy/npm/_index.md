@@ -5,9 +5,7 @@ weight = 92
 
 # NPM Proxy
 
-Repsy's NPM Proxy feature allows your NPM repositories to act as intelligent proxies to external NPM registries like `npmjs.org`, private npm registries, and other package sources.
-
-## What is NPM Proxy?
+Repsy's NPM Proxy feature allows your NPM repositories to act as intelligent proxies to external NPM registries like npmjs.org or private repositories.
 
 An NPM proxy repository acts as an intermediary between your npm clients and external registries. When you install a package that doesn't exist locally, the proxy automatically fetches it from the configured upstream registries and caches it for future use.
 

@@ -5,11 +5,9 @@ weight = 93
 
 # PyPI Proxy
 
-Repsy's PyPI Proxy feature allows your PyPI repositories to act as intelligent proxies to external repositories such as `pypi.org` or your organization's internal package servers.
+Repsy's PyPI Proxy feature allows your PyPI repositories to act as intelligent proxies to external repositories such as PyPI.org or private repositories.
 
-## What is PyPI Proxy?
-
-A PyPI proxy repository acts as a bridge between your Python clients and remote repositories. When your project requests a package that isn't available in `Repsy`, the proxy automatically fetches it from configured upstream repositories, caches it locally, and serves it to the client.
+A PyPI proxy repository acts as an intermediary between your pip clients and external repositories. When you install a package that doesn't exist locally, the proxy automatically fetches it from the configured upstream repositories and caches it for future use.
 
 ### Setting Up PyPI Proxy
 

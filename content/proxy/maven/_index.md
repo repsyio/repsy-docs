@@ -4,11 +4,9 @@ weight = 91
 +++
 # Maven Proxy
 
-Repsy's Maven Proxy feature allows your Maven repositories to act as intelligent proxies to external repositories such as `Maven Central` or your organization's internal artifact servers.
+Repsy's Maven Proxy feature allows your Maven repositories to act as intelligent proxies to external repositories such as Maven Central or private repositories.
 
-## What is Maven Proxy?
-
-A Maven proxy repository acts as a bridge between your Maven clients and remote repositories. When your project requests an artifact that isn't available in `Repsy`, the proxy automatically fetches it from configured upstream repositories, caches it locally, and serves it to the client.
+A Maven proxy repository acts as an intermediary between your Maven clients and external repositories. When your project requests an artifact that doesn't exist locally, the proxy automatically fetches it from the configured upstream repositories and caches it for future use.
 
 ### Setting Up Maven Proxy
 

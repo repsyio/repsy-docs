@@ -4,7 +4,7 @@ weight = 94
 +++
 # Docker Proxy
 
-Repsy's Docker Proxy feature allows your Docker repositories to act as intelligent proxies to external Docker registries like `Docker Hub`, `GitLab Container Registry` and other private registries. This enables you to cache and control access to external Docker images while maintaining a unified interface for your development teams.
+Repsy's Docker Proxy feature allows your Docker repositories to act as intelligent proxies to external Docker registries like `Docker Hub`, `GitLab Container Registry` and other private registries. 
 
 ## What is Docker Proxy?
 

@@ -1,6 +1,6 @@
 +++
-title = "Npm"
-weight = 92
+title = "Using Repsy as Proxy"
+weight = 35
 +++
 
 # NPM Proxy
@@ -15,7 +15,7 @@ An NPM proxy repository acts as an intermediary between your npm clients and ext
 
 You can configure multiple upstream registries with different priorities:
 
-**NPM Registry (Public)**
+**Public NPM Registry**
 ```
 Proxy URL: https://registry.npmjs.org
 ```
@@ -48,8 +48,8 @@ For all proxy types, you can configure:
 
 ### Priority System
 
-Proxies are queried in order of priority. If the first proxy fails or doesn't have the package, the next proxy is tried automatically.
-
+Proxies are queried in order of priority. If the first proxy fails or doesn't contain the requested artifact, the next proxy in line is automatically tried.
+You can easily change the order of the proxies to customize the resolution priority.
 ### Best Practices
 
 - Set appropriate priorities based on package availability and speed.

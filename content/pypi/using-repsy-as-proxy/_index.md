@@ -1,6 +1,6 @@
 +++
-title = "Pypi"
-weight = 93
+title = "Using Repsy as Proxy"
+weight = 45
 +++
 
 # PyPI Proxy
@@ -15,12 +15,12 @@ A PyPI proxy repository acts as an intermediary between your pip clients and ext
 
 You can configure multiple upstream repositories, each with a custom priority:
 
-**PyPI.org (Public)**
+**Public Pypi Registry**
 ```
 Proxy URL: https://pypi.org/
 ```
 
-**Internal PyPI Repository (Private)**
+**Private PyPI Repository**
 ```
 Proxy URL: https://pypi.mycompany.com/repository/pypi-private/
 Username: your-username
@@ -48,8 +48,8 @@ For all proxy types, you can configure:
 
 ### Priority System
 
-Proxies are queried in order of priority. If the first proxy fails or doesn't have the package, the next proxy is tried automatically.
-
+Proxies are queried in order of priority. If the first proxy fails or doesn't contain the requested artifact, the next proxy in line is automatically tried.
+You can easily change the order of the proxies to customize the resolution priority.
 ### Best Practices
 
 - Set appropriate priorities based on package availability and speed.

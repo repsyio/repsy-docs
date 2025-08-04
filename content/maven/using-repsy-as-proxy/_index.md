@@ -1,7 +1,8 @@
 +++
-title = "Maven"
-weight = 91
+title = "Using Repsy as Proxy"
+weight = 26
 +++
+
 # Maven Proxy
 
 Repsy's Maven Proxy feature allows your Maven repositories to act as intelligent proxies to external repositories such as Maven Central or private repositories.
@@ -14,12 +15,12 @@ A Maven proxy repository acts as an intermediary between your Maven clients and 
 
 You can configure multiple upstream repositories, each with a custom priority:
 
-**Maven Central (Public)**
+**Public Maven Repository**
 ```
 Proxy URL: https://repo.maven.apache.org/maven2
 ```
 
-**Internal Maven Repository (Private)**
+**Private Maven Repository**
 ```
 Proxy URL: https://maven.yourcompany.com/repository/maven-private/
 Username: your-username
@@ -46,8 +47,10 @@ For all proxy types, you can configure:
 
 ### Priority System
 
-Proxies are queried in order of priority. If the first proxy fails or doesn't have the artifact, the next proxy is tried automatically.
+### Priority System
 
+Proxies are queried in order of priority. If the first proxy fails or doesn't contain the requested artifact, the next proxy in line is automatically tried.
+You can easily change the order of the proxies to customize the resolution priority.
 ### Best Practices
 
 - Set appropriate priorities based on artifact availability and speed.

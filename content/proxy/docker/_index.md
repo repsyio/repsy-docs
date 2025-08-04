@@ -36,26 +36,26 @@ For all proxy types, you can configure:
 - **Connection Timeout**: Set timeout in milliseconds (default: 5000ms)
 - **Active Status**: Enable or disable the proxy
 
-## How Docker Proxy Works
+### How Docker Proxy Works
 
-### Image Pull Flow
+## Image Pull Flow
 
-1. **Client Request**: Docker client requests an image from your Repsy repository
-2. **Local Check**: Repsy checks if the image exists in local storage
-3. **Proxy Fallback**: If not found locally, Repsy queries configured proxies in priority order
-4. **Authentication**: Handles authentication with upstream registries automatically
-5. **Caching**: Downloads and caches the image for future requests
-6. **Response**: Returns the image to the Docker client
+1. **Client Request**: Docker client requests an image from your `Repsy` repository.
+2. **Local Check**: `Repsy` checks if the image exists in local storage.
+3. **Proxy Fallback**: If not found locally, `Repsy` queries configured proxies in priority order.
+4. **Authentication**: Credentials are used if the proxy requires authentication.
+5. **Caching**: Downloads and caches the image for future requests.
+6. **Response**: Returns the image to the Docker client.
 
 ### Priority System
 
 Proxies are queried in order of priority. If the first proxy fails or doesn't have the image, the next proxy is tried automatically.
 
-## Best Practices
+### Best Practices
 
-- Set appropriate priorities based on image availability and speed
-- Disable unused proxies to reduce latency and avoid timeouts
-- Regularly update credentials for private registries
+- Set appropriate priorities based on image availability and speed.
+- Disable unused proxies to reduce latency and avoid timeouts.
+- Regularly update credentials for private registries.
 
 ## Need Help?
 

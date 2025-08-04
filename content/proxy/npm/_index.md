@@ -37,26 +37,26 @@ For all proxy types, you can configure:
 - **Connection Timeout**: Set timeout in milliseconds (default: 5000ms)
 - **Active Status**: Enable or disable the proxy
 
-## How NPM Proxy Works
+### How NPM Proxy Works
 
-### Package Installation Flow
+## Package Installation Flow
 
-1. **Client Request**: npm client requests a package from your Repsy repository
-2. **Local Check**: Repsy checks if the package exists in local storage
-3. **Proxy Fallback**: If not found locally, Repsy queries configured proxies in priority order
-4. **Authentication**: Handles authentication with upstream registries automatically
-5. **Caching**: Downloads and caches the package for future requests
-6. **Response**: Returns the package to the npm client
+1. **Client Request**: npm client requests a package from your `Repsy` repository.
+2. **Local Check**: `Repsy` checks if the package exists in local storage.
+3. **Proxy Fallback**: If not found locally, `Repsy` queries configured proxies in priority order.
+4. **Authentication**: Credentials are used if the proxy requires authentication.
+5. **Caching**: Downloads and caches the package for future requests.
+6. **Response**: Returns the package to the npm client.
 
 ### Priority System
 
 Proxies are queried in order of priority. If the first proxy fails or doesn't have the package, the next proxy is tried automatically.
 
-## Best Practices
+### Best Practices
 
-- Set appropriate priorities based on package availability and speed
-- Disable unused proxies to reduce latency and avoid timeouts
-- Regularly update credentials for private registries
+- Set appropriate priorities based on package availability and speed.
+- Disable unused proxies to reduce latency and avoid timeouts.
+- Regularly update credentials for private registries.
 
 ## Need Help?
 

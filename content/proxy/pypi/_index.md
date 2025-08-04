@@ -37,26 +37,26 @@ For all proxy types, you can configure:
 - **Connection Timeout**: Set timeout in milliseconds (default: 5000ms)
 - **Active Status**: Enable or disable the proxy
 
-## How PyPI Proxy Works
+### How PyPI Proxy Works
 
-### Package Installation Flow
+## Package Installation Flow
 
-1. **Client Request**: pip client requests a specific package from your Repsy repository
-2. **Local Check**: Repsy checks if the package exists in local storage
-3. **Proxy Fallback**: If not found, Repsy queries upstream proxies in priority order
-4. **Authentication**: Credentials are used if the proxy requires authentication
-5. **Caching**: Once downloaded, the package is cached in Repsy for future requests
-6. **Response**: The package is served to the pip client
+1. **Client Request**: pip client requests a specific package from your `Repsy` repository.
+2. **Local Check**: `Repsy` checks if the package exists in local storage.
+3. **Proxy Fallback**: If not found, `Repsy` queries upstream proxies in priority order.
+4. **Authentication**: Credentials are used if the proxy requires authentication.
+5. **Caching**: Downloads and caches the package for future requests.
+6. **Response**: The package is served to the pip client.
 
 ### Priority System
 
 Proxies are queried in order of priority. If the first proxy fails or doesn't have the package, the next proxy is tried automatically.
 
-## Best Practices
+### Best Practices
 
-- Set appropriate priorities based on package availability and speed
-- Disable unused proxies to reduce latency and avoid timeouts
-- Regularly update credentials for private registries
+- Set appropriate priorities based on package availability and speed.
+- Disable unused proxies to reduce latency and avoid timeouts.
+- Regularly update credentials for private registries.
 
 ## Need Help?
 

@@ -47,8 +47,6 @@ For all proxy types, you can configure:
 
 ### Priority System
 
-### Priority System
-
 Proxies are queried in order of priority. If the first proxy fails or doesn't contain the requested artifact, the next proxy in line is automatically tried.
 You can easily change the order of the proxies to customize the resolution priority.
 ### Best Practices

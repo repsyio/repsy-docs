@@ -15,7 +15,7 @@ A PyPI proxy repository acts as an intermediary between your pip clients and ext
 
 You can configure multiple upstream repositories, each with a custom priority:
 
-**Public Pypi Registry**
+**Public PyPI Registry**
 ```
 Proxy URL: https://pypi.org/
 ```

@@ -1,9 +1,9 @@
 +++
-title = "Npm"
-weight = 82
+title = "Handling Webhook events"
+weight = 44
 +++
 
-Repsy allows you to receive webhook notifications whenever specific Npm repository events occur, such as new package deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.
+Repsy allows you to receive webhook notifications whenever specific Pypi repository events occur, such as new package deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
@@ -17,42 +17,46 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
-  "event_id": "7d9e3773-5ae0-4185-a003-6658014cc15a",
+  "event_id": "4d64f286-bcef-4b2c-bd8d-adab5769c10a",
   "event_type": "package.deployed",
   "webhook_url": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
-  "date": "2025-07-21T11:52:08.512433165Z",
+  "date": "2025-07-21T12:02:15.449078537Z",
   "package": {
-    "uuid": "78da8374-36a6-471b-9956-80f46659b765",
-    "name": "scoped",
-    "scope": "foo",
-    "latest": "2025.7.21-1753098726995",
-    "created_at": "2025-07-21T11:52:08.488494390Z",
-    "registry": {
-      "uuid": "e3083de3-b3c5-4814-9c48-f5b5dbf0bfe7",
+    "uuid": "1e120ef4-a7ed-40a7-ac5d-4c4b1f3700ec",
+    "name": "test-package",
+    "metadata": {
+      "normalized_name": "test-package"
+    },
+    "created_at": "2025-07-21T12:02:14.564288Z",
+    "repository": {
+      "uuid": "8ea2f776-d5cd-446c-8320-ce81c3bc415d",
       "owner": "owner",
-      "name": "npm",
+      "name": "pypi",
       "description": null,
       "searchable": false,
-      "private_registry": true,
-      "created_at": "2025-07-21T11:46:45.242489Z"
+      "private_repo": true,
+      "created_at": "2025-07-21T11:46:45.143984Z"
     },
-    "version": {
-      "uuid": "1e3aac96-8e04-40c9-8672-b0ea365ed8ef",
-      "version": "2025.7.21-1753098726995",
+    "release": {
+      "uuid": "7185497c-a923-47e1-b195-9bea1f28defb",
       "description": null,
       "metadata": {
-        "author_name": null,
-        "license": "ISC",
-        "author_url": null,
-        "bugs_email": null,
-        "deprecated": false,
+        "summary": "Test package.",
+        "home_page": null,
+        "license": null,
+        "author": null,
+        "stable_version": null,
+        "classifiers": [],
         "author_email": null,
-        "repository_url": null,
-        "repository_type": null,
-        "bugs_url": null,
-        "homepage": null
+        "project_urls": [],
+        "description_content_type": null
       },
-      "created_at": "2025-07-21T11:52:08.490848023Z"
+      "name": "2025.7.21.1753099316751",
+      "final_release": true,
+      "pre_release": false,
+      "post_release": false,
+      "dev_release": false,
+      "created_at": "2025-07-21T12:02:14.582392Z"
     }
   }
 }
@@ -60,7 +64,7 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ### Event Types
 
-* `package.deployed`: Triggered when a new package is successfully deployed to a Repsy docker repository.
+* `package.deployed`: Triggered when a new package is successfully deployed to a Repsy pypi repository.
 
 ### Authenticating Webhook Events
 

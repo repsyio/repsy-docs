@@ -18,7 +18,7 @@ You currently have an empty npm package. The only missing part is the authentica
 To authenticate, you can use the `login` command with the scope name and the registry URL. For the scope `foo`, you can run:
 
 ```bash
-npm login --scope foo --registry https://repo.repsy.io/npm/<username>/<registryName>
+npm login --scope foo --registry https://repo.repsy.io/<username>/<registryName>
 ```
 
 This command will ask you username, password, and email address. Please use the same username and password here that you used to register to [Repsy](https://repsy.io/), but the email address may vary. If this command is executed successfully, you will be authenticated to the registry and be ready to publish your package. As a final step, please run the following command:

@@ -24,7 +24,7 @@ publishing {
 
     repositories {
         maven {
-            url 'https://repo.repsy.io/mvn/{MY REPSY USERNAME}/{MY REPOSITORY NAME}'
+            url 'https://repo.repsy.io/{MY REPSY USERNAME}/{MY REPOSITORY NAME}'
             credentials {
                 username 'MY REPSY USERNAME'
                 password 'MY REPSY PASSWORD'
@@ -49,7 +49,7 @@ Please open the file in `~/.gradle/gradle.properties` path. If the properties fi
 Please add the following variables into your `gradle.properties` file by adjusting values to your repository settings.
 
 ```ini
-repsyUrl=https://repo.repsy.io/mvn/{MY REPSY USERNAME}/{MY REPOSITORY NAME}
+repsyUrl=https://repo.repsy.io/{MY REPSY USERNAME}/{MY REPOSITORY NAME}
 repsyUsername=MY REPSY USERNAME
 repsyPassword=MY REPSY PASSWORD
 ```

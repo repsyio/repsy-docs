@@ -77,7 +77,7 @@ If you consider deploying your Java library to your private Maven repository,  y
     <repository>
       <id>repsy</id>
       <name>My Private Maven Repository on Repsy</name>
-      <url>https://repo.repsy.io/mvn/{MY REPSY USERNAME}/{MY REPOSITORY NAME}</url>
+      <url>https://repo.repsy.io/{MY REPSY USERNAME}/{MY REPOSITORY NAME}</url>
     </repository>
 
     <!-- ... Some other Distribution repository definitions -->
@@ -113,7 +113,7 @@ You have deployed your Java library and now want to use it in your Java projects
     <repository>
       <id>repsy</id>
       <name>My Private Maven Repository on Repsy</name>
-      <url>https://repo.repsy.io/mvn/{MY REPSY USERNAME}/{MY REPOSITORY NAME}</url>
+      <url>https://repo.repsy.io/{MY REPSY USERNAME}/{MY REPOSITORY NAME}</url>
     </repository>
 
     <!-- ... some other repository definitions -->

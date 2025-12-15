@@ -91,7 +91,7 @@ index-servers =
     repsy
 
 [repsy]
-repository=https://repo.repsy.io/pypi/<username>/<registry_name>
+repository=https://repo.repsy.io/<username>/<registry_name>
 username=<username>
 password=<password>
 ```

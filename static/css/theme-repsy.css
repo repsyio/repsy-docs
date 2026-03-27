@@ -153,8 +153,9 @@ overflow-x: auto;
   padding: 40px;
 }
 
-.layout-container main div{
+.layout-container main > div {
   overflow-x: auto;
+  width: 100%;
   max-width: 1000px;
 }
 

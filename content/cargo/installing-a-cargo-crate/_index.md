@@ -9,7 +9,10 @@ Therefore, you need to set Cargo configuration as follows:
 
 ```toml
 [registries.repsy]
-index = "sparse+https://repo.repsy.io/<username>/<registryName>/index/"
+index = "sparse+https://repo.repsy.io/cargo/<username>/<registryName>/"
+
+[registry]
+global-credential-providers = ["cargo:token"]
 ```
 
 If you do authenticate, you do not have to repeat token setup on every command, but `.cargo/config.toml` is still required for registry resolution.

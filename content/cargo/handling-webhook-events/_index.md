@@ -17,34 +17,37 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
-  "event_id": "f4a1b9cc-3c72-4f2f-8c20-e35aaf904992",
-  "event_type": "crate.deployed",
-  "webhook_url": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
-  "date": "2026-03-25T10:20:45.125Z",
   "crate": {
-    "uuid": "8f20a9f0-cc41-49eb-b8b9-f4f8e3f6f53e",
-    "name": "hello_repsy",
-    "created_at": "2026-03-25T10:20:44.998Z",
+    "uuid": "fa3b0ffb-8468-4821-8db2-bd09e814c431",
+    "name": "repsy_e2e_platform_dep",
+    "version": "2.0.1775591494",
+    "created_at": "2026-04-07T10:25:22.380500Z",
+    "description": "Repsy e2e platform dependency crate",
+    "homepage": null,
+    "repository_url": null,
+    "license": "MIT",
+    "license_file": null,
+    "documentation": null,
+    "rust_version": null,
+    "authors": [],
+    "keywords": [],
+    "categories": [],
     "registry": {
-      "uuid": "b6e4b5ec-3af1-4b0f-9779-947dcc4a70b6",
-      "owner": "owner",
+      "uuid": "087bf481-cf09-421f-94ab-28cd438b59f6",
+      "owner": "repsy",
       "name": "cargo",
       "description": null,
+      "private_repo": true,
       "searchable": false,
-      "private_registry": true,
-      "created_at": "2026-03-20T08:14:07.232Z"
-    },
-    "version": {
-      "uuid": "dba0f57f-1a08-45ea-9b1d-20f3d2a3e677",
-      "version": "0.1.0",
-      "metadata": {
-        "description": "Example crate for Repsy",
-        "license": "MIT",
-        "repository": "https://github.com/example/hello_repsy"
-      },
-      "created_at": "2026-03-25T10:20:45.011Z"
+      "created_at": "2026-04-07T10:24:36.565999Z",
+      "metadata": null
     }
-  }
+  },
+  "date": "2026-04-07T19:51:35.842454Z",
+  "event_id": "baf61626-bca7-4039-b9bf-e30c6d5ec708",
+  "event_type": "crate.deployed",
+  "repoType": "CARGO",
+  "webhook_url": "https://example.com"
 }
 ```
 

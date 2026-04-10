@@ -38,42 +38,42 @@ Run `go mod tidy` to ensure your `go.mod` and `go.sum` files are up to date:
 go mod tidy
 ```
 
-### Package the module into a zip archive
+### Package and upload the module
 
-Repsy expects modules to be uploaded as zip archives following the Go module proxy format. The zip must contain all module files under the path `<modulePath>@<version>/`.
+Repsy expects modules to be uploaded as zip archives following the Go module proxy format. The zip must contain all module files under the full module path, for example:
 
-Choose a version tag following semantic versioning (e.g. `v1.0.0`). Run these commands from the parent directory of your module, or ensure the staging directory is created outside the module directory.
+```
+corp.internal/mymodule@v1.0.0/go.mod
+corp.internal/mymodule@v1.0.0/mymodule.go
+```
+
+To achieve this, a temporary staging directory is used and the zip command runs from within it — this prevents any absolute path prefixes from being included in the archive.
+
+Run these commands from inside your module directory. Replace `corp.internal/mymodule` with your actual module path and `<username>`, `<registryName>` with your Repsy credentials.
 
 ```bash
 VERSION=v1.0.0
 MODULE_PATH=corp.internal/mymodule
-MODULE_DIR=$(basename "${MODULE_PATH}")
-MODULE_VERSION_DIR="${MODULE_DIR}@${VERSION}"
+STAGING=$(mktemp -d)
+MODULE_VERSION_DIR="${STAGING}/${MODULE_PATH}@${VERSION}"
 
-cd ..
 mkdir -p "${MODULE_VERSION_DIR}"
-cp -r "${MODULE_DIR}/." "${MODULE_VERSION_DIR}/"
-find "${MODULE_VERSION_DIR}" -type f | xargs zip module.zip
-```
+cp -r . "${MODULE_VERSION_DIR}/"
+(cd "${STAGING}" && find "${MODULE_PATH}@${VERSION}" -type f | xargs zip "${OLDPWD}/module.zip")
 
-### Upload the module to Repsy
-
-Compute the SHA-256 hash of the zip file and upload it with a `PUT` request. Repsy uses HTTP Basic Auth for authentication.
-
-```bash
-# optional: compute and send for upload integrity verification
-SHA256=$(sha256sum module.zip | cut -d' ' -f1)
-
-# remove the -H line below if you prefer to skip integrity verification
 curl -u <username>:<password> \
   -T module.zip \
-  -H "Content-Sha256: ${SHA256}" \ 
+  -H "Content-Sha256: $(sha256sum module.zip | cut -d' ' -f1)" \
   "https://repo.repsy.io/<username>/<registryName>/${MODULE_PATH}/@v/${VERSION}.zip"
 ```
 
-Replace `<username>`, `<registryName>`, and the module path with your actual values.
+The `Content-Sha256` header is optional — remove the `-H` line if you prefer to skip integrity verification.
 
-If the upload is successful, you will receive an HTTP 200 response. You can now verify the module is available by querying the version list:
+If the upload is successful, you will receive an HTTP 200 response.
+
+### Verify the upload
+
+Confirm the module is available by querying the version list:
 
 ```bash
 curl -u <username>:<password> \

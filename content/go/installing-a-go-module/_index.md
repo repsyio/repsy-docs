@@ -44,21 +44,23 @@ To make this permanent, add the export to your shell profile (e.g. `~/.bashrc` o
 Since Repsy does not act as a checksum database, Go will attempt to verify private modules against the public `sum.golang.org`. For private module paths, disable sum database verification using `GONOSUMDB`:
 
 ```bash
-export GONOSUMDB=corp.internal
+export GONOSUMDB=<your-module-prefix>
 ```
+
+Replace `<your-module-prefix>` with the domain or path prefix you used in `go mod init` (e.g. `corp.internal`, `github.com/yourorg`).
 
 ### Installing a module
 
 Once `GOPROXY` and authentication are configured, use `go get` to install your module:
 
 ```bash
-go get corp.internal/mymodule@v1.0.0
+go get <your-module-path>@v1.0.0
 ```
 
 To install the latest available version:
 
 ```bash
-go get corp.internal/mymodule@latest
+go get <your-module-path>@latest
 ```
 
 That's all! If you have completed all required steps as described, the Go toolchain will download your module from your Repsy registry and add it to your project's `go.mod` and `go.sum` files.

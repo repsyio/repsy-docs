@@ -42,15 +42,17 @@ go mod tidy
 
 Repsy expects modules to be uploaded as zip archives following the Go module proxy format. The zip must contain all module files under the path `<modulePath>@<version>/`.
 
-Choose a version tag following semantic versioning (e.g. `v1.0.0`):
+Choose a version tag following semantic versioning (e.g. `v1.0.0`). Run these commands from the parent directory of your module, or ensure the staging directory is created outside the module directory.
 
 ```bash
 VERSION=v1.0.0
 MODULE_PATH=corp.internal/mymodule
-MODULE_VERSION_DIR="${MODULE_PATH}@${VERSION}"
+MODULE_DIR=$(basename "${MODULE_PATH}")
+MODULE_VERSION_DIR="${MODULE_DIR}@${VERSION}"
 
+cd ..
 mkdir -p "${MODULE_VERSION_DIR}"
-cp -r . "${MODULE_VERSION_DIR}/"
+cp -r "${MODULE_DIR}/." "${MODULE_VERSION_DIR}/"
 find "${MODULE_VERSION_DIR}" -type f | xargs zip module.zip
 ```
 
@@ -59,11 +61,13 @@ find "${MODULE_VERSION_DIR}" -type f | xargs zip module.zip
 Compute the SHA-256 hash of the zip file and upload it with a `PUT` request. Repsy uses HTTP Basic Auth for authentication.
 
 ```bash
+# optional: compute and send for upload integrity verification
 SHA256=$(sha256sum module.zip | cut -d' ' -f1)
 
+# remove the -H line below if you prefer to skip integrity verification
 curl -u <username>:<password> \
   -T module.zip \
-  -H "Content-Sha256: ${SHA256}" \
+  -H "Content-Sha256: ${SHA256}" \ 
   "https://repo.repsy.io/<username>/<registryName>/${MODULE_PATH}/@v/${VERSION}.zip"
 ```
 

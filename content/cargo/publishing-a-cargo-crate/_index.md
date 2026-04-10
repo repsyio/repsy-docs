@@ -20,11 +20,11 @@ If this command is executed successfully, Cargo will generate a project director
 ### Configure your alternate registry
 
 You currently have a basic crate project. The only missing part is the registry configuration and authentication.
-Create or update `.cargo/config.toml` in your project as follows:
+Create or update `$HOME/.cargo/config.toml` in your project as follows:
 
 ```toml
 [registries.repsy]
-index = "sparse+https://repo.repsy.io/cargo/<username>/<registryName>/"
+index = "sparse+https://repo.repsy.io/<username>/<registryName>/"
 
 [registry]
 global-credential-providers = ["cargo:token"]
@@ -40,13 +40,20 @@ To authenticate, run:
 You cannot use your repsy password. You should use Deploy Token or JWT.
 
 ```bash
-cargo login --registry repsy <your_deploy_token or your_jwt>
+cargo login --registry repsy <your_deploy_token>
 ```
 
 If this command is executed successfully, you will be authenticated and ready to publish your crate. As a final step, please run:
 
 ```bash
 cargo publish --registry repsy
+```
+
+If you have uncommitted changes in your project but want to proceed with the publishing process,
+you can use the `--allow-dirty` flag.
+
+```bash
+cargo publish --registry repsy --allow-dirty
 ```
 
 With this command Cargo will package and publish your crate to your `cargo` registry.

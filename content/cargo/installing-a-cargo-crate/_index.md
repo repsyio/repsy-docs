@@ -7,15 +7,17 @@ When you create a registry, it will be private by default. Before you install a 
 
 Therefore, you need to set Cargo configuration as follows:
 
+Create or edit `$HOME/.cargo/config.toml` file
+
 ```toml
 [registries.repsy]
-index = "sparse+https://repo.repsy.io/cargo/<username>/<registryName>/"
+index = "sparse+https://repo.repsy.io/<username>/<registryName>/"
 
 [registry]
 global-credential-providers = ["cargo:token"]
 ```
 
-If you do authenticate, you do not have to repeat token setup on every command, but `.cargo/config.toml` is still required for registry resolution.
+If you do authenticate, you do not have to repeat token setup on every command, but `$HOME/.cargo/config.toml` is still required for registry resolution.
 
 You can now install any crate from the registry. Please run:
 

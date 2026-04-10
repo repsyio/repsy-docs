@@ -64,7 +64,7 @@ SHA256=$(sha256sum module.zip | cut -d' ' -f1)
 curl -u <username>:<password> \
   -T module.zip \
   -H "Content-Sha256: ${SHA256}" \
-  "https://repo.repsy.io/<username>/<registryName>/${MODULE_PATH}/@v/${VERSION}"
+  "https://repo.repsy.io/<username>/<registryName>/${MODULE_PATH}/@v/${VERSION}.zip"
 ```
 
 Replace `<username>`, `<registryName>`, and the module path with your actual values.

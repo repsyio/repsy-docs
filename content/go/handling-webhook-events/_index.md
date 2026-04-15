@@ -79,15 +79,15 @@ You should reject requests if:
 Example Endpoint:
 
 {{< code-tabs
-java="content/webhook/codes/java/webhook-endpoint.md"
-csharp="content/webhook/codes/csharp/webhook-endpoint.md"
-javascript="content/webhook/codes/javascript/webhook-endpoint.md" >}}
+java="files/webhook/codes/java/webhook-endpoint.md"
+csharp="files/webhook/codes/csharp/webhook-endpoint.md"
+javascript="files/webhook/codes/javascript/webhook-endpoint.md" >}}
 
 Example Validation Method:
 
 {{< code-tabs
-java="content/webhook/codes/java/validation-method.md"
-javascript="content/webhook/codes/javascript/validation-method.md" >}}
+java="files/webhook/codes/java/validation-method.md"
+javascript="files/webhook/codes/javascript/validation-method.md" >}}
 
 ### Need Help?
 

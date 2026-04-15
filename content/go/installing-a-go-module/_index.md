@@ -47,7 +47,7 @@ Since Repsy does not act as a checksum database, Go will attempt to verify priva
 export GONOSUMDB=<your-module-prefix>
 ```
 
-Replace `<your-module-prefix>` with the domain or path prefix you used in `go mod init` (e.g. `corp.internal`, `github.com/yourorg`).
+Replace `<your-module-prefix>` with the domain or path prefix you used in `go mod init` (e.g. `example.com`, `github.com/yourorg`).
 
 ### Installing a module
 

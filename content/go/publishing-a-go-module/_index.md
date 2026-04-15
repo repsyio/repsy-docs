@@ -20,7 +20,7 @@ mkdir mymodule && cd mymodule
 Initialize the module with `go mod init`. The module path must be a valid identifier — for private or internal modules, use a domain you control:
 
 ```bash
-go mod init corp.internal/mymodule
+go mod init example.com/mymodule
 ```
 
 Add your Go source files. For example, create a simple file:
@@ -43,17 +43,17 @@ go mod tidy
 Repsy expects modules to be uploaded as zip archives following the Go module proxy format. The zip must contain all module files under the full module path, for example:
 
 ```
-corp.internal/mymodule@v1.0.0/go.mod
-corp.internal/mymodule@v1.0.0/mymodule.go
+example.com/mymodule@v1.0.0/go.mod
+example.com/mymodule@v1.0.0/mymodule.go
 ```
 
 To achieve this, a temporary staging directory is used and the zip command runs from within it — this prevents any absolute path prefixes from being included in the archive.
 
-Run these commands from inside your module directory. Replace `corp.internal/mymodule` with your actual module path and `<username>`, `<registryName>` with your Repsy credentials.
+Run these commands from inside your module directory. Replace `example.com/mymodule` with your actual module path and `<username>`, `<registryName>` with your Repsy credentials.
 
 ```bash
 VERSION=v1.0.0
-MODULE_PATH=corp.internal/mymodule
+MODULE_PATH=example.com/mymodule
 STAGING=$(mktemp -d)
 MODULE_VERSION_DIR="${STAGING}/${MODULE_PATH}@${VERSION}"
 

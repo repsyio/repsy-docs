@@ -24,20 +24,22 @@ global-credential-providers = ["cargo:token"]
 > index = "sparse+https://repo.repsy.io/<username>/<registryName>/"
 > ```
 
-> **Tip:** Cargo caches registry index and crate data locally. If you encounter stale index data or unexpected resolution errors after publishing a new version to Repsy, you may need to clear the cache manually.
->
-> **Clear the Repsy registry cache only:**
-> ```bash
-> rm -rf ~/.cargo/registry/index/*repsy*
-> rm -rf ~/.cargo/registry/cache/*repsy*
-> ```
->
-> **Or clear the entire Cargo registry cache:**
-> ```bash
-> rm -rf ~/.cargo/registry/
-> ```
->
-> After clearing, the next `cargo install` or `cargo build` will re-fetch the index from Repsy automatically.
+**Tip:** Cargo caches registry index and crate data locally. If you encounter stale index data or unexpected resolution errors after publishing a new version to Repsy, you may need to clear the cache manually.
+
+**Clear the Repsy registry cache only:**
+
+```bash
+rm -rf ~/.cargo/registry/index/*repsy*
+rm -rf ~/.cargo/registry/cache/*repsy*
+```
+
+**Or clear the entire Cargo registry cache:**
+
+```bash
+rm -rf ~/.cargo/registry/
+```
+
+After clearing, the next `cargo install` or `cargo build` will re-fetch the index from Repsy automatically.
 
 If you do authenticate, you do not have to repeat token setup on every command, but `$HOME/.cargo/config.toml` is still required for registry resolution.
 

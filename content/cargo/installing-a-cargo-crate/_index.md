@@ -17,12 +17,12 @@ index = "sparse+https://repo.repsy.io/<username>/<registryName>/"
 global-credential-providers = ["cargo:token"]
 ```
 
-> **Note:** If your repository is **public**, and you are **only downloading packages**, do not add `global-credential-providers` to your config. Your `$HOME/.cargo/config.toml` should look like this:
->
-> ```toml
-> [registries.repsy]
-> index = "sparse+https://repo.repsy.io/<username>/<registryName>/"
-> ```
+**Note:** If your repository is **public**, and you are **only downloading packages**, do not add `global-credential-providers` to your config. Your `$HOME/.cargo/config.toml` should look like this:
+
+```toml
+[registries.repsy]
+index = "sparse+https://repo.repsy.io/<username>/<registryName>/"
+```
 
 **Tip:** Cargo caches registry index and crate data locally. If you encounter stale index data or unexpected resolution errors after publishing a new version to Repsy, you may need to clear the cache manually.
 

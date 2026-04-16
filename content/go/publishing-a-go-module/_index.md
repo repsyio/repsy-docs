@@ -67,6 +67,8 @@ curl -u <username>:<password> \
   "https://repo.repsy.io/<username>/<registryName>/${MODULE_PATH}/@v/${VERSION}.zip"
 ```
 
+Authentication is only required for private registries. Omit the `-u` flag if your registry is public.
+
 The `Content-Sha256` header is optional — remove the `-H` line if you prefer to skip integrity verification.
 
 If the upload is successful, you will receive an HTTP 200 response.

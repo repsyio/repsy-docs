@@ -56,7 +56,7 @@ You can easily change the order of the proxies to customize the resolution prior
 - Set appropriate priorities based on package availability and speed.
 - Disable unused proxies to reduce latency and avoid timeouts.
 - Regularly update credentials for private feeds.
-- Point your `nuget.config` to your Repsy repository URL — proxy resolution happens transparently on the server side.
+- Point your `NuGet.Config` to your Repsy repository URL — proxy resolution happens transparently on the server side.
 
 ## Need Help?
 

@@ -8,7 +8,7 @@ When you create a repository, it will be private by default. Before you install 
 {{< steps >}}
 ### Configure your NuGet source
 
-Add the Repsy source to `nuget.config` in your project or solution root:
+Add the Repsy source to `NuGet.Config` in your project or solution root:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>

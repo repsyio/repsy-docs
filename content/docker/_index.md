@@ -1,7 +1,7 @@
 +++
 title = "Docker"
 chapter = true
-weight = 50
+weight = 15
 +++
 
 # Docker

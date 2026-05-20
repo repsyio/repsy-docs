@@ -31,7 +31,7 @@ If this command is executed successfully, the .NET CLI will generate a project w
 
 ### Configure your NuGet source
 
-Add the Repsy source to `nuget.config` in your project or solution root. This file is safe to commit to version control because it contains only the source URL, not credentials.
+Add the Repsy source to `NuGet.Config` in your project or solution root. This file is safe to commit to version control because it contains only the source URL, not credentials.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>

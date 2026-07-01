@@ -38,17 +38,19 @@ This produces `my_gem-1.0.0.gem` in the current directory.
 
 ### Store credentials
 
-Gem push credentials are kept in `~/.gem/credentials`. Create or edit that file and add an entry for Repsy. Replace `{MY_REPSY_PASSWORD_OR_DEPLOY_TOKEN}` with your Repsy account password or a [Deploy Token](https://repsy.io):
+Gem push credentials are kept in `~/.gem/credentials`. Repsy expects a **Basic auth** value (Base64-encoded `username:password`). Run the following command — replace `{MY_REPSY_USERNAME}` and `{MY_REPSY_PASSWORD_OR_DEPLOY_TOKEN}` with your actual values:
+
+```bash
+echo ":repsy: Basic $(echo -n '{MY_REPSY_USERNAME}:{MY_REPSY_PASSWORD_OR_DEPLOY_TOKEN}' | base64)" \
+  >> ~/.gem/credentials
+chmod 0600 ~/.gem/credentials
+```
+
+The `echo -n` flag suppresses the trailing newline so the base64 encoding is correct. After running the command, `~/.gem/credentials` will contain a line like:
 
 ```yaml
 ---
-:repsy: {MY_REPSY_PASSWORD_OR_DEPLOY_TOKEN}
-```
-
-Set the file permissions so that only your user can read it:
-
-```bash
-chmod 0600 ~/.gem/credentials
+:repsy: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
 ```
 
 **Tip:** For CI/CD pipelines, use a [Deploy Token](https://repsy.io) instead of your account password.
@@ -86,6 +88,6 @@ gem yank my_gem -v 1.0.0.pre \
   --pre
 ```
 
-**Note:** Yanking a version makes it unavailable for new installs but does not delete it from the repository storage.
+**Note:** Yanking a version permanently removes it from the index. Yanked versions cannot be downloaded and cannot be re-published under the same version number.
 
 {{< /steps >}}

@@ -36,12 +36,13 @@ source "https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME}"
 gem "my_gem", "~> 1.0"
 ```
 
-**Private repository** — store credentials in Bundler's config instead of the `Gemfile` so they are never committed to version control:
+**Private repository** — store credentials in Bundler's local config instead of the `Gemfile` so they are never committed to version control:
 
 ```bash
-bundle config set --global \
+bundle config set --local \
   https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME} \
   "{MY_REPSY_USERNAME}:{MY_REPSY_PASSWORD}"
+bundle config set --local path ~/.gem/bundle
 ```
 
 Then reference the source in your `Gemfile` without credentials:
@@ -62,9 +63,10 @@ bundle install
 **Tip:** For CI/CD pipelines, use a [Deploy Token](https://repsy.io) as the password and inject it via an environment variable:
 
 ```bash
-bundle config set --global \
+bundle config set --local \
   https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME} \
   "{MY_REPSY_USERNAME}:${REPSY_DEPLOY_TOKEN}"
+bundle config set --local path ~/.gem/bundle
 ```
 
 That is all! If you have completed all required steps as described, gem and Bundler will install your gems from your Repsy repository successfully.
@@ -78,7 +80,7 @@ Repsy implements the [Bundler Compact Index protocol](https://github.com/rubygem
 | Endpoint | Method | Description |
 |---|---|---|
 | `/names` | `GET` | Returns a newline-separated list of all gem names available in the repository. |
-| `/versions` | `GET` | Returns a compact list of every gem name paired with its available versions and a checksum. Bundler uses this to build a local dependency graph without downloading individual gem files. |
+| `/versions` | `GET` | Returns a space-separated three-column file: `name versions_csv md5`. Each row lists a gem name, a comma-separated list of its available versions, and an MD5 checksum. Bundler uses this to build a local dependency graph without downloading individual gem files. |
 | `/info/{gemname}` | `GET` | Returns detailed dependency and platform information for every version of the specified gem. |
 
 These endpoints are served relative to your repository base URL:

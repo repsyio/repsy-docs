@@ -1,0 +1,38 @@
+name: Deploy | Repsy Docs [Prod]
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: false
+
+      - name: Install Hugo
+        run: |
+          wget https://github.com/gohugoio/hugo/releases/download/v0.135.0/hugo_0.135.0_linux-amd64.deb
+          sudo dpkg -i hugo_0.135.0_linux-amd64.deb
+
+      - name: Install theme
+        run: |
+          THEME_VERSION=2.5.0
+          wget -q --no-check-certificate "https://github.com/matcornic/hugo-theme-learn/archive/${THEME_VERSION}.tar.gz"
+          rm -rf themes/*
+          mv "${THEME_VERSION}.tar.gz" themes/
+          cd themes
+          tar xzf "${THEME_VERSION}.tar.gz"
+          mv "hugo-theme-learn-${THEME_VERSION}" hugo-theme-learn
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler pages deploy public --project-name=repsy-docs --branch=main

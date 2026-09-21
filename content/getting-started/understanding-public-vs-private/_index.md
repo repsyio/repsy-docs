@@ -64,6 +64,7 @@ If you need some repositories to stay hidden from some people, keep this model i
 - **Give CI jobs and external parties a deploy token, not a user account.** A deploy token is scoped to a single
   repository and can be read-only, so it gives access to that repository and nothing else. Anyone who can sign in
   can read every repository, so a user account is not a way to share just one.
+  See [Creating a Deploy Token](../creating-a-deploy-token/).
 - **Only create user accounts for people you trust with every repository on the instance.**
 - **Run one Repsy instance per team** when repositories must be kept apart between teams.
 

@@ -34,8 +34,8 @@ It supports publishing and hosting packages in the following formats:
 
 4. **Public or private access**  
    Public repositories can be downloaded by anyone. Private repositories require a signed-in account or a deploy token.
-   A deploy token is scoped to a single repository, so use one to give a CI job or an external party access to just
-   that repository. Repsy has no per-repository collaborator lists; see
+   A [deploy token](../creating-a-deploy-token/) is scoped to a single repository, so use one to give a CI job or an
+   external party access to just that repository. Repsy has no per-repository collaborator lists; see
    [Understanding Public vs Private](../understanding-public-vs-private/) for who can do what.
 
 5. **Generous free tier**  

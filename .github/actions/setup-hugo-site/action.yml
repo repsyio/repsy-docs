@@ -1,0 +1,52 @@
+name: Set up Hugo and the docs theme
+description: >-
+  Installs Hugo from the official release .deb and replaces themes/ with the pinned hugo-theme-learn
+  release, verifying the SHA-256 of both downloads. Run it after actions/checkout.
+
+inputs:
+  hugo-version:
+    description: Hugo release to install (plain, not extended).
+    default: 0.135.0
+  hugo-sha256:
+    description: SHA-256 of hugo_<hugo-version>_linux-amd64.deb, from the checksums file of the Hugo release.
+    default: 3a1aa24b0fbe03f4d86eff8a231a79a4ba2c1bb115307cdf1d14af991f7fd1c4
+  theme-version:
+    description: Release tag of matcornic/hugo-theme-learn to download.
+    default: 2.5.0
+  theme-sha256:
+    description: SHA-256 of the GitHub source archive of that tag.
+    default: 689eccd4e69000fa9ebe2d0b0a56fca52086a0570f91f35b7e61ac82a2a4832c
+
+runs:
+  using: composite
+  steps:
+    - name: Install Hugo
+      shell: bash
+      env:
+        HUGO_VERSION: ${{ inputs.hugo-version }}
+        HUGO_SHA256: ${{ inputs.hugo-sha256 }}
+      run: |
+        set -euo pipefail
+        deb="hugo_${HUGO_VERSION}_linux-amd64.deb"
+        curl --fail --location --silent --show-error --output "${RUNNER_TEMP}/${deb}" \
+          "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${deb}"
+        echo "${HUGO_SHA256}  ${RUNNER_TEMP}/${deb}" | sha256sum --check -
+        sudo dpkg -i "${RUNNER_TEMP}/${deb}"
+        hugo version
+
+    - name: Install theme
+      shell: bash
+      env:
+        THEME_VERSION: ${{ inputs.theme-version }}
+        THEME_SHA256: ${{ inputs.theme-sha256 }}
+      run: |
+        set -euo pipefail
+        archive="${THEME_VERSION}.tar.gz"
+        curl --fail --location --silent --show-error --output "${RUNNER_TEMP}/${archive}" \
+          "https://github.com/matcornic/hugo-theme-learn/archive/${archive}"
+        echo "${THEME_SHA256}  ${RUNNER_TEMP}/${archive}" | sha256sum --check -
+        rm -rf themes/*
+        mv "${RUNNER_TEMP}/${archive}" themes/
+        cd themes
+        tar xzf "${archive}"
+        mv "hugo-theme-learn-${THEME_VERSION}" hugo-theme-learn

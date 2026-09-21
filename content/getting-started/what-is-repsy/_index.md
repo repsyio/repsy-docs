@@ -10,10 +10,15 @@ chapter = true
 Repsy is a cloud-native artifact repository service for developers and teams.  
 It supports publishing and hosting packages in the following formats:
 
-- Maven
-- Npm
-- PyPI
-- Docker
+- [Maven](../../maven/)
+- [Npm](../../npm/)
+- [PyPI](../../pypi/)
+- [Docker](../../docker/)
+- [Cargo](../../cargo/)
+- [Go](../../go/)
+- [Helm](../../helm/)
+- [NuGet](../../nuget/)
+- [Ruby](../../ruby/)
 
 
 # Key Features
@@ -27,8 +32,11 @@ It supports publishing and hosting packages in the following formats:
 3. **Unlimited repositories**  
    Create as many public or private repositories as you need.
 
-4. **Team collaboration**  
-   Add collaborators and manage permissions per repository.
+4. **Public or private access**  
+   Public repositories can be downloaded by anyone. Private repositories require a signed-in account or a deploy token.
+   A deploy token is scoped to a single repository, so use one to give a CI job or an external party access to just
+   that repository. Repsy has no per-repository collaborator lists; see
+   [Understanding Public vs Private](../understanding-public-vs-private/) for who can do what.
 
 5. **Generous free tier**  
    20 GB of free storage per user.

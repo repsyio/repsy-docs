@@ -1,0 +1,27 @@
+name: Build | Repsy Docs
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: false
+
+      - name: Set up Hugo and theme
+        uses: ./.github/actions/setup-hugo-site
+
+      - name: Build
+        run: hugo --minify

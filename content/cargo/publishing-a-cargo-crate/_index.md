@@ -37,7 +37,7 @@ This configuration defines your Repsy registry for Cargo operations.
 In order to successfully publish crates to your `cargo` registry, you must authenticate.
 To authenticate, run:
 
-You cannot use your repsy password. You should use Deploy Token or JWT.
+You cannot use your repsy password. You should use a [Deploy Token](../../getting-started/creating-a-deploy-token/) or JWT.
 
 ```bash
 cargo login --registry repsy <your_deploy_token>

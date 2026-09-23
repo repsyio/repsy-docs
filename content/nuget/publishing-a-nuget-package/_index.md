@@ -60,7 +60,7 @@ Store your credentials in `~/.nuget/NuGet/NuGet.Config` (Linux/Mac) or `%appdata
 </configuration>
 ```
 
-**Tip:** For CI/CD pipelines, use a [Deploy Token](https://repsy.io) instead of your account password.
+**Tip:** For CI/CD pipelines, use a [Deploy Token](../../getting-started/creating-a-deploy-token/) instead of your account password.
 
 ### Pack and publish
 

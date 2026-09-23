@@ -53,7 +53,7 @@ The `echo -n` flag suppresses the trailing newline so the base64 encoding is cor
 :repsy: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
 ```
 
-**Tip:** For CI/CD pipelines, use a [Deploy Token](https://repsy.io) instead of your account password.
+**Tip:** For CI/CD pipelines, use a [Deploy Token](../../getting-started/creating-a-deploy-token/) instead of your account password.
 
 ### Push the gem
 

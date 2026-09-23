@@ -60,7 +60,7 @@ Run Bundler to install dependencies:
 bundle install
 ```
 
-**Tip:** For CI/CD pipelines, use a [Deploy Token](https://repsy.io) as the password and inject it via an environment variable:
+**Tip:** For CI/CD pipelines, use a [Deploy Token](../../getting-started/creating-a-deploy-token/) as the password and inject it via an environment variable:
 
 ```bash
 bundle config set --local \

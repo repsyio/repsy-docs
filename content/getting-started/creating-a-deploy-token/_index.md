@@ -61,22 +61,24 @@ to get a new one.
 
 ### Use the token in your client
 
-Wherever a client configuration asks for your Repsy password, enter the deploy token instead. Use the token's own
-username, shown in the **Username** column of the **Deploy Tokens** table, rather than your account username. The
-configure action in the **Actions** column of that table shows client snippets that already contain the token's
-username.
+Wherever a client configuration asks for your Repsy password, enter the deploy token instead. The token value is the
+credential: Repsy matches only the token and does not check the username. The username shown in the **Username** column
+of the **Deploy Tokens** table is a label that helps you tell tokens apart. Clients that require a username can send
+any value, and the configure action in the **Actions** column of that table shows client snippets that already contain
+the token's username. Cargo takes only the token. If the value in the password field is not a valid deploy token of that
+repository, Repsy checks the pair as an account username and password instead.
 
 | Package type | Where the credential goes | Username | Password |
 | --- | --- | --- | --- |
-| [Maven](../../maven/using-private-maven-repository/) | The `<server>` entry with the id `repsy` in `~/.m2/settings.xml` | Token username | Token |
-| [npm](../../npm/publishing-an-npm-package/) | The prompts of `npm login` | Token username | Token |
-| [PyPI](../../pypi/publishing-a-pypi-package/) | The `[repsy]` section of `~/.pypirc` | Token username | Token |
-| [Docker](../../docker/publishing-a-docker-image/) | The prompts of `docker login repo.repsy.io` | Token username | Token |
+| [Maven](../../maven/using-private-maven-repository/) | The `<server>` entry with the id `repsy` in `~/.m2/settings.xml` | Any value | Token |
+| [npm](../../npm/publishing-an-npm-package/) | The prompts of `npm login` | Any value | Token |
+| [PyPI](../../pypi/publishing-a-pypi-package/) | The `[repsy]` section of `~/.pypirc` | Any value | Token |
+| [Docker](../../docker/publishing-a-docker-image/) | The prompts of `docker login repo.repsy.io` | Any value | Token |
 | [Cargo](../../cargo/publishing-a-cargo-crate/) | `cargo login --registry repsy <token>` | Not used | Token |
-| [Go](../../go/installing-a-go-module/) | The `machine repo.repsy.io` entry in `~/.netrc` | Token username | Token |
-| [Helm](../../helm/publishing-a-helm-chart/) | The `--password` option of `helm repo add` or `helm registry login` | Token username | Token |
-| [NuGet](../../nuget/publishing-a-nuget-package/) | The `ClearTextPassword` value in your user-level `NuGet.Config` | Token username | Token |
-| [Ruby](../../ruby/publishing-a-ruby-gem/) | The Base64-encoded `username:password` value in `~/.gem/credentials` | Token username | Token |
+| [Go](../../go/installing-a-go-module/) | The `machine repo.repsy.io` entry in `~/.netrc` | Any value | Token |
+| [Helm](../../helm/publishing-a-helm-chart/) | The `--password` option of `helm repo add` or `helm registry login` | Any value | Token |
+| [NuGet](../../nuget/publishing-a-nuget-package/) | The `ClearTextPassword` value in your user-level `NuGet.Config` | Any value | Token |
+| [Ruby](../../ruby/publishing-a-ruby-gem/) | The Base64-encoded `username:password` value in `~/.gem/credentials` | Any value | Token |
 
 Each package type's page shows the full client configuration. In CI, pass the token through a secret environment
 variable instead of writing it into a file that you commit.
@@ -103,4 +105,4 @@ working, do one of these:
 
 - **Create a new token.** It can be valid for up to 365 days from the day you create it.
 - **Rotate the expired token.** Its validity starts again for the length it was created with, and it gets a new
-  generated username, so check the **Username** column and update the username in your client configuration too.
+  generated username. Because Repsy does not check the username, update only the token in your client configuration.

@@ -38,8 +38,9 @@ It supports publishing and hosting packages in the following formats:
    external party access to just that repository. Repsy has no per-repository collaborator lists; see
    [Understanding Public vs Private](../understanding-public-vs-private/) for who can do what.
 
-5. **Generous free tier**  
-   20 GB of free storage per user.
+5. **Free and paid plans**  
+   Storage limits, service levels and the other differences between the hosted plans are listed on the
+   [Repsy pricing page](https://repsy.io/pricing).
 
 6. **CI/CD ready**  
    Easily integrate with your existing build pipelines.
@@ -53,9 +54,9 @@ It supports publishing and hosting packages in the following formats:
 - Docker image publishing
 
 
-# Infrastructure Highlights
+# Plans, Storage and Availability
 
-- Global redundancy
-- Fast CDN-based delivery
-- High availability and uptime
-- Scalable storage with up to 5TB for enterprise plans
+The storage and service levels of the hosted service at repsy.io depend on your plan. The
+[pricing page](https://repsy.io/pricing) is the single source of truth for them, so this documentation does not
+repeat any figures. If you run your own Repsy instance instead, storage and availability depend on your own
+infrastructure.

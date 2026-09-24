@@ -16,3 +16,7 @@ hugo.linux
 
 # Binary archives
 .tar.gz
+### Hugo theme ###
+# hugo-theme-learn is downloaded at build time (see README); only the placeholder is tracked
+/themes/*
+!/themes/.gitkeep

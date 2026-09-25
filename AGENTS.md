@@ -42,6 +42,9 @@ Rules for templates and configuration:
   content, in `{{< product >}}` blocks.
 - No translations are planned. If they are ever needed, add languages as a matrix or move the product to Hugo's
   `roles` dimension (Hugo 0.153 or later); English URLs are unaffected. That is why the rules above matter.
+- Every page ends with a "Report a problem" link (`layouts/_default/baseof.html`) that opens a prefilled GitHub issue
+  (`issuesURL` in `config.toml`; page, product and source file are filled in). There is no analytics or feedback
+  backend: do not add Yes/No buttons that send nothing.
 - Front-end scripts: `layouts/_default/baseof.html` loads jQuery from `code.jquery.com` with a Subresource Integrity
   hash, so when the jQuery version changes, recompute `integrity` for the exact file. `static/js/learn.js` is the site's
   own small tab helper (it shadows the theme's `learn.js`, which needs scripts the site does not load); do not put theme

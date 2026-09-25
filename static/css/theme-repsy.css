@@ -812,35 +812,6 @@ overflow-x: auto;
   margin-bottom: 16px;
 }
 
-.feedback-buttons {
-  display: flex;
-  justify-content: flex-start;
-  gap: 16px;
-}
-
-.thumb-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: var(--color-primary-500);
-  border: 1px solid var(--color-neutral-400);
-  color: var(--color-neutral-200);
-  border-radius: 6px;
-  padding: 6px 16px;
-  font: var(--font-body-regular);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.thumb-button:hover {
-  background-color: var(--color-primary-400); /* Feedback button hover color */
-}
-
-.thumb-button img {
-  width: 16px;
-  height: 16px;
-}
-
 /* Footer Section */
 .repsy-footer {
   padding: 32px;

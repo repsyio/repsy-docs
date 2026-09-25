@@ -11,7 +11,7 @@ Create or edit `$HOME/.cargo/config.toml` file
 
 ```toml
 [registries.repsy]
-index = "sparse+https://repo.repsy.io/<username>/<registryName>/"
+index = "sparse+{{% repo-url %}}/<registryName>/"
 
 [registry]
 global-credential-providers = ["cargo:token"]
@@ -21,7 +21,7 @@ global-credential-providers = ["cargo:token"]
 
 ```toml
 [registries.repsy]
-index = "sparse+https://repo.repsy.io/<username>/<registryName>/"
+index = "sparse+{{% repo-url %}}/<registryName>/"
 ```
 
 **Tip:** Cargo caches registry index and crate data locally. If you encounter stale index data or unexpected resolution errors after publishing a new version to Repsy, you may need to clear the cache manually.

@@ -14,7 +14,7 @@ Add the Repsy source to `NuGet.Config` in your project or solution root:
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
-    <add key="repsy" value="https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME}/v3/index.json" />
+    <add key="repsy" value="{{% repo-url %}}/{MY_REPOSITORY_NAME}/v3/index.json" />
   </packageSources>
 </configuration>
 ```

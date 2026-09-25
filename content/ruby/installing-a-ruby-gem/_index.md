@@ -13,14 +13,14 @@ You can install a gem directly from your Repsy repository using the `--source` f
 **Public repository:**
 
 ```bash
-gem install my_gem --source https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME}
+gem install my_gem --source {{% repo-url %}}/{MY_REPOSITORY_NAME}
 ```
 
 **Private repository** — embed credentials in the URL:
 
 ```bash
 gem install my_gem \
-  --source https://{MY_REPSY_USERNAME}:{MY_REPSY_PASSWORD}@repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME}
+  --source https://<username>:{MY_REPSY_PASSWORD}@{{% repo-url scheme="false" %}}/{MY_REPOSITORY_NAME}
 ```
 
 ### Install with Bundler
@@ -31,7 +31,7 @@ Bundler is the recommended way to manage gem dependencies in a project. Add your
 
 ```ruby
 # Gemfile
-source "https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME}"
+source "{{% repo-url %}}/{MY_REPOSITORY_NAME}"
 
 gem "my_gem", "~> 1.0"
 ```
@@ -40,8 +40,8 @@ gem "my_gem", "~> 1.0"
 
 ```bash
 bundle config set --local \
-  https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME} \
-  "{MY_REPSY_USERNAME}:{MY_REPSY_PASSWORD}"
+  {{% repo-url %}}/{MY_REPOSITORY_NAME} \
+  "<username>:{MY_REPSY_PASSWORD}"
 bundle config set --local path ~/.gem/bundle
 ```
 
@@ -49,7 +49,7 @@ Then reference the source in your `Gemfile` without credentials:
 
 ```ruby
 # Gemfile
-source "https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME}"
+source "{{% repo-url %}}/{MY_REPOSITORY_NAME}"
 
 gem "my_gem", "~> 1.0"
 ```
@@ -64,8 +64,8 @@ bundle install
 
 ```bash
 bundle config set --local \
-  https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME} \
-  "{MY_REPSY_USERNAME}:${REPSY_DEPLOY_TOKEN}"
+  {{% repo-url %}}/{MY_REPOSITORY_NAME} \
+  "<username>:${REPSY_DEPLOY_TOKEN}"
 bundle config set --local path ~/.gem/bundle
 ```
 
@@ -86,9 +86,9 @@ Repsy implements the [Bundler Compact Index protocol](https://github.com/rubygem
 These endpoints are served relative to your repository base URL:
 
 ```
-https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME}/names
-https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME}/versions
-https://repo.repsy.io/{MY_REPSY_USERNAME}/{MY_REPOSITORY_NAME}/info/my_gem
+{{% repo-url %}}/{MY_REPOSITORY_NAME}/names
+{{% repo-url %}}/{MY_REPOSITORY_NAME}/versions
+{{% repo-url %}}/{MY_REPOSITORY_NAME}/info/my_gem
 ```
 
 Bundler caches the responses from `/versions` and `/info/{gemname}` locally in `~/.bundle/cache/compact_index/` for faster subsequent runs.

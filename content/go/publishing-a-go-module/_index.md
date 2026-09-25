@@ -3,7 +3,7 @@ title = "Publishing a Go Module"
 weight = 82
 +++
 
-You have registered and created a registry on [Repsy](https://repsy.io). You are now ready to publish Go modules to your registry.
+{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy OS instance.{{< /product >}} You are now ready to publish Go modules to your registry.
 
 Repsy implements the [Go Module Proxy Protocol](https://go.dev/ref/mod#goproxy-protocol). Publishing a module means uploading a properly structured zip archive to your registry using HTTP.
 
@@ -64,7 +64,7 @@ cp -r . "${MODULE_VERSION_DIR}/"
 curl -u <username>:<password> \
   -T module.zip \
   -H "Content-Sha256: $(sha256sum module.zip | cut -d' ' -f1)" \
-  "https://repo.repsy.io/<username>/<registryName>/${MODULE_PATH}/@v/${VERSION}.zip"
+  "{{% repo-url %}}/<registryName>/${MODULE_PATH}/@v/${VERSION}.zip"
 ```
 
 Authentication is only required for private registries. Omit the `-u` flag if your registry is public.
@@ -79,7 +79,7 @@ Confirm the module is available by querying the version list:
 
 ```bash
 curl -u <username>:<password> \
-  "https://repo.repsy.io/<username>/<registryName>/${MODULE_PATH}/@v/list"
+  "{{% repo-url %}}/<registryName>/${MODULE_PATH}/@v/list"
 ```
 
 Congratulations, you have published a Go module to your registry! You can now install it into any Go project.

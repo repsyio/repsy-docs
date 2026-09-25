@@ -83,7 +83,7 @@ Here is the common one: the `.pypirc` files. These files allow you to define con
 touch $HOME/.pypirc
 ```
 
-Then copy the following content into this file. Please do not forget to change the *< username >*, *< registry_name >*, and *< password >* place holders with your exact Repsy credentials and registry name.
+Then copy the following content into this file. Please do not forget to change the *&lt;username&gt;*, *< registry_name >*, and *< password >* place holders with your exact Repsy credentials and registry name.
 
 ```text
 [distutils]
@@ -91,7 +91,7 @@ index-servers =
     repsy
 
 [repsy]
-repository=https://repo.repsy.io/<username>/<registry_name>
+repository={{% repo-url %}}/<registry_name>
 username=<username>
 password=<password>
 ```

@@ -9,10 +9,10 @@ Repsy acts as a [Go Module Proxy](https://go.dev/ref/mod#module-proxy) and imple
 
 ### Authentication
 
-When you create a registry, it will be private by default. Go uses the `.netrc` file for authenticating to module proxies. Add an entry for `repo.repsy.io` to your `~/.netrc` file:
+When you create a registry, it will be private by default. Go uses the `.netrc` file for authenticating to module proxies. Add an entry for `{{% repo-url scheme="false" account="false" %}}` to your `~/.netrc` file:
 
 ```text
-machine repo.repsy.io
+machine {{% repo-url scheme="false" account="false" %}}
 login <username>
 password <password>
 ```
@@ -26,7 +26,7 @@ chmod 600 ~/.netrc
 Alternatively, you can embed credentials directly in the `GOPROXY` URL, though this is not recommended for production environments:
 
 ```bash
-GOPROXY=https://<username>:<password>@repo.repsy.io/<username>/<registryName>
+GOPROXY=https://<username>:<password>@{{% repo-url scheme="false" %}}/<registryName>
 ```
 
  **Note:** Authentication is only required for private registries. If your registry is public, you can skip `.netrc` configuration and omit credentials from the `GOPROXY` URL.
@@ -36,7 +36,7 @@ GOPROXY=https://<username>:<password>@repo.repsy.io/<username>/<registryName>
 Set the `GOPROXY` environment variable to point to your Repsy registry:
 
 ```bash
-export GOPROXY=https://repo.repsy.io/<username>/<registryName>,off
+export GOPROXY={{% repo-url %}}/<registryName>,off
 ```
 
 Use `,off` to fail loudly if the module is not found in your registry. Use `,direct` instead if you also want to fall back to fetching public modules directly from their source.

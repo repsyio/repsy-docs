@@ -1,0 +1,24 @@
+{{- /*
+  Base URL of the Repsy repository server for the current page's product, so that one page can be shared
+  between Repsy Cloud and Repsy OS. Use the markdown notation, {{% repo-url %}}, so that the output takes
+  part in the Markdown rendering and `<username>` is escaped inside code spans and code blocks.
+
+    {{% repo-url %}}                                   Cloud: https://repo.repsy.io/<username>
+    {{% repo-url path="helm" %}}                       Cloud: https://repo.repsy.io/helm/<username>
+    {{% repo-url scheme="false" %}}                    Cloud: repo.repsy.io/<username>
+    {{% repo-url scheme="false" account="false" %}}    Cloud: repo.repsy.io (the host only)
+
+  UNCONFIRMED for Repsy OS: the OS UI shows `<REPO_BASE_URL>/<repo>` without a username segment, but the
+  exact URL format of each protocol is not confirmed. Until it is, OS renders only
+  `https://<your-repsy-host>` and ignores `path` and `account`. Pages that need a different OS
+  URL should wrap the variant in a `product` block.
+*/ -}}
+{{- $scheme := cond (eq (.Get "scheme") "false") "" "https://" -}}
+{{- if eq .Page.Site.Params.product "os" -}}
+  {{- $scheme -}}<your-repsy-host>
+{{- else -}}
+  {{- $url := printf "%srepo.repsy.io" $scheme -}}
+  {{- with .Get "path" -}}{{- $url = printf "%s/%s" $url . -}}{{- end -}}
+  {{- if ne (.Get "account") "false" -}}{{- $url = printf "%s/<username>" $url -}}{{- end -}}
+  {{- $url | safeHTML -}}
+{{- end -}}

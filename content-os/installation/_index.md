@@ -41,9 +41,11 @@ Repsy Open Source has no sign-up page: you create every further account yourself
 Whatever option you choose, plan these things before other people start to push packages:
 
 - Keep the database **and** the storage directory on persistent storage, and back both up. Losing only one of them leaves
-  an instance whose database lists packages that have no files, or files that nothing lists.
+  an instance whose database lists packages that have no files, or files that nothing lists. See
+  [Persisting Data and Backups](../administration/persisting-data-and-backups/).
 - Set `OS_APP_JWT_SECRET` to a fixed random value. Without it, Repsy picks a new secret on every start and everybody
   has to sign in again after each restart.
 - Set `REPO_BASE_URL` to the address your users reach port `9090` under, so that the panel shows working client
   configuration.
-- Serve Repsy over HTTPS, directly or behind a reverse proxy. The Administration section describes both.
+- Serve Repsy over HTTPS, directly or behind a reverse proxy. [Enabling HTTPS](../administration/enabling-https/) and
+  [Running Behind a Reverse Proxy](../administration/running-behind-a-reverse-proxy/) describe both.

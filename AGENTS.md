@@ -11,7 +11,7 @@ and the upstream `hugo-theme-learn` 2.5.0 theme.
 - `content-os/` — the Repsy Open Source documentation pages, and the OS variants of pages that differ from Cloud.
   Open Source only, published under `/os/`.
 - `shared/` — pages that are identical for both products; mounted into both sites, so a page here appears
-  in Cloud and in Open Source. The directory does not exist yet; create it when the first shared page is needed.
+  in Cloud and in Open Source. Where the products differ, the text goes into `{{< product >}}` blocks.
 - `config/production/hugo.toml` — the production environment: `disableLanguages = ["os"]`, so the Repsy Open Source
   site is not built or published until it launches.
 - `layouts/` — site-level layout, partial and shortcode overrides.

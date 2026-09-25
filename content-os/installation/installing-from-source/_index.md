@@ -159,5 +159,5 @@ its environment variables in a file that only its user can read: they contain pa
 
 To move to a newer release, fetch its tag, update the submodule, and repeat the build steps. Then replace `app.jar` and
 the `static` directory in your run directory and restart Repsy. Take a backup of the database and of the storage
-directory before you start a new release: database migrations only go forward. The Administration section describes
-upgrades in detail.
+directory before you start a new release: database migrations only go forward.
+[Upgrading Repsy Open Source](../../administration/upgrading-repsy-open-source/) describes upgrades in detail.

@@ -32,6 +32,8 @@ Repsy does not implement the `tags/list` call of the registry API, so clients su
 2. Open an image to see its tags, each with its platform and the time it was last updated. You can search the tags and sort them.
 3. Open a tag to see the manifests behind it (several for a multi-platform tag), and the tag detail to see the manifest, the config and the `docker pull` command.
 
+{{< figure src="os/docker/pushing-a-docker-image/image-list.png" alt="The list of Docker images in a repository." caption="The images of a Docker repository: one row for each image, with the digest of its most recently moved tag, when it was last updated and its size." >}}
+
 ### An Image Without Tags
 
 Deleting the last tag of an image does not delete the image, because the manifest that the tag pointed at is still stored and can be pulled by its digest. The image stays in the list with a **No tags** label, the number of untagged manifests it still stores, and their size. Its page says that the image has no tags and offers **Delete Untagged Manifests** and **Delete Image**. The same happens to an image whose tags were all overridden or deleted, but whose older manifests are still there.

@@ -6,7 +6,8 @@ weight = 112
 # Quick Start
 
 This page gets Repsy Open Source running on your machine with one Docker command, and publishes a first package to it.
-It uses the embedded H2 database, which is meant for trying Repsy out. You need [Docker](https://docs.docker.com/get-docker/)
+It uses the embedded H2 database, which is meant for trying Repsy out; for a long-lived instance, see
+[Installation](../../installation/). You need [Docker](https://docs.docker.com/get-docker/)
 and the free ports 8080 and 9090.
 
 {{< steps >}}

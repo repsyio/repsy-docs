@@ -44,4 +44,6 @@ Open the repository in the web UI and click **Configure** to see a `.pypirc` sni
 Use a deploy token in CI jobs and whenever you give somebody access to one repository only. A **Read Only** token is enough to install, and publishing needs **Read/Write**. You need the `ADMIN` role to create deploy tokens. See [Creating a Deploy Token](../../getting-started/creating-a-deploy-token/).
 {{< /steps >}}
 
+{{< figure src="os/pypi/publishing-a-pypi-package/configure-dialog.png" alt="The Pypi Configuration dialog with a .pypirc snippet and the command that stores the password with keyring." caption="The **Configure** dialog of a PyPI repository with the `.pypirc` snippet. Your instance shows its own address instead of the demo address `repsy.example.com`." >}}
+
 You can now publish to and install from your repository: see [Publishing a PyPI Package](../publishing-a-pypi-package/) and [Installing a PyPI Package](../installing-a-pypi-package/), or the tutorials for [twine](../publishing-a-python-package-with-twine/) and [pip](../installing-python-packages-with-pip/).

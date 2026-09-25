@@ -43,4 +43,6 @@ npm authenticates with one of these:
 Use a deploy token in CI jobs and whenever you give somebody access to one registry only. You need the `ADMIN` role to create deploy tokens, see [Creating a Deploy Token](../../getting-started/creating-a-deploy-token/).
 {{< /steps >}}
 
+{{< figure src="os/npm/publishing-an-npm-package/configure-dialog.png" alt="The NPM Configuration dialog with the npm login command and the npm config commands that set the registry." caption="The **Configure** dialog of an npm repository with the login command and the commands that set the registry. Your instance shows its own address instead of the demo address `repsy.example.com`." >}}
+
 You can now publish to and install from your registry: see [Creating and Publishing an npm Package](../publishing-an-npm-package/) and [Installing an npm Package from Registry](../installing-an-npm-package/).

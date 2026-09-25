@@ -10,6 +10,8 @@ first administrator account, it also creates one private repository for each pac
 `maven`, `npm`, `pypi`, `docker`, `cargo`, `go`, `helm`, `nuget` and `ruby`. You can use them right away, or create new
 ones based on your workflow.
 
+{{< figure src="os/getting-started/creating-your-first-repository/repository-list-fresh.png" alt="The repository list of a new Repsy instance with its nine default repositories." caption="The repositories of a new instance: one private repository for each package format." >}}
+
 Creating a repository needs the `ADMIN` role. Users with the `USER` role can use the repositories but not create them.
 
 After you sign in, you arrive on the dashboard. Here you can:
@@ -18,6 +20,8 @@ After you sign in, you arrive on the dashboard. Here you can:
 - See how many repositories of each package format exist
 - Check recent activity: the newest repositories
 - Quickly create a new repository using the button at the top
+
+{{< figure src="os/getting-started/creating-your-first-repository/create-repository-filled.png" alt="The Create Repository dialog filled in with the type Maven, the name my-first-repo and a description." caption="The **Create Repository** dialog, filled in and ready for **Create**." >}}
 
 {{< steps >}}
 ### Open the Create Repository dialog
@@ -66,9 +70,12 @@ From here you can:
 
 A new repository is private. It accepts uploading a version that already exists again, except for Cargo and Go, which never
 overwrite a version. A Maven repository accepts both snapshots and releases. You change these settings later, as an
-administrator, in the repository settings. See [Navigating the Web UI](../navigating-the-web-ui/).
+administrator, in the repository settings. See [Configuring Repository Settings](../../repositories/configuring-repository-settings/)
+and [Navigating the Web UI](../navigating-the-web-ui/).
 
 # Next Steps
 
 - Create a [deploy token](../creating-a-deploy-token/) so that a CI job can use the repository without a user account.
 - Read [Ports and Repository URLs](../ports-and-repository-urls/) to see how your build tools address the repository.
+- Follow the tutorial of your package format to publish the first package: [Docker](../../docker/), [Maven](../../maven/),
+  [npm](../../npm/), [PyPI](../../pypi/), [Helm](../../helm/) or [Cargo](../../cargo/).

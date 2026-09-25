@@ -91,6 +91,8 @@ You can change a repository’s visibility at any time. This needs the `ADMIN` r
 - Click **Settings**
 - In the **Visibility** section, switch the toggle between **Private** and **Public**. There is nothing to save: the
   change takes effect as soon as you flip the switch.
+
+See [Configuring Repository Settings](../../repositories/configuring-repository-settings/#visibility) for the details.
 {{< /product >}}
 
 Changes apply immediately, and you can switch back anytime.

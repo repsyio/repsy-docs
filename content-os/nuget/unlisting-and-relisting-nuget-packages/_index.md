@@ -68,8 +68,8 @@ The address has the id of the package in lower case and the version in its norma
 | Goal | Use | Effect |
 | --- | --- | --- |
 | Steer new projects away from a version, and keep old ones working | Unlisting | The version stays and can be restored by its exact version. It comes back with a relist. |
-| Remove a version for good | Delete the version in the web UI. You need the `ADMIN` role. | The version is gone for every client. Deleting the last version of a package removes the package. |
-| Stop a kind of version from being pushed | The **Version Allowance** setting of the repository: **all packages**, only **pre-release** versions or only **stable** versions | Applies to pushes from then on. Versions that are already in the repository stay, listed or not, and can still be restored. |
+| Remove a version for good | Delete the version in the web UI, see [Browsing and Deleting Packages](../../repositories/browsing-and-deleting-packages/). You need the `ADMIN` role. | The version is gone for every client. Deleting the last version of a package removes the package. |
+| Stop a kind of version from being pushed | The **Version Allowance** setting of the repository, see [Configuring Repository Settings](../../repositories/configuring-repository-settings/#version-allowance): **all packages**, only **pre-release** versions or only **stable** versions | Applies to pushes from then on. Versions that are already in the repository stay, listed or not, and can still be restored. |
 
 **Version Allowance** looks at the kind of version only, not at whether it is listed. A pre-release version is one with a hyphen in its version, such as `1.0.0-rc.1`. See [Rules Repsy Applies to a Push](../publishing-and-restoring-nuget-packages-with-the-dotnet-cli/#rules-repsy-applies-to-a-push).
 

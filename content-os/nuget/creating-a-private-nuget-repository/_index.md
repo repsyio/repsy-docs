@@ -51,7 +51,7 @@ Two settings in the **Settings** of the repository change what a push does, and 
 - **Package Override** decides whether a version that already exists can be pushed again. It is **Allow** for a new repository.
 - **Version Allowance** decides which versions the repository takes: **all packages** (the default), only **pre-release** versions or only **stable** versions. A pre-release version is one with a label after a hyphen, such as `1.0.0-beta.1`.
 
-See [Publishing and Restoring NuGet Packages with the dotnet CLI](../publishing-and-restoring-nuget-packages-with-the-dotnet-cli/#rules-repsy-applies-to-a-push) for what a refused push looks like.
+See [Configuring Repository Settings](../../repositories/configuring-repository-settings/) for all the settings, and [Publishing and Restoring NuGet Packages with the dotnet CLI](../publishing-and-restoring-nuget-packages-with-the-dotnet-cli/#rules-repsy-applies-to-a-push) for what a refused push looks like.
 {{< /steps >}}
 
 ### The Configure Dialog

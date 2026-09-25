@@ -3,14 +3,16 @@ title = "Creating a Private Helm Registry"
 weight = 91
 +++
 
-Before creating a registry, you need to [register to Repsy](https://repsy.io) with a username, password, and e-mail. When you register, Repsy will create a `default` registry for you.
+Before creating a registry, you need to {{< product "cloud" >}}[register to Repsy](https://repsy.io) with a username, password, and e-mail. When you register, Repsy will create a `default` registry for you.{{< /product >}}{{< product "os" >}}have access to your Repsy OS instance.{{< /product >}}
 In the Helm section, you can create new registries and change the settings for existing ones whenever you need.
 
 {{< steps >}}
 
+{{< product "cloud" >}}
 ### Sign up or log in
 
 Go to [repsy.io](https://repsy.io) and create an account, or log in if you already have one.
+{{< /product >}}
 
 ### Create a Helm repository
 
@@ -22,12 +24,12 @@ Once the repository is created, you will see two endpoint URLs that you can use 
 
 **Classic (ChartMuseum-compatible)**
 ```
-https://repo.repsy.io/helm/<username>/<repo-name>
+{{% repo-url path="helm" %}}/<repo-name>
 ```
 
 **OCI registry**
 ```
-oci://repo.repsy.io/helm/<username>/<repo-name>
+oci://{{% repo-url path="helm" scheme="false" %}}/<repo-name>
 ```
 
 Replace `<username>` and `<repo-name>` with your Repsy username and the name you chose for the repository.

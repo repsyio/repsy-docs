@@ -51,6 +51,16 @@ Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the ex
 - Use the theme's shortcodes and the ones in `layouts/shortcodes/` instead of raw HTML where possible.
 - Keep claims about the hosted service (pricing, limits, permissions) out of the docs pages; point to the
   pricing page instead.
+- Shortcodes for pages that are shared between Repsy Cloud and Repsy OS (see `layouts/shortcodes/` for the details):
+  - Write the account part of a repository URL as `<username>` (never `{MY_REPSY_USERNAME}` or similar), and
+    build repository URLs with `{{% repo-url %}}` (Cloud `https://repo.repsy.io/<username>`, OS
+    `https://<your-repsy-host>`) instead of typing `repo.repsy.io`. It takes the optional named parameters
+    `path="helm"`, `scheme="false"` and `account="false"`. Use the `%` notation, and put the shortcode in a code
+    span or code block, because `<username>` is only shown literally there.
+  - Wrap text that differs per product in `{{< product "cloud" >}}...{{< /product >}}` or
+    `{{< product "os" >}}...{{< /product >}}`; the content is Markdown and is only rendered for that product.
+    Use it for wording such as registering at repsy.io, which does not apply to Repsy OS.
+  - The exact URL format of Repsy OS is not confirmed per protocol yet; do not invent one in the docs.
 - Follow `.editorconfig`: UTF-8, 2-space indentation, final newline. Line length is unrestricted in Markdown.
 
 ## Git workflow

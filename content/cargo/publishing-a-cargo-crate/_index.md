@@ -3,7 +3,7 @@ title = "Publishing a Cargo Crate"
 weight = 72
 +++
 
-You have registered and created a registry on [Repsy](https://repsy.io/). You are now ready to publish crates to your registry.
+{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy OS instance.{{< /product >}} You are now ready to publish crates to your registry.
 
 {{< steps >}}
 ### Create a Rust crate
@@ -24,7 +24,7 @@ Create or update `$HOME/.cargo/config.toml` in your project as follows:
 
 ```toml
 [registries.repsy]
-index = "sparse+https://repo.repsy.io/<username>/<registryName>/"
+index = "sparse+{{% repo-url %}}/<registryName>/"
 
 [registry]
 global-credential-providers = ["cargo:token"]

@@ -3,7 +3,7 @@ title = "Publishing a Helm Chart"
 weight = 92
 +++
 
-You have registered and created a repository on [Repsy](https://repsy.io). You are now ready to publish Helm charts to your registry.
+{{< product "cloud" >}}You have registered and created a repository on [Repsy](https://repsy.io).{{< /product >}}{{< product "os" >}}You have created a repository on your Repsy OS instance.{{< /product >}} You are now ready to publish Helm charts to your registry.
 
 Repsy supports two protocols for publishing charts. Use the **Classic** protocol if you work with the `helm cm-push` plugin, or the **OCI** protocol if you prefer the native `helm push` command available in Helm 3.8+.
 
@@ -32,7 +32,7 @@ helm package ./my-chart
 Register your Repsy repository as a named Helm repository so the plugin knows where to push:
 
 ```bash
-helm repo add <repo-name> https://repo.repsy.io/helm/<username>/<repo-name> \
+helm repo add <repo-name> {{% repo-url path="helm" %}}/<repo-name> \
   --username <username> \
   --password <password-or-token>
 ```
@@ -60,7 +60,7 @@ If the upload is successful, the chart will be available in your Repsy repositor
 Authenticate with the Repsy container registry endpoint using the `helm registry login` command:
 
 ```bash
-helm registry login repo.repsy.io \
+helm registry login {{% repo-url scheme="false" account="false" %}} \
   --username <username> \
   --password <password-or-token>
 ```
@@ -81,7 +81,7 @@ Push the packaged archive to your Repsy OCI repository:
 
 ```bash
 helm push my-chart-1.0.0.tgz \
-  oci://repo.repsy.io/helm/<username>/<repo-name>
+  oci://{{% repo-url path="helm" scheme="false" %}}/<repo-name>
 ```
 
 Congratulations, you have published a Helm chart to your registry! You can now install it into any Kubernetes cluster.

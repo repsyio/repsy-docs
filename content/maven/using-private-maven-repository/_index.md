@@ -3,7 +3,7 @@ title = "Using a Private Maven Repository"
 weight = 32
 +++
 
-Congratulations, your [Repsy](https://repsy.io) account has been successfully created! You currently have your own `default` Maven repository.
+{{< product "cloud" >}}Congratulations, your [Repsy](https://repsy.io) account has been successfully created! You currently have your own `default` Maven repository.{{< /product >}}{{< product "os" >}}Before you continue, make sure you have a Maven repository on your Repsy OS instance.{{< /product >}}
 
 It is now time to use this repository in your projects. Instead of inserting the credentials of your private repository to each of your Maven projects, you may create a global Maven settings file which includes your credentials  and is automatically used by all of your projects. 
 
@@ -60,7 +60,7 @@ You can now save and close the settings file.
 
 ### Deploying your Java library to Private Maven Repository
 
-If you consider deploying your Java library to your private Maven repository,  you should first define a distribution repository in your `pom.xml` file as seen in the following example. In order to adapt the following content to your needs,  please modify the *{MY REPSY USERNAME}* and *{MY REPOSITORY NAME}* fields in the repository URL to match your project.
+If you consider deploying your Java library to your private Maven repository,  you should first define a distribution repository in your `pom.xml` file as seen in the following example. In order to adapt the following content to your needs,  please modify the *&lt;username&gt;* and *{MY REPOSITORY NAME}* fields in the repository URL to match your project.
 
 ```xml
 <project>
@@ -77,7 +77,7 @@ If you consider deploying your Java library to your private Maven repository,  y
     <repository>
       <id>repsy</id>
       <name>My Private Maven Repository on Repsy</name>
-      <url>https://repo.repsy.io/{MY REPSY USERNAME}/{MY REPOSITORY NAME}</url>
+      <url>{{% repo-url %}}/{MY REPOSITORY NAME}</url>
     </repository>
 
     <!-- ... Some other Distribution repository definitions -->
@@ -101,7 +101,7 @@ You can find a deployment example in [GitHub](https://github.com/repsyio/example
 
 ### Using your Java library from your Private Maven Repository
 
-You have deployed your Java library and now want to use it in your Java projects. First, you need to add a repository section in your `pom.xml` file, similar to distribution repository. Please do not forget to modify the *{MY REPSY USERNAME}* and *{MY REPOSITORY NAME}* fields in the repository URL to match your project.
+You have deployed your Java library and now want to use it in your Java projects. First, you need to add a repository section in your `pom.xml` file, similar to distribution repository. Please do not forget to modify the *&lt;username&gt;* and *{MY REPOSITORY NAME}* fields in the repository URL to match your project.
 
 ```xml
 <project>
@@ -113,7 +113,7 @@ You have deployed your Java library and now want to use it in your Java projects
     <repository>
       <id>repsy</id>
       <name>My Private Maven Repository on Repsy</name>
-      <url>https://repo.repsy.io/{MY REPSY USERNAME}/{MY REPOSITORY NAME}</url>
+      <url>{{% repo-url %}}/{MY REPOSITORY NAME}</url>
     </repository>
 
     <!-- ... some other repository definitions -->

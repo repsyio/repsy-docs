@@ -16,7 +16,7 @@ Repsy supports two protocols for installing charts. Choose the one that matches 
 Register your Repsy Helm repository as a named source and update the local index:
 
 ```bash
-helm repo add <repo-name> https://repo.repsy.io/helm/<username>/<repo-name> \
+helm repo add <repo-name> {{% repo-url path="helm" %}}/<repo-name> \
   --username <username> \
   --password <password-or-token>
 helm repo update
@@ -53,7 +53,7 @@ That is all! If you have completed all required steps as described, Helm will do
 Authenticate with the Repsy container registry endpoint:
 
 ```bash
-helm registry login repo.repsy.io \
+helm registry login {{% repo-url scheme="false" account="false" %}} \
   --username <username> \
   --password <password-or-token>
 ```
@@ -65,7 +65,7 @@ Authentication is only required for private repositories. Omit the credentials f
 Download a specific chart version from your OCI repository:
 
 ```bash
-helm pull oci://repo.repsy.io/helm/<username>/<repo-name>/<chart-name> \
+helm pull oci://{{% repo-url path="helm" scheme="false" %}}/<repo-name>/<chart-name> \
   --version <version>
 ```
 
@@ -75,7 +75,7 @@ Install directly from the OCI reference without pulling first:
 
 ```bash
 helm install <release-name> \
-  oci://repo.repsy.io/helm/<username>/<repo-name>/<chart-name> \
+  oci://{{% repo-url path="helm" scheme="false" %}}/<repo-name>/<chart-name> \
   --version <version>
 ```
 

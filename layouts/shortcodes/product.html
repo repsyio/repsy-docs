@@ -1,0 +1,23 @@
+{{- /*
+  Shows its content only when the current page is rendered for the given product, "cloud" (Repsy Cloud)
+  or "os" (Repsy OS), so that a page shared between both can differ where the products differ:
+
+    {{< product "cloud" >}}Register at [Repsy](https://repsy.io).{{< /product >}}
+    {{< product "os" >}}Ask your administrator for access.{{< /product >}}
+
+  The content is Markdown. A single line renders inline, so the block can sit inside a sentence; several
+  lines render as blocks (paragraphs, lists, code blocks).
+*/ -}}
+{{- $wanted := .Get 0 -}}
+{{- if not (in (slice "cloud" "os") $wanted) -}}
+  {{- errorf "product shortcode: expected \"cloud\" or \"os\", got %q (%s)" $wanted .Position -}}
+{{- end -}}
+{{- if eq .Page.Site.Params.product $wanted -}}
+  {{- $markdown := trim .Inner "\r\n\t " -}}
+  {{- if and .Parent (eq .Parent.Name "steps") -}}
+    {{- /* `steps` renders its content with markdownify, which drops the HTML of a nested shortcode, so pass the Markdown on. */ -}}
+    {{- $markdown | safeHTML -}}
+  {{- else -}}
+    {{- .Page.RenderString (dict "display" (cond (strings.Contains $markdown "\n") "block" "inline")) $markdown -}}
+  {{- end -}}
+{{- end -}}

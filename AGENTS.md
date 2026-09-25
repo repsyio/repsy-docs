@@ -83,6 +83,7 @@ Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the ex
   Use the `weight` value to order sections and pages. Every `weight` in `content/` is globally unique, in blocks
   of 100 per section (getting-started 100-140, docker 200+, maven 300+, and so on; 10 x the original numbering).
   Repsy Open Source-only sections use the gap 150-199.
+- Headings: one H1 per page (the `# Title` after the front matter), sections as `##`, sub-sections as `###`. Inside a `{{< steps >}}` block every step is a `###` heading, which the CSS numbers. Repsy Open Source pages that follow this order get matching heading styles in `static/css/theme-repsy.css`.
 - Placeholders (write them the same way on every page):
   - Use `<lower-kebab-case>` in angle brackets for values the reader replaces: `<username>`, `<password>`,
     `<password-or-token>`, `<repo-name>` (the name of the repository or registry), `<package-name>`, `<image-name>`,

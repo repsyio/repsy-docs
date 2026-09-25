@@ -24,7 +24,7 @@ Values have these forms:
 
 - **Booleans** are `true` or `false`.
 - **Durations** are ISO-8601: `PT30S` is 30 seconds, `PT15M` 15 minutes, `PT24H` 24 hours and `P7D` seven days.
-- **Sizes** are a number with a unit, such as `100MB` or `1GB`.
+- **Sizes** are a number with a unit, such as `100MB` or `1GB`. The units are binary, as in Spring's `DataSize`: `MB` means MiB (1,048,576 bytes) and `GB` means GiB (1,073,741,824 bytes), so `500MB` is 500 MiB, that is 524,288,000 bytes.
 
 A variable that you do not set keeps the default in the tables below. Where the Docker image differs from a build from
 source, the table says so.
@@ -178,7 +178,7 @@ see [Running Behind a Reverse Proxy](../../administration/running-behind-a-rever
 | `MULTIPART_MAX_REQUEST_SIZE` | `500MB` | PyPI, Helm (classic upload) and NuGet | The largest size of the whole multipart request. Keep it at least as large as `MULTIPART_MAX_FILE_SIZE`. |
 | `RUBY_MAX_GEM_SIZE` | `500MB` | Ruby | The largest gem that `gem push` may send. |
 | `CARGO_MAX_CRATE_SIZE` | `100MB` | Cargo | The largest `.crate` file that `cargo publish` may send. |
-| `GO_MAX_MODULE_ZIP_SIZE` | `500MB` | Go | The largest module zip that may be published. The default equals the limit of the `go` tool for a module zip. |
+| `GO_MAX_MODULE_ZIP_SIZE` | `500MB` | Go | The largest module zip that may be published. The default `500MB` is 500 MiB (524,288,000 bytes) and equals the limit of the `go` tool for a module zip. A zip of 501,000,000 bytes is accepted, one of 525,000,000 bytes is refused with `413`. |
 
 Repsy copies an upload into a temporary file while it checks it, instead of holding it in memory. Keep the temporary
 directory of Java (`java.io.tmpdir`) on a disk that has room for the largest package you allow.

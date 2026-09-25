@@ -146,7 +146,7 @@ All durations are ISO-8601 durations: `PT15M` is fifteen minutes, `PT24H` is twe
 ## Upload size limits
 
 Some protocols have a size limit for a single upload. A larger upload is refused with `413` and the message "The uploaded
-content is too large." Each limit is a variable that accepts a size such as `100MB` or `1GB`:
+content is too large." Each limit is a variable that accepts a size such as `100MB` or `1GB`. The units are binary, so `MB` means MiB and `GB` means GiB:
 
 | Variable | Default | Applies to |
 | --- | --- | --- |
@@ -154,7 +154,7 @@ content is too large." Each limit is a variable that accepts a size such as `100
 | `MULTIPART_MAX_REQUEST_SIZE` | `500MB` | The whole request of those uploads. Keep it at least as large as `MULTIPART_MAX_FILE_SIZE`. |
 | `RUBY_MAX_GEM_SIZE` | `500MB` | A gem pushed with `gem push`. |
 | `CARGO_MAX_CRATE_SIZE` | `100MB` | A crate published with `cargo publish`. |
-| `GO_MAX_MODULE_ZIP_SIZE` | `500MB` | The module zip that a `go` client publishes. |
+| `GO_MAX_MODULE_ZIP_SIZE` | `500MB` | The module zip that a `go` client publishes. The default is 500 MiB (524,288,000 bytes): a zip of 501,000,000 bytes is accepted, one of 525,000,000 bytes is refused with `413`. |
 
 Repsy has no size setting for the other formats, such as Maven, npm and Docker layers. A reverse proxy in front of Repsy
 can have its own limit, see [Running Behind a Reverse Proxy](../running-behind-a-reverse-proxy/#large-uploads).

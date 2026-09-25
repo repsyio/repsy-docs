@@ -22,7 +22,7 @@ It hosts packages in these formats, all from one instance:
 - NuGet
 - Ruby
 
-# Key Features
+## Key Features
 
 1. **Multi-format support**  
    Every package format has its own kind of repository, and you can create as many repositories of each kind as you need.
@@ -57,7 +57,7 @@ It hosts packages in these formats, all from one instance:
    service. Scanning is switched off by default and adds no requirement to a plain installation.
 
 
-# Good to Know
+## Good to Know
 
 - There is no self-service sign-up. The first administrator account is created when Repsy starts for the first time,
   and administrators create every other account.
@@ -67,7 +67,7 @@ It hosts packages in these formats, all from one instance:
   accounts, to give someone access to just one repository.
 
 
-# Where to Go Next
+## Where to Go Next
 
 - [Quick Start](../quick-start/): run Repsy Open Source with Docker and publish your first package.
 - [Ports and Repository URLs](../ports-and-repository-urls/): which port serves what, and how the address of a repository

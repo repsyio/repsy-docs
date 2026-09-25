@@ -67,14 +67,14 @@ From here you can:
 - Create another repository at any time with **Create Repository**
 {{< /steps >}}
 
-# Defaults of a New Repository
+## Defaults of a New Repository
 
 A new repository is private. It accepts uploading a version that already exists again, except for Cargo and Go, which never
 overwrite a version. A Maven repository accepts both snapshots and releases. You change these settings later, as an
 administrator, in the repository settings. See [Configuring Repository Settings](../../repositories/configuring-repository-settings/)
 and [Navigating the Web UI](../navigating-the-web-ui/).
 
-# Next Steps
+## Next Steps
 
 - Create a [deploy token](../creating-a-deploy-token/) so that a CI job can use the repository without a user account.
 - Read [Ports and Repository URLs](../ports-and-repository-urls/) to see how your build tools address the repository.

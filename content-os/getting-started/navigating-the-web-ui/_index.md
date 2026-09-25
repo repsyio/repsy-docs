@@ -9,7 +9,7 @@ description = "Tour the web UI: sign-in, layout, the dashboard, repository, user
 The web UI is where you browse and manage your repositories. It is served on port `8080`, for example at
 `http://localhost:8080`. This page describes the layout, every page of the web UI, and what each role can do there.
 
-# Signing In
+## Signing In
 
 The web UI always asks for a sign-in, also for public repositories. If you are not signed in, opening any page shows the
 login form, and after you sign in you land on the page you asked for. Sign in with the username and password of a user
@@ -19,14 +19,14 @@ Your session is renewed in the background while you work. When it ends, you are 
 
 To sign out, use **Log out** in the sidebar or in the menu behind your avatar.
 
-# Layout
+## Layout
 
 - **Header.** The Repsy logo takes you to the dashboard. Next to it are a link to the documentation and your avatar, which
   opens a menu with **Profile**, **Docs** and **Log out**.
 - **Sidebar.** **Dashboard** and **Repositories** for everyone. Administrators also see **Users** and **Security**. **Log
   out** is at the bottom. On a narrow screen, the sidebar opens with the menu button in the header.
 
-# Pages
+## Pages
 
 | Page | Address | Who can open it |
 | --- | --- | --- |
@@ -41,7 +41,7 @@ To sign out, use **Log out** in the sidebar or in the menu behind your avatar.
 Every repository is opened by its name at the top level of the address, which is why some names are reserved when you
 create a repository. See [Creating Your First Repository](../creating-your-first-repository/).
 
-## Dashboard
+### Dashboard
 
 The dashboard is the first page after you sign in. It shows:
 
@@ -56,7 +56,7 @@ The dashboard is the first page after you sign in. It shows:
 
 {{< figure src="os/getting-started/web-ui-tour/dashboard.png" alt="The Repsy dashboard showing the disk usage, the security overview, the number of repositories per format and the recent activity." caption="The dashboard of a demo instance, signed in as `admin`." >}}
 
-## Repositories
+### Repositories
 
 The list of all repositories with their name, package format, visibility, creation date and size. Use the search box to
 find a repository by name and the selector to show one package format, and refresh the list with the refresh button. The list
@@ -67,7 +67,7 @@ shows ten repositories per page, newest first.
 Click a repository to open it. Administrators also get **Create Repository** and a menu (⋮) on every row with **Settings**
 and **Delete**. See [Creating Your First Repository](../creating-your-first-repository/).
 
-## A Repository
+### A Repository
 
 A repository opens on the list of what it contains: artifacts, packages, images, crates, modules, charts or gems,
 depending on the package format. From there you can:
@@ -83,7 +83,7 @@ depending on the package format. From there you can:
 Administrators can also delete packages and versions here. See
 [Browsing and Deleting Packages](../../repositories/browsing-and-deleting-packages/).
 
-## Repository Settings
+### Repository Settings
 
 Administrators reach the settings of a repository from the repository list, or with the **Settings** button of the
 repository. The page has these sections:
@@ -104,24 +104,24 @@ repository. The page has these sections:
 Visibility, Package Override and Version Allowance apply the moment you change them. There is no Save button for them.
 [Configuring Repository Settings](../../repositories/configuring-repository-settings/) explains every section.
 
-## Users
+### Users
 
 Administrators manage the user accounts here: create a user and pick the `ADMIN` or `USER` role, rename a user, change the
 role, reset a password and delete a user. The list shows each user's role, creation date and last login, and can be searched
 by username. See [Managing Users](../../administration/managing-users/).
 
-## Security
+### Security
 
 Administrators see the results of vulnerability scans across all repositories: a chart of the severity distribution and the
 list of scans, which you can filter by severity, package format and repository name. Scanning is optional and has to be set
 up on your instance, so the page stays empty until then. Scanning covers Maven, npm, PyPI and Docker repositories.
 
-## Profile
+### Profile
 
 Every user can change their own password and username, or delete their own account here. See
 [Managing Your Account](../managing-your-account/).
 
-# What Each Role Can Do
+## What Each Role Can Do
 
 There are two roles. The `USER` role can read and publish in every repository; the `ADMIN` role can also manage. See
 [Understanding Public vs Private](../understanding-public-vs-private/) for the rules.

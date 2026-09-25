@@ -78,7 +78,7 @@ For the other package formats, open a repository in the web UI and click **Confi
 configuration files for that format, filled in with the address of your repository.
 {{< /steps >}}
 
-# Stop or Remove Repsy
+## Stop or Remove Repsy
 
 `docker stop repsy` stops the container and `docker start repsy` starts it again with its data. To start over from
 scratch, remove the container and the volume:

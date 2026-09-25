@@ -1368,3 +1368,54 @@ dialog.figure-zoom::backdrop {
 .layout-container main table:not(.hljs-ln) td:not(:first-child) code {
   overflow-wrap: anywhere;
 }
+
+/* ==========================================================================
+   Headings in page content (Repsy Open Source)
+
+   A page has one H1, its title; the sections are H2 and their sub-sections
+   H3. The base rules above give H1 and H3 the large title style and H2 the
+   small one, which suits the older pages (title H1, sections H3, sub-sections
+   H2) and would turn this hierarchy upside down. A page that follows the H2
+   sections / H3 sub-sections order (its first H2 comes before any H3 of the
+   page) therefore swaps the two styles. The H3 headings inside a `steps`
+   block are not direct children of the article, so the numbered steps keep
+   the large H3 style. Scoped to Repsy Open Source (the header badge is only
+   rendered there) so that Repsy Cloud pages look as before.
+   ========================================================================== */
+
+body:has(.product-badge) .layout-container main > div:has(> h2:not(h3 ~ h2)) > h2 {
+  font: var(--font-title-20-bold);
+  margin-top: 40px;
+}
+
+body:has(.product-badge) .layout-container main > div:has(> h2:not(h3 ~ h2)) > h3 {
+  font: var(--font-body-medium);
+  margin-top: 20px;
+}
+
+/* ==========================================================================
+   Links in list items and long inline code
+
+   Links in lists look like links in paragraphs and in tables. Scoped to the
+   article, so the sidebar, the menu and the header keep their own styles.
+   ========================================================================== */
+
+.layout-container main li a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.layout-container main li a:hover {
+  color: var(--color-brand-500);
+}
+
+/* Inline code stays in one piece where it fits, but a long value (a URL, a
+   JDBC string, a file path) wraps inside its own box instead of pushing the
+   article wider than the screen. */
+.layout-container main p > code,
+.layout-container main li > code,
+.layout-container main span > code {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

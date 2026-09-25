@@ -1,5 +1,5 @@
 <nav class="breadcrumbs">
-  <a href="{{ .Site.Home.RelPermalink }}">{{ if eq .Site.Params.product "os" }}Repsy OS docs{{ else }}Docs{{ end }}</a>
+  <a href="{{ .Site.Home.RelPermalink }}">{{ if eq .Site.Params.product "os" }}{{ .Site.Language.LanguageName }} docs{{ else }}Docs{{ end }}</a>
 
   {{ $sections := slice }}
   {{ $currentSection := .CurrentSection }}

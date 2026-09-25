@@ -5,7 +5,8 @@ theme = "hugo-theme-learn"
 repo = "https://github.com/matcornic/hugo-theme-learn"
 
 # Products are modelled as Hugo languages: `en` is Repsy Cloud (served at the root) and `os` is
-# Repsy OS (served under /os/). See AGENTS.md for the content layout.
+# Repsy Open Source (served under /os/; the keys `os` and `product = "os"` are internal and stay).
+# See AGENTS.md for the content layout and the rules for templates.
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 
@@ -24,12 +25,19 @@ home = ["HTML", "RSS", "JSON"]
     weight = 1
     [languages.en.params]
       product = "cloud"
+      shortName = "Cloud"
   [languages.os]
-    languageName = "Repsy OS"
+    languageName = "Repsy Open Source"
     languageCode = "en-us"
     weight = 2
     [languages.os.params]
       product = "os"
+      shortName = "Open Source"
+      # Header badge label on narrow screens, where "Open Source" does not fit next to the logo.
+      compactName = "OSS"
+      # The Repsy Open Source release the docs are written for, e.g. "26.10.0". Empty until the release is
+      # known: while it is empty nothing is shown (header badge, home page) and `{{< os-version >}}` renders nothing.
+      version = ""
 
 # content/ is Cloud only, content-os/ is Repsy OS only, shared/ is mounted into both languages.
 [module]

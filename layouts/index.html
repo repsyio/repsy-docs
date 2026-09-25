@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {{- /* Only when Repsy OS is built: readers who last read the Repsy OS docs are sent to its home page (static/js/product.js); everyone else follows the redirect below. */ -}}
+  {{- /* Only when Repsy Open Source is built: readers who last read the Repsy Open Source docs are sent to its home page (static/js/product.js); everyone else follows the redirect below. */ -}}
   {{- range .Sites }}{{ if and (gt (len $.Sites) 1) (eq .Params.product "os") }}
   <script src="{{ "js/product.js" | relURL }}" data-os-home="{{ .Home.RelPermalink }}"></script>
   {{- end }}{{ end }}

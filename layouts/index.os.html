@@ -1,4 +1,7 @@
-{{- /* Repsy OS home page. Cloud's layouts/index.html redirects to its first page; OS has no first page yet, so it renders its own _index.md. */ -}}
+{{- /* Repsy Open Source home page. Cloud's layouts/index.html redirects to its first page; Open Source has no first page yet, so it renders its own _index.md. The release the docs are written for (`version` param) is shown only when it is set. */ -}}
 {{ define "main" }}
 {{ .Content }}
+{{ with .Site.Params.version }}
+<p class="os-version">These docs are written for {{ $.Site.Language.LanguageName }} {{ . }}.</p>
+{{ end }}
 {{ end }}

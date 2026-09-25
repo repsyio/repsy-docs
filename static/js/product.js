@@ -1,11 +1,11 @@
 /*
- * Repsy Cloud / Repsy OS product handling. Loaded only on sites that build more than one product
- * (never in production while Repsy OS is disabled). It has no dependencies and every browser API
+ * Repsy Cloud / Repsy Open Source product handling. Loaded only on sites that build more than one product
+ * (never in production while Repsy Open Source is disabled). It has no dependencies and every browser API
  * that can fail (localStorage) is wrapped, so the docs work without it.
  *
  * - Stores the product of the page being read in localStorage ("cloud" or "os") on every page view
  *   and when the switcher is used.
- * - On the site root (data-os-home on the script tag) sends readers who last read Repsy OS to its home page.
+ * - On the site root (data-os-home on the script tag) sends readers who last read Repsy Open Source to its home page.
  * - On other pages shows a dismissible banner when the stored product differs from the page's product.
  *   Deep links are never redirected.
  * - Closes the product switcher menu on Escape and on outside click, and opens it from the header badge.
@@ -74,7 +74,7 @@
       }
     });
 
-    // The "· OS" badge in the header: open the drawer on small screens and the product menu.
+    // The "· Open Source" badge in the header: open the drawer on small screens and the product menu.
     window.openProductSwitcher = function () {
       var sidebar = document.getElementById('sidebar');
       if (sidebar) {

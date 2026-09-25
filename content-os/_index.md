@@ -1,9 +1,9 @@
 +++
-title = "Repsy OS"
+title = "Repsy Open Source"
 chapter = true
 weight = 1
 +++
 
-# Repsy OS
+# Repsy Open Source
 
-This is the documentation of Repsy OS. It is a work in progress and will be extended soon.
+This is the documentation of Repsy Open Source, the self-hosted edition of Repsy. It is a work in progress and will be extended soon.

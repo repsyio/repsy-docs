@@ -1,0 +1,3 @@
+# The Repsy OS site is not published yet: build only the Cloud site in production.
+# Use `--environment staging` (or `hugo server`) to include it.
+disableLanguages = ["os"]

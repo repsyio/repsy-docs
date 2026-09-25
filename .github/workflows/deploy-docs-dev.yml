@@ -20,7 +20,7 @@ jobs:
         uses: ./.github/actions/setup-hugo-site
 
       - name: Build
-        run: hugo --minify
+        run: hugo --minify --environment staging
 
       - name: Deploy to Cloudflare Pages
         env:

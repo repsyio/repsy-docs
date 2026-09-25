@@ -7,6 +7,12 @@ weight = 920
 
 Repsy supports two protocols for publishing charts. Use the **Classic** protocol if you work with the `helm cm-push` plugin, or the **OCI** protocol if you prefer the native `helm push` command available in Helm 3.8+.
 
+{{< product "os" >}}
+Both protocols serve the same repository and use the same address on your instance: `{{% repo-url path="helm" %}}/<repo-name>` for the classic protocol and `oci://{{% repo-url path="helm" scheme="false" %}}/<repo-name>` for OCI. There is no username in the address, and `https://<your-repsy-host>` stands for the address of the package protocol port of your instance, for example `http://localhost:9090` for a local start, see [Ports and Repository URLs](../../getting-started/ports-and-repository-urls/). Publishing always needs credentials, also to a public repository: use your username and password, or a [deploy token](../../getting-started/creating-a-deploy-token/) with the **Read/Write** access type in place of the password.
+
+For complete walk-throughs, including the rules Repsy applies to an upload and what each refusal looks like, see [Publishing and Installing Charts the Classic Way](../publishing-and-installing-charts-the-classic-way/) and [Publishing and Pulling Charts over OCI](../publishing-and-pulling-charts-over-oci/).
+{{< /product >}}
+
 ## Classic Protocol
 
 {{< steps >}}
@@ -18,6 +24,8 @@ The classic protocol requires the `helm-push` plugin from ChartMuseum. Install i
 ```bash
 helm plugin install https://github.com/chartmuseum/helm-push
 ```
+
+{{< product "os" >}}Helm 4 refuses to install a plugin that has no signature, and the plugin publishes none. With Helm 4, add `--verify=false` to the command above.{{< /product >}}
 
 ### Package your chart
 
@@ -37,7 +45,7 @@ helm repo add <repo-name> {{% repo-url path="helm" %}}/<repo-name> \
   --password <password-or-token>
 ```
 
-Authentication is only required for private repositories. Omit `--username` and `--password` if your repository is public.
+{{< product "cloud" >}}Authentication is only required for private repositories. Omit `--username` and `--password` if your repository is public.{{< /product >}}{{< product "os" >}}The credentials are needed to push, also when the repository is public. `helm cm-push` uses the ones stored by `helm repo add`, and a deploy token goes where the password goes: the username can be any value.{{< /product >}}
 
 ### Push the chart
 
@@ -65,7 +73,7 @@ helm registry login {{% repo-url scheme="false" account="false" %}} \
   --password <password-or-token>
 ```
 
-Authentication is only required for private repositories. Omit the credentials flags if your repository is public.
+{{< product "cloud" >}}Authentication is only required for private repositories. Omit the credentials flags if your repository is public.{{< /product >}}{{< product "os" >}}The credentials are needed to push, also when the repository is public. A deploy token goes where the password goes: the username can be any value. `helm registry login` takes the host only, without the repository name. If your instance serves plain HTTP, add `--plain-http` to `helm registry login` and to the other OCI commands below.{{< /product >}}
 
 ### Package your chart
 

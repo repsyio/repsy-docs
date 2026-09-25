@@ -67,7 +67,7 @@ curl -u <username>:<password> \
   "{{% repo-url %}}/<repo-name>/${MODULE_PATH}/@v/${VERSION}.zip"
 ```
 
-Authentication is only required for private registries. Omit the `-u` flag if your registry is public.
+{{< product "cloud" >}}Authentication is only required for private registries. Omit the `-u` flag if your registry is public.{{< /product >}}{{< product "os" >}}Uploading always needs credentials, also to a public repository, so keep the `-u` flag. Use your username and password, or a [deploy token](../../getting-started/creating-a-deploy-token/) with the **Read/Write** access type in place of the password: the username can be any value. `https://<your-repsy-host>` stands for the address of the package protocol port of your Repsy Open Source instance, see [Ports and Repository URLs](../../getting-started/ports-and-repository-urls/).{{< /product >}}
 
 The `Content-Sha256` header is optional — remove the `-H` line if you prefer to skip integrity verification.
 
@@ -85,3 +85,9 @@ curl -u <username>:<password> \
 Congratulations, you have published a Go module to your registry! You can now install it into any Go project.
 
 {{< /steps >}}
+
+{{< product "os" >}}
+Repsy never overwrites a version of a Go module: uploading a version that already exists is refused with `409`, whatever the settings of the repository, so publish a new version instead. The commands above pack every file of the directory, including a `.git` directory if there is one. [Publishing a Go Module with curl](../publishing-a-go-module-with-curl/) shows how to build the zip the way the `go` command does, and lists what Repsy checks on an upload and what each refusal looks like.
+
+The **Configure** button of a Go repository in the web UI shows the same commands with the address and the name of your repository filled in.
+{{< /product >}}

@@ -70,3 +70,14 @@ go get <your-module-path>@latest
 That's all! If you have completed all required steps as described, the Go toolchain will download your module from your Repsy registry and add it to your project's `go.mod` and `go.sum` files.
 
 {{< /steps >}}
+
+{{< product "os" >}}
+A few things are specific to Repsy Open Source:
+
+- **A private repository needs HTTPS.** The `go` command refuses to send credentials to an `http://` address: it stops with `refusing to pass credentials to insecure URL` when they are part of the `GOPROXY` address, and it does not send the entry of `~/.netrc`, so Repsy answers `401`. Serve your instance over HTTPS, see [Enabling HTTPS](../../administration/enabling-https/) and [Running Behind a Reverse Proxy](../../administration/running-behind-a-reverse-proxy/). A public repository can be read over plain HTTP.
+- **Write the port into the `machine` line** when the address of your instance has one, for example `machine repo.example.com:9443`. The `go` command matches the entry against the host and the port of the `GOPROXY` address.
+- **A deploy token** goes where the password goes, in the `.netrc` file as well as in the `GOPROXY` address, and the username can be any value. A **Read Only** token is enough to install. See [Creating a Deploy Token](../../getting-started/creating-a-deploy-token/).
+- `https://<your-repsy-host>` stands for the address of the package protocol port of your instance, see [Ports and Repository URLs](../../getting-started/ports-and-repository-urls/).
+
+[Using Go Modules from Repsy](../using-go-modules-from-repsy/) covers `GOPRIVATE`, mixing modules of your repository with public ones, and troubleshooting.
+{{< /product >}}

@@ -54,7 +54,7 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ### Event Types
 
-* `image.deployed`: Triggered when a new image is successfully deployed to a Repsy docker repository.
+* `image.deployed`: Triggered when a new image is successfully deployed to a Repsy Docker repository.
 
 ### Authenticating Webhook Events
 

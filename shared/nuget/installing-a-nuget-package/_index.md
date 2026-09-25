@@ -55,19 +55,11 @@ Add credentials to `~/.nuget/NuGet/NuGet.Config` (Linux/Mac) or `%appdata%\NuGet
 
 **Using .NET CLI:**
 
-{{< product "cloud" >}}
-```bash
-dotnet add package MyPackage --version 1.0.0 --source repsy
-```
-{{< /product >}}
-
-{{< product "os" >}}
 ```bash
 dotnet add package MyPackage --version 1.0.0
 ```
 
 `dotnet` looks the package up in every source of your configuration, so the `repsy` source needs no `--source`. The value of `--source` in `dotnet add package` and `dotnet restore` is a URL or a folder, not the name of a source: `--source repsy` fails with `NU1301: The local source '...' doesn't exist.` Use the URL of the service index, `--source {{% repo-url %}}/<repo-name>/v3/index.json`, if you want to name the source in the command.
-{{< /product >}}
 
 **Using PackageReference in your `.csproj`:**
 

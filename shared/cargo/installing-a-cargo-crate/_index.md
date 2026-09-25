@@ -18,7 +18,7 @@ index = "sparse+{{% repo-url %}}/<repo-name>/"
 global-credential-providers = ["cargo:token"]
 ```
 
-**Note:** If your repository is **public**, and you are **only downloading packages**, do not add `global-credential-providers` to your config. Your `$HOME/.cargo/config.toml` should look like this:
+**Note:** `global-credential-providers` only tells Cargo how to send a token, which a private repository needs. If your repository is **public**, and you are **only downloading packages**, you do not need it and can leave it out. Your `$HOME/.cargo/config.toml` can then look like this:
 
 ```toml
 [registries.repsy]

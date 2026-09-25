@@ -83,7 +83,7 @@ Here is the common one: the `.pypirc` files. These files allow you to define con
 touch $HOME/.pypirc
 ```
 
-Then copy the following content into this file. Please do not forget to change the `<username>`, `<repo-name>`, and `<password>` placeholders with your exact Repsy credentials and registry name.
+Then copy the following content into this file. {{< product "cloud" >}}Please do not forget to change the `<username>`, `<repo-name>`, and `<password>` placeholders with your exact Repsy credentials and registry name.{{< /product >}}{{< product "os" >}}Please do not forget to change the `<username>`, `<repo-name>`, and `<password>` placeholders with your username, the name of your repository and your password. `https://<your-repsy-host>` stands for the address of the package protocol port of your Repsy Open Source instance, see [Ports and Repository URLs](../../getting-started/ports-and-repository-urls/). Instead of the password you can use a [deploy token](../../getting-started/creating-a-deploy-token/) with the Read/Write access type: the username can be any value.{{< /product >}}
 
 ```text
 [distutils]
@@ -108,5 +108,5 @@ from the command line.
 
 Note that the `-r` argument is the name of the registry from the configuration file. 
 
-That's all! You can now check out your new package on the Repsy panel.
+That's all! {{< product "cloud" >}}You can now check out your new package on the Repsy panel.{{< /product >}}{{< product "os" >}}You can now check out your new package in the web UI of your instance. For a complete walk-through with `pyproject.toml`, `python -m build` and the rules Repsy applies to an upload, see [Publishing a Python Package with twine](../publishing-a-python-package-with-twine/).{{< /product >}}
 {{< /steps >}}

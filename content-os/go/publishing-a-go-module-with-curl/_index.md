@@ -122,10 +122,11 @@ VERSION=v1.0.0
 STAGING=$(mktemp -d)
 mkdir -p "${STAGING}/${MODULE_PATH}@${VERSION}"
 git archive "${VERSION}" | tar -x -C "${STAGING}/${MODULE_PATH}@${VERSION}"
+rm -f module.zip
 (cd "${STAGING}" && zip -q -r -D "${OLDPWD}/module.zip" "${MODULE_PATH}@${VERSION}")
 ```
 
-`zip -D` leaves out the entries of directories. This route does not check anything, and it packs whatever the tag holds, so use the program above when your repository holds nested modules or vendored code.
+`zip -D` leaves out the entries of directories, and `rm -f module.zip` removes the archive of an earlier run (`zip` adds to an existing file, so a leftover archive would end up inside the new one). This route does not check anything, and it packs whatever the tag holds, so use the program above when your repository holds nested modules or vendored code.
 
 ### Upload the zip
 

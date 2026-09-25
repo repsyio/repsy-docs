@@ -4,6 +4,11 @@ title = "Repsy Documentation"
 theme = "hugo-theme-learn"
 repo = "https://github.com/matcornic/hugo-theme-learn"
 
+# Products are modelled as Hugo languages: `en` is Repsy Cloud (served at the root) and `os` is
+# Repsy OS (served under /os/). See AGENTS.md for the content layout.
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
 [outputs]
 home = ["HTML", "RSS", "JSON"]
 
@@ -11,3 +16,45 @@ home = ["HTML", "RSS", "JSON"]
   # Change default color scheme with a variant one. Can be "red", "blue", "green".
   themeVariant = "repsy"
   editURL = "https://github.com/repsyio/repsy-docs/edit/main/content/"
+
+[languages]
+  [languages.en]
+    languageName = "Repsy Cloud"
+    languageCode = "en-us"
+    weight = 1
+    [languages.en.params]
+      product = "cloud"
+  [languages.os]
+    languageName = "Repsy OS"
+    languageCode = "en-us"
+    weight = 2
+    [languages.os.params]
+      product = "os"
+      editURL = "https://github.com/repsyio/repsy-docs/edit/main/content-os/"
+
+# content/ is Cloud only, content-os/ is Repsy OS only, shared/ is mounted into both languages.
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+    lang = "en"
+  [[module.mounts]]
+    source = "shared"
+    target = "content"
+    lang = "en"
+  [[module.mounts]]
+    source = "content-os"
+    target = "content"
+    lang = "os"
+  [[module.mounts]]
+    source = "shared"
+    target = "content"
+    lang = "os"
+
+# Hugo enables its embedded link and image render hooks on sites that define languages, which would
+# rewrite the relative links in the existing Cloud pages (`../../maven/` becomes `/maven/`). Keep the
+# links as written so the Cloud output stays identical.
+[markup.goldmark.renderHooks.link]
+  enableDefault = false
+[markup.goldmark.renderHooks.image]
+  enableDefault = false

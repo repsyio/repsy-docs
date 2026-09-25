@@ -5,8 +5,15 @@ and the upstream `hugo-theme-learn` 2.5.0 theme.
 
 ## Layout
 
-- `content/` — the documentation pages (Markdown), one directory per protocol or topic: `getting-started`,
-  `maven`, `npm`, `pypi`, `docker`, `cargo`, `go`, `helm`, `nuget`, `ruby`, `api-integration`.
+- `content/` — the Repsy Cloud documentation pages (Markdown), one directory per protocol or topic:
+  `getting-started`, `maven`, `npm`, `pypi`, `docker`, `cargo`, `go`, `helm`, `nuget`, `ruby`,
+  `api-integration`. Cloud only: nothing here is published under `/os/`.
+- `content-os/` — the Repsy OS documentation pages, and the OS variants of pages that differ from Cloud.
+  OS only, published under `/os/`.
+- `shared/` — pages that are identical for both products; mounted into both sites, so a page here appears
+  in Cloud and in OS. The directory does not exist yet; create it when the first shared page is needed.
+- `config/production/hugo.toml` — the production environment: `disableLanguages = ["os"]`, so the Repsy OS
+  site is not built or published until it launches.
 - `layouts/` — site-level layout, partial and shortcode overrides.
 - `static/` — images, CSS, JS and mermaid assets.
 - `files/` — files served as-is alongside the docs (e.g. webhook samples).
@@ -14,14 +21,27 @@ and the upstream `hugo-theme-learn` 2.5.0 theme.
 - `themes/hugo-theme-learn` — **not committed** (git-ignored). Never edit or commit it; site customisation
   goes in `layouts/`, `static/` or `config.toml`.
 
+The two products are Hugo languages (`config.toml`): `en` is Repsy Cloud, served at the root, and `os` is
+Repsy OS, served under `/os/`. The `[module]` mounts in `config.toml` map `content/` and `shared/` into `en`,
+and `content-os/` and `shared/` into `os`. Never mount the same files from `content/` into `os`. Sidebar,
+breadcrumbs, previous/next links, `index.json` and the sitemap only contain the pages of the current product.
+Link between pages with relative links (`../../maven/`), as in `content/`, so that pages in `shared/` work under
+both `/` and `/os/`; Hugo's default link render hooks are disabled in `config.toml` to keep them as written. `layouts/index.html` redirects the Cloud root to its first page;
+`layouts/index.os.html` renders `content-os/_index.md` as the Repsy OS home page.
+
 ## Setup and build
 
 Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the exact commands; CI does it via
 `.github/actions/setup-hugo-site`).
 
-- `hugo -w server` — local development server.
-- `hugo --minify` — production build into `public/`. The pull request check (`build-docs.yml`) runs this, so
-  run it before pushing and make sure it succeeds.
+- `hugo -w server` — local development server. It uses the `development` environment, which includes
+  both Repsy Cloud and Repsy OS (`http://localhost:1313/os/`).
+- `hugo --minify` — production build into `public/`, Repsy Cloud only. The pull request check
+  (`build-docs.yml`) and the production deploy run this, so run it before pushing and make sure it succeeds.
+  The output must not change unless you meant to change Cloud content.
+- `hugo --minify --environment staging` — build that also includes Repsy OS under `public/os/`; this is what the
+  dev deploy (`deploy-docs-dev.yml`) runs. Preview the OS site locally with
+  `hugo server --environment staging`.
 
 ## Content conventions
 

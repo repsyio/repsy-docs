@@ -45,4 +45,8 @@ Congratulations, you have created and published a package to your registry! You 
 ### Check the Result
 
 Sign in to the web UI, open **Repositories** and open your npm repository. The package is listed under its scope (`@foo`); an unscoped package is listed under `~`. Open it to see its versions, the `latest` tag and the command to install it. A scoped package needs no `--access public`: who can read it is decided by the visibility of the repository. If publishing fails, see [Troubleshooting](../authenticating-with-npm/#troubleshooting).
+
+{{< figure src="os/npm/publishing-an-npm-package/package-list.png" alt="The package list of an npm repository named internal-tools, with the columns Scope, Package, Security, Latest and Last Updated. It has one unscoped package under the scope ~ and two packages under the scope @example." caption="An npm repository in the web UI. The scoped packages are listed under their scope, here `@example`, and the unscoped package under `~`." >}}
+
+{{< figure src="os/npm/publishing-an-npm-package/version-detail.png" alt="The page of version 1.5.0 of the package @example/ui-kit, with the install command npm install @example/ui-kit, the registry line for the .npmrc file and the package metadata." caption="The page of one version shows the command to install it and the registry line for your `.npmrc` file." >}}
 {{< /product >}}

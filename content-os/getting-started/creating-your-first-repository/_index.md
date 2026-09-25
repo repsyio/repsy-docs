@@ -37,7 +37,7 @@ In the dialog, set:
 | --- | --- |
 | Type | The package format of the repository. The dialog starts on Docker, or on the format the repository list is filtered to. |
 | Name | Required, 25 characters at most. Letters, digits, `-` and `_`, and it cannot start with `-`. It must not be a reserved name, and it must not be used by another repository of any format. |
-| Private | On by default. Switch it off to make the repository public. |
+| Visibility | A switch labelled **Private**. It is off by default, so the repository is private. Switch it on to make the repository public: its label then reads **Public**. |
 | Description | Optional, up to 500 characters. |
 
 The name becomes part of the address of the repository, `<repo-base-url>/<repo-name>`, and of the address of its page in

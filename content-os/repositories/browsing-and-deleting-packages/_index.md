@@ -150,3 +150,16 @@ disk space, use **Delete Untagged Manifests**, or delete the image. See
 
 Deleting a whole repository is a different action, in the settings of the repository. See
 [Configuring Repository Settings](../configuring-repository-settings/#delete-repository).
+
+## More on Each Package Format
+
+Some formats have more than deleting: a version can be withdrawn without being deleted, and a client can remove a version
+on its own. These pages describe what each package format does and what your clients see afterwards.
+
+- **Docker:** [Managing Docker Tags and Manifests](../../docker/managing-docker-tags-and-manifests/): tags, untagged manifests, and deleting an image or a tag.
+- **npm:** [Managing npm Packages](../../npm/managing-npm-packages/): dist-tags, deprecating and unpublishing versions.
+- **Cargo:** [Yanking and Un-yanking Crates](../../cargo/yanking-and-un-yanking-crates/): withdraw a version without deleting it.
+- **Helm:** [Managing Chart Versions](../../helm/managing-chart-versions/): deleting a version or a chart.
+- **NuGet:** [Unlisting and Relisting NuGet Packages](../../nuget/unlisting-and-relisting-nuget-packages/): hide a version from search without deleting it.
+- **Ruby:** [Yanking Gems](../../ruby/yanking-gems/): withdraw a version without deleting it.
+- **Go:** [Deleting Go Module Versions](../../go/deleting-go-module-versions/): what deleting a version or a module does, and what `go` clients see afterwards.

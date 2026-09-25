@@ -35,7 +35,10 @@ New here? Read [What is Repsy Open Source?](getting-started/what-is-repsy/), the
 
 - [Docker](docker/): registries for container images, for the Docker CLI and for OCI tools such as crane.
 - [Maven](maven/): Maven and Gradle repositories, including Gradle plugins, upload rules and signed artifacts.
+- [NuGet](nuget/): NuGet repositories for `dotnet nuget push` and `dotnet restore`, with unlisting and relisting of versions.
 - [npm](npm/): npm registries for npm, Yarn, pnpm and Bun.
 - [PyPI](pypi/): PyPI repositories for uploading with `twine` and installing with `pip`.
 - [Cargo](cargo/): registries for Rust crates.
+- [Go](go/): Go module repositories that `go` installs from through `GOPROXY`, with modules uploaded with `curl`.
 - [Helm](helm/): chart repositories over the classic protocol and over OCI.
+- [Ruby](ruby/): RubyGems repositories for `gem` and Bundler, including yanking of gems.

@@ -3,16 +3,16 @@ title = "Using Repository with Gradle"
 weight = 340
 +++
 
-If you are using Gradle as a dependency management tool, [Repsy](https://repsy.io) is quite convenient for both deploying and downloading operations as well.
+If you are using Gradle as a dependency management tool, {{< product "cloud" >}}[Repsy](https://repsy.io){{< /product >}}{{< product "os" >}}Repsy Open Source{{< /product >}} is quite convenient for both deploying and downloading operations as well.
 
 ### Deployment
 
-If you are intended to use a [Repsy](https://repsy.io) Maven repository as a deployment environment, in both private and public cases, you will need repository credentials for package deployment. By default, [Gradle publish plug-in](https://docs.gradle.org/current/userguide/publishing_maven.html) enforces you to use credentials inside `build.gradle`.
+If you are intended to use a {{< product "cloud" >}}[Repsy](https://repsy.io){{< /product >}}{{< product "os" >}}Repsy Open Source{{< /product >}} Maven repository as a deployment environment, in both private and public cases, you will need repository credentials for package deployment. By default, [Gradle publish plug-in](https://docs.gradle.org/current/userguide/publishing_maven.html) enforces you to use credentials inside `build.gradle`.
 
 {{< steps >}}
 ### Configuring build.gradle
 
-For configuration, you can start adding the following section into your `build.gradle` file. Please modify URL, username, and password sections to match your repository settings.
+For configuration, you can start adding the following section into your `build.gradle` file. Please modify URL, username, and password sections to match your repository settings.{{< product "os" >}} You can use a deploy token instead of a password: put the token in the `password` field, the username is not checked.{{< /product >}}
 
 ```java
 publishing {
@@ -98,7 +98,7 @@ for Linux/Mac:
 ./gradlew publish
 ```
 
-You can find an example implementation in [GitHub](https://github.com/repsyio/example-gradle-deploy).
+{{< product "cloud" >}}You can find an example implementation in [GitHub](https://github.com/repsyio/example-gradle-deploy).{{< /product >}}
 
 ### Usage
 
@@ -136,5 +136,5 @@ You can now build your project! Run:
 ./gradlew build
 ```
 
-You can find an example implementation in [GitHub](https://github.com/repsyio/example-gradle-usage).
+{{< product "cloud" >}}You can find an example implementation in [GitHub](https://github.com/repsyio/example-gradle-usage).{{< /product >}}
 {{< /steps >}}

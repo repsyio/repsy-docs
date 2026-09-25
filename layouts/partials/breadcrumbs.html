@@ -25,7 +25,7 @@
   {{ $sec := index $sections $i }}
   {{ if and $sec.Title (not $sec.IsHome) }}
   <img src="{{ "images/chevron-right.svg" | relURL }}" class="breadcrumb-separator" alt=">">
-  <a href="{{ $sec.Permalink }}">{{ $sec.Title }}</a>
+  <a href="{{ $sec.RelPermalink }}">{{ $sec.Title }}</a>
   {{ end }}
   {{ end }}
   {{ end }}

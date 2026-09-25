@@ -2,18 +2,15 @@
 <html lang="en">
 <head>
   {{ partial "head.html" . }}
-  <link rel="stylesheet" href="{{ "css/theme-repsy.css" | relURL }}">
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <script>
     var baseurl = "{{ .Site.Home.Permalink }}";
   </script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="{{ "js/lunr.min.js" | relURL }}"></script>
   <script src="{{ "js/auto-complete.js" | relURL }}"></script>
   <script src="{{ "js/search.js" | relURL }}"></script>
   <script src="{{ "js/learn.js" | relURL }}"></script>
-  <script src="{{ "js/jquery.sticky.js" | relURL }}"></script>
   <script src="{{ "js/clipboard.min.js" | relURL }}"></script>
   {{- if gt (len .Sites) 1 }}
   <script src="{{ "js/product.js" | relURL }}" defer></script>

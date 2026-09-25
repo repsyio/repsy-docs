@@ -42,6 +42,11 @@ Rules for templates and configuration:
   content, in `{{< product >}}` blocks.
 - No translations are planned. If they are ever needed, add languages as a matrix or move the product to Hugo's
   `roles` dimension (Hugo 0.153 or later); English URLs are unaffected. That is why the rules above matter.
+- Front-end scripts: `layouts/_default/baseof.html` loads jQuery from `code.jquery.com` with a Subresource Integrity
+  hash, so when the jQuery version changes, recompute `integrity` for the exact file. `static/js/learn.js` is the site's
+  own small tab helper (it shadows the theme's `learn.js`, which needs scripts the site does not load); do not put theme
+  behaviour back into it, and keep the browser console free of errors. Link within the site from templates with
+  relative links (`.RelPermalink`), so that a build served from another host does not send readers to `baseURL`.
 - The sitemap is overridden in `layouts/_default/sitemap.xml` to drop the `xhtml:link` hreflang alternates: with
   products as languages, Hugo's default would list the Cloud and Open Source version of a page as `hreflang="en-us"`
   alternates of each other. If real translations arrive, restore alternates for translations only.

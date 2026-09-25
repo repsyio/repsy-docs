@@ -1,6 +1,6 @@
 +++
 title = "Using Repsy as Proxy"
-weight = 26
+weight = 36
 +++
 
 # Maven Proxy

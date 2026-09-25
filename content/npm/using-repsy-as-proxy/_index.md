@@ -1,6 +1,6 @@
 +++
 title = "Using Repsy as Proxy"
-weight = 35
+weight = 55
 +++
 
 # NPM Proxy

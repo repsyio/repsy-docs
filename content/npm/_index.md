@@ -1,7 +1,7 @@
 +++
 title = "Npm"
 chapter = true
-weight = 30
+weight = 50
 +++
 
 # Npm

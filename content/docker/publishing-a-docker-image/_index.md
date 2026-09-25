@@ -1,6 +1,6 @@
 +++
 title = "Publishing a Docker Image"
-weight = 52
+weight = 22
 +++
 
 You have registered and created a registry on [Repsy](https://repsy.io/). You are now ready to publish images to your registry.

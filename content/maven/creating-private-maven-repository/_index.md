@@ -1,6 +1,6 @@
 +++
 title = "Creating a Private Repository"
-weight = 21
+weight = 31
 +++
 
 You do not need to do anything to create your first repository. You will already have a  `default` private repository from the very first moment you sign up to [Repsy](https://repsy.io). 

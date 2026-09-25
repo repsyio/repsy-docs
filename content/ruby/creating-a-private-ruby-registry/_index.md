@@ -1,6 +1,6 @@
 +++
 title = "Creating a Private Ruby Registry"
-weight = 91
+weight = 101
 +++
 
 Before creating a registry, you need to [register to Repsy](https://repsy.io/) with a username, password, and e-mail. When you register, Repsy will create a `ruby` repository for you and will publish a sample gem under it! This is how fast you can get started.

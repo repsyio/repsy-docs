@@ -1,6 +1,6 @@
 +++
 title = "Installing a NuGet Package"
-weight = 73
+weight = 43
 +++
 
 When you create a repository, it will be private by default. Before you install a package from a private repository, you first need to configure credentials as seen in the previous page. If your repository is public, you can skip the credentials part, but you must still add the source configuration.

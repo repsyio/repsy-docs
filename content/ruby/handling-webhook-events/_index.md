@@ -1,6 +1,6 @@
 +++
 title = "Handling Webhook Events"
-weight = 94
+weight = 104
 +++
 
 Repsy allows you to receive webhook notifications whenever specific Ruby repository events occur, such as new gem deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.

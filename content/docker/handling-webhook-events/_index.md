@@ -1,6 +1,6 @@
 +++
 title = "Handling Webhook events"
-weight = 54
+weight = 24
 +++
 
 Repsy allows you to receive webhook notifications whenever specific Docker repository events occur, such as new image deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.

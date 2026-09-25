@@ -1,6 +1,6 @@
 +++
 title = "Using a Private Maven Repository"
-weight = 22
+weight = 32
 +++
 
 Congratulations, your [Repsy](https://repsy.io) account has been successfully created! You currently have your own `default` Maven repository.

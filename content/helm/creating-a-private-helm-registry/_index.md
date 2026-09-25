@@ -3,16 +3,14 @@ title = "Creating a Private Helm Registry"
 weight = 910
 +++
 
-Before creating a registry, you need to {{< product "cloud" >}}[register to Repsy](https://repsy.io) with a username, password, and e-mail. When you register, Repsy will create a `default` registry for you.{{< /product >}}{{< product "os" >}}have access to your Repsy Open Source instance.{{< /product >}}
+Before creating a registry, you need to [register to Repsy](https://repsy.io) with a username, password, and e-mail. When you register, Repsy will create a `default` registry for you.
 In the Helm section, you can create new registries and change the settings for existing ones whenever you need.
 
 {{< steps >}}
 
-{{< product "cloud" >}}
 ### Sign up or log in
 
 Go to [repsy.io](https://repsy.io) and create an account, or log in if you already have one.
-{{< /product >}}
 
 ### Create a Helm repository
 

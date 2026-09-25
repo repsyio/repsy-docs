@@ -5,6 +5,10 @@ weight = 1030
 
 When you create a repository, it will be private by default. Before you install a gem from a private repository, you first need to configure credentials as shown in the previous page. If your repository is public, you can skip the credentials part, but you must still provide the source URL.
 
+{{< product "os" >}}
+The address of a repository has no username: it is `{{% repo-url %}}/<repo-name>`, where `https://<your-repsy-host>` stands for the address of the package protocol port of your instance, for example `http://localhost:9090` for a local start, see [Ports and Repository URLs](../../getting-started/ports-and-repository-urls/). Keep the scheme of your instance in the examples below: an instance that serves plain HTTP needs `http://` where they show `https://`. A private repository takes a user name and password, or a [deploy token](../../getting-started/creating-a-deploy-token/) in place of the password, and a **Read Only** token is enough to install. For complete walk-throughs, see [Publishing and Installing Gems with gem](../publishing-and-installing-gems-with-gem/) and [Using Repsy with Bundler](../using-repsy-with-bundler/).
+{{< /product >}}
+
 {{< steps >}}
 ### Install with gem install
 
@@ -92,3 +96,7 @@ These endpoints are served relative to your repository base URL:
 ```
 
 Bundler caches the responses from `/versions` and `/info/<gem-name>` locally in `~/.bundle/cache/compact_index/` for faster subsequent runs.
+
+{{< product "os" >}}
+The Compact Index leaves a [yanked](../yanking-gems/) version out of `/info/<gem-name>` and marks it in `/versions` with a leading `-`, so Bundler and `gem` no longer resolve it. `gem` also uses the older index files `/specs.4.8.gz`, `/latest_specs.4.8.gz` and `/prerelease_specs.4.8.gz`, and `/quick/Marshal.4.8/<gem-name>-<version>.gemspec.rz` for the metadata of one version. The `.gem` files are served from `/gems/<gem-name>-<version>.gem`, with `-<platform>` before `.gem` for a gem that is not built for the `ruby` platform.
+{{< /product >}}

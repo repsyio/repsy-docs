@@ -1,6 +1,6 @@
 +++
 title = "Installing a Ruby Gem"
-weight = 103
+weight = 1030
 +++
 
 When you create a repository, it will be private by default. Before you install a gem from a private repository, you first need to configure credentials as shown in the previous page. If your repository is public, you can skip the credentials part, but you must still provide the source URL.
@@ -13,14 +13,14 @@ You can install a gem directly from your Repsy repository using the `--source` f
 **Public repository:**
 
 ```bash
-gem install my_gem --source {{% repo-url %}}/{MY_REPOSITORY_NAME}
+gem install my_gem --source {{% repo-url %}}/<repo-name>
 ```
 
 **Private repository** — embed credentials in the URL:
 
 ```bash
 gem install my_gem \
-  --source https://<username>:{MY_REPSY_PASSWORD}@{{% repo-url scheme="false" %}}/{MY_REPOSITORY_NAME}
+  --source https://<username>:<password>@{{% repo-url scheme="false" %}}/<repo-name>
 ```
 
 ### Install with Bundler
@@ -31,7 +31,7 @@ Bundler is the recommended way to manage gem dependencies in a project. Add your
 
 ```ruby
 # Gemfile
-source "{{% repo-url %}}/{MY_REPOSITORY_NAME}"
+source "{{% repo-url %}}/<repo-name>"
 
 gem "my_gem", "~> 1.0"
 ```
@@ -40,8 +40,8 @@ gem "my_gem", "~> 1.0"
 
 ```bash
 bundle config set --local \
-  {{% repo-url %}}/{MY_REPOSITORY_NAME} \
-  "<username>:{MY_REPSY_PASSWORD}"
+  {{% repo-url %}}/<repo-name> \
+  "<username>:<password>"
 bundle config set --local path ~/.gem/bundle
 ```
 
@@ -49,7 +49,7 @@ Then reference the source in your `Gemfile` without credentials:
 
 ```ruby
 # Gemfile
-source "{{% repo-url %}}/{MY_REPOSITORY_NAME}"
+source "{{% repo-url %}}/<repo-name>"
 
 gem "my_gem", "~> 1.0"
 ```
@@ -64,7 +64,7 @@ bundle install
 
 ```bash
 bundle config set --local \
-  {{% repo-url %}}/{MY_REPOSITORY_NAME} \
+  {{% repo-url %}}/<repo-name> \
   "<username>:${REPSY_DEPLOY_TOKEN}"
 bundle config set --local path ~/.gem/bundle
 ```
@@ -81,14 +81,14 @@ Repsy implements the [Bundler Compact Index protocol](https://github.com/rubygem
 |---|---|---|
 | `/names` | `GET` | Returns a newline-separated list of all gem names available in the repository. |
 | `/versions` | `GET` | Returns a space-separated three-column file: `name versions_csv md5`. Each row lists a gem name, a comma-separated list of its available versions, and an MD5 checksum. Bundler uses this to build a local dependency graph without downloading individual gem files. |
-| `/info/{gemname}` | `GET` | Returns detailed dependency and platform information for every version of the specified gem. |
+| `/info/<gem-name>` | `GET` | Returns detailed dependency and platform information for every version of the specified gem. |
 
 These endpoints are served relative to your repository base URL:
 
 ```
-{{% repo-url %}}/{MY_REPOSITORY_NAME}/names
-{{% repo-url %}}/{MY_REPOSITORY_NAME}/versions
-{{% repo-url %}}/{MY_REPOSITORY_NAME}/info/my_gem
+{{% repo-url %}}/<repo-name>/names
+{{% repo-url %}}/<repo-name>/versions
+{{% repo-url %}}/<repo-name>/info/my_gem
 ```
 
-Bundler caches the responses from `/versions` and `/info/{gemname}` locally in `~/.bundle/cache/compact_index/` for faster subsequent runs.
+Bundler caches the responses from `/versions` and `/info/<gem-name>` locally in `~/.bundle/cache/compact_index/` for faster subsequent runs.

@@ -1,7 +1,7 @@
 +++
 title = "API Integration (Coming Soon)"
 chapter = true
-weight = 110
+weight = 1100
 +++
 
 # Coming Soon

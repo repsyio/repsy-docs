@@ -1,9 +1,9 @@
 +++
 title = "Publishing a Cargo Crate"
-weight = 72
+weight = 720
 +++
 
-{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy OS instance.{{< /product >}} You are now ready to publish crates to your registry.
+{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy Open Source instance.{{< /product >}} You are now ready to publish crates to your registry.
 
 {{< steps >}}
 ### Create a Rust crate
@@ -24,7 +24,7 @@ Create or update `$HOME/.cargo/config.toml` in your project as follows:
 
 ```toml
 [registries.repsy]
-index = "sparse+{{% repo-url %}}/<registryName>/"
+index = "sparse+{{% repo-url %}}/<repo-name>/"
 
 [registry]
 global-credential-providers = ["cargo:token"]
@@ -40,7 +40,7 @@ To authenticate, run:
 You cannot use your repsy password. You should use a [Deploy Token](../../getting-started/creating-a-deploy-token/) or JWT.
 
 ```bash
-cargo login --registry repsy <your_deploy_token>
+cargo login --registry repsy <your-deploy-token>
 ```
 
 If this command is executed successfully, you will be authenticated and ready to publish your crate. As a final step, please run:

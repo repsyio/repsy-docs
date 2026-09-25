@@ -1,9 +1,9 @@
 +++
-title = "Creating and Publishing an NPM Package"
-weight = 52
+title = "Creating and Publishing an npm Package"
+weight = 520
 +++
 
-{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy OS instance.{{< /product >}} You are now ready to publish packages to your registry.
+{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy Open Source instance.{{< /product >}} You are now ready to publish packages to your registry.
 
 To create an npm package, you can use npm cli’s `init` command. Since Repsy only supports [scoped](https://docs.npmjs.com/cli/v7/using-npm/scope) packages, package names must include a scope name like `@foo/foo`. You can make it by providing the `--scope` parameter to the command as follows:
 
@@ -18,10 +18,10 @@ You currently have an empty npm package. The only missing part is the authentica
 To authenticate, you can use the `login` command with the scope name and the registry URL. For the scope `foo`, you can run:
 
 ```bash
-npm login --scope foo --registry {{% repo-url %}}/<registryName>
+npm login --scope foo --registry {{% repo-url %}}/<repo-name>
 ```
 
-This command will ask you username, password, and email address. Please use the same username and password here that you {{< product "cloud" >}}used to register to [Repsy](https://repsy.io/){{< /product >}}{{< product "os" >}}use for your Repsy OS instance{{< /product >}}, but the email address may vary. If this command is executed successfully, you will be authenticated to the registry and be ready to publish your package. As a final step, please run the following command:
+This command will ask you username, password, and email address. Please use the same username and password here that you {{< product "cloud" >}}used to register to [Repsy](https://repsy.io/){{< /product >}}{{< product "os" >}}use for your Repsy Open Source instance{{< /product >}}, but the email address may vary. If this command is executed successfully, you will be authenticated to the registry and be ready to publish your package. As a final step, please run the following command:
 
 ```bash
 npm publish

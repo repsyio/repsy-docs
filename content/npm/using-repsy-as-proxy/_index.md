@@ -1,26 +1,26 @@
 +++
 title = "Using Repsy as Proxy"
-weight = 55
+weight = 550
 +++
 
-# NPM Proxy
+# npm Proxy
 
-Repsy's NPM Proxy feature allows your NPM repositories to act as intelligent proxies to external NPM registries like npmjs.org or private repositories.
+Repsy's npm Proxy feature allows your npm repositories to act as intelligent proxies to external npm registries like npmjs.org or private repositories.
 
-An NPM proxy repository acts as an intermediary between your npm clients and external registries. When you install a package that doesn't exist locally, the proxy automatically fetches it from the configured upstream registries and caches it for future use.
+An npm proxy repository acts as an intermediary between your npm clients and external registries. When you install a package that doesn't exist locally, the proxy automatically fetches it from the configured upstream registries and caches it for future use.
 
-### Setting Up NPM Proxy
+### Setting Up npm Proxy
 
 ## Configuring Proxy Sources
 
 You can configure multiple upstream registries with different priorities:
 
-**Public NPM Registry**
+**Public npm Registry**
 ```
 Proxy URL: https://registry.npmjs.org
 ```
 
-**Private NPM Registry**
+**Private npm Registry**
 ```
 Proxy URL: https://npm.your-company.com/repository/npm-private/
 Username: your-username
@@ -35,7 +35,7 @@ For all proxy types, you can configure:
 - **Connection Timeout**: Set timeout in milliseconds (default: 5000ms)
 - **Active Status**: Enable or disable the proxy
 
-### How NPM Proxy Works
+### How npm Proxy Works
 
 ## Package Installation Flow
 
@@ -58,4 +58,4 @@ You can easily change the order of the proxies to customize the resolution prior
 
 ## Need Help?
 
-Reach out to [support@repsy.io](mailto:support@repsy.io) if you need assistance configuring or troubleshooting NPM proxy functionality.
+Reach out to [support@repsy.io](mailto:support@repsy.io) if you need assistance configuring or troubleshooting npm proxy functionality.

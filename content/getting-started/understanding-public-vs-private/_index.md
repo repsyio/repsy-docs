@@ -1,6 +1,6 @@
 +++
 title = "Understanding Public vs Private"
-weight = 13
+weight = 130
 chapter = true
 +++
 

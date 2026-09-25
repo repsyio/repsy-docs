@@ -1,9 +1,9 @@
 +++
-title = "Handling Webhook events"
-weight = 64
+title = "Handling Webhook Events"
+weight = 640
 +++
 
-Repsy allows you to receive webhook notifications whenever specific Pypi repository events occur, such as new package deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.
+Repsy allows you to receive webhook notifications whenever specific PyPI repository events occur, such as new package deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
@@ -64,7 +64,7 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ### Event Types
 
-* `package.deployed`: Triggered when a new package is successfully deployed to a Repsy pypi repository.
+* `package.deployed`: Triggered when a new package is successfully deployed to a Repsy PyPI repository.
 
 ### Authenticating Webhook Events
 

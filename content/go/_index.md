@@ -1,7 +1,7 @@
 +++
 title = "Go"
 chapter = true
-weight = 80
+weight = 800
 +++
 
 # Go

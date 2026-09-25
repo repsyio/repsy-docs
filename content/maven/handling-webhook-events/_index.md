@@ -1,6 +1,6 @@
 +++
-title = "Handling Webhook events"
-weight = 35
+title = "Handling Webhook Events"
+weight = 350
 +++
 
 Repsy allows you to receive webhook notifications whenever specific Maven repository events occur, such as new artifact deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.

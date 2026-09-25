@@ -1,6 +1,6 @@
 +++
 title = "Installing a Cargo Crate from Registry"
-weight = 73
+weight = 730
 +++
 
 When you create a registry, it will be private by default. Before you install a crate from a private registry, you first need to authenticate as seen in the previous page. If your registry is public, you can skip the authentication part, but you must still indicate the registry that you want to use.
@@ -11,7 +11,7 @@ Create or edit `$HOME/.cargo/config.toml` file
 
 ```toml
 [registries.repsy]
-index = "sparse+{{% repo-url %}}/<registryName>/"
+index = "sparse+{{% repo-url %}}/<repo-name>/"
 
 [registry]
 global-credential-providers = ["cargo:token"]
@@ -21,7 +21,7 @@ global-credential-providers = ["cargo:token"]
 
 ```toml
 [registries.repsy]
-index = "sparse+{{% repo-url %}}/<registryName>/"
+index = "sparse+{{% repo-url %}}/<repo-name>/"
 ```
 
 **Tip:** Cargo caches registry index and crate data locally. If you encounter stale index data or unexpected resolution errors after publishing a new version to Repsy, you may need to clear the cache manually.
@@ -46,14 +46,14 @@ If you do authenticate, you do not have to repeat token setup on every command, 
 You can now install any crate from the registry. Please run:
 
 ```bash
-cargo add <crate_name> --registry repsy
+cargo add <crate-name> --registry repsy
 ```
 
 Or define the dependency directly in `Cargo.toml`:
 
 ```toml
 [dependencies]
-<crate_name> = { version = "<version>", registry = "repsy" }
+<crate-name> = { version = "<version>", registry = "repsy" }
 ```
 
 That is all! If you have completed all required steps as described, Cargo will install your crate from your registry successfully.

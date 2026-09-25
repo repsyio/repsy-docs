@@ -1,7 +1,7 @@
 +++
 title = "Ruby"
 chapter = true
-weight = 100
+weight = 1000
 +++
 
 # Ruby

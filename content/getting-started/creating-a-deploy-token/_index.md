@@ -1,6 +1,6 @@
 +++
 title = "Creating a Deploy Token"
-weight = 14
+weight = 140
 chapter = true
 +++
 

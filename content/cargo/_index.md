@@ -1,7 +1,7 @@
 +++
 title = "Cargo"
 chapter = true
-weight = 70
+weight = 700
 +++
 
 # Cargo

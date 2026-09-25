@@ -1,7 +1,7 @@
 +++
 title = "NuGet"
 chapter = true
-weight = 40
+weight = 400
 +++
 
 # NuGet

@@ -1,9 +1,9 @@
 +++
 title = "Publishing a Docker Image"
-weight = 22
+weight = 220
 +++
 
-{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy OS instance.{{< /product >}} You are now ready to publish images to your registry.
+{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy Open Source instance.{{< /product >}} You are now ready to publish images to your registry.
 
 In order to successfully publish images to your `default` registry, you must authenticate. 
 
@@ -13,10 +13,10 @@ To authenticate, you can use docker cli's `login` command with the repo base URL
 docker login {{% repo-url scheme="false" account="false" %}}
 ```
 
-This command will ask you username, password, and email address. Please use the same username and password here that you {{< product "cloud" >}}used to register to [Repsy](https://repsy.io/){{< /product >}}{{< product "os" >}}use for your Repsy OS instance{{< /product >}}. If this command is executed successfully, you will be authenticated to the registry and be ready to publish your image. As a final step, please run the following command:
+This command will ask you username, password, and email address. Please use the same username and password here that you {{< product "cloud" >}}used to register to [Repsy](https://repsy.io/){{< /product >}}{{< product "os" >}}use for your Repsy Open Source instance{{< /product >}}. If this command is executed successfully, you will be authenticated to the registry and be ready to publish your image. As a final step, please run the following command:
 
 ```bash
-docker push {{% repo-url scheme="false" %}}/<registryName>/<imageName>:<imageTag>
+docker push {{% repo-url scheme="false" %}}/<repo-name>/<image-name>:<image-tag>
 ```
 
 With this command docker will publish the image to your `default` registry.

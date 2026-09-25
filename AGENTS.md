@@ -75,12 +75,27 @@ Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the ex
 ## Content conventions
 
 - Each section has an `_index.md` with TOML front matter (`title`, `chapter = true`, `weight`) and a `# Title` heading.
-  Use the `weight` value to order sections and pages.
+  Use the `weight` value to order sections and pages. Every `weight` in `content/` is globally unique, in blocks
+  of 100 per section (getting-started 100-140, docker 200+, maven 300+, and so on; 10 x the original numbering).
+  Repsy Open Source-only sections use the gap 150-199.
+- Placeholders (write them the same way on every page):
+  - Use `<lower-kebab-case>` in angle brackets for values the reader replaces: `<username>`, `<password>`,
+    `<password-or-token>`, `<repo-name>` (the name of the repository or registry), `<package-name>`, `<image-name>`,
+    `<image-tag>`, `<crate-name>`, `<gem-name>`, `<chart-name>`. Never use braces (`{MY_REPOSITORY_NAME}`), upper case
+    or snake or camel case (`<registryName>`, `<registry_name>`) for these.
+  - Where angle brackets would clash with the surrounding syntax (a bare value in an XML element or attribute, a
+    quoted Gradle string, a properties file) use the upper-case values `MY REPSY USERNAME`, `MY REPSY PASSWORD` and
+    `MY REPSY PASSWORD OR DEPLOY TOKEN`, with spaces and without braces.
+  - In running text put every placeholder in a code span (`` `<repo-name>` ``). A bare `*<repo-name>*` or
+    `*<package-name>*` is swallowed as an HTML tag and does not show up in the page.
+- Titles and product names: page titles and their `# Title` headings use Title Case (`Handling Webhook Events`,
+  `Creating a Private PyPI Registry`); write the products as npm, PyPI, NuGet, Maven, Docker, Cargo, Go, Helm and
+  Ruby in titles, headings, link texts and text, never `NPM`, `Npm` or `Pypi`.
 - Follow the structure and tone of neighbouring pages; look at an existing page in the same section before writing a new one.
 - Use the theme's shortcodes and the ones in `layouts/shortcodes/` instead of raw HTML where possible.
 - Keep claims about the hosted service (pricing, limits, permissions) out of the docs pages; point to the
   pricing page instead.
-- Shortcodes for pages that are shared between Repsy Cloud and Repsy OS (see `layouts/shortcodes/` for the details):
+- Shortcodes for pages that are shared between Repsy Cloud and Repsy Open Source (see `layouts/shortcodes/` for the details):
   - Write the account part of a repository URL as `<username>` (never `{MY_REPSY_USERNAME}` or similar), and
     build repository URLs with `{{% repo-url %}}` (Cloud `https://repo.repsy.io/<username>`, OS
     `https://<your-repsy-host>`) instead of typing `repo.repsy.io`. It takes the optional named parameters
@@ -88,8 +103,8 @@ Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the ex
     span or code block, because `<username>` is only shown literally there.
   - Wrap text that differs per product in `{{< product "cloud" >}}...{{< /product >}}` or
     `{{< product "os" >}}...{{< /product >}}`; the content is Markdown and is only rendered for that product.
-    Use it for wording such as registering at repsy.io, which does not apply to Repsy OS.
-  - The exact URL format of Repsy OS is not confirmed per protocol yet; do not invent one in the docs.
+    Use it for wording such as registering at repsy.io, which does not apply to Repsy Open Source.
+  - The exact URL format of Repsy Open Source is not confirmed per protocol yet; do not invent one in the docs.
 - Follow `.editorconfig`: UTF-8, 2-space indentation, final newline. Line length is unrestricted in Markdown.
 
 ## Git workflow

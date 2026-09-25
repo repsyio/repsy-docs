@@ -1,6 +1,6 @@
 +++
 title = "Installing a Helm Chart from Registry"
-weight = 93
+weight = 930
 +++
 
 When you create a repository, it will be private by default. Before you install a chart from a private repository, you first need to authenticate. If your repository is public, you can skip the authentication steps, but you must still add or reference the repository.

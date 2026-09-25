@@ -1,9 +1,9 @@
 +++
 title = "Publishing a Ruby Gem"
-weight = 102
+weight = 1020
 +++
 
-{{< product "cloud" >}}You have registered and created a repository on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a repository on your Repsy OS instance.{{< /product >}} You are now ready to publish Ruby gems to your repository.
+{{< product "cloud" >}}You have registered and created a repository on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a repository on your Repsy Open Source instance.{{< /product >}} You are now ready to publish Ruby gems to your repository.
 
 {{< steps >}}
 ### Create a gem project
@@ -38,10 +38,10 @@ This produces `my_gem-1.0.0.gem` in the current directory.
 
 ### Store credentials
 
-Gem push credentials are kept in `~/.gem/credentials`. Repsy expects a **Basic auth** value (Base64-encoded `username:password`). Run the following command — replace `<username>` and `{MY_REPSY_PASSWORD_OR_DEPLOY_TOKEN}` with your actual values:
+Gem push credentials are kept in `~/.gem/credentials`. Repsy expects a **Basic auth** value (Base64-encoded `username:password`). Run the following command — replace `<username>` and `<password-or-token>` with your actual values:
 
 ```bash
-echo ":repsy: Basic $(echo -n '<username>:{MY_REPSY_PASSWORD_OR_DEPLOY_TOKEN}' | base64)" \
+echo ":repsy: Basic $(echo -n '<username>:<password-or-token>' | base64)" \
   >> ~/.gem/credentials
 chmod 0600 ~/.gem/credentials
 ```
@@ -61,11 +61,11 @@ Use `gem push` with the `--host` flag pointing to your Repsy repository and `--k
 
 ```bash
 gem push my_gem-1.0.0.gem \
-  --host {{% repo-url %}}/{MY_REPOSITORY_NAME} \
+  --host {{% repo-url %}}/<repo-name> \
   --key repsy
 ```
 
-Replace `<username>` and `{MY_REPOSITORY_NAME}` with your actual values.
+Replace `<username>` and `<repo-name>` with your actual values.
 
 Congratulations, you have published a gem to your Repsy repository! You can now install it in any Ruby project.
 
@@ -75,7 +75,7 @@ If you need to remove a specific version from your repository, use `gem yank`:
 
 ```bash
 gem yank my_gem -v 1.0.0 \
-  --host {{% repo-url %}}/{MY_REPOSITORY_NAME} \
+  --host {{% repo-url %}}/<repo-name> \
   --key repsy
 ```
 
@@ -83,7 +83,7 @@ To yank a pre-release version, add the `--pre` flag:
 
 ```bash
 gem yank my_gem -v 1.0.0.pre \
-  --host {{% repo-url %}}/{MY_REPOSITORY_NAME} \
+  --host {{% repo-url %}}/<repo-name> \
   --key repsy \
   --pre
 ```

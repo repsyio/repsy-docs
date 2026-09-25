@@ -1,6 +1,6 @@
 +++
 title = "Using Repository with Gradle"
-weight = 34
+weight = 340
 +++
 
 If you are using Gradle as a dependency management tool, [Repsy](https://repsy.io) is quite convenient for both deploying and downloading operations as well.
@@ -24,7 +24,7 @@ publishing {
 
     repositories {
         maven {
-            url '{{% repo-url %}}/{MY REPOSITORY NAME}'
+            url '{{% repo-url %}}/<repo-name>'
             credentials {
                 username 'MY REPSY USERNAME'
                 password 'MY REPSY PASSWORD'
@@ -49,7 +49,7 @@ Please open the file in `~/.gradle/gradle.properties` path. If the properties fi
 Please add the following variables into your `gradle.properties` file by adjusting values to your repository settings.
 
 ```ini
-repsyUrl={{% repo-url %}}/{MY REPOSITORY NAME}
+repsyUrl={{% repo-url %}}/<repo-name>
 repsyUsername=MY REPSY USERNAME
 repsyPassword=MY REPSY PASSWORD
 ```

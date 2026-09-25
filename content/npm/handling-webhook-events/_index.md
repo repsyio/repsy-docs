@@ -1,9 +1,9 @@
 +++
-title = "Handling Webhook events"
-weight = 54
+title = "Handling Webhook Events"
+weight = 540
 +++
 
-Repsy allows you to receive webhook notifications whenever specific Npm repository events occur, such as new package deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.
+Repsy allows you to receive webhook notifications whenever specific npm repository events occur, such as new package deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.
 
 This guide explains how to configure, receive, and verify webhook events securely.
 

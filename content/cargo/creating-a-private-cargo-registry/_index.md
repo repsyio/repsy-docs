@@ -1,6 +1,6 @@
 +++
 title = "Creating a Private Cargo Registry"
-weight = 71
+weight = 710
 +++
 
 Before creating a registry, you need to {{< product "cloud" >}}[register to Repsy](https://repsy.io/) with a username, password, and e-mail. When you register, Repsy will create a `cargo` registry for you and will publish a sample crate under it! This is how fast you can get started.{{< /product >}}{{< product "os" >}}have access to your Repsy OS instance.{{< /product >}}

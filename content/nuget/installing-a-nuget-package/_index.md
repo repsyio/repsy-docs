@@ -1,6 +1,6 @@
 +++
 title = "Installing a NuGet Package"
-weight = 43
+weight = 430
 +++
 
 When you create a repository, it will be private by default. Before you install a package from a private repository, you first need to configure credentials as seen in the previous page. If your repository is public, you can skip the credentials part, but you must still add the source configuration.
@@ -14,7 +14,7 @@ Add the Repsy source to `NuGet.Config` in your project or solution root:
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
-    <add key="repsy" value="{{% repo-url %}}/{MY_REPOSITORY_NAME}/v3/index.json" />
+    <add key="repsy" value="{{% repo-url %}}/<repo-name>/v3/index.json" />
   </packageSources>
 </configuration>
 ```
@@ -30,8 +30,8 @@ Add credentials to `~/.nuget/NuGet/NuGet.Config` (Linux/Mac) or `%appdata%\NuGet
 <configuration>
   <packageSourceCredentials>
     <repsy>
-      <add key="Username" value="MY_REPSY_USERNAME" />
-      <add key="ClearTextPassword" value="MY_REPSY_PASSWORD_OR_DEPLOY_TOKEN" />
+      <add key="Username" value="MY REPSY USERNAME" />
+      <add key="ClearTextPassword" value="MY REPSY PASSWORD OR DEPLOY TOKEN" />
     </repsy>
   </packageSourceCredentials>
 </configuration>

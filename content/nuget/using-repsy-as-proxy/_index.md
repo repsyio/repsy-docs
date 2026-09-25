@@ -1,6 +1,6 @@
 +++
 title = "Using Repsy as Proxy"
-weight = 45
+weight = 450
 +++
 
 # NuGet Proxy

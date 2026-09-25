@@ -1,6 +1,6 @@
 +++
 title = "Installing a Go Module from Registry"
-weight = 83
+weight = 830
 +++
 
 Repsy acts as a [Go Module Proxy](https://go.dev/ref/mod#module-proxy) and implements the standard GOPROXY protocol. To install modules from your Repsy registry, point the `GOPROXY` environment variable to your registry URL.
@@ -26,7 +26,7 @@ chmod 600 ~/.netrc
 Alternatively, you can embed credentials directly in the `GOPROXY` URL, though this is not recommended for production environments:
 
 ```bash
-GOPROXY=https://<username>:<password>@{{% repo-url scheme="false" %}}/<registryName>
+GOPROXY=https://<username>:<password>@{{% repo-url scheme="false" %}}/<repo-name>
 ```
 
  **Note:** Authentication is only required for private registries. If your registry is public, you can skip `.netrc` configuration and omit credentials from the `GOPROXY` URL.
@@ -36,7 +36,7 @@ GOPROXY=https://<username>:<password>@{{% repo-url scheme="false" %}}/<registryN
 Set the `GOPROXY` environment variable to point to your Repsy registry:
 
 ```bash
-export GOPROXY={{% repo-url %}}/<registryName>,off
+export GOPROXY={{% repo-url %}}/<repo-name>,off
 ```
 
 Use `,off` to fail loudly if the module is not found in your registry. Use `,direct` instead if you also want to fall back to fetching public modules directly from their source.

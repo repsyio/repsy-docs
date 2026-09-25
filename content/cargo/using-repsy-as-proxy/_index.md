@@ -1,6 +1,6 @@
 +++
 title = "Using Repsy as Proxy"
-weight = 75
+weight = 750
 +++
 
 # Cargo Proxy

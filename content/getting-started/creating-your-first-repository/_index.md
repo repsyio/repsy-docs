@@ -1,6 +1,6 @@
 +++
 title = "Creating Your First Repository"
-weight = 12
+weight = 120
 chapter = true
 +++
 

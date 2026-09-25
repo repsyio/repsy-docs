@@ -1,6 +1,6 @@
 +++
-title = "Creating a private Docker Registry"
-weight = 21
+title = "Creating a Private Docker Registry"
+weight = 210
 +++
 
 Before creating a registry, you need to {{< product "cloud" >}}[register to Repsy]({{< relref "/getting-started/creating-your-first-repository" >}})  with a username, password, and e-mail. When you register, Repsy will create a `default` registry for you.{{< /product >}}{{< product "os" >}}have access to your Repsy OS instance.{{< /product >}}

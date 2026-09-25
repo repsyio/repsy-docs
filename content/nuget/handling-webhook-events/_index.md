@@ -1,6 +1,6 @@
 +++
 title = "Handling Webhook Events"
-weight = 44
+weight = 440
 +++
 
 Repsy allows you to receive webhook notifications whenever specific NuGet repository events occur, such as new package deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.

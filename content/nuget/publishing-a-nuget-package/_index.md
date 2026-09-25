@@ -1,6 +1,6 @@
 +++
 title = "Publishing a NuGet Package"
-weight = 42
+weight = 420
 +++
 
 {{< product "cloud" >}}You have registered and created a repository on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a repository on your Repsy OS instance.{{< /product >}} You are now ready to publish NuGet packages to your repository.
@@ -37,12 +37,12 @@ Add the Repsy source to `NuGet.Config` in your project or solution root. This fi
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
-    <add key="repsy" value="{{% repo-url %}}/{MY_REPOSITORY_NAME}/v3/index.json" />
+    <add key="repsy" value="{{% repo-url %}}/<repo-name>/v3/index.json" />
   </packageSources>
 </configuration>
 ```
 
-Replace `<username>` and `{MY_REPOSITORY_NAME}` with your actual values.
+Replace `<username>` and `<repo-name>` with your actual values.
 
 ### Store credentials in user-level config
 
@@ -53,8 +53,8 @@ Store your credentials in `~/.nuget/NuGet/NuGet.Config` (Linux/Mac) or `%appdata
 <configuration>
   <packageSourceCredentials>
     <repsy>
-      <add key="Username" value="MY_REPSY_USERNAME" />
-      <add key="ClearTextPassword" value="MY_REPSY_PASSWORD_OR_DEPLOY_TOKEN" />
+      <add key="Username" value="MY REPSY USERNAME" />
+      <add key="ClearTextPassword" value="MY REPSY PASSWORD OR DEPLOY TOKEN" />
     </repsy>
   </packageSourceCredentials>
 </configuration>

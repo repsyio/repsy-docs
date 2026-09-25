@@ -1,6 +1,6 @@
 +++
 title = "Using Repsy as Proxy"
-weight = 25
+weight = 250
 +++
 
 # Docker Proxy

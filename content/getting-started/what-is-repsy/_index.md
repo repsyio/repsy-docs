@@ -1,6 +1,6 @@
 +++
 title = "What is Repsy?"
-weight = 11
+weight = 110
 chapter = true
 +++
 
@@ -11,7 +11,7 @@ Repsy is a cloud-native artifact repository service for developers and teams.
 It supports publishing and hosting packages in the following formats:
 
 - [Maven](../../maven/)
-- [Npm](../../npm/)
+- [npm](../../npm/)
 - [PyPI](../../pypi/)
 - [Docker](../../docker/)
 - [Cargo](../../cargo/)

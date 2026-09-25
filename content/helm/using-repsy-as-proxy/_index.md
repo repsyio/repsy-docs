@@ -1,6 +1,6 @@
 +++
 title = "Using Repsy as Proxy"
-weight = 95
+weight = 950
 +++
 
 # Helm Proxy

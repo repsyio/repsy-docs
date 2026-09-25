@@ -1,9 +1,9 @@
 +++
-title = "Npm"
+title = "npm"
 chapter = true
-weight = 50
+weight = 500
 +++
 
-# Npm
+# npm
 
-This documentation contains a user guide and samples regarding the use of private and public NPM registry in Repsy.
+This documentation contains a user guide and samples regarding the use of private and public npm registry in Repsy.

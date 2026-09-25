@@ -1,6 +1,6 @@
 +++
 title = "Using Repsy as Proxy"
-weight = 105
+weight = 1050
 +++
 
 # Ruby Proxy

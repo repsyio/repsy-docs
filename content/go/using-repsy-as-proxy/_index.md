@@ -1,6 +1,6 @@
 +++
 title = "Using Repsy as Proxy"
-weight = 85
+weight = 850
 +++
 
 # Go Proxy

@@ -73,8 +73,8 @@ Layers that the repository already has are not uploaded again: the client asks f
 
 | What you see | Cause |
 | --- | --- |
-| `unauthorized` at login | The secret is empty or wrong, or the token is expired, revoked or rotated. |
-| `unauthorized` at push | The token is **Read Only**, or belongs to another repository. |
-| `denied` at push | **Package Override** is **Deny** and the tag already points at another image. |
-| `toomanyrequests` | Wrong credentials were sent too often from the address of the runner. By default Repsy refuses further password checks after 20 failures in 60 seconds. Fix the secret. A valid deploy token keeps working while the address is blocked. |
+| `unauthorized:` at login, with nothing after the colon | The secret is empty or wrong, or the token is expired, revoked or rotated. |
+| `unauthorized: The user has logged in but has no permissions.` at push | The token is **Read Only**, or belongs to another repository. |
+| `denied: You cannot override a version.` at push | **Package Override** is **Deny** and the tag already points at another image. |
+| `toomanyrequests: Too many failed authentication attempts. Please try again later.` | Wrong credentials were sent too often from the address of the runner. By default Repsy refuses further password checks after 20 failures in 60 seconds. Fix the secret. A valid deploy token keeps working while the address is blocked. |
 | A certificate or `HTTP response to HTTPS client` error | The address is not served over HTTPS with a certificate that the runner trusts, see [Pushing and Pulling Images with Docker](../pushing-and-pulling-images-with-docker/#troubleshooting). |

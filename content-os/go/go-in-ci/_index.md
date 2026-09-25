@@ -88,7 +88,7 @@ build:
     - go test ./...
 ```
 
-The `go` command prints a wrong or missing credential as `401 Unauthorized` and the address it asked. A job that keeps sending a revoked or rotated token counts as failed logins, and Repsy answers `429` after too many of them, see [Authenticating from CI](../../administration/authenticating-from-ci/#the-failed-login-limit).
+The `go` command prints a wrong or missing credential as `401` and the address it asked, for example `reading https://repo.example.com/<repo-name>/example.com/hello/@v/v1.0.0.info: 401`. A job that keeps sending a revoked or rotated token counts as failed logins, and Repsy answers `429` after too many of them, see [Authenticating from CI](../../administration/authenticating-from-ci/#the-failed-login-limit).
 
 ### Publish a Version from a Job
 
@@ -137,7 +137,7 @@ jobs:
 
 | What you see | Cause |
 | --- | --- |
-| `401 Unauthorized` when the job installs modules | The secret is empty or wrong, or the token is expired, revoked or rotated. Check that `REPSY_HOST` in the `.netrc` entry has the same host and port as the `GOPROXY`. |
+| `401` at the end of a `reading https://...` error when the job installs modules | The secret is empty or wrong, or the token is expired, revoked or rotated. Check that `REPSY_HOST` in the `.netrc` entry has the same host and port as the `GOPROXY`. |
 | `refusing to pass credentials to insecure URL` | The `GOPROXY` address is `http://`. Use `https://`. |
 | `x509: certificate signed by unknown authority` | The runner does not trust the certificate of the instance, see [Reach the Instance over HTTPS](#reach-the-instance-over-https). |
 | `verifying module: ...: 404 Not Found` from `sum.golang.org` | `GONOSUMDB` does not cover the module path. |

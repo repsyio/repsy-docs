@@ -98,6 +98,8 @@ Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the ex
   Ruby in titles, headings, link texts and text, never `NPM`, `Npm` or `Pypi`.
 - Follow the structure and tone of neighbouring pages; look at an existing page in the same section before writing a new one.
 - Use the theme's shortcodes and the ones in `layouts/shortcodes/` instead of raw HTML where possible.
+- Write tables as plain Markdown tables. `static/css/theme-repsy.css` styles them (section "Tables in page content"): a wide table
+  scrolls sideways inside the content column, so do not wrap tables in raw HTML or shorten cells to make them fit.
 - Keep claims about the hosted service (pricing, limits, permissions) out of the docs pages; point to the
   pricing page instead.
 - Shortcodes for pages that are shared between Repsy Cloud and Repsy Open Source (see `layouts/shortcodes/` for the details):

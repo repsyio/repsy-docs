@@ -4,7 +4,7 @@
   {{ partial "head.html" . }}
 
   <script>
-    var baseurl = "{{ .Site.Home.Permalink }}";
+    var baseurl = "{{ .Site.Home.RelPermalink }}";
   </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="{{ "js/lunr.min.js" | relURL }}"></script>
@@ -49,7 +49,7 @@
       {{ $nextPage := "" }}
 
       {{ range $index, $page := $sortedPages }}
-      {{ if eq $page.Permalink $.Permalink }}
+      {{ if eq $page.RelPermalink $.RelPermalink }}
       {{ $currentPageIndex = $index }}
       {{ end }}
       {{ end }}
@@ -66,14 +66,14 @@
 
       <div class="page-navigation">
         {{ with $prevPage }}
-        <a href="{{ .Permalink }}" class="nav-link prev-link">
+        <a href="{{ .RelPermalink }}" class="nav-link prev-link">
           <img src="{{ "images/chevron-left.svg" | relURL }}" alt="Previous" class="nav-icon">
           <span>{{ .Title }}</span>
         </a>
         {{ end }}
 
         {{ with $nextPage }}
-        <a href="{{ .Permalink }}" class="nav-link next-link">
+        <a href="{{ .RelPermalink }}" class="nav-link next-link">
           <span>{{ .Title }}</span>
           <img src="{{ "images/chevron-right.svg" | relURL }}" alt="Next" class="nav-icon">
         </a>

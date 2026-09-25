@@ -47,6 +47,10 @@ Rules for templates and configuration:
   own small tab helper (it shadows the theme's `learn.js`, which needs scripts the site does not load); do not put theme
   behaviour back into it, and keep the browser console free of errors. Link within the site from templates with
   relative links (`.RelPermalink`), so that a build served from another host does not send readers to `baseURL`.
+  This includes the search (`baseurl` in `baseof.html` is the language's `.Site.Home.RelPermalink`, and the `uri`
+  values in `layouts/index.json` are relative), previous/next links, the footer and assets (`relURL`). Only what
+  crawlers and other sites read stays absolute: the canonical link, `og:url`, the sitemap and the RSS feed. Do not use
+  `now` in templates: two builds of the same commit must be byte-identical, so that builds can be compared with `diff -r`.
 - The sitemap is overridden in `layouts/_default/sitemap.xml` to drop the `xhtml:link` hreflang alternates: with
   products as languages, Hugo's default would list the Cloud and Open Source version of a page as `hreflang="en-us"`
   alternates of each other. If real translations arrive, restore alternates for translations only.

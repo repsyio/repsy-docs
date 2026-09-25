@@ -1,11 +1,10 @@
-{{- /* The Cloud root has no content of its own: it redirects to its first page. The canonical link points at that page, so search engines index it instead of the redirect, and `noindex, follow` keeps the redirect out of the results. The description is the `description` of content/_index.md. */ -}}
+{{- /* The Cloud root has no content of its own: it redirects to its first page. The canonical link points at that page, so search engines index it instead of the redirect. There is no `noindex`: the root stays in the sitemap, and `noindex` together with a canonical to another URL is a conflicting signal that risks the root being dropped. The description is the `description` of content/_index.md. */ -}}
 {{- $target := "getting-started/what-is-repsy/" -}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>{{ .Site.Params.siteName | default .Site.Language.LanguageName }}</title>
   {{ with .Description }}<meta name="description" content="{{ . }}">{{ end }}
-  <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="{{ .Site.Home.Permalink }}{{ $target }}">
   {{- /* Only when Repsy Open Source is built: readers who last read the Repsy Open Source docs are sent to its home page (static/js/product.js); everyone else follows the redirect below. */ -}}
   {{- range .Sites }}{{ if and (gt (len $.Sites) 1) (eq .Params.product "os") }}

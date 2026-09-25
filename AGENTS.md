@@ -107,6 +107,25 @@ Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the ex
   - The exact URL format of Repsy Open Source is not confirmed per protocol yet; do not invent one in the docs.
 - Follow `.editorconfig`: UTF-8, 2-space indentation, final newline. Line length is unrestricted in Markdown.
 
+### Screenshots
+
+The panel screenshots of the Repsy Open Source pages are generated, not taken by hand. They live in
+`static/images/os/<page-slug>/<name>.png`, and `tools/screenshots/manifest.json` lists every one (name, docs page,
+panel route, suggested alt text). Show one with the `figure` shortcode:
+`{{< figure src="os/<page-slug>/<name>.png" alt="..." caption="..." >}}` (`alt` is required; phone shots take
+`width="390"`).
+
+- **Stable names.** Pages refer to an image by `<page-slug>/<name>`, so a refresh replaces the pixels and
+  changes no page. Never rename a shot that a page uses; add a new one instead. To get a picture that does not exist
+  yet, add it to the manifest and `tools/screenshots/src/shots.mjs` (see the README there).
+- **When to regenerate.** After a change of the panel that shows in a screenshot, and for every Repsy Open Source release. Run
+  `cd tools/screenshots && npm ci && npm run shots` (Docker, Node 22 and Chrome needed; the README has the options,
+  e.g. `REPSY_IMAGE=<image>` to use a given release image), and commit the changed images with the change that
+  needed them. It is not part of the Hugo build or CI.
+- **Fake data only.** The script seeds demo data (`releases`, `internal-tools`, `jane_doe`, `example.com`, ...) and
+  hides dates and secrets. Never commit a screenshot of a real instance, and never put a real host name, e-mail address,
+  token or password in one. Keep each image under 200 KB.
+
 ## Git workflow
 
 - Branches and PRs are tied to a Jira story; commit and PR titles are prefixed with the story key, e.g.

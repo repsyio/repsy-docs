@@ -1146,3 +1146,123 @@ pre.hljs {
 .code-tabs .copy-button:hover {
   background-color: #ddd;
 }
+
+/* ==========================================================================
+   Figures (layouts/shortcodes/figure.html, static/js/figure-zoom.js)
+   ========================================================================== */
+
+.figure-shot {
+  margin: 24px auto;
+  width: 100%;
+  max-width: var(--figure-max-width, 800px);
+  text-align: center;
+}
+
+.figure-shot__link {
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+  cursor: zoom-in;
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--color-neutral-500);
+}
+
+.figure-shot__link:hover {
+  border-color: var(--color-brand-500);
+}
+
+.figure-shot__link:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+
+.figure-shot img {
+  display: block;
+  /* The natural size of the file, shrunk to the width of the figure: a small crop of a dialog is not blown up. */
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.figure-shot figcaption {
+  margin-top: 8px;
+  padding: 0 4px;
+  font: var(--font-body-regular);
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--color-neutral-200);
+}
+
+dialog.figure-zoom {
+  box-sizing: border-box;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 48px 16px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--color-secondary-500);
+  overflow: auto;
+  text-align: center;
+}
+
+dialog.figure-zoom[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+dialog.figure-zoom::backdrop {
+  background: rgba(0, 0, 0, 0.88);
+}
+
+.figure-zoom__image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  cursor: zoom-out;
+  background-color: var(--color-neutral-500);
+}
+
+.figure-zoom__caption {
+  margin: 0;
+  max-width: 60ch;
+  font: var(--font-body-regular);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-neutral-100);
+}
+
+.figure-zoom__close {
+  position: fixed;
+  top: 8px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 50%;
+  background: var(--color-neutral-500);
+  color: var(--color-secondary-500);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.figure-zoom__close:hover,
+.figure-zoom__close:focus-visible {
+  border-color: var(--color-brand-500);
+  outline: none;
+}
+
+@media (min-width: 900px) {
+  dialog.figure-zoom {
+    padding: 56px 32px 32px;
+  }
+}

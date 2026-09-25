@@ -3,7 +3,7 @@ title = "Using a Private Maven Repository"
 weight = 320
 +++
 
-{{< product "cloud" >}}Congratulations, your [Repsy](https://repsy.io) account has been successfully created! You currently have your own `default` Maven repository.{{< /product >}}{{< product "os" >}}Before you continue, make sure you have a Maven repository on your Repsy Open Source instance.{{< /product >}}
+{{< product "cloud" >}}Congratulations, your [Repsy](https://repsy.io) account has been successfully created! You currently have your own `default` Maven repository.{{< /product >}}{{< product "os" >}}Before you continue, make sure you have a Maven repository on your Repsy Open Source instance (see [Creating a Private Maven Repository](../creating-private-maven-repository/)).{{< /product >}}
 
 It is now time to use this repository in your projects. Instead of inserting the credentials of your private repository to each of your Maven projects, you may create a global Maven settings file which includes your credentials  and is automatically used by all of your projects. 
 
@@ -14,7 +14,7 @@ Let’s begin creating the settings file.
 
 ## In Linux and Mac
 
-You can create the `.m2` directory under the home directory first - which is supposed to be created earlier by Maven - and the settings file by typing the following commands in the command line. Please do not forget to change the *MY REPSY USERNAME* and *MY REPSY PASSWORD* place holders  with your exact Repsy credentials.
+You can create the `.m2` directory under the home directory first - which is supposed to be created earlier by Maven - and the settings file by typing the following commands in the command line. {{< product "cloud" >}}Please do not forget to change the *MY REPSY USERNAME* and *MY REPSY PASSWORD* place holders  with your exact Repsy credentials.{{< /product >}}{{< product "os" >}}Please do not forget to change the *MY REPSY USERNAME* and *MY REPSY PASSWORD* place holders with the username and password of a user of your Repsy Open Source instance. Instead of a password you can use a deploy token: put the token in the password field, and the username is not checked.{{< /product >}}
 
 ```bash
 mkdir -p ~/.m2/
@@ -39,7 +39,7 @@ EOF
 
 Press `Win + R` key and write `%USERPROFILE%` in the prompt section to go to your home directory. You can now create a `.m2` folder.
 
-Inside the `.m2` folder create a text file and rename it as `settings.xml`. Copy the following content into this file.  Please do not forget to change the *MY REPSY USERNAME* and *MY REPSY PASSWORD* place holders  with your exact Repsy credentials.
+Inside the `.m2` folder create a text file and rename it as `settings.xml`. Copy the following content into this file.  {{< product "cloud" >}}Please do not forget to change the *MY REPSY USERNAME* and *MY REPSY PASSWORD* place holders  with your exact Repsy credentials.{{< /product >}}{{< product "os" >}}Please do not forget to change the *MY REPSY USERNAME* and *MY REPSY PASSWORD* place holders as described above.{{< /product >}}
 
 ```xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
@@ -60,7 +60,7 @@ You can now save and close the settings file.
 
 ### Deploying your Java library to Private Maven Repository
 
-If you consider deploying your Java library to your private Maven repository,  you should first define a distribution repository in your `pom.xml` file as seen in the following example. In order to adapt the following content to your needs,  please modify the `<username>` and `<repo-name>` fields in the repository URL to match your project.
+If you consider deploying your Java library to your private Maven repository,  you should first define a distribution repository in your `pom.xml` file as seen in the following example. In order to adapt the following content to your needs,  please modify the {{< product "cloud" >}}`<username>` and `<repo-name>` fields in the repository URL{{< /product >}}{{< product "os" >}}host and the `<repo-name>` field in the repository URL{{< /product >}} to match your project.
 
 ```xml
 <project>
@@ -93,15 +93,15 @@ You are now ready to deploy! Please run:
 mvn deploy
 ```
 
-from the command line. If Maven has not been installed before, you can run `./mvwn deploy` for Linux/Mac or `mvnw deploy` for Windows.
+from the command line. If Maven has not been installed before, you can run `./mvnw deploy` for Linux/Mac or `mvnw deploy` for Windows.
 
 Meanwhile, most modern IDEs and editors also provide other methodologies for executing maven commands.
 
-You can find a deployment example in [GitHub](https://github.com/repsyio/example-maven-deploy) as well.
+{{< product "cloud" >}}You can find a deployment example in [GitHub](https://github.com/repsyio/example-maven-deploy) as well.{{< /product >}}
 
 ### Using your Java library from your Private Maven Repository
 
-You have deployed your Java library and now want to use it in your Java projects. First, you need to add a repository section in your `pom.xml` file, similar to distribution repository. Please do not forget to modify the `<username>` and `<repo-name>` fields in the repository URL to match your project.
+You have deployed your Java library and now want to use it in your Java projects. First, you need to add a repository section in your `pom.xml` file, similar to distribution repository. Please do not forget to modify the {{< product "cloud" >}}`<username>` and `<repo-name>` fields in the repository URL{{< /product >}}{{< product "os" >}}host and the `<repo-name>` field in the repository URL{{< /product >}} to match your project.
 
 ```xml
 <project>
@@ -155,9 +155,9 @@ mvn compile
 ```
 from the command line. 
 
-If Maven has not been installed before, you can run `./mvwn compile` for Linux/Mac or `mvnw compile` for Windows.
+If Maven has not been installed before, you can run `./mvnw compile` for Linux/Mac or `mvnw compile` for Windows.
 
-You can also have a look at example implementation in [GitHub](https://github.com/repsyio/example-maven-usage).
+{{< product "cloud" >}}You can also have a look at example implementation in [GitHub](https://github.com/repsyio/example-maven-usage).{{< /product >}}
 {{< /steps >}}
 
 ### Further Reading

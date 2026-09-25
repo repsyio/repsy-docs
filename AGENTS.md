@@ -55,7 +55,7 @@ Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the ex
 - Each section has an `_index.md` with TOML front matter (`title`, `chapter = true`, `weight`) and a `# Title` heading.
   Use the `weight` value to order sections and pages. Every `weight` in `content/` is globally unique, in blocks
   of 100 per section (getting-started 100-140, docker 200+, maven 300+, and so on; 10 x the original numbering).
-  Repsy OS-only sections use the gap 150-199.
+  Repsy Open Source-only sections use the gap 150-199.
 - Placeholders (write them the same way on every page):
   - Use `<lower-kebab-case>` in angle brackets for values the reader replaces: `<username>`, `<password>`,
     `<password-or-token>`, `<repo-name>` (the name of the repository or registry), `<package-name>`, `<image-name>`,
@@ -73,7 +73,7 @@ Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the ex
 - Use the theme's shortcodes and the ones in `layouts/shortcodes/` instead of raw HTML where possible.
 - Keep claims about the hosted service (pricing, limits, permissions) out of the docs pages; point to the
   pricing page instead.
-- Shortcodes for pages that are shared between Repsy Cloud and Repsy OS (see `layouts/shortcodes/` for the details):
+- Shortcodes for pages that are shared between Repsy Cloud and Repsy Open Source (see `layouts/shortcodes/` for the details):
   - Write the account part of a repository URL as `<username>` (never `{MY_REPSY_USERNAME}` or similar), and
     build repository URLs with `{{% repo-url %}}` (Cloud `https://repo.repsy.io/<username>`, OS
     `https://<your-repsy-host>`) instead of typing `repo.repsy.io`. It takes the optional named parameters
@@ -81,8 +81,8 @@ Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the ex
     span or code block, because `<username>` is only shown literally there.
   - Wrap text that differs per product in `{{< product "cloud" >}}...{{< /product >}}` or
     `{{< product "os" >}}...{{< /product >}}`; the content is Markdown and is only rendered for that product.
-    Use it for wording such as registering at repsy.io, which does not apply to Repsy OS.
-  - The exact URL format of Repsy OS is not confirmed per protocol yet; do not invent one in the docs.
+    Use it for wording such as registering at repsy.io, which does not apply to Repsy Open Source.
+  - The exact URL format of Repsy Open Source is not confirmed per protocol yet; do not invent one in the docs.
 - Follow `.editorconfig`: UTF-8, 2-space indentation, final newline. Line length is unrestricted in Markdown.
 
 ## Git workflow

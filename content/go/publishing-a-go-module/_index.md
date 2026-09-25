@@ -3,7 +3,7 @@ title = "Publishing a Go Module"
 weight = 820
 +++
 
-{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy OS instance.{{< /product >}} You are now ready to publish Go modules to your registry.
+{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy Open Source instance.{{< /product >}} You are now ready to publish Go modules to your registry.
 
 Repsy implements the [Go Module Proxy Protocol](https://go.dev/ref/mod#goproxy-protocol). Publishing a module means uploading a properly structured zip archive to your registry using HTTP.
 

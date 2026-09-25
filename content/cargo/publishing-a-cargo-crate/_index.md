@@ -3,7 +3,7 @@ title = "Publishing a Cargo Crate"
 weight = 720
 +++
 
-{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy OS instance.{{< /product >}} You are now ready to publish crates to your registry.
+{{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy Open Source instance.{{< /product >}} You are now ready to publish crates to your registry.
 
 {{< steps >}}
 ### Create a Rust crate

@@ -3,7 +3,7 @@ title = "Publishing a Helm Chart"
 weight = 920
 +++
 
-{{< product "cloud" >}}You have registered and created a repository on [Repsy](https://repsy.io).{{< /product >}}{{< product "os" >}}You have created a repository on your Repsy OS instance.{{< /product >}} You are now ready to publish Helm charts to your registry.
+{{< product "cloud" >}}You have registered and created a repository on [Repsy](https://repsy.io).{{< /product >}}{{< product "os" >}}You have created a repository on your Repsy Open Source instance.{{< /product >}} You are now ready to publish Helm charts to your registry.
 
 Repsy supports two protocols for publishing charts. Use the **Classic** protocol if you work with the `helm cm-push` plugin, or the **OCI** protocol if you prefer the native `helm push` command available in Helm 3.8+.
 

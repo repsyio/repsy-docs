@@ -3,7 +3,7 @@ title = "Using a Private Maven Repository"
 weight = 320
 +++
 
-{{< product "cloud" >}}Congratulations, your [Repsy](https://repsy.io) account has been successfully created! You currently have your own `default` Maven repository.{{< /product >}}{{< product "os" >}}Before you continue, make sure you have a Maven repository on your Repsy OS instance.{{< /product >}}
+{{< product "cloud" >}}Congratulations, your [Repsy](https://repsy.io) account has been successfully created! You currently have your own `default` Maven repository.{{< /product >}}{{< product "os" >}}Before you continue, make sure you have a Maven repository on your Repsy Open Source instance.{{< /product >}}
 
 It is now time to use this repository in your projects. Instead of inserting the credentials of your private repository to each of your Maven projects, you may create a global Maven settings file which includes your credentials  and is automatically used by all of your projects. 
 

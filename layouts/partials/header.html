@@ -6,10 +6,13 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
-      <a href="/" class="logo">
+      <a href="{{ .Site.Home.RelPermalink }}" class="logo">
         <img src="{{ "images/logo.svg" | relURL }}" alt="Repsy logo" />
         <span class="docs-text">DOCS</span>
       </a>
+      {{- if eq .Site.Params.product "os" }}
+      <button type="button" class="product-badge" onclick="openProductSwitcher()" aria-label="Repsy OS docs, switch product">&middot; OS</button>
+      {{- end }}
     </div>
     <!-- Mobile dropdown menu toggle -->
     <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-expanded="false" aria-label="Toggle Menu">
@@ -20,7 +23,7 @@
 
     <!-- Mobile dropdown -->
     <div class="mobile-nav-dropdown" id="mobileNavDropdown">
-      <a href="/">Home</a>
+      <a href="{{ .Site.Home.RelPermalink }}">Home</a>
       <a href="https://blog.repsy.io/" target="_blank" rel="noopener noreferrer">Blog</a>
       <a href="https://repsy.io/contact" target="_blank" rel="noopener noreferrer">Contact</a>
       <a href="https://github.com/repsyio" target="_blank" rel="noopener">
@@ -31,7 +34,7 @@
 
     <!-- Navigation links -->
     <nav class="header-nav">
-      <a href="/">Home</a>
+      <a href="{{ .Site.Home.RelPermalink }}">Home</a>
       <a href="https://blog.repsy.io/" target="_blank" rel="noopener noreferrer">Blog</a>
       <a href="https://repsy.io/contact" target="_blank" rel="noopener noreferrer">Contact</a>
       <a href="https://github.com/repsyio" target="_blank" rel="noopener">

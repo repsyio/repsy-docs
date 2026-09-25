@@ -29,6 +29,13 @@ Link between pages with relative links (`../../maven/`), as in `content/`, so th
 both `/` and `/os/`; Hugo's default link render hooks are disabled in `config.toml` to keep them as written. `layouts/index.html` redirects the Cloud root to its first page;
 `layouts/index.os.html` renders `content-os/_index.md` as the Repsy OS home page.
 
+The sidebar starts with the product switcher (`layouts/partials/product-switcher.html`): two real links to the
+counterpart of the current page in the other product, else the nearest parent section that exists there, else its
+home. The switcher, the "· OS" header badge, the "you were reading the other product" banner and
+`static/js/product.js` (remembers the last product in `localStorage`) are only rendered when more than one product
+is built, so the production output stays Cloud-only. "Edit This Page" links to the real source file (`content/`,
+`content-os/` or `shared/`); `editURL` in `config.toml` is the repository's edit URL without a directory.
+
 ## Setup and build
 
 Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the exact commands; CI does it via

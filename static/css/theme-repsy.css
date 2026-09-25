@@ -524,6 +524,156 @@ overflow-x: auto;
   outline: none;
 }
 
+/* Product switcher (Repsy Cloud / Repsy OS) */
+.product-switcher {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.product-switcher-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 8px 8px 16px;
+  background-color: var(--color-neutral-500);
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.product-switcher-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.product-switcher-toggle:hover {
+  border-color: var(--color-neutral-300);
+}
+
+.product-switcher-toggle:focus-visible,
+.product-switcher-menu a:focus-visible,
+.product-badge:focus-visible,
+.product-banner a:focus-visible,
+.product-banner-close:focus-visible {
+  outline: 2px solid var(--color-secondaryBrand-500);
+  outline-offset: 2px;
+}
+
+.product-switcher[open] .chevron-icon {
+  transform: rotate(180deg);
+}
+
+.product-switcher-label,
+.product-switcher-menu a {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-switcher-name {
+  font: var(--font-title-14-bold);
+  color: var(--color-secondary-500);
+}
+
+.product-switcher-caption {
+  font: 400 12px/18px "Comfortaa", sans-serif;
+  color: var(--color-neutral-200);
+}
+
+.product-switcher-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 5;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background-color: var(--color-neutral-500);
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.product-switcher-menu a {
+  padding: 8px 12px;
+  border-left: 3px solid transparent;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.product-switcher-menu a:hover {
+  background-color: var(--color-neutral-400);
+}
+
+.product-switcher-menu a[aria-current] {
+  border-left-color: var(--color-secondaryBrand-500);
+}
+
+.product-switcher-menu a[aria-current] .product-switcher-name {
+  color: var(--color-secondaryBrand-500);
+}
+
+/* "DOCS · OS" indicator */
+.product-badge {
+  flex-shrink: 0;
+  margin-top: 6px;
+  white-space: nowrap;
+  padding: 2px 10px;
+  font: var(--font-title-14-bold);
+  color: var(--color-secondaryBrand-500);
+  background: transparent;
+  border: 1px solid var(--color-secondaryBrand-700);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.product-badge:hover {
+  background-color: var(--color-secondaryBrand-900);
+}
+
+/* "You're reading ... docs" banner */
+.product-banner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  font: var(--font-body-medium);
+  color: var(--color-secondary-500);
+  background-color: var(--color-secondaryBrand-900);
+  border: 1px solid var(--color-secondaryBrand-700);
+  border-radius: 8px;
+}
+
+.product-banner[hidden] {
+  display: none;
+}
+
+.product-banner-text {
+  margin-right: -4px;
+}
+
+.product-banner a {
+  color: var(--color-secondaryBrand-500);
+}
+
+.product-banner-close {
+  margin-left: auto;
+  padding: 0 8px;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--color-neutral-200);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.product-banner-close:hover {
+  color: var(--color-secondary-500);
+}
+
 /* Search Autocomplete */
 .autocomplete-suggestions {
   position: absolute;

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {{- /* Only when Repsy OS is built: readers who last read the Repsy OS docs are sent to its home page (static/js/product.js); everyone else follows the redirect below. */ -}}
+  {{- range .Sites }}{{ if and (gt (len $.Sites) 1) (eq .Params.product "os") }}
+  <script src="{{ "js/product.js" | relURL }}" data-os-home="{{ .Home.RelPermalink }}"></script>
+  {{- end }}{{ end }}
   <meta http-equiv="refresh" content="0; url=/getting-started/what-is-repsy/" />
 </head>
 <body></body>

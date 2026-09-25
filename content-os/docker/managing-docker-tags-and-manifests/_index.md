@@ -68,7 +68,9 @@ Repsy also deletes uploads that were started and never finished, after 24 hours 
 
 ### Deleting Through the Registry API
 
-The registry API can delete a manifest, so a client that sends the standard `DELETE /v2/<repo-name>/<image-name>/manifests/<reference>` request works. It needs the `ADMIN` role, so use the username and password of an administrator. A deploy token is never allowed to delete, not even a Read/Write token, and an anonymous caller is refused, also for a public repository.
+The registry API can delete a manifest, so a client that sends the standard `DELETE /v2/<repo-name>/<image-name>/manifests/<reference>` request works, for example `crane delete`, see [Using crane and Other OCI Tools](../using-crane-and-other-oci-tools/#delete-a-tag-or-a-manifest). It needs the `ADMIN` role, so use the username and password of an administrator. A deploy token is never allowed to delete, not even a Read/Write token, and an anonymous caller is refused, also for a public repository.
+
+The request has to carry the bearer token that the token endpoint hands out, as the registry clients do it. A plain `curl -X DELETE -u <admin>:<password> ...` sends Basic credentials, and Repsy answers it with `401`. The Docker CLI has no command that deletes a manifest.
 
 - **By digest** (`sha256:` or `sha512:`), Repsy deletes the manifest and every tag that points at it, so neither the digest nor those tags can be pulled afterwards. It answers `202`. The manifests that an index names are not deleted with it, because another index may name them too: they stay, untagged, until they are deleted by their own digest or by **Delete Untagged Manifests**.
 - **By tag**, Repsy deletes that tag only, like the web UI does. The manifest stays pullable by its digest. It answers `202`.

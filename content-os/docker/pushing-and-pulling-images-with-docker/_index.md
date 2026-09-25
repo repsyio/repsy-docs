@@ -76,6 +76,8 @@ A digest reference (`sha256:...`) always names exactly the same image, also afte
 docker pull --platform <platform> {{% repo-url scheme="false" %}}/<repo-name>/<image-name>:<image-tag>
 ```
 
+`docker buildx imagetools inspect {{% repo-url scheme="false" %}}/<repo-name>/<image-name>:<image-tag>` lists the platforms of a tag and the digest of each.
+
 ### Verify the result in the web UI
 
 1. Sign in to the web UI and open the **Repositories** tab. Open your Docker repository.
@@ -112,7 +114,7 @@ A push is a sequence of requests, and it helps to know what Repsy does with them
 Docker talks to a registry over HTTPS. The one exception is a registry on `localhost` (and the other loopback addresses), where Docker accepts plain HTTP without configuration. Repsy listens on plain HTTP on port `9090` by default, so:
 
 - **On the machine that runs Repsy**, `localhost:9090` works as it is. This is what [Quick Start](../../getting-started/quick-start/) uses.
-- **From any other machine, use HTTPS.** Either turn on the HTTPS port of the repository port of Repsy (`REPO_SSL_ENABLED`, port `9443`, see [Configuration Reference](../../installation/configuration-reference/#https)), or put a reverse proxy with a certificate in front of it and set `REPO_BASE_URL` to its address. Docker must trust the certificate: a certificate from a public authority works, and for one from your own authority you place its CA certificate in `/etc/docker/certs.d/<your-repsy-host>/ca.crt` on the Docker host (see the [Docker documentation on certificates](https://docs.docker.com/engine/security/certificates/)).
+- **From any other machine, use HTTPS.** Either turn on the HTTPS port of the repository port of Repsy (`REPO_SSL_ENABLED`, port `9443`, see [Configuration Reference](../../installation/configuration-reference/#https)), or put a reverse proxy with a certificate in front of it and set `REPO_BASE_URL` to its address. Docker must trust the certificate: a certificate from a public authority works, and for one from your own authority you place its CA certificate in `/etc/docker/certs.d/<your-repsy-host>/ca.crt` on the Docker host (see the [Docker documentation on certificates](https://docs.docker.com/engine/security/certificates/)). The name of the directory has to include the port, for example `/etc/docker/certs.d/repo.example.com:9443/ca.crt`: a directory named `repo.example.com` is not used for `repo.example.com:9443`. Docker reads the file with the next command, so the daemon needs no restart.
 - **Behind a reverse proxy**, the proxy has to forward the `Host`, `X-Forwarded-Proto`, `X-Forwarded-Host` and `X-Forwarded-Port` headers. Repsy builds the address of its token endpoint, which `docker login` is sent to, from the request it received. Without these headers the address names the internal scheme and port, and `docker login` fails.
 
 {{% notice warning %}}
@@ -125,12 +127,13 @@ The ports of a default installation are described in [Ports and Repository URLs]
 
 | What you see | Cause |
 | --- | --- |
-| `http: server gave HTTP response to HTTPS client` | Docker tried HTTPS, and the address answers with plain HTTP. Serve the repository port over HTTPS, or, for a trial only, list the address in `insecure-registries`. |
-| `x509: certificate signed by unknown authority` (or a similar certificate error) | The Docker host does not trust the certificate of the HTTPS address. Install the CA certificate as shown in [HTTP and HTTPS](#http-and-https). |
-| `unauthorized` at `docker login` | The username and password are wrong, or the deploy token is expired, revoked or rotated. |
-| `unauthorized` at `docker push` or `docker pull`, after a successful login | The credential may not do that: a Read Only deploy token cannot push, a deploy token of another repository cannot do anything with this one, and nobody can pull from a private repository without logging in. Anonymous callers cannot push, not even to a public repository. |
-| `denied` at `docker push` of an existing tag | **Package Override** of the repository is **Deny** and the tag points at another image. Push a new tag, or ask an administrator to allow overriding. |
-| `toomanyrequests` | Too many wrong passwords from one address: Repsy refuses further password checks for a while, by default after 20 failures within 60 seconds (`429`, `Too many failed authentication attempts. Please try again later.`). Fix the credential in the job and wait. Valid deploy tokens keep working. |
-| A name is refused | The image name has a character outside letters, digits, `_` and `-`, or a `/`, or the tag is not a valid tag. |
+| `Get "https://<your-repsy-host>/v2/": http: server gave HTTP response to HTTPS client` | Docker tried HTTPS, and the address answers with plain HTTP. Serve the repository port over HTTPS, or, for a trial only, list the address in `insecure-registries`. |
+| `Get "https://<your-repsy-host>/v2/": tls: failed to verify certificate: x509: certificate signed by unknown authority` (or a similar certificate error) | The Docker host does not trust the certificate of the HTTPS address. Install the CA certificate as shown in [HTTP and HTTPS](#http-and-https). |
+| `Get "http://<your-repsy-host>/v2/": unauthorized:` at `docker login`, with nothing after the colon | The username and password are wrong, or the deploy token is expired, revoked or rotated. |
+| `unauthorized: The user has logged in but has no permissions.` at `docker push` or `docker pull`, after a successful login | The credential may not do that: a Read Only deploy token cannot push, and a deploy token of another repository cannot do anything with this one. |
+| `Head "http://<your-repsy-host>/v2/<repo-name>/<image-name>/manifests/<image-tag>": unauthorized:` at `docker pull`, or `unauthorized:` at `docker push` | Nobody is logged in. Nobody can pull from a private repository without logging in, and anonymous callers cannot push, not even to a public repository. |
+| `denied: You cannot override a version.` at `docker push` of an existing tag | **Package Override** of the repository is **Deny** and the tag points at another image. Push a new tag, or ask an administrator to allow overriding. |
+| `toomanyrequests: Too many failed authentication attempts. Please try again later.` | Too many wrong passwords from one address: Repsy refuses further password checks for a while, by default after 20 failures within 60 seconds (`429`). Fix the credential in the job and wait. Valid deploy tokens keep working. |
+| `name invalid: The image name must be at most 255 characters and match [A-Za-z0-9_-]+.` or `name unknown: unknownPath` | The image name has a character outside letters, digits, `_` and `-` (a `.`, for example), or a `/`. A tag that is not valid is refused with `400`. |
 
 Repsy also sends the identifier of the error in the JSON body that the registry API defines (`errors`, with a `code`, a `message` and a `detail`). Docker prints the message.

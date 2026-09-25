@@ -82,9 +82,18 @@ crane manifest {{% repo-url scheme="false" %}}/<repo-name>/<image-name>:<image-t
 
 `crane manifest` lists the platforms of the index with the digest of each. The web UI shows a multi-platform tag with the platform `Multiplatform`, and its manifests page lists the images that the index names.
 
+### Delete a Tag or a Manifest
+
+```bash
+crane delete {{% repo-url scheme="false" %}}/<repo-name>/<image-name>:<image-tag>
+crane delete {{% repo-url scheme="false" %}}/<repo-name>/<image-name>@<digest>
+```
+
+This needs the `ADMIN` role: log in with the username and password of an administrator. With a tag, only the tag is deleted and the manifest stays pullable by its digest. With a digest, the manifest is deleted with every tag that points at it. A deploy token is refused, also a Read/Write one, with `UNAUTHORIZED: The user has logged in but has no permissions.`, and so is a user without the `ADMIN` role. See [Deleting Through the Registry API](../managing-docker-tags-and-manifests/#deleting-through-the-registry-api) for the answers of Repsy.
+
 ### What Does Not Work
 
-- `crane ls` and `crane catalog` list the tags of an image and the images of a registry. Repsy does not implement the registry API calls they need. See the web UI for the tags of an image, as described in [Managing Docker Tags and Manifests](../managing-docker-tags-and-manifests/#seeing-the-tags-of-an-image).
+- `crane ls` and `crane catalog` list the tags of an image and the images of a registry. Repsy does not implement the registry API calls they need, and answers them with `NAME_UNKNOWN: unknownPath`. See the web UI for the tags of an image, as described in [Managing Docker Tags and Manifests](../managing-docker-tags-and-manifests/#seeing-the-tags-of-an-image).
 - Repsy has no referrers API.
 
 ### Other OCI Tools

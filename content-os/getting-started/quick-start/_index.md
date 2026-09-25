@@ -40,7 +40,11 @@ What the options do:
 | `-e ADMIN_INITIAL_PASSWORD=...` | The password of the first administrator, `admin`. It is only read while no administrator exists, that is, on the very first start. |
 
 If you leave out `ADMIN_INITIAL_PASSWORD`, Repsy generates a random password for `admin` and writes it to the
-container log once, when it starts for the first time. Read it with `docker logs repsy 2>&1 | grep password`.
+container log once, when it starts for the first time. Read it with `docker logs repsy 2>&1 | grep password`, which prints one line:
+
+```text
+... Admin user created successfully with username: admin and temporarily generated password: <generated-password>
+```
 
 ### Sign in
 

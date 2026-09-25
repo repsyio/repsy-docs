@@ -1,0 +1,50 @@
+{{- /*
+  A screenshot or another image with a caption, a size limit and a click-to-zoom.
+
+    {{< figure src="os/getting-started/web-ui-tour/dashboard.png" alt="The Repsy dashboard" caption="The dashboard shows the disk usage." >}}
+
+  Parameters:
+    src      required  Path of a file below static/images/, without a leading slash. The screenshots of the
+                       panel are in static/images/os/<page-slug>/<name>.png (tools/screenshots/manifest.json).
+    alt      required  Text alternative of the image. The build fails when it is missing or empty.
+    caption  optional  Shown below the image in a <figcaption>. Inline Markdown works.
+    width    optional  Largest display width in CSS pixels (default 800). The image shrinks to the width of the
+                       page and is never stretched beyond its own size. Give the 2x phone screenshots
+                       (*-mobile) width="390" so that they are shown at their real size.
+    class    optional  Extra CSS class for the <figure>.
+
+  The width and height attributes come from the image file, so the page does not jump while the image
+  loads. Clicking the image opens it at full size in a dialog (static/js/figure-zoom.js, no dependencies);
+  without JavaScript the link opens the image itself.
+
+  This overrides Hugo's embedded `figure` shortcode, which nothing in this site uses. Styles: the "Figures"
+  section of static/css/theme-repsy.css.
+*/ -}}
+{{- $src := .Get "src" | default (.Get 0) -}}
+{{- $alt := .Get "alt" -}}
+{{- if not $src -}}
+  {{- errorf "figure shortcode: src is required (%s)" .Position -}}
+{{- end -}}
+{{- if not (trim (string $alt) " \t\r\n") -}}
+  {{- errorf "figure shortcode: alt is required for %q (%s)" $src .Position -}}
+{{- end -}}
+{{- $file := path.Join "static/images" $src -}}
+{{- if not (fileExists $file) -}}
+  {{- errorf "figure shortcode: %s does not exist (src %q, %s)" $file $src .Position -}}
+{{- end -}}
+{{- $config := imageConfig $file -}}
+{{- $url := path.Join "images" $src | relURL -}}
+{{- $maxWidth := int (.Get "width" | default 800) -}}
+{{- $scratch := .Page.Scratch -}}
+{{- if not ($scratch.Get "figure-zoom-script") -}}
+  <script src="{{ "js/figure-zoom.js" | relURL }}" defer></script>
+  {{- $scratch.Set "figure-zoom-script" true -}}
+{{- end -}}
+<figure class="figure-shot{{ with .Get "class" }} {{ . }}{{ end }}" style="--figure-max-width: {{ $maxWidth }}px">
+  <a class="figure-shot__link" href="{{ $url }}" data-figure-zoom title="Click to enlarge">
+    <img src="{{ $url }}" alt="{{ $alt }}" width="{{ $config.Width }}" height="{{ $config.Height }}" loading="lazy" decoding="async">
+  </a>
+  {{- with .Get "caption" }}
+  <figcaption>{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>

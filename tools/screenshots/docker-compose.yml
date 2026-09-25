@@ -1,0 +1,26 @@
+# The Repsy Open Source stack the screenshot script starts: Repsy alone on the embedded H2 database, like
+# e2e/docker-compose.stack-h2.yml of repsyio/repsy, but with dynamic host ports (the script reads them with
+# `docker compose port`) so it never clashes with another stack, and with a fake public URL for the
+# client snippets. The script always starts it with its own project name (`docs-shots-<random>`) and tears
+# down only that project. Variables are set by src/lib/stack.mjs.
+services:
+  repsy:
+    image: ${REPSY_IMAGE:?set by the script}
+    ports:
+      - '127.0.0.1::8080'
+      - '127.0.0.1::9090'
+    environment:
+      DB_URL: jdbc:h2:file:/app/data/repsy;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      DB_USERNAME: repsy
+      DB_PASSWORD: repsy123
+      ADMIN_INITIAL_PASSWORD: ${SHOTS_ADMIN_PASSWORD:?set by the script}
+      # The client snippets of the panel (mvn, npm, docker login ...) print this URL: an RFC 2606 name.
+      REPO_BASE_URL: ${SHOTS_REPO_BASE_URL:-https://repsy.example.com}
+      AUTH_THROTTLE_MAX_FAILURES: '100000'
+      AUTH_THROTTLE_WINDOW_SECONDS: '60'
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '-O', '/dev/null', 'http://localhost:8080/']
+      interval: 5s
+      timeout: 5s
+      retries: 40
+      start_period: 15s

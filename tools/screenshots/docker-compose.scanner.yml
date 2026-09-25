@@ -1,0 +1,37 @@
+# Overlay for the vulnerability scanning shots: a stub scanner (src/stubs/scanner of repsyio/repsy, plain Node, no
+# build) next to Repsy with the scanner enabled. The stub reports synthetic findings (CVE-2099-*), decided by
+# the name of the artifact, so nothing here is real vulnerability data.
+services:
+  scanner-stub:
+    image: ${SHOTS_STUB_NODE_IMAGE:-node:24-bookworm-slim}
+    working_dir: /app
+    ports:
+      - '127.0.0.1::8090'
+    user: node
+    volumes:
+      - ${SHOTS_STUB_DIR:?set by the script}:/app:ro
+    environment:
+      SERVER_PORT: '8090'
+      SCANNER_API_KEY: ${SHOTS_SCANNER_KEY:?set by the script}
+    command: ['node', '--disable-warning=ExperimentalWarning', 'main.ts']
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://localhost:8090/health').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))",
+        ]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  repsy:
+    depends_on:
+      scanner-stub:
+        condition: service_healthy
+    environment:
+      SECURITY_SCANNER: enabled
+      TRIVY_SCANNER_BASE_URL: http://scanner-stub:8090
+      TRIVY_SCANNER_API_KEY: ${SHOTS_SCANNER_KEY:?set by the script}
+      TRIVY_POLL_INTERVAL_MS: '1000'

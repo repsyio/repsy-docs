@@ -14,7 +14,7 @@ You run it on your own infrastructure, and the source code is available on [GitH
 New here? Read [What is Repsy Open Source?](getting-started/what-is-repsy/), then run it with the
 [Quick Start](getting-started/quick-start/).
 
-# Set Up and Run Your Instance
+## Set Up and Run Your Instance
 
 - [Getting Started](getting-started/): what Repsy Open Source is and how to try it.
   - [What is Repsy Open Source?](getting-started/what-is-repsy/): what it does and how it is put together.
@@ -32,7 +32,7 @@ New here? Read [What is Repsy Open Source?](getting-started/what-is-repsy/), the
   password, back up your data, clean up storage and upgrade.
 - [Repositories](repositories/): change the settings of a repository, browse its packages and delete them.
 
-# Package Formats
+## Package Formats
 
 - [Docker](docker/): registries for container images, for the Docker CLI and for OCI tools such as crane.
 - [Maven](maven/): Maven and Gradle repositories, including Gradle plugins, upload rules and signed artifacts.

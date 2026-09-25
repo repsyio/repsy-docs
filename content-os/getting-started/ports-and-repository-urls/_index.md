@@ -9,7 +9,7 @@ description = "Learn which port serves the web UI and which serves package clien
 Repsy Open Source listens on two ports: one for people using the web UI, and one for package manager clients. This page
 explains which is which, and how the address of a repository is formed.
 
-# Ports
+## Ports
 
 | Port | Serves | Setting |
 | --- | --- | --- |
@@ -25,7 +25,7 @@ explains which is which, and how the address of a repository is formed.
 - The Docker image declares all four ports. Publish the ones you use with `-p`, as in
   [Quick Start](../quick-start/).
 
-# Repository URLs
+## Repository URLs
 
 The address of a repository is the address of the package protocol port followed by the name of the repository:
 
@@ -57,7 +57,7 @@ Repsy uses it in two places:
 npm what address to write down. If the snippets in the web UI show `localhost` while your clients reach Repsy under another
 name, set it.
 
-## URLs per package format
+### URLs per package format
 
 In the table, `<repo-base-url>` is the value described above, `<repo-name>` is the name of your repository, and
 `<repo-host>` is the same address without `http://` or `https://`, for example `localhost:9090`.
@@ -79,7 +79,7 @@ In the table, `<repo-base-url>` is the value described above, `<repo-name>` is t
 These are the forms the web UI shows in the **Configure** dialog of each repository, which also has the complete client
 configuration.
 
-# Plain HTTP and HTTPS
+## Plain HTTP and HTTPS
 
 The default setup uses plain HTTP, which is fine on your own machine. Package managers treat it differently once the
 repository is on another host:

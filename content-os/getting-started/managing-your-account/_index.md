@@ -14,7 +14,7 @@ Administrators create and manage the accounts of other users on the **Users** pa
 
 {{< figure src="os/administration/managing-your-account/account-page.png" alt="The Profile page with the Account Information section for the password and the username, and the Delete Account section." caption="The **Profile** page of the user `admin`." >}}
 
-# Changing Your Password
+## Changing Your Password
 
 Under **Account Information**, enter the new password in **New Password** and **Password Confirmation**, then click
 **Update Password** and confirm.
@@ -36,7 +36,7 @@ If you have forgotten your password and cannot sign in, ask an administrator to 
 [Managing Users](../../administration/managing-users/#reset-a-users-password). Repsy
 shows the administrator the new password once, and you should change it after you sign in.
 
-# Changing Your Username
+## Changing Your Username
 
 Under **Account Information**, edit the **Username** field, click **Change** and confirm. The page reloads and you stay
 signed in under the new name.
@@ -51,7 +51,7 @@ The web UI warns that changing your username changes your repository URLs. In Re
 the address of a repository has no username in it, so the repository URLs stay the same. See
 [Ports and Repository URLs](../ports-and-repository-urls/).
 
-# Deleting Your Account
+## Deleting Your Account
 
 Under **Delete Account**, click **Delete** and confirm. Repsy deletes your user account and ends your session, and you can no
 longer sign in with it. Deleting an account cannot be undone.

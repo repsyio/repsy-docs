@@ -1,6 +1,6 @@
 +++
 title = "Publishing a Go Module"
-weight = 62
+weight = 82
 +++
 
 You have registered and created a registry on [Repsy](https://repsy.io). You are now ready to publish Go modules to your registry.

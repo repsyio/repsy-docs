@@ -1,6 +1,6 @@
 +++
 title = "Creating and Publishing an NPM Package"
-weight = 32
+weight = 52
 +++
 
 You have registered and created a registry on [Repsy](https://repsy.io/). You are now ready to publish packages to your registry.

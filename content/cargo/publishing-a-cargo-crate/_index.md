@@ -1,6 +1,6 @@
 +++
 title = "Publishing a Cargo Crate"
-weight = 62
+weight = 72
 +++
 
 You have registered and created a registry on [Repsy](https://repsy.io/). You are now ready to publish crates to your registry.

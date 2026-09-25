@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <script>
-    var baseurl = "{{ .Site.BaseURL }}";
+    var baseurl = "{{ .Site.Home.Permalink }}";
   </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="{{ "js/lunr.min.js" | relURL }}"></script>
@@ -27,16 +27,14 @@
     <div>
       <div class="main-header">
         {{ partial "breadcrumbs.html" . }}
-        {{ if .File }}
-        {{ with .File.Path }}
-        {{ end }}
-        {{ end }}
       </div>
 
-      <a href="{{ $.Site.Params.editURL }}{{ . }}" class="edit-page-link">
+      {{ with .File }}
+      <a href="{{ $.Site.Params.editURL }}{{ replace .Path "\\" "/" }}" class="edit-page-link">
         <img src="{{ "images/edit.svg" | relURL }}" alt="Edit icon" class="edit-icon" />
         Edit This Page
       </a>
+      {{ end }}
 
       {{ block "main" . }}{{ .Content }}{{ end }}
 

@@ -1,6 +1,6 @@
 +++
 title = "Installing a PyPI Package"
-weight = 43
+weight = 63
 +++
 
 To install the latest stable version of a package, please run:

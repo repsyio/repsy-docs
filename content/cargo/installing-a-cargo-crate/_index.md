@@ -1,6 +1,6 @@
 +++
 title = "Installing a Cargo Crate from Registry"
-weight = 63
+weight = 73
 +++
 
 When you create a registry, it will be private by default. Before you install a crate from a private registry, you first need to authenticate as seen in the previous page. If your registry is public, you can skip the authentication part, but you must still indicate the registry that you want to use.

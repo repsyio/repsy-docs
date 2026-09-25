@@ -1,6 +1,6 @@
 +++
 title = "Using Repsy as Proxy"
-weight = 45
+weight = 65
 +++
 
 # PyPI Proxy

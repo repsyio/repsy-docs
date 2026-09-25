@@ -1,6 +1,6 @@
 +++
 title = "Creating a Private Go Module Registry"
-weight = 61
+weight = 81
 +++
 
 Before creating a registry, you need to [register to Repsy](https://repsy.io) with a username, password, and e-mail. When you register, Repsy will create a `default` registry for you.

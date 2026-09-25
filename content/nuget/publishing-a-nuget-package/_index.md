@@ -1,6 +1,6 @@
 +++
 title = "Publishing a NuGet Package"
-weight = 72
+weight = 42
 +++
 
 You have registered and created a repository on [Repsy](https://repsy.io/). You are now ready to publish NuGet packages to your repository.

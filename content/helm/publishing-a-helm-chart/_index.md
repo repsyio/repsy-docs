@@ -1,6 +1,6 @@
 +++
 title = "Publishing a Helm Chart"
-weight = 82
+weight = 92
 +++
 
 You have registered and created a repository on [Repsy](https://repsy.io). You are now ready to publish Helm charts to your registry.

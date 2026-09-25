@@ -1,2 +1,10 @@
-<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
+{{- /* Description: front matter `description`, else the page summary, else the site-level `description` param. Omitted when none is available. */ -}}
+{{- $description := .Description -}}
+{{- if not $description -}}
+  {{- $description = .Summary | plainify | htmlUnescape | replaceRE `\s+` " " | replaceRE `^ | $` "" | truncate 160 -}}
+{{- end -}}
+{{- if not $description -}}
+  {{- $description = .Site.Params.description -}}
+{{- end -}}
+{{ with $description }}<meta name="description" content="{{ . }}">{{ end }}
 {{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}

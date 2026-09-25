@@ -1,6 +1,6 @@
 +++
 title = "Handling Webhook Events"
-weight = 84
+weight = 94
 +++
 
 Repsy allows you to receive webhook notifications whenever specific Helm chart repository events occur, such as new chart deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.

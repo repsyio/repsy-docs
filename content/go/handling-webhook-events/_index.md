@@ -1,6 +1,6 @@
 +++
 title = "Handling Webhook events"
-weight = 64
+weight = 84
 +++
 
 Repsy allows you to receive webhook notifications whenever specific Go module repository events occur, such as new module deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.

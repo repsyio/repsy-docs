@@ -1,6 +1,6 @@
 +++
 title = "Handling Webhook events"
-weight = 64
+weight = 74
 +++
 
 Repsy allows you to receive webhook notifications whenever specific Cargo registry events occur, such as new crate deployments. These webhooks let you automate workflows, sync data, or trigger custom logic in your system.

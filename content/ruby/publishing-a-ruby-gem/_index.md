@@ -1,6 +1,6 @@
 +++
 title = "Publishing a Ruby Gem"
-weight = 92
+weight = 102
 +++
 
 You have registered and created a repository on [Repsy](https://repsy.io/). You are now ready to publish Ruby gems to your repository.

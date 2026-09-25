@@ -34,6 +34,11 @@ Public repositories allow open access for downloading packages.
 
 Even when a repository is public, only authenticated users can publish or modify packages.
 
+{{< product "os" >}}
+Visibility applies to package clients such as `mvn`, `npm`, `pip` or `docker`. The web UI is different: it asks
+every visitor to sign in first, so an anonymous visitor cannot browse the packages of a public repository there.
+{{< /product >}}
+
 ### Who Can Do What
 
 Repsy has no per-repository owners or access lists. What a caller may do depends only on whether they are signed in,
@@ -72,10 +77,20 @@ If you need some repositories to stay hidden from some people, keep this model i
 
 You can change a repository’s visibility at any time. This needs the `ADMIN` role:
 
+{{< product "cloud" >}}
 - Go to the Repositories tab
 - Open the more options menu (⋮) next to the repository
 - Click Settings
 - Toggle the Private setting on or off
 - Save your changes
+{{< /product >}}
+
+{{< product "os" >}}
+- Go to the **Repositories** page
+- Open the more options menu (⋮) next to the repository, or open the repository itself
+- Click **Settings**
+- In the **Visibility** section, switch the toggle between **Private** and **Public**. There is nothing to save: the
+  change takes effect as soon as you flip the switch.
+{{< /product >}}
 
 Changes apply immediately, and you can switch back anytime.

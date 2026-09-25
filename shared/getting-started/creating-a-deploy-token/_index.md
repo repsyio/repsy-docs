@@ -68,6 +68,7 @@ any value, and the configure action in the **Actions** column of that table show
 the token's username. Cargo takes only the token. If the value in the password field is not a valid deploy token of that
 repository, Repsy checks the pair as an account username and password instead.
 
+{{< product "cloud" >}}
 | Package type | Where the credential goes | Username | Password |
 | --- | --- | --- | --- |
 | [Maven](../../maven/using-private-maven-repository/) | The `<server>` entry with the id `repsy` in `~/.m2/settings.xml` | Any value | Token |
@@ -79,8 +80,27 @@ repository, Repsy checks the pair as an account username and password instead.
 | [Helm](../../helm/publishing-a-helm-chart/) | The `--password` option of `helm repo add` or `helm registry login` | Any value | Token |
 | [NuGet](../../nuget/publishing-a-nuget-package/) | The `ClearTextPassword` value in your user-level `NuGet.Config` | Any value | Token |
 | [Ruby](../../ruby/publishing-a-ruby-gem/) | The Base64-encoded `username:password` value in `~/.gem/credentials` | Any value | Token |
+{{< /product >}}
 
-Each package type's page shows the full client configuration. In CI, pass the token through a secret environment
+{{< product "os" >}}
+| Package type | Where the credential goes | Username | Password |
+| --- | --- | --- | --- |
+| Maven | The `<server>` entry with the id `repsy` in `~/.m2/settings.xml` | Any value | Token |
+| npm | The prompts of `npm login` | Any value | Token |
+| PyPI | The repository section of `~/.pypirc` | Any value | Token |
+| Docker | The prompts of `docker login <your-repsy-host>` | Any value | Token |
+| Cargo | `cargo login --registry repsy <token>` | Not used | Token |
+| Go | The `GOPROXY` URL, which must use `https://` because the `go` command refuses to send credentials over plain HTTP | Any value | Token |
+| Helm | The `--password` option of `helm repo add` or `helm registry login` | Any value | Token |
+| NuGet | The `ClearTextPassword` value in your user-level `NuGet.Config` | Any value | Token |
+| Ruby | The Base64-encoded `username:password` value in `~/.gem/credentials` | Any value | Token |
+
+`<your-repsy-host>` stands for the host and port of your repository address, for example `localhost:9090`. See
+[Ports and Repository URLs](../ports-and-repository-urls/) for how the address is formed. The `--api-key` option of
+`dotnet nuget push` also takes a deploy token, but only a deploy token, never an account password.
+{{< /product >}}
+
+{{< product "cloud" >}}Each package type's page shows the full client configuration.{{< /product >}}{{< product "os" >}}The **Configure** dialog of the repository shows the full client configuration.{{< /product >}} In CI, pass the token through a secret environment
 variable instead of writing it into a file that you commit.
 {{< /steps >}}
 

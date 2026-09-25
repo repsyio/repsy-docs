@@ -120,6 +120,21 @@ panel route, suggested alt text). Show one with the `figure` shortcode:
 `{{< figure src="os/<page-slug>/<name>.png" alt="..." caption="..." >}}` (`alt` is required; phone shots take
 `width="390"`).
 
+- **On a shared page.** A panel screenshot is for Repsy Open Source only, so on a page in `shared/` put the `figure`
+  inside a `{{< product "os" >}}` block. The `product` shortcode keeps the figure (and the zoom script that goes with the
+  first figure of a page), and Repsy Cloud renders the page exactly as before:
+
+  ```markdown
+  {{< product "os" >}}
+  The **Create Token** button opens this dialog:
+
+  {{< figure src="os/getting-started/creating-a-deploy-token/create-token-dialog.png" alt="..." caption="..." >}}
+  {{< /product >}}
+  ```
+
+  Only `figure` survives inside `product`, and not inside a `{{< steps >}}` block, which renders its content with
+  markdownify and drops the HTML. Put the figure before or after the `steps` block. Check that the figure shows in the
+  staging build and that the production build does not change.
 - **Stable names.** Pages refer to an image by `<page-slug>/<name>`, so a refresh replaces the pixels and
   changes no page. Never rename a shot that a page uses; add a new one instead. To get a picture that does not exist
   yet, add it to the manifest and `tools/screenshots/src/shots.mjs` (see the README there).

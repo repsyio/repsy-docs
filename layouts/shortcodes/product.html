@@ -7,6 +7,21 @@
 
   The content is Markdown. A single line renders inline, so the block can sit inside a sentence; several
   lines render as blocks (paragraphs, lists, code blocks).
+
+  It can contain `figure` shortcodes, so a screenshot can be shown to one product only:
+
+    {{< product "os" >}}
+    The dialog looks like this:
+
+    {{< figure src="os/<page-slug>/<name>.png" alt="..." caption="..." >}}
+    {{< /product >}}
+
+  Why this needs code: Hugo renders a nested shortcode before its parent and hands the parent its HTML in
+  `.Inner`, but Markdown rendering drops raw HTML (goldmark `unsafe` is off), so a figure would vanish. The
+  `figure` HTML (with the one-time zoom script that may precede it) is therefore swapped for a text token
+  before the Markdown is rendered and put back afterwards. Only `figure` is handled this way. Limits:
+  a figure inside a `steps` block is still dropped (`steps` renders its content with markdownify), so put the
+  figure before or after the `steps` block; other nested shortcodes that emit HTML are dropped as well.
 */ -}}
 {{- $wanted := .Get 0 -}}
 {{- if not (in (slice "cloud" "os") $wanted) -}}
@@ -18,6 +33,17 @@
     {{- /* `steps` renders its content with markdownify, which drops the HTML of a nested shortcode, so pass the Markdown on. */ -}}
     {{- $markdown | safeHTML -}}
   {{- else -}}
-    {{- .Page.RenderString (dict "display" (cond (strings.Contains $markdown "\n") "block" "inline")) $markdown -}}
+    {{- $display := cond (strings.Contains $markdown "\n") "block" "inline" -}}
+    {{- /* Swap the HTML of nested figures for text tokens, each in a paragraph of its own. */ -}}
+    {{- $figures := findRE `(?s)(?:<script src="[^"]*figure-zoom\.js" defer></script>)?<figure\b.*?</figure>` $markdown -}}
+    {{- range $i, $html := $figures -}}
+      {{- $markdown = replace $markdown $html (printf "\n\nREPSYPRODUCTFIGURE%dEND\n\n" $i) 1 -}}
+    {{- end -}}
+    {{- $rendered := string (.Page.RenderString (dict "display" $display) $markdown) -}}
+    {{- range $i, $html := $figures -}}
+      {{- $token := printf "REPSYPRODUCTFIGURE%dEND" $i -}}
+      {{- $rendered = replace (replace $rendered (printf "<p>%s</p>" $token) $html) $token $html -}}
+    {{- end -}}
+    {{- $rendered | safeHTML -}}
   {{- end -}}
 {{- end -}}

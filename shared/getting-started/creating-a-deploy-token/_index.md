@@ -27,6 +27,12 @@ repositories and for publishing.
 - **Works with every package type.** Package manager clients accept the token in place of your password. See
   [Use the token in your client](#use-the-token-in-your-client) below.
 
+{{< product "os" >}}
+You create a token in the **Create Deploy Token** dialog, which the **Create Token** button in the repository settings opens:
+
+{{< figure src="os/getting-started/creating-a-deploy-token/create-token-dialog.png" alt="The Create Deploy Token dialog with the fields Name, Username and Description filled in, the access type Read/Write selected and an expiration date." caption="The **Create Deploy Token** dialog. Fill it in as described in the steps below and click **Create**." >}}
+{{< /product >}}
+
 {{< steps >}}
 ### Create the token
 
@@ -90,14 +96,14 @@ repository, Repsy checks the pair as an account username and password instead.
 | [PyPI](../../pypi/publishing-a-pypi-package/) | The repository section of `~/.pypirc` | Any value | Token |
 | [Docker](../../docker/publishing-a-docker-image/) | The prompts of `docker login <your-repsy-host>` | Any value | Token |
 | [Cargo](../../cargo/publishing-a-cargo-crate/) | `cargo login --registry repsy <token>` | Not used | Token |
-| Go | The `GOPROXY` URL, which must use `https://` because the `go` command refuses to send credentials over plain HTTP | Any value | Token |
+| [Go](../../go/using-go-modules-from-repsy/#give-the-go-command-your-credentials) | The `machine <your-repsy-host>` entry in `~/.netrc`, with the port when the address has one, for example `machine localhost:9443`; the address must use `https://` because the `go` command refuses to send credentials over plain HTTP | Any value | Token |
 | [Helm](../../helm/publishing-a-helm-chart/) | The `--password` option of `helm repo add` or `helm registry login` | Any value | Token |
-| NuGet | The `ClearTextPassword` value in your user-level `NuGet.Config` | Any value | Token |
-| Ruby | The Base64-encoded `username:password` value in `~/.gem/credentials` | Any value | Token |
+| [NuGet](../../nuget/publishing-a-nuget-package/) | The `ClearTextPassword` value in your user-level `NuGet.Config` | Any value | Token |
+| [Ruby](../../ruby/publishing-a-ruby-gem/) | The Base64-encoded `username:password` value in `~/.gem/credentials` | Any value | Token |
 
 `<your-repsy-host>` stands for the host and port of your repository address, for example `localhost:9090`. See
 [Ports and Repository URLs](../ports-and-repository-urls/) for how the address is formed. The `--api-key` option of
-`dotnet nuget push` also takes a deploy token, but only a deploy token, never an account password.
+[`dotnet nuget push`](../../nuget/publishing-and-restoring-nuget-packages-with-the-dotnet-cli/#push-the-package) also takes a deploy token, but only a deploy token, never an account password.
 {{< /product >}}
 
 {{< product "cloud" >}}Each package type's page shows the full client configuration.{{< /product >}}{{< product "os" >}}The **Configure** dialog of the repository shows the full client configuration.{{< /product >}} In CI, pass the token through a secret environment
@@ -107,6 +113,10 @@ variable instead of writing it into a file that you commit.
 ### Rotating and Revoking
 
 Both actions are in the **Actions** column of the **Deploy Tokens** table and need the `ADMIN` role.
+
+{{< product "os" >}}
+{{< figure src="os/getting-started/creating-a-deploy-token/deploy-tokens-table.png" alt="The Deploy Tokens section of the repository settings with a Create Token button and a table of three tokens, each with its name, username, creation date, expiry date and permissions, and with three icons in the Actions column." caption="The **Deploy Tokens** section of the repository settings. The icons in the **Actions** column rotate a token, show its client configuration and delete it." >}}
+{{< /product >}}
 
 - **Rotate** issues a new token for the same entry. The old token stops working, so update every place that uses it.
   Repsy shows the new token once, like when you created the token.

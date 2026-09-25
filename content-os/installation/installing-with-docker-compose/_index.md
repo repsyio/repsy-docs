@@ -1,6 +1,7 @@
 +++
 title = "Installing with Docker Compose"
 weight = 153
+description = "Describe Repsy Open Source and PostgreSQL in one Docker Compose file, start it with one command and manage it day to day."
 +++
 
 # Installing with Docker Compose

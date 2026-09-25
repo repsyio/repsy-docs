@@ -1,6 +1,7 @@
 +++
 title = "Installing with Docker and PostgreSQL"
 weight = 152
+description = "Run Repsy Open Source and PostgreSQL in two Docker containers on one network for a long-lived installation, and back up both volumes."
 +++
 
 # Installing with Docker and PostgreSQL

@@ -1,6 +1,7 @@
 +++
 title = "Installing Python Packages with pip"
 weight = 670
+description = "Install packages with pip: the index URL, credentials, permanent configuration, requirements files, CI jobs and fixing failed installs."
 +++
 
 This tutorial shows how to install packages from a Repsy Open Source PyPI repository with `pip`: the index URL, the credentials, a permanent configuration, requirements files, CI jobs and what to do when an install fails. It complements [Installing a PyPI Package](../installing-a-pypi-package/), which shows the same in short.

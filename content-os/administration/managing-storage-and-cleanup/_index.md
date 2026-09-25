@@ -1,6 +1,7 @@
 +++
 title = "Managing Storage and Cleanup"
 weight = 168
+description = "Learn the layout of the storage directory, how the trash and cleanup jobs work, and how to plan disk space and upload size limits."
 +++
 
 # Managing Storage and Cleanup

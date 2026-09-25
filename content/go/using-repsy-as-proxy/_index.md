@@ -1,6 +1,7 @@
 +++
 title = "Using Repsy as Proxy"
 weight = 850
+description = "Set up a Go proxy that fetches missing modules from proxy.golang.org or private module proxies and caches them."
 +++
 
 # Go Proxy

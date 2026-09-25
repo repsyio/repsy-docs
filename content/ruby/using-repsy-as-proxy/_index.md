@@ -1,6 +1,7 @@
 +++
 title = "Using Repsy as Proxy"
 weight = 1050
+description = "Set up a Ruby proxy that fetches missing gems from rubygems.org or private sources for Bundler installs, and caches them."
 +++
 
 # Ruby Proxy

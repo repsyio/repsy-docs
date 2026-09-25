@@ -2,6 +2,7 @@
 title = "NuGet"
 chapter = true
 weight = 400
+description = "Guides for private and public NuGet repositories: create one, publish and install packages, receive webhook events and proxy other feeds."
 +++
 
 # NuGet

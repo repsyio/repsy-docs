@@ -1,6 +1,7 @@
 +++
 title = "Signing Maven Artifacts"
 weight = 380
+description = "Sign Maven artifacts with OpenPGP, register public keys on the repository and see how signatures are verified on upload."
 +++
 
 A Maven artifact can travel with OpenPGP signatures: for every file, a detached signature file with the extension `.asc`. Repsy Open Source checks these signatures when they are uploaded, stores the ones that verify, and shows a **Signed** lock on a version whose signatures verified. This page explains what Repsy verifies, how to set it up and how to sign with Maven and with Gradle.

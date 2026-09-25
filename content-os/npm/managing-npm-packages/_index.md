@@ -1,6 +1,7 @@
 +++
 title = "Managing npm Packages"
 weight = 590
+description = "Move dist-tags, deprecate or unpublish versions, search a registry and audit an installation with npm commands."
 +++
 
 # Managing npm Packages

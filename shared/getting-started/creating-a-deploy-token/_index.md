@@ -2,6 +2,7 @@
 title = "Creating a Deploy Token"
 weight = 140
 chapter = true
+description = "Create a deploy token for a single repository, use it in your client instead of a password, and rotate or revoke it."
 +++
 
 

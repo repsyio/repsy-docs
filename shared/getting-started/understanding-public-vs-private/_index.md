@@ -2,6 +2,7 @@
 title = "Understanding Public vs Private"
 weight = 130
 chapter = true
+description = "Learn how public and private repositories differ, who can read and write in each, and how to switch a repository's visibility."
 +++
 
 

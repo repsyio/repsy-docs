@@ -1,6 +1,7 @@
 +++
 title = "Publishing a Docker Image"
 weight = 220
+description = "Log in to a Docker registry with the docker CLI and push an image to it."
 +++
 
 {{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy Open Source instance.{{< /product >}} You are now ready to publish images to your registry.

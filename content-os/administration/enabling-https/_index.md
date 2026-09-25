@@ -1,6 +1,7 @@
 +++
 title = "Enabling HTTPS"
 weight = 161
+description = "Serve HTTPS directly from the instance: get a keystore, switch HTTPS on per port and make clients trust a self-signed certificate."
 +++
 
 # Enabling HTTPS

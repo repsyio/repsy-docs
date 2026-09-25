@@ -1,6 +1,7 @@
 +++
 title = "Navigating the Web UI"
 weight = 116
+description = "Tour the web UI: sign-in, layout, the dashboard, repository, users, security and profile pages, and what each role can do."
 +++
 
 # Navigating the Web UI

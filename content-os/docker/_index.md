@@ -2,6 +2,7 @@
 title = "Docker"
 chapter = true
 weight = 200
+description = "Guides for hosting Docker registries: create one, push and pull images, use CI and OCI tools, and manage tags and manifests."
 +++
 
 # Docker

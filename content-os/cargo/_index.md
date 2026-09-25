@@ -2,6 +2,7 @@
 title = "Cargo"
 chapter = true
 weight = 700
+description = "Guides for hosting Cargo registries: create one, publish and install crates, yank versions and use the registry in CI."
 +++
 
 # Cargo

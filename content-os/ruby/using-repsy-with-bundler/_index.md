@@ -1,6 +1,7 @@
 +++
 title = "Using Repsy with Bundler"
 weight = 1070
+description = "Install gems with Bundler: source blocks, credentials, plain HTTP and HTTPS, lock files and versions that need another Ruby."
 +++
 
 This tutorial shows how to install gems from a Repsy Open Source Ruby repository with Bundler: the `source` lines of the `Gemfile`, the ways to give Bundler your credentials, what happens to dependencies, lock files and yanked versions, and what to do when an install fails. It complements [Installing a Ruby Gem](../installing-a-ruby-gem/), which shows the same in short. To publish a gem, see [Publishing and Installing Gems with gem](../publishing-and-installing-gems-with-gem/).

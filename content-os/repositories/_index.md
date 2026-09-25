@@ -2,6 +2,7 @@
 title = "Repositories"
 chapter = true
 weight = 175
+description = "Manage repositories day to day: change their settings, browse their packages and delete what they hold."
 +++
 
 # Repositories

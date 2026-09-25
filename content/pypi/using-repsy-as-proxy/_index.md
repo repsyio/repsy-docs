@@ -1,6 +1,7 @@
 +++
 title = "Using Repsy as Proxy"
 weight = 650
+description = "Set up a PyPI proxy that fetches missing packages from PyPI.org or private repositories, in priority order, and caches them."
 +++
 
 # PyPI Proxy

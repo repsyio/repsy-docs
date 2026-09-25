@@ -1,6 +1,7 @@
 +++
 title = "Publishing a Ruby Gem"
 weight = 1020
+description = "Build a gem, store your credentials for gem push, push the gem to a repository and yank a version if needed."
 +++
 
 {{< product "cloud" >}}You have registered and created a repository on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a repository on your Repsy Open Source instance.{{< /product >}} You are now ready to publish Ruby gems to your repository.

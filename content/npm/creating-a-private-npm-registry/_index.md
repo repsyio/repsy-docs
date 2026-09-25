@@ -1,6 +1,7 @@
 +++
 title = "Creating a Private npm Registry"
 weight = 510
+description = "Register to get a default npm registry, then create more npm registries or change the settings of existing ones."
 +++
 
 Before creating a registry, you need to [register to Repsy]({{< relref "/getting-started/creating-your-first-repository" >}})  with a username, password, and e-mail. When you register, Repsy will create a `default` registry for you and will publish a hello world package under it! This is how fast you can get started.

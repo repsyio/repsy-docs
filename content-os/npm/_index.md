@@ -2,6 +2,7 @@
 title = "npm"
 chapter = true
 weight = 500
+description = "Guides for hosting npm registries: create one, authenticate, publish and manage packages, and use npm, pnpm, Yarn or Bun."
 +++
 
 # npm

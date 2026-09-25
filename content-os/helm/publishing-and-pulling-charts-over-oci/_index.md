@@ -1,6 +1,7 @@
 +++
 title = "Publishing and Pulling Charts over OCI"
 weight = 970
+description = "Publish a chart with helm push over OCI, pull and install it, and see how charts of the two protocols see each other."
 +++
 
 This tutorial publishes a Helm chart to your Repsy Open Source Helm repository with the OCI protocol (`helm push`) and pulls and installs it again (`helm pull oci://`, `helm install oci://`). It also explains how charts published over OCI and charts published the classic way see each other. It complements [Publishing a Helm Chart](../publishing-a-helm-chart/) and [Installing a Helm Chart from Registry](../installing-a-helm-chart/), which show the same setup in short. For the classic protocol, see [Publishing and Installing Charts the Classic Way](../publishing-and-installing-charts-the-classic-way/).

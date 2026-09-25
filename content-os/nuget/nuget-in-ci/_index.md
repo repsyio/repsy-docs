@@ -1,6 +1,7 @@
 +++
 title = "NuGet in CI"
 weight = 480
+description = "Restore, pack and push NuGet packages in CI with a deploy token, keep secrets out of nuget.config and choose versions."
 +++
 
 A CI job that restores from or pushes to your Repsy Open Source NuGet repository needs a credential that is safe to keep in the CI system, a `nuget.config` that holds no secret, and a version number that the job makes up for itself. This page covers them, with a GitHub Actions example that works the same in any CI system that runs shell commands.

@@ -1,6 +1,7 @@
 +++
 title = "Installing a Go Module from Registry"
 weight = 830
+description = "Install Go modules from a registry: set GOPROXY, authenticate with .netrc for private registries and configure GONOSUMDB."
 +++
 
 Repsy acts as a [Go Module Proxy](https://go.dev/ref/mod#module-proxy) and implements the standard GOPROXY protocol. To install modules from your Repsy registry, point the `GOPROXY` environment variable to your registry URL.

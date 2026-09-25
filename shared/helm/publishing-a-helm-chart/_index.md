@@ -1,6 +1,7 @@
 +++
 title = "Publishing a Helm Chart"
 weight = 920
+description = "Package a Helm chart and publish it to a repository with the helm cm-push plugin, or with helm push over OCI."
 +++
 
 {{< product "cloud" >}}You have registered and created a repository on [Repsy](https://repsy.io).{{< /product >}}{{< product "os" >}}You have created a repository on your Repsy Open Source instance.{{< /product >}} You are now ready to publish Helm charts to your registry.

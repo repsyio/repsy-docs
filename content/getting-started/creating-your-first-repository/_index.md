@@ -2,6 +2,7 @@
 title = "Creating Your First Repository"
 weight = 120
 chapter = true
+description = "Create a repository from the dashboard: pick its package type, choose private or public, and find it on the Repositories page."
 +++
 
 ### Creating Your First Repository

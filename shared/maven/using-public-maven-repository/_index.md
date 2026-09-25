@@ -1,6 +1,7 @@
 +++
 title = "Using a Public Maven Repository"
 weight = 330
+description = "Deploy Java libraries to a public Maven repository that anyone can download from, using the same steps as for a private one."
 +++
 
 You may want to share some of your artifacts publicly in some cases. It is quite possible to make them publicly available in {{< product "cloud" >}}[Repsy](https://repsy.io){{< /product >}}{{< product "os" >}}Repsy Open Source by setting the visibility of the repository to public in its settings{{< /product >}} whenever you want.

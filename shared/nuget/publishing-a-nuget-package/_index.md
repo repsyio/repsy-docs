@@ -1,6 +1,7 @@
 +++
 title = "Publishing a NuGet Package"
 weight = 420
+description = "Create a .NET class library, add the source to NuGet.Config, store your credentials, then pack and push the NuGet package."
 +++
 
 {{< product "cloud" >}}You have registered and created a repository on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created a NuGet repository on your Repsy Open Source instance, see [Creating a Private NuGet Repository](../creating-a-private-nuget-repository/).{{< /product >}} You are now ready to publish NuGet packages to your repository.

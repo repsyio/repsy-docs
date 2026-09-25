@@ -1,6 +1,7 @@
 +++
 title = "Creating a Private Helm Registry"
 weight = 910
+description = "Find the default Helm repository, create more, and get the classic and OCI addresses and credentials."
 +++
 
 There is no sign-up in Repsy Open Source: you use the repositories of your own instance. A private repository needs a login to be read or written, and a public repository can be read without one. This page shows how to find or create a Helm repository and where to get the credentials that Helm needs.

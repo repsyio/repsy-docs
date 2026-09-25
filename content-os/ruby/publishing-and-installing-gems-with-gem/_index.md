@@ -1,6 +1,7 @@
 +++
 title = "Publishing and Installing Gems with gem"
 weight = 1060
+description = "Build a gem, publish it with gem push, install it with gem install and learn what is checked on a push."
 +++
 
 This tutorial shows how to publish a gem to a Repsy Open Source Ruby repository with `gem push` and install it with `gem install`: how to build a gem, where the key goes, what Repsy checks on a push, how to install from a private repository and what each failure looks like. It complements [Publishing a Ruby Gem](../publishing-a-ruby-gem/) and [Installing a Ruby Gem](../installing-a-ruby-gem/), which show the same in short. To install with Bundler, see [Using Repsy with Bundler](../using-repsy-with-bundler/).

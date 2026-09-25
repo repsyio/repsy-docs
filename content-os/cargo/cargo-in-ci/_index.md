@@ -1,6 +1,7 @@
 +++
 title = "Cargo in CI"
 weight = 780
+description = "Use a deploy token in CI to build with crates from the registry and to publish crates, without an interactive cargo login."
 +++
 
 A CI job that builds against your Repsy Open Source Cargo repository, or publishes a crate to it, needs two things: a token that is safe to keep in the CI system, and a way to tell `cargo` about the registry without an interactive `cargo login`. This page covers both, with a GitHub Actions example that works the same in any CI system that runs shell commands.

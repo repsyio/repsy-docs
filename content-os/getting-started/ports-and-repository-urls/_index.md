@@ -1,6 +1,7 @@
 +++
 title = "Ports and Repository URLs"
 weight = 114
+description = "Learn which port serves the web UI and which serves package clients, and how repository URLs are formed for each package format."
 +++
 
 # Ports and Repository URLs

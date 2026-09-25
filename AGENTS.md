@@ -96,6 +96,11 @@ Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the ex
 - Titles and product names: page titles and their `# Title` headings use Title Case (`Handling Webhook Events`,
   `Creating a Private PyPI Registry`); write the products as npm, PyPI, NuGet, Maven, Docker, Cargo, Go, Helm and
   Ruby in titles, headings, link texts and text, never `NPM`, `Npm` or `Pypi`.
+- Every page, including each section `_index.md`, needs a hand-written front-matter `description` of 60 to 155
+  characters: plain text, unique within its product, starting with a verb or the topic, and without hosted-service
+  claims, pricing or version numbers. On a page in `shared/` it must be true for both products, so describe the task
+  and name neither product. The `<title>` gets the site name as a suffix (`| Repsy Docs` for Repsy Cloud,
+  `| Repsy Open Source`) from the `siteName` param in `config.toml`.
 - Follow the structure and tone of neighbouring pages; look at an existing page in the same section before writing a new one.
 - Use the theme's shortcodes and the ones in `layouts/shortcodes/` instead of raw HTML where possible.
 - Keep claims about the hosted service (pricing, limits, permissions) out of the docs pages; point to the

@@ -1,6 +1,7 @@
 +++
 title = "Installing a Ruby Gem"
 weight = 1030
+description = "Install a gem from a repository with gem install or Bundler, with credentials for private repositories, and see its index endpoints."
 +++
 
 When you create a repository, it will be private by default. Before you install a gem from a private repository, you first need to configure credentials as shown in the previous page. If your repository is public, you can skip the credentials part, but you must still provide the source URL.

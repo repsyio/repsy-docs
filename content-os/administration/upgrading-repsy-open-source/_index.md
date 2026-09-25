@@ -1,6 +1,7 @@
 +++
 title = "Upgrading Repsy Open Source"
 weight = 169
+description = "Upgrade an instance to a newer image, understand why an upgrade cannot be undone, and see what to know before the next release."
 +++
 
 # Upgrading Repsy Open Source

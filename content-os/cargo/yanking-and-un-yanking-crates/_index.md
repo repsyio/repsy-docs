@@ -1,6 +1,7 @@
 +++
 title = "Yanking and Un-yanking Crates"
 weight = 770
+description = "Yank and un-yank crate versions with Cargo, see what a yank changes for clients and when to delete a version instead."
 +++
 
 A published version can never be replaced, see [Publishing and Using Crates with Cargo](../publishing-and-using-crates-with-cargo/#publishing-a-version-twice). When a version turns out to be a mistake, you have two tools: **yanking**, which keeps the version but stops new projects from choosing it, and **deleting**, which removes it. This page shows how to yank and un-yank a version with `cargo` and what each of them does.

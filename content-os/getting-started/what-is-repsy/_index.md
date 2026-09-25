@@ -1,6 +1,7 @@
 +++
 title = "What is Repsy Open Source?"
 weight = 110
+description = "Learn what Repsy Open Source is, which package formats it hosts, what to know before you start and where to go next."
 +++
 
 # What is Repsy Open Source?

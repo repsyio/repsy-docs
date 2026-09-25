@@ -1,6 +1,7 @@
 +++
 title = "Publishing and Consuming with Gradle (Groovy DSL)"
 weight = 372
+description = "Publish a Java library with Gradle and the maven-publish plugin in the Groovy DSL, then consume it from another Gradle build."
 +++
 
 This tutorial publishes a Java library to a Repsy Open Source Maven repository with Gradle and the `maven-publish` plugin, and uses it from another Gradle build. The build files are written in the Groovy DSL (`build.gradle`). If your builds use the Kotlin DSL, see [Publishing and Consuming with Gradle (Kotlin DSL)](../publishing-and-consuming-with-gradle-kotlin-dsl/).

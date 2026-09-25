@@ -1,6 +1,7 @@
 +++
 title = "Yanking Gems"
 weight = 1080
+description = "Yank a gem version so that new installs skip it, see who may yank, and delete a version in the web UI."
 +++
 
 Yanking takes a version of a gem out of the index, so that nobody installs it any more, without deleting it. This page explains how to yank a version, who may do it, what `gem`, Bundler and the web UI do with a yanked version, and how it differs from deleting the version in the web UI.

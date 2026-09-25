@@ -1,6 +1,7 @@
 +++
 title = "Pushing and Pulling Images with Docker"
 weight = 260
+description = "Log in, tag, push and pull a container image with the Docker CLI, and check the result in the web UI."
 +++
 
 This tutorial takes a container image from your machine into a Docker repository of your Repsy Open Source instance and back. It complements [Publishing a Docker Image](../publishing-a-docker-image/) and [Installing a Docker Image from Registry](../installing-a-docker-image/), which show the same commands in short.

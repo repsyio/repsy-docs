@@ -1,6 +1,7 @@
 +++
 title = "Using Go Modules from Repsy"
 weight = 870
+description = "Install Go modules with the go command: set GOPROXY, give credentials, skip the checksum database and use HTTPS for private repositories."
 +++
 
 This tutorial shows how to install Go modules from a Repsy Open Source Go repository with the `go` command: the `GOPROXY`, the credentials, the checksum database, how to use your modules next to public ones, HTTPS for a private repository and what to do when a download fails. It complements [Installing a Go Module from Registry](../installing-a-go-module/), which shows the same in short.

@@ -1,6 +1,7 @@
 +++
 title = "Running Behind a Reverse Proxy"
 weight = 162
+description = "Put the instance behind nginx, Caddy or Traefik: route both ports, forward client addresses and allow large uploads."
 +++
 
 # Running Behind a Reverse Proxy

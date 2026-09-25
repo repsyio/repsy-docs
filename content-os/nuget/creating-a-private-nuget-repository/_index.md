@@ -1,6 +1,7 @@
 +++
 title = "Creating a Private NuGet Repository"
 weight = 410
+description = "Find the default NuGet repository, create more, and get the service index address and your credentials."
 +++
 
 There is no sign-up in Repsy Open Source: you use the repositories of your own instance. A private repository needs a login to be read or written, and a public repository can be read without one. Pushing a package always needs credentials. This page shows how to find or create a NuGet repository and where to get the credentials that the .NET tools need.

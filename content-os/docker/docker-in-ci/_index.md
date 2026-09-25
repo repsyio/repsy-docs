@@ -1,6 +1,7 @@
 +++
 title = "Docker in CI"
 weight = 290
+description = "Build and push images from CI with a deploy token, let the job trust the address of the instance and choose tags."
 +++
 
 A CI job that builds an image and pushes it to your Repsy Open Source instance needs three things: a credential that is safe to keep in the CI system, a way for the job to trust the address of the instance, and tags that do not fight the settings of the repository. This page covers them, with a GitHub Actions example that works the same in any CI system that runs shell commands.

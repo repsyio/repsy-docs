@@ -2,6 +2,7 @@
 title = "What is Repsy?"
 weight = 110
 chapter = true
+description = "Learn what Repsy is, which package formats it hosts, and how private and public repositories and deploy tokens control access."
 +++
 
 

@@ -1,6 +1,7 @@
 +++
 title = "Publishing a Go Module with curl"
 weight = 860
+description = "Publish a Go module by building its zip archive and uploading it with curl, and learn the upload rules and refusals."
 +++
 
 This tutorial takes a small Go module to a release in your Repsy Open Source Go repository, and explains the rules Repsy applies to an upload and what each refusal looks like. It complements [Publishing a Go Module](../publishing-a-go-module/), which shows the same upload in short.

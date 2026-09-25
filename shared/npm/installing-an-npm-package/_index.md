@@ -1,6 +1,7 @@
 +++
 title = "Installing an npm Package from Registry"
 weight = 530
+description = "Install an npm package from a registry by routing its scope to the registry, and log in first when the registry is private."
 +++
 
 When you create a registry, it will be private by default. Before you install a package from a private registry, you first need to authenticate as seen in the previous page. If your registry is public, you can skip the authentication part, but you must still indicate the scoped packages -with the registry information- that you want to install. Therefore,  you need to set npm configuration as follows:

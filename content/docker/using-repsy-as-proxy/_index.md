@@ -1,6 +1,7 @@
 +++
 title = "Using Repsy as Proxy"
 weight = 250
+description = "Set up a Docker proxy that pulls missing images from Docker Hub or private registries, in priority order, and caches them."
 +++
 
 # Docker Proxy

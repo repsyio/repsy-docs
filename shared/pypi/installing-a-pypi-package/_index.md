@@ -1,6 +1,7 @@
 +++
 title = "Installing a PyPI Package"
 weight = 630
+description = "Install a Python package from a registry with pip, and authenticate with HTTP credentials, .netrc or keyring when it is private."
 +++
 
 To install the latest stable version of a package, please run:

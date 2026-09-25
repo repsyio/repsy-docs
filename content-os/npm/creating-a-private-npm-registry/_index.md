@@ -1,6 +1,7 @@
 +++
 title = "Creating a Private npm Registry"
 weight = 510
+description = "Find the default npm registry, create more, and get the registry address and your credentials."
 +++
 
 There is no sign-up in Repsy Open Source: you use the repositories of your own instance. An npm registry is a repository of the type npm. A private registry needs a login to be read or written, and a public registry can be read without one; publishing needs credentials in both cases. This page shows how to find or create an npm registry and where to get the credentials that npm needs.

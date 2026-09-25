@@ -82,17 +82,15 @@
       {{ end }}
 
       <div class="page-feedback">
-        <span class="page-feedback-question">Was this page helpful?</span>
-        <div class="feedback-buttons">
-          <button class="thumb-button">
-            <img src="{{ "images/thumbs-up.svg" | relURL }}" alt="Thumbs up" />
-            Yes
-          </button>
-          <button class="thumb-button">
-            <img src="{{ "images/thumbs-down.svg" | relURL }}" alt="Thumbs down" />
-            No
-          </button>
-        </div>
+        <span class="page-feedback-question">Found a problem with this page?</span>
+        {{- /* Opens a prefilled GitHub issue: no backend and no tracking. The page, the product and the source file are filled in; the reader says what is wrong. */ -}}
+        {{- $source := "" }}
+        {{- with .File }}{{ $source = printf "Source: %s\n" (strings.TrimPrefix (printf "%s/" (replace hugo.WorkingDir "\\" "/")) (replace .Filename "\\" "/")) }}{{ end }}
+        {{- $body := printf "Page: %s\nProduct: %s\n%s\nWhat is wrong or missing?\n\n" .Permalink .Site.Language.LanguageName $source }}
+        <a href="{{ printf "%s?title=%s&body=%s" .Site.Params.issuesURL (urlquery (printf "Docs: %s" .Title)) (urlquery $body) | safeURL }}" class="edit-page-link feedback-link" target="_blank" rel="noopener noreferrer">
+          <img src="{{ "images/github.svg" | relURL }}" alt="" class="edit-icon" />
+          Report a problem
+        </a>
       </div>
     </div>
   </main>

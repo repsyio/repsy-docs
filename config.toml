@@ -17,6 +17,8 @@ home = ["HTML", "RSS", "JSON"]
   # Change default color scheme with a variant one. Can be "red", "blue", "green".
   themeVariant = "repsy"
   editURL = "https://github.com/repsyio/repsy-docs/edit/main/"
+  # "Report a problem" link at the end of every page: opens a prefilled issue here.
+  issuesURL = "https://github.com/repsyio/repsy-docs/issues/new"
 
 [languages]
   [languages.en]

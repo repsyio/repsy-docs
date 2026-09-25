@@ -1,6 +1,7 @@
 +++
 title = "Using a Private Maven Repository"
 weight = 320
+description = "Create a Maven settings.xml with your credentials, deploy a Java library to a private repository and use it from another project."
 +++
 
 {{< product "cloud" >}}Congratulations, your [Repsy](https://repsy.io) account has been successfully created! You currently have your own `default` Maven repository.{{< /product >}}{{< product "os" >}}Before you continue, make sure you have a Maven repository on your Repsy Open Source instance (see [Creating a Private Maven Repository](../creating-private-maven-repository/)).{{< /product >}}

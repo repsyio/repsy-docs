@@ -1,6 +1,7 @@
 +++
 title = "Unlisting and Relisting NuGet Packages"
 weight = 470
+description = "Unlist and relist NuGet package versions with the dotnet CLI, and see what clients get in each case."
 +++
 
 NuGet has no way to take a published version back. What a client can do is to **unlist** it: the version stays in the repository and can still be restored by anyone who asks for it by name, but it is no longer offered as a candidate. This page shows how to unlist and relist a version in Repsy Open Source, what clients see afterwards, and how unlisting differs from deleting a version and from the **Version Allowance** setting.

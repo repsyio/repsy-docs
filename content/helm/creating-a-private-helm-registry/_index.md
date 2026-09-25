@@ -1,6 +1,7 @@
 +++
 title = "Creating a Private Helm Registry"
 weight = 910
+description = "Create a private Helm registry in the dashboard and note its classic and OCI endpoint URLs."
 +++
 
 Before creating a registry, you need to [register to Repsy](https://repsy.io) with a username, password, and e-mail. When you register, Repsy will create a `default` registry for you.

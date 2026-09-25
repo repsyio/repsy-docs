@@ -1,6 +1,7 @@
 +++
 title = "Creating a Private Maven Repository"
 weight = 310
+description = "Find the default Maven repository, create more, and get the repository URL and your credentials."
 +++
 
 There is no sign-up in Repsy Open Source: you use the repositories of your own instance. A private repository needs a login to be read or written, and a public repository can be read without one. This page shows how to find or create a Maven repository and where to get the credentials your build tool needs.

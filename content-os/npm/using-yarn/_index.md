@@ -1,6 +1,7 @@
 +++
 title = "Using Yarn"
 weight = 570
+description = "Configure Yarn classic and Yarn Berry to install packages from the registry and publish to it with a deploy token."
 +++
 
 # Using Yarn

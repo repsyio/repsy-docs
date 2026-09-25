@@ -1,6 +1,7 @@
 +++
 title = "Authenticating from CI"
 weight = 166
+description = "Choose a credential for CI jobs, pass a deploy token from GitHub Actions or GitLab CI, and avoid the failed-login limit."
 +++
 
 # Authenticating from CI

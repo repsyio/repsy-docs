@@ -1,6 +1,7 @@
 +++
 title = "Creating a Private Ruby Registry"
 weight = 1010
+description = "Find the default Ruby repository, create more, and get the repository URL and your credentials."
 +++
 
 There is no sign-up in Repsy Open Source: you use the repositories of your own instance. A private repository needs a login to be read or written, and a public repository can be read without one. This page shows how to find or create a Ruby repository and where to get the credentials that `gem` and Bundler need.

@@ -1,6 +1,7 @@
 +++
 title = "Publishing a Go Module"
 weight = 820
+description = "Create a Go module, package it as a zip archive, upload it to a registry over HTTP and verify the upload."
 +++
 
 {{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io).{{< /product >}}{{< product "os" >}}You have created a registry on your Repsy Open Source instance.{{< /product >}} You are now ready to publish Go modules to your registry.

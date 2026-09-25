@@ -1,6 +1,7 @@
 +++
 title = "Persisting Data and Backups"
 weight = 167
+description = "Persist the database and the storage directory, back them up, restore them and move an instance to another host."
 +++
 
 # Persisting Data and Backups

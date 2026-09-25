@@ -1,6 +1,7 @@
 +++
 title = "Publishing and Using Crates with Cargo"
 weight = 760
+description = "Publish a Rust crate with Cargo, use it as a dependency in another project and install a binary crate from the registry."
 +++
 
 This tutorial takes a small Rust crate from `cargo new` to a release in your Repsy Open Source Cargo repository, then uses it as a dependency of another project and installs a binary crate from it. It also shows what the web UI displays for a crate and what each error of `cargo` means. It complements [Publishing a Cargo Crate](../publishing-a-cargo-crate/) and [Installing a Cargo Crate from Registry](../installing-a-cargo-crate/), which show the same setup in short.

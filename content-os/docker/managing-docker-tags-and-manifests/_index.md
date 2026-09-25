@@ -1,6 +1,7 @@
 +++
 title = "Managing Docker Tags and Manifests"
 weight = 280
+description = "Learn how images, tags, manifests and layers relate, what deleting each one does and how to clean up untagged manifests."
 +++
 
 A Docker repository in Repsy Open Source stores images, and an image is made of tags, manifests and layers. This page explains how they relate, what deleting each of them does, why an image can be listed without tags, and which actions free disk space.

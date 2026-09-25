@@ -1,6 +1,7 @@
 +++
 title = "Using Repository with Gradle"
 weight = 340
+description = "Configure build.gradle and gradle.properties to publish artifacts to a Maven repository and to resolve dependencies from it with Gradle."
 +++
 
 If you are using Gradle as a dependency management tool, {{< product "cloud" >}}[Repsy](https://repsy.io){{< /product >}}{{< product "os" >}}Repsy Open Source{{< /product >}} is quite convenient for both deploying and downloading operations as well.

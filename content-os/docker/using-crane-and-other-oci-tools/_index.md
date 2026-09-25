@@ -1,6 +1,7 @@
 +++
 title = "Using crane and Other OCI Tools"
 weight = 270
+description = "Use crane, which needs no Docker daemon, to push and pull images, work with digests, add tags and build multi-platform images."
 +++
 
 [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane) is a command-line tool for container registries, part of the go-containerregistry project. It needs no Docker daemon, which makes it a good fit for scripts and CI jobs, and for looking at digests and manifests. This page shows the crane commands that work against a Docker repository of Repsy Open Source. They are the commands that the automated tests of Repsy run against every change, with crane v0.22.1.

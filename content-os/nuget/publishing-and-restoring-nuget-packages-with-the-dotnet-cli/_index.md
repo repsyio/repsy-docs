@@ -1,6 +1,7 @@
 +++
 title = "Publishing and Restoring NuGet Packages with the dotnet CLI"
 weight = 460
+description = "Pack a class library, push it to the repository with the dotnet CLI, restore it in another project and learn the push rules."
 +++
 
 This tutorial takes a small class library from `dotnet pack` to a package in your Repsy Open Source NuGet repository, restores it in a second project, and explains the rules Repsy applies to a push and what each refusal looks like. It complements [Publishing a NuGet Package](../publishing-a-nuget-package/) and [Installing a NuGet Package](../installing-a-nuget-package/), which show the same setup in short.

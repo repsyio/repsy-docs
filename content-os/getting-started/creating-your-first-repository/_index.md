@@ -1,6 +1,7 @@
 +++
 title = "Creating Your First Repository"
 weight = 120
+description = "Use the repositories created on first start or create your own in the web UI, and see the defaults of a new repository."
 +++
 
 # Creating Your First Repository

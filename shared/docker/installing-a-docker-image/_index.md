@@ -1,6 +1,7 @@
 +++
 title = "Installing a Docker Image from Registry"
 weight = 230
+description = "Pull a Docker image from a registry with the docker CLI, logging in first when the registry is private."
 +++
 
 When you create a registry, it will be private by default. Before you install an image from a private registry, you first need to authenticate as seen in the previous page. If your registry is public, you can skip the authentication part.

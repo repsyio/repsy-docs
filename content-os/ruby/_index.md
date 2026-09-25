@@ -2,6 +2,7 @@
 title = "Ruby"
 chapter = true
 weight = 1000
+description = "Guides for hosting Ruby gem repositories: create one, publish and install gems with gem and Bundler, yank versions and use CI."
 +++
 
 # Ruby

@@ -1,6 +1,7 @@
 +++
 title = "Publishing a PyPI Package"
 weight = 620
+description = "Build a Python package with setuptools and wheel, then upload its distribution archives to a registry with twine."
 +++
 
 Let's create a basic Python package to upload. Before proceeding, please make sure that you have the latest versions of necessary tools used to build and upload Python packages.

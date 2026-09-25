@@ -1,6 +1,7 @@
 +++
 title = "Using Helm in CI"
 weight = 990
+description = "Publish and install charts in a pipeline with a deploy token, over OCI or the classic way, including a GitHub Actions example."
 +++
 
 A pipeline that publishes a chart to your Repsy Open Source Helm repository, or installs one from it, needs a credential and the address of the repository. This page shows how to keep both out of your scripts: use a deploy token, store it as a secret of your CI system, and let the job read it from an environment variable. The commands are the ones from [Publishing and Pulling Charts over OCI](../publishing-and-pulling-charts-over-oci/) and [Publishing and Installing Charts the Classic Way](../publishing-and-installing-charts-the-classic-way/).

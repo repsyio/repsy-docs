@@ -2,6 +2,7 @@
 title = "Repsy Open Source"
 chapter = true
 weight = 1
+description = "Documentation for Repsy Open Source, the self-hosted package repository for Maven, npm, PyPI, Docker, Cargo, Go, Helm, NuGet and Ruby."
 +++
 
 # Repsy Open Source

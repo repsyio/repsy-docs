@@ -1,6 +1,7 @@
 +++
 title = "Using pnpm"
 weight = 575
+description = "Configure pnpm with .npmrc to install packages from the registry and publish to it with a deploy token."
 +++
 
 # Using pnpm

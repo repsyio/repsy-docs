@@ -1,6 +1,7 @@
 +++
 title = "Using Repsy as Proxy"
 weight = 550
+description = "Set up an npm proxy that fetches missing packages from npmjs.org or private registries, in priority order, and caches them."
 +++
 
 # npm Proxy

@@ -1,6 +1,7 @@
 +++
 title = "Using Repsy as Proxy"
 weight = 950
+description = "Set up a Helm proxy that fetches missing charts from other chart repositories, in priority order, and caches them."
 +++
 
 # Helm Proxy

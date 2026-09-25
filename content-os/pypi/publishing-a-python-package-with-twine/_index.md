@@ -1,6 +1,7 @@
 +++
 title = "Publishing a Python Package with twine"
 weight = 660
+description = "Build a Python package, upload it with twine, and learn what is checked on upload and what each refusal looks like."
 +++
 
 This tutorial takes a small Python package from `python -m build` to a release in your Repsy Open Source PyPI repository, and explains the rules Repsy applies to an upload and what each refusal looks like. It complements [Publishing a PyPI Package](../publishing-a-pypi-package/), which shows the same setup in short.

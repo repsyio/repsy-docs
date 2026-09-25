@@ -1,6 +1,7 @@
 +++
 title = "Authenticating with npm"
 weight = 560
+description = "Give npm the registry address and a credential with npm login or a deploy token in .npmrc, route scopes and check the setup."
 +++
 
 # Authenticating with npm

@@ -1,6 +1,7 @@
 +++
 title = "Browsing and Deleting Packages"
 weight = 177
+description = "Browse packages, versions and files in the web UI, get the client configuration, and see what each kind of delete removes."
 +++
 
 # Browsing and Deleting Packages

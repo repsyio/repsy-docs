@@ -26,6 +26,8 @@ home = ["HTML", "RSS", "JSON"]
     [languages.en.params]
       product = "cloud"
       shortName = "Cloud"
+      # Site name in the <title> suffix ("<page> | Repsy Docs") and in og:site_name.
+      siteName = "Repsy Docs"
   [languages.os]
     languageName = "Repsy Open Source"
     languageCode = "en-us"
@@ -33,6 +35,7 @@ home = ["HTML", "RSS", "JSON"]
     [languages.os.params]
       product = "os"
       shortName = "Open Source"
+      siteName = "Repsy Open Source"
       # Header badge label on narrow screens, where "Open Source" does not fit next to the logo.
       compactName = "OSS"
       # The Repsy Open Source release the docs are written for, e.g. "26.10.0". Empty until the release is

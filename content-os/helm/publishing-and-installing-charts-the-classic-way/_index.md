@@ -1,6 +1,7 @@
 +++
 title = "Publishing and Installing Charts the Classic Way"
 weight = 960
+description = "Publish a chart with the classic protocol using helm cm-push or curl, then search, pull and install it from the repository."
 +++
 
 This tutorial takes a small Helm chart from `helm create` to an install from your Repsy Open Source Helm repository with the classic (ChartMuseum-compatible) protocol: you upload the chart with the `helm cm-push` plugin or with `curl`, and you install it with `helm repo add`, `helm search repo`, `helm pull` and `helm install`. It complements [Publishing a Helm Chart](../publishing-a-helm-chart/) and [Installing a Helm Chart from Registry](../installing-a-helm-chart/), which show the same setup in short. To publish over OCI instead, see [Publishing and Pulling Charts over OCI](../publishing-and-pulling-charts-over-oci/).

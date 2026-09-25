@@ -1,6 +1,7 @@
 +++
 title = "Using Repsy as Proxy"
 weight = 450
+description = "Set up a NuGet proxy that fetches missing packages from nuget.org or private feeds, in priority order, and caches them."
 +++
 
 # NuGet Proxy

@@ -1,6 +1,7 @@
 +++
 title = "Managing Chart Versions"
 weight = 980
+description = "See what is checked when you publish a chart, what happens on a re-upload, and how deleting versions or charts affects Helm clients."
 +++
 
 This page explains what Repsy checks when you publish a chart, what happens when you publish a version that already exists, and how to delete a version or a whole chart and what your Helm clients see afterwards. It applies to both protocols, classic and OCI.

@@ -1,6 +1,7 @@
 +++
 title = "Using Ruby in CI"
 weight = 1090
+description = "Publish, yank and install gems in a pipeline with a deploy token, including a GitHub Actions example."
 +++
 
 A pipeline that publishes a gem to your Repsy Open Source Ruby repository, or installs gems from it, needs a credential and the address of the repository. This page shows how to keep both out of your scripts: use a deploy token, store it as a secret of your CI system, and let the job read it from an environment variable. The commands are the ones from [Publishing and Installing Gems with gem](../publishing-and-installing-gems-with-gem/) and [Using Repsy with Bundler](../using-repsy-with-bundler/).

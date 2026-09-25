@@ -1,6 +1,7 @@
 +++
 title = "Using Repsy as Proxy"
 weight = 750
+description = "Set up a Cargo proxy registry that fetches missing crates from crates.io or private registries and caches them."
 +++
 
 # Cargo Proxy

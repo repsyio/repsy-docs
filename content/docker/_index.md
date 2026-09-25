@@ -2,6 +2,7 @@
 title = "Docker"
 chapter = true
 weight = 200
+description = "Guides for private and public Docker registries: create one, push and pull images, receive webhook events and proxy other registries."
 +++
 
 # Docker

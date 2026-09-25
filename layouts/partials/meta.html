@@ -1,10 +1,29 @@
-{{- /* Description: front matter `description`, else the page summary, else the site-level `description` param. Omitted when none is available. */ -}}
+{{- /*
+  Description: front matter `description` (every page in content/, content-os/ and shared/ has one), else for the
+  generated tag and category pages a fixed sentence, else the page summary without the leading heading, else the
+  site-level `description` param. Omitted when none is available. Also emits the Open Graph and Twitter card tags from
+  the same title, description and canonical URL as head.html; they are left off the 404 page.
+*/ -}}
 {{- $description := .Description -}}
+{{- if and (not $description) (in (slice "taxonomy" "term") .Kind) -}}
+  {{- $description = printf "List of all %s used to group the pages of the %s documentation." (lower .Title) .Site.Language.LanguageName -}}
+{{- end -}}
 {{- if not $description -}}
-  {{- $description = .Summary | plainify | htmlUnescape | replaceRE `\s+` " " | replaceRE `^ | $` "" | truncate 160 -}}
+  {{- $summary := .Summary | plainify | htmlUnescape | replaceRE `\s+` " " | replaceRE `^ | $` "" -}}
+  {{- with .Title }}{{ $summary = strings.TrimPrefix (printf "%s " .) $summary }}{{ end -}}
+  {{- $description = $summary | truncate 160 -}}
 {{- end -}}
 {{- if not $description -}}
   {{- $description = .Site.Params.description -}}
 {{- end -}}
 {{ with $description }}<meta name="description" content="{{ . }}">{{ end }}
 {{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+{{- if ne .Kind "404" }}
+<meta property="og:title" content="{{ partial "page-title.html" . }}">
+{{ with $description }}<meta property="og:description" content="{{ . }}">
+{{ end -}}
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:site_name" content="{{ .Site.Params.siteName | default .Site.Language.LanguageName }}">
+<meta name="twitter:card" content="summary">
+{{- end }}

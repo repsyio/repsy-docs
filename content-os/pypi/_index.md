@@ -2,6 +2,7 @@
 title = "PyPI"
 chapter = true
 weight = 600
+description = "Guides for hosting PyPI repositories: create one, publish packages with twine and install them with pip."
 +++
 
 # PyPI

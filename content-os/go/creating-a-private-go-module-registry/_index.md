@@ -1,6 +1,7 @@
 +++
 title = "Creating a Private Go Module Registry"
 weight = 810
+description = "Find the default Go repository, create more, get the repository URL and credentials, and serve a private repository over HTTPS."
 +++
 
 There is no sign-up in Repsy Open Source: you use the repositories of your own instance. A private repository needs a login to be read or written, and a public repository can be read without one. This page shows how to find or create a Go repository and where to get the credentials that the `go` command and `curl` need.

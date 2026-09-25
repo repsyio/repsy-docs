@@ -2,6 +2,7 @@
 title = "Installation"
 chapter = true
 weight = 150
+description = "Choose how to install Repsy Open Source: Docker, Docker with PostgreSQL, Docker Compose or from source, and what to do before production."
 +++
 
 # Installation

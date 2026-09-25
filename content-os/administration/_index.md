@@ -2,6 +2,7 @@
 title = "Administration"
 chapter = true
 weight = 160
+description = "Run a Repsy Open Source instance: secure and expose it, manage users, keep the data safe, upgrade it and fix problems."
 +++
 
 # Administration

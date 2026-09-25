@@ -1,6 +1,7 @@
 +++
 title = "Maven Upload Rules"
 weight = 390
+description = "Learn the rules an upload must pass: who can upload, path and POM checks, checksums, and what Maven or Gradle sees on a refusal."
 +++
 
 Every file that Maven or Gradle uploads passes a few rules before Repsy Open Source stores it. This page lists them, the repository settings that change them, and what your build tool sees when a rule refuses an upload. A refused upload changes nothing in the repository.

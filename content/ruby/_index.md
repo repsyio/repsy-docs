@@ -2,6 +2,7 @@
 title = "Ruby"
 chapter = true
 weight = 1000
+description = "Guides for private and public RubyGems registries: create one, publish and install gems with gem and Bundler, receive webhooks and proxy sources."
 +++
 
 # Ruby

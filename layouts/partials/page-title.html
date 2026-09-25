@@ -1,0 +1,13 @@
+{{- /*
+  The text of the <title> tag and of og:title: "<page title> | <site name>". The site name is the `siteName` param of
+  the product (Repsy Docs for Repsy Cloud, Repsy Open Source for Repsy Open Source), else the language name.
+  The suffix is left off when the title already is the site name or ends with it, so it is never doubled.
+*/ -}}
+{{- $siteName := .Site.Params.siteName | default .Site.Language.LanguageName -}}
+{{- $title := .Title -}}
+{{- if not $title -}}
+  {{- $title = $siteName -}}
+{{- else if not (or (eq $title $siteName) (strings.HasSuffix $title (printf " | %s" $siteName))) -}}
+  {{- $title = printf "%s | %s" $title $siteName -}}
+{{- end -}}
+{{- return $title -}}

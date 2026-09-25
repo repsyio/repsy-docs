@@ -2,6 +2,7 @@
 title = "Helm"
 chapter = true
 weight = 900
+description = "Guides for Helm chart repositories: create one, publish and install charts with the classic or OCI protocol, receive webhook events and proxy others."
 +++
 
 # Helm

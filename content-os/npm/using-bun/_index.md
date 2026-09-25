@@ -1,6 +1,7 @@
 +++
 title = "Using Bun"
 weight = 580
+description = "Configure Bun with bunfig.toml or .npmrc to install packages from the registry and publish to it with a deploy token."
 +++
 
 # Using Bun

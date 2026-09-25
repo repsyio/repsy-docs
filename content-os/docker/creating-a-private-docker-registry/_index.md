@@ -1,6 +1,7 @@
 +++
 title = "Creating a Private Docker Registry"
 weight = 210
+description = "Find the default Docker repository, create more, and get the registry address and credentials for docker login."
 +++
 
 There is no sign-up in Repsy Open Source: you use the repositories of your own instance. A Docker repository is your registry. A private repository needs a login to be read or written, and a public repository can be pulled without one. This page shows how to find or create a Docker repository and where to get the credentials the Docker CLI needs.

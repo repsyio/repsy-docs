@@ -1,6 +1,7 @@
 +++
 title = "Installing with Docker"
 weight = 151
+description = "Start Repsy Open Source as a single Docker container with the embedded database, sign in and see what the volume keeps."
 +++
 
 # Installing with Docker

@@ -1,6 +1,7 @@
 +++
 title = "Recovering a Lost Password"
 weight = 165
+description = "Recover a lost password by having another administrator reset it, or with a marker file when nobody can sign in."
 +++
 
 # Recovering a Lost Password

@@ -1,6 +1,7 @@
 +++
 title = "Creating and Publishing an npm Package"
 weight = 520
+description = "Create a scoped npm package, log in to the registry with your scope and publish the package with npm publish."
 +++
 
 {{< product "cloud" >}}You have registered and created a registry on [Repsy](https://repsy.io/).{{< /product >}}{{< product "os" >}}You have created an npm registry on your Repsy Open Source instance (see [Creating a Private npm Registry](../creating-a-private-npm-registry/)).{{< /product >}} You are now ready to publish packages to your registry.

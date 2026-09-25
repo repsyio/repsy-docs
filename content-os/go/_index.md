@@ -2,6 +2,7 @@
 title = "Go"
 chapter = true
 weight = 800
+description = "Guides for hosting Go module repositories: create one, publish and install modules, use it in CI and delete module versions."
 +++
 
 # Go

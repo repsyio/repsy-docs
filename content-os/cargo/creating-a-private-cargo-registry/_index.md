@@ -1,6 +1,7 @@
 +++
 title = "Creating a Private Cargo Registry"
 weight = 710
+description = "Find the default Cargo repository, create more, locate the sparse index address and get a deploy token."
 +++
 
 There is no sign-up in Repsy Open Source: you use the repositories of your own instance. A Cargo repository is your registry. A private repository needs a token to be read or written, and a public repository can be read without one. This page shows how to find or create a Cargo repository and where to get the token that `cargo` needs.

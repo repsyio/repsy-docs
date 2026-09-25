@@ -1,6 +1,7 @@
 +++
 title = "Security Headers and CORS"
 weight = 163
+description = "Configure the Content-Security-Policy header and the cross-origin (CORS) rules, for example to serve the web UI and API from different hosts."
 +++
 
 # Security Headers and CORS

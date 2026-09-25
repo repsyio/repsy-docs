@@ -1,6 +1,7 @@
 +++
 title = "Troubleshooting"
 weight = 170
+description = "Diagnose common problems: startup failures, port and permission errors, database and keystore issues, sign-in trouble and 429 responses."
 +++
 
 # Troubleshooting

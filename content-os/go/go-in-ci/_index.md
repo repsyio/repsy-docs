@@ -1,6 +1,7 @@
 +++
 title = "Go in CI"
 weight = 880
+description = "Use a deploy token in CI to install Go modules and publish module versions, and reach the instance over HTTPS."
 +++
 
 A CI job that builds a Go project with modules from your Repsy Open Source instance, or publishes a version of a module to it, needs three things: a credential that is safe to keep in the CI system, an address that the `go` command accepts, and a way to hand the credential to `go` and `curl` without writing it into your repository. This page covers them, with a GitHub Actions and a GitLab CI example. The steps are shell commands, so they work the same in any other CI system.

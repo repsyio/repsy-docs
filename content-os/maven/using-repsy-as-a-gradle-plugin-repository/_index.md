@@ -1,6 +1,7 @@
 +++
 title = "Using Repsy as a Gradle Plugin Repository"
 weight = 373
+description = "Publish your own Gradle plugin to a Maven repository and apply it in other builds with the plugins block."
 +++
 
 A team that builds its own Gradle plugins can publish them to a Repsy Open Source Maven repository and apply them in other builds with the `plugins { }` block, without the Gradle Plugin Portal. This tutorial publishes a small plugin and applies it from a second build. The examples show the Kotlin DSL and the Groovy DSL.

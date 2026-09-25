@@ -2,6 +2,7 @@
 title = "Maven"
 chapter = true
 weight = 300
+description = "Guides for hosting Maven repositories: create one, publish and consume artifacts with Maven and Gradle, sign artifacts and learn the upload rules."
 +++
 
 # Maven

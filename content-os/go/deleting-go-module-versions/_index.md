@@ -1,6 +1,7 @@
 +++
 title = "Deleting Go Module Versions"
 weight = 890
+description = "Delete Go module versions or whole modules in the web UI, see who may delete and what the go command sees afterwards."
 +++
 
 A version of a Go module cannot be overwritten, so deleting it is the only way to take it out of a Go repository. This page explains what deleting a version or a module does in the web UI, and what the `go` command sees afterwards.

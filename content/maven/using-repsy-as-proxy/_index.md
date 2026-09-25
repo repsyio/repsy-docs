@@ -1,6 +1,7 @@
 +++
 title = "Using Repsy as Proxy"
 weight = 360
+description = "Set up a Maven proxy repository that fetches missing artifacts from Maven Central or private repositories and caches them."
 +++
 
 # Maven Proxy

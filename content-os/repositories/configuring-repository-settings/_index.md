@@ -1,6 +1,7 @@
 +++
 title = "Configuring Repository Settings"
 weight = 176
+description = "Go through every section of the repository settings page: visibility, deploy tokens, version allowance, storage and deleting a repository."
 +++
 
 # Configuring Repository Settings

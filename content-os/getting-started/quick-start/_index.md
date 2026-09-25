@@ -1,6 +1,7 @@
 +++
 title = "Quick Start"
 weight = 112
+description = "Run Repsy Open Source with one Docker command, sign in and publish a first package to it."
 +++
 
 # Quick Start

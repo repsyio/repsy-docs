@@ -1,6 +1,7 @@
 +++
 title = "Managing Users"
 weight = 164
+description = "Create, edit, reset the password of and delete users, and see what the ADMIN and USER roles allow in the web UI."
 +++
 
 # Managing Users

@@ -1,6 +1,7 @@
 +++
 title = "Publishing and Consuming with Maven"
 weight = 370
+description = "Publish a Java library with mvn deploy as a release or SNAPSHOT version, and use it as a dependency in another project."
 +++
 
 This tutorial takes a Java library from `mvn deploy` to a dependency in another project, with a release version and with a SNAPSHOT version. It complements [Using a Private Maven Repository](../using-private-maven-repository/), which shows the same setup in short.

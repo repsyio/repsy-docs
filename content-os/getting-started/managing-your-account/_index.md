@@ -1,6 +1,7 @@
 +++
 title = "Managing Your Account"
 weight = 145
+description = "Change your password or username, or delete your account, on the Profile page of the web UI."
 +++
 
 # Managing Your Account

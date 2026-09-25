@@ -101,7 +101,7 @@ On the first start, when no administrator exists yet, Repsy creates the user `ad
 
 `ADMIN_INITIAL_PASSWORD` only matters while no administrator exists. Changing it later does not change the password of
 an existing `admin` user: change the password in your profile in the panel. If you lose the password of an
-administrator, the Administration section explains how to reset it.
+administrator, [Recovering a Lost Password](../../administration/recovering-a-lost-password/) explains how to reset it.
 
 ## Running It for Other Users
 
@@ -131,7 +131,8 @@ docker run -d \
 ```
 
 The [Configuration Reference](../configuration-reference/) lists every other setting. To serve Repsy over HTTPS or behind
-a reverse proxy, see the Administration section.
+a reverse proxy, see [Enabling HTTPS](../../administration/enabling-https/) and
+[Running Behind a Reverse Proxy](../../administration/running-behind-a-reverse-proxy/).
 
 ## What Is Kept and What Is Lost
 

@@ -172,8 +172,9 @@ passwords of a reset are logged as warnings.
 
 Change `REPSY_TAG` in `.env` and run `docker compose up -d` again: Compose recreates the `repsy` container with the new
 image and keeps the volumes. Take a backup of the database and of the package files first. Database migrations only go
-forward, so an older release may not work with a database that a newer one has already migrated. The Administration
-section describes backups and upgrades in detail.
+forward, so an older release may not work with a database that a newer one has already migrated.
+[Persisting Data and Backups](../../administration/persisting-data-and-backups/) and
+[Upgrading Repsy Open Source](../../administration/upgrading-repsy-open-source/) describe backups and upgrades in detail.
 
 ## Back Up Both Volumes
 

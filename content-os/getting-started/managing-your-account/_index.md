@@ -9,7 +9,9 @@ Every signed-in user can manage their own account on the **Profile** page: chang
 delete the account. Open it from the menu behind your avatar at the top right of the web UI, or go to `/profile`.
 
 Administrators create and manage the accounts of other users on the **Users** page. See
-[Navigating the Web UI](../navigating-the-web-ui/).
+[Managing Users](../../administration/managing-users/) and [Navigating the Web UI](../navigating-the-web-ui/).
+
+{{< figure src="os/administration/managing-your-account/account-page.png" alt="The Profile page with the Account Information section for the password and the username, and the Delete Account section." caption="The **Profile** page of the user `admin`." >}}
 
 # Changing Your Password
 
@@ -29,7 +31,8 @@ When the password is changed:
 - Package manager clients and CI jobs that use your username and password stop working until you give them the new
   password. Deploy tokens are not affected.
 
-If you have forgotten your password and cannot sign in, ask an administrator to reset it on the **Users** page. Repsy
+If you have forgotten your password and cannot sign in, ask an administrator to reset it on the **Users** page, see
+[Managing Users](../../administration/managing-users/#reset-a-users-password). Repsy
 shows the administrator the new password once, and you should change it after you sign in.
 
 # Changing Your Username

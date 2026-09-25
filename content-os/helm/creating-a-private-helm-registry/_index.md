@@ -44,4 +44,6 @@ Helm authenticates with HTTP Basic credentials, and there are two choices:
 Use a deploy token in CI jobs and whenever you give somebody access to one repository only. A **Read Only** token is enough to install, and publishing needs **Read/Write**. You need the `ADMIN` role to create deploy tokens. See [Creating a Deploy Token](../../getting-started/creating-a-deploy-token/).
 {{< /steps >}}
 
+{{< figure src="os/helm/publishing-a-helm-chart/configure-dialog.png" alt="The Helm Configuration dialog with the commands of the classic protocol and of the OCI protocol." caption="The **Configure** dialog of a Helm repository with the commands for both protocols. Your instance shows its own address instead of the demo address `repsy.example.com`." >}}
+
 You can now publish to and install from your repository: see [Publishing a Helm Chart](../publishing-a-helm-chart/) and [Installing a Helm Chart from Registry](../installing-a-helm-chart/), or the tutorials for the [classic protocol](../publishing-and-installing-charts-the-classic-way/) and [OCI](../publishing-and-pulling-charts-over-oci/).

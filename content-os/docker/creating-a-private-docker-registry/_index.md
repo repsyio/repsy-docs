@@ -40,4 +40,6 @@ The Docker CLI authenticates with a username and a password, and there are two c
 Use a deploy token in CI jobs and whenever you give somebody access to one repository only. You need the `ADMIN` role to create deploy tokens.
 {{< /steps >}}
 
+{{< figure src="os/docker/pushing-a-docker-image/configure-dialog.png" alt="The Docker Configuration dialog with the docker login command and the docker pull commands." caption="The **Configure** dialog of a Docker repository with the `docker login` and `docker pull` commands. Your instance shows its own address instead of the demo address `repsy.example.com`." >}}
+
 You can now push images to your registry and pull them: see [Publishing a Docker Image](../publishing-a-docker-image/) for the short version, or [Pushing and Pulling Images with Docker](../pushing-and-pulling-images-with-docker/) for the tutorial.

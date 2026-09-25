@@ -133,8 +133,9 @@ migration that has not been applied yet:
 
 Migrations only go forward, and an older release may not work with a schema that a newer release has already migrated,
 so do not start an older release on such a database. Take a backup of the database and of the
-storage before you start a new release, so that you can go back by restoring it. The Administration section describes
-backups and upgrades.
+storage before you start a new release, so that you can go back by restoring it.
+[Persisting Data and Backups](../../administration/persisting-data-and-backups/) and
+[Upgrading Repsy Open Source](../../administration/upgrading-repsy-open-source/) describe backups and upgrades.
 
 Migration messages are logged at the `INFO` level, which is not shown by default. Add `-e LOGGING_LEVEL_ROOT=INFO` to
 `docker run` if you want to see them.

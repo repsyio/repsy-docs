@@ -67,6 +67,8 @@ or a version, Repsy first moves its files into a `trash` directory inside the di
 | `TRASH_CLEANUP_INTERVAL` | `PT24H` | How often the trash is emptied. |
 | `TRASH_CLEANUP_INITIAL_DELAY` | `PT15M` | How long after the start the first cleanup runs. |
 
+[Managing Storage and Cleanup](../../administration/managing-storage-and-cleanup/) describes the storage layout and the trash in detail.
+
 ## Background Jobs
 
 Repsy runs a few maintenance jobs. The defaults suit most installations.
@@ -96,7 +98,7 @@ Repsy runs a few maintenance jobs. The defaults suit most installations.
 | `SERVER_TOMCAT_REMOTEIP_INTERNAL_PROXIES` | Every private and loopback address | The addresses of the reverse proxies that Repsy trusts when they send the `X-Forwarded-For` header. This is a setting of the underlying Spring Boot server. It is not defined in Repsy's own configuration file and is described in the README of the project; it has not been checked here. |
 
 Repsy reads the `X-Forwarded-Proto`, `X-Forwarded-Host`, `X-Forwarded-Port` and `X-Forwarded-For` headers of a reverse
-proxy. See the Administration section for a reverse proxy setup.
+proxy. See [Running Behind a Reverse Proxy](../../administration/running-behind-a-reverse-proxy/) for a reverse proxy setup.
 
 ## HTTPS
 
@@ -114,7 +116,7 @@ of the two ports has its own set of variables, one starting with `API_SSL_` for 
 | `API_SSL_KEY_ALIAS` / `REPO_SSL_KEY_ALIAS` | `repsy` | The alias of the certificate entry in the keystore. |
 | `API_SSL_KEY_PASSWORD` / `REPO_SSL_KEY_PASSWORD` | Empty | The password of the private key inside the keystore. Set it only when it differs from the keystore password. |
 
-The Administration section shows how to create and use a certificate.
+[Enabling HTTPS](../../administration/enabling-https/) shows how to create and use a certificate.
 
 ## Cross-Origin Requests and Content Security Policy
 
@@ -131,9 +133,12 @@ loads scripts, styles and fonts from: `https://www.googletagmanager.com`, `https
 start from the built-in policy when you write one. The other directives of the built-in policy are `default-src 'self'`,
 `object-src 'none'`, `base-uri 'self'`, `frame-ancestors 'none'` and `form-action 'self'`.
 
+[Security Headers and CORS](../../administration/security-headers-and-cors/) explains both settings.
+
 ## Authentication
 
 Repsy limits and caches the password checks of package clients and of the panel's sign-in.
+See [Authenticating from CI](../../administration/authenticating-from-ci/) for how the limit and the cache affect CI jobs.
 
 | Variable | Default | Description |
 | --- | --- | --- |
@@ -153,7 +158,7 @@ otherwise all clients look like one and share a count.
 ### Password Reset Marker
 
 An operator with access to the server can reset the password of any user by creating a file, named after the user, in a
-directory that Repsy watches. See the Administration section for how to use it.
+directory that Repsy watches. See [Recovering a Lost Password](../../administration/recovering-a-lost-password/#a-marker-file) for how to use it.
 
 | Variable | Default | Description |
 | --- | --- | --- |
@@ -163,7 +168,8 @@ directory that Repsy watches. See the Administration section for how to use it.
 
 ## Upload Size Limits
 
-Repsy refuses a larger upload with the status `413`. A reverse proxy in front of Repsy may have a smaller limit of its own.
+Repsy refuses a larger upload with the status `413`. A reverse proxy in front of Repsy may have a smaller limit of its own,
+see [Running Behind a Reverse Proxy](../../administration/running-behind-a-reverse-proxy/#large-uploads).
 
 | Variable | Default | Applies to | Description |
 | --- | --- | --- | --- |

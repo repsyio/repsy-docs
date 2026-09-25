@@ -43,6 +43,8 @@ There is no user name in the address. For a default local start, the `maven` rep
 -e REPO_BASE_URL=https://repo.example.com
 ```
 
+The [Configuration Reference](../../installation/configuration-reference/#network-and-addresses) lists the related settings.
+
 Repsy uses it in two places:
 
 - In the web UI: the client configuration behind the **Configure** button of a repository and the install
@@ -85,5 +87,6 @@ repository is on another host:
 - Docker accepts a plain-HTTP registry on `localhost` only; for another host it needs HTTPS, or the host has to be
   configured as an insecure registry in the Docker daemon.
 
-For anything beyond a local trial, serve the repository port over HTTPS: either with the optional HTTPS port `9443`, or
-with a reverse proxy in front of Repsy.
+For anything beyond a local trial, serve the repository port over HTTPS: either with the optional HTTPS port `9443`, see
+[Enabling HTTPS](../../administration/enabling-https/), or with a reverse proxy in front of Repsy, see
+[Running Behind a Reverse Proxy](../../administration/running-behind-a-reverse-proxy/).

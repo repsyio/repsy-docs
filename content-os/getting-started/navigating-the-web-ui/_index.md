@@ -53,14 +53,18 @@ The dashboard is the first page after you sign in. It shows:
 - **Recent Activity**: the six newest repositories, with their disk usage and age. Click one to open it.
 - A **Create Repository** button, for administrators.
 
+{{< figure src="os/getting-started/web-ui-tour/dashboard.png" alt="The Repsy dashboard showing the disk usage, the security overview, the number of repositories per format and the recent activity." caption="The dashboard of a demo instance, signed in as `admin`." >}}
+
 ## Repositories
 
 The list of all repositories with their name, package format, visibility, creation date and size. Use the search box to
 find a repository by name and the selector to show one package format, and refresh the list with the refresh button. The list
 shows ten repositories per page, newest first.
 
+{{< figure src="os/getting-started/web-ui-tour/repository-list.png" alt="The repository list with one repository for each package format." caption="The **Repositories** page: the search box, the format selector, the refresh button and **Create Repository** above the list, and the ⋮ menu on every row." >}}
+
 Click a repository to open it. Administrators also get **Create Repository** and a menu (⋮) on every row with **Settings**
-and **Delete**.
+and **Delete**. See [Creating Your First Repository](../creating-your-first-repository/).
 
 ## A Repository
 
@@ -75,7 +79,8 @@ depending on the package format. From there you can:
 - Click **Browse Files** in a Maven repository to walk through its directories and download files.
 - Click **Settings**, if you are an administrator.
 
-Administrators can also delete packages and versions here.
+Administrators can also delete packages and versions here. See
+[Browsing and Deleting Packages](../../repositories/browsing-and-deleting-packages/).
 
 ## Repository Settings
 
@@ -96,12 +101,13 @@ repository. The page has these sections:
 | Delete Repository | Deletes the repository and everything in it. |
 
 Visibility, Package Override and Version Allowance apply the moment you change them. There is no Save button for them.
+[Configuring Repository Settings](../../repositories/configuring-repository-settings/) explains every section.
 
 ## Users
 
 Administrators manage the user accounts here: create a user and pick the `ADMIN` or `USER` role, rename a user, change the
 role, reset a password and delete a user. The list shows each user's role, creation date and last login, and can be searched
-by username.
+by username. See [Managing Users](../../administration/managing-users/).
 
 ## Security
 

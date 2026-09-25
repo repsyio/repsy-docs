@@ -32,7 +32,7 @@ It hosts packages in these formats, all from one instance:
 
 3. **Your choice of database**  
    The image uses an embedded H2 database by default, which is convenient for evaluation and development. For
-   production you can point it at PostgreSQL instead.
+   production you can point it at PostgreSQL instead, see [Installing with Docker and PostgreSQL](../../installation/installing-with-docker-and-postgresql/).
 
 4. **Storage on the local file system**  
    Packages are stored as files in a directory you choose. Mount a volume or a host directory there to keep them.
@@ -72,3 +72,5 @@ It hosts packages in these formats, all from one instance:
 - [Ports and Repository URLs](../ports-and-repository-urls/): which port serves what, and how the address of a repository
   is formed.
 - [Creating Your First Repository](../creating-your-first-repository/)
+- [Installation](../../installation/): the other ways to install Repsy, with PostgreSQL, Docker Compose or from source.
+- [Administration](../../administration/): HTTPS, reverse proxies, users, backups and upgrades.

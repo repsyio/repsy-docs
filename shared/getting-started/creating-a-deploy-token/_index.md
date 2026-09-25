@@ -85,13 +85,13 @@ repository, Repsy checks the pair as an account username and password instead.
 {{< product "os" >}}
 | Package type | Where the credential goes | Username | Password |
 | --- | --- | --- | --- |
-| Maven | The `<server>` entry with the id `repsy` in `~/.m2/settings.xml` | Any value | Token |
-| npm | The prompts of `npm login` | Any value | Token |
-| PyPI | The repository section of `~/.pypirc` | Any value | Token |
-| Docker | The prompts of `docker login <your-repsy-host>` | Any value | Token |
-| Cargo | `cargo login --registry repsy <token>` | Not used | Token |
+| [Maven](../../maven/using-private-maven-repository/) | The `<server>` entry with the id `repsy` in `~/.m2/settings.xml` | Any value | Token |
+| [npm](../../npm/publishing-an-npm-package/) | The prompts of `npm login` | Any value | Token |
+| [PyPI](../../pypi/publishing-a-pypi-package/) | The repository section of `~/.pypirc` | Any value | Token |
+| [Docker](../../docker/publishing-a-docker-image/) | The prompts of `docker login <your-repsy-host>` | Any value | Token |
+| [Cargo](../../cargo/publishing-a-cargo-crate/) | `cargo login --registry repsy <token>` | Not used | Token |
 | Go | The `GOPROXY` URL, which must use `https://` because the `go` command refuses to send credentials over plain HTTP | Any value | Token |
-| Helm | The `--password` option of `helm repo add` or `helm registry login` | Any value | Token |
+| [Helm](../../helm/publishing-a-helm-chart/) | The `--password` option of `helm repo add` or `helm registry login` | Any value | Token |
 | NuGet | The `ClearTextPassword` value in your user-level `NuGet.Config` | Any value | Token |
 | Ruby | The Base64-encoded `username:password` value in `~/.gem/credentials` | Any value | Token |
 

@@ -41,4 +41,6 @@ Build tools authenticate with HTTP Basic credentials, and there are two choices:
 Use a deploy token in CI jobs and whenever you give somebody access to one repository only. You need the `ADMIN` role to create deploy tokens.
 {{< /steps >}}
 
+{{< figure src="os/maven/publishing-a-maven-package/configure-dialog.png" alt="The Maven Configuration dialog with a settings.xml snippet that has a server entry and a pom.xml snippet that has a distributionManagement entry." caption="The **Configure** dialog of a Maven repository. The address and the name of the repository are filled in; your instance shows its own address instead of the demo address `repsy.example.com`." >}}
+
 You can now publish to and download from your repository: see [Using a Private Maven Repository](../using-private-maven-repository/) or the tutorials for [Maven](../publishing-and-consuming-with-maven/) and Gradle ([Kotlin DSL](../publishing-and-consuming-with-gradle-kotlin-dsl/), [Groovy DSL](../publishing-and-consuming-with-gradle-groovy-dsl/)).

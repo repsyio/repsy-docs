@@ -74,6 +74,8 @@ Also:
 Sign in as an administrator and open **Users** in the sidebar. The list shows each user's name, role, creation date and
 last sign-in, and you can search by username.
 
+{{< figure src="os/administration/managing-users/users-list.png" alt="The user management page listing the users of the instance." caption="The **Users** page with the role, the creation date and the last login of each user. Every row has **Reset password** and a ⋮ menu." >}}
+
 ### Create a user
 
 1. Click **Create User**.
@@ -82,6 +84,8 @@ last sign-in, and you can search by username.
 4. Click **Create User**.
 
 Tell the person their username and password. They can change both on their own **Profile** page.
+
+{{< figure src="os/administration/managing-users/create-user-dialog.png" alt="The dialog for creating a user, with fields for the username, the password and its confirmation, and a switch for the role." caption="The **Create User** dialog. The **Role** switch is on **User**; switch it to **Admin** for an administrator." >}}
 
 ### Edit a user
 

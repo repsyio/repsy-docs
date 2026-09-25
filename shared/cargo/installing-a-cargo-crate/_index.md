@@ -28,10 +28,21 @@ index = "sparse+{{% repo-url %}}/<repo-name>/"
 
 **Clear the Repsy registry cache only:**
 
+{{< product "cloud" >}}
 ```bash
 rm -rf ~/.cargo/registry/index/*repsy*
 rm -rf ~/.cargo/registry/cache/*repsy*
 ```
+{{< /product >}}
+
+{{< product "os" >}}
+```bash
+rm -rf ~/.cargo/registry/index/<your-repsy-host>-*
+rm -rf ~/.cargo/registry/cache/<your-repsy-host>-*
+```
+
+Cargo names these folders after the host name of the registry followed by a hash, for example `localhost-ee18c9976d7b27b3`. `<your-repsy-host>` is the host name of your Repsy Open Source instance, without the scheme and the port.
+{{< /product >}}
 
 **Or clear the entire Cargo registry cache:**
 
@@ -57,3 +68,13 @@ Or define the dependency directly in `Cargo.toml`:
 ```
 
 That is all! If you have completed all required steps as described, Cargo will install your crate from your registry successfully.
+
+{{< product "os" >}}
+A crate with a binary target is installed with `cargo install`:
+
+```bash
+cargo install <crate-name> --registry repsy
+```
+
+`https://<your-repsy-host>` stands for the address of the package protocol port of your Repsy Open Source instance, see [Ports and Repository URLs](../../getting-started/ports-and-repository-urls/). A deploy token with the **Read Only** access type is enough to install: see [Creating a Deploy Token](../../getting-started/creating-a-deploy-token/). The tutorial [Publishing and Using Crates with Cargo](../publishing-and-using-crates-with-cargo/) covers dependencies, `cargo install`, `cargo search` and the errors you may meet.
+{{< /product >}}

@@ -37,7 +37,7 @@ This configuration defines your Repsy registry for Cargo operations.
 In order to successfully publish crates to your `cargo` registry, you must authenticate.
 To authenticate, run:
 
-You cannot use your repsy password. You should use a [Deploy Token](../../getting-started/creating-a-deploy-token/) or JWT.
+{{< product "cloud" >}}You cannot use your repsy password. You should use a [Deploy Token](../../getting-started/creating-a-deploy-token/) or JWT.{{< /product >}}{{< product "os" >}}Cargo sends a single token, not a username and a password. Use a [deploy token](../../getting-started/creating-a-deploy-token/) with the **Read/Write** access type: the password of a user account does not work as the token.{{< /product >}}
 
 ```bash
 cargo login --registry repsy <your-deploy-token>
@@ -60,3 +60,12 @@ With this command Cargo will package and publish your crate to your `cargo` regi
 
 Congratulations, you have created and published a crate to your registry! You can now install your crate into any project you want and use safely.
 {{< /steps >}}
+
+{{< product "os" >}}
+`https://<your-repsy-host>` stands for the address of the package protocol port of your Repsy Open Source instance, for example `http://localhost:9090` for a local start, see [Ports and Repository URLs](../../getting-started/ports-and-repository-urls/). There is no username in the address, and the index address must end with a `/`.
+
+You can publish a version only once: Repsy refuses a second `cargo publish` of the same version, whatever the settings of the repository say. Publish a new version instead.
+
+[Publishing and Using Crates with Cargo](../publishing-and-using-crates-with-cargo/) walks through a complete crate, the credentials, what the web UI shows and the errors you may meet.
+{{< /product >}}
+

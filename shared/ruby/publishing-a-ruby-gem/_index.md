@@ -83,14 +83,7 @@ gem yank my_gem -v 1.0.0 \
 ```
 
 {{< product "cloud" >}}
-To yank a pre-release version, add the `--pre` flag:
-
-```bash
-gem yank my_gem -v 1.0.0.pre \
-  --host {{% repo-url %}}/<repo-name> \
-  --key repsy \
-  --pre
-```
+A pre-release version is yanked the same way: `gem yank` has no separate option for it, so give the full version number, for example `-v 1.0.0.pre`.
 
 **Note:** Yanking a version permanently removes it from the index. Yanked versions cannot be downloaded and cannot be re-published under the same version number.
 {{< /product >}}

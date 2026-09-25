@@ -26,7 +26,7 @@ The classic protocol requires the `helm-push` plugin from ChartMuseum. Install i
 helm plugin install https://github.com/chartmuseum/helm-push
 ```
 
-{{< product "os" >}}Helm 4 refuses to install a plugin that has no signature, and the plugin publishes none. With Helm 4, add `--verify=false` to the command above.{{< /product >}}
+Helm 4 refuses to install a plugin that has no signature, and the plugin publishes none. With Helm 4, add `--verify=false` to the command above.
 
 ### Package your chart
 

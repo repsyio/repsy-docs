@@ -39,6 +39,13 @@ Run `go mod tidy` to ensure your `go.mod` and `go.sum` files are up to date:
 go mod tidy
 ```
 
+If the module is in a Git repository, commit it and tag the release. The tag is the version:
+
+```bash
+git init && git add . && git commit -m "First release"
+git tag v1.0.0
+```
+
 ### Package and upload the module
 
 Repsy expects modules to be uploaded as zip archives following the Go module proxy format. The zip must contain all module files under the full module path, for example:
@@ -48,7 +55,7 @@ example.com/mymodule@v1.0.0/go.mod
 example.com/mymodule@v1.0.0/mymodule.go
 ```
 
-To achieve this, a temporary staging directory is used and the zip command runs from within it — this prevents any absolute path prefixes from being included in the archive.
+To achieve this, a temporary staging directory is used and the zip command runs from within it — this prevents any absolute path prefixes from being included in the archive. `git archive` puts only the files of the tag into the staging directory, so a `.git` directory and files that are not committed stay out of the archive. `rm -f module.zip` removes the archive of an earlier run, because `zip` adds to an existing archive instead of replacing it.
 
 Run these commands from inside your module directory. Replace `example.com/mymodule` with your actual module path and `<username>`, `<repo-name>` with your Repsy credentials.
 
@@ -59,8 +66,9 @@ STAGING=$(mktemp -d)
 MODULE_VERSION_DIR="${STAGING}/${MODULE_PATH}@${VERSION}"
 
 mkdir -p "${MODULE_VERSION_DIR}"
-cp -r . "${MODULE_VERSION_DIR}/"
-(cd "${STAGING}" && find "${MODULE_PATH}@${VERSION}" -type f | xargs zip "${OLDPWD}/module.zip")
+git archive "${VERSION}" | tar -x -C "${MODULE_VERSION_DIR}"
+rm -f module.zip
+(cd "${STAGING}" && zip -q -r -D "${OLDPWD}/module.zip" "${MODULE_PATH}@${VERSION}")
 
 curl -u <username>:<password> \
   -T module.zip \
@@ -88,7 +96,7 @@ Congratulations, you have published a Go module to your registry! You can now in
 {{< /steps >}}
 
 {{< product "os" >}}
-Repsy never overwrites a version of a Go module: uploading a version that already exists is refused with `409`, whatever the settings of the repository, so publish a new version instead. The commands above pack every file of the directory, including a `.git` directory if there is one. [Publishing a Go Module with curl](../publishing-a-go-module-with-curl/) shows how to build the zip the way the `go` command does, and lists what Repsy checks on an upload and what each refusal looks like.
+Repsy never overwrites a version of a Go module: uploading a version that already exists is refused with `409`, whatever the settings of the repository, so publish a new version instead. [Publishing a Go Module with curl](../publishing-a-go-module-with-curl/) shows a second way to build the zip, with the package `golang.org/x/mod/zip` that the `go` command uses, and lists what Repsy checks on an upload and what each refusal looks like.
 
 The **Configure** button of a Go repository in the web UI shows the same commands with the address and the name of your repository filled in.
 {{< /product >}}

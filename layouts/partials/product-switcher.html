@@ -1,12 +1,12 @@
 {{- /*
-  Repsy Cloud / Repsy OS switcher. Products are Hugo languages, so every link points to the counterpart of the
+  Repsy Cloud / Repsy Open Source switcher. Products are Hugo languages, so every link points to the counterpart of the
   current page in the other product: the translation of the page, else the translation of the nearest parent
   section, else the product's home page. Only rendered when more than one product is built (not in production,
   where Repsy OS is disabled). Works without JavaScript; static/js/product.js adds Escape / outside-click closing.
 */ -}}
 {{- if gt (len .Sites) 1 -}}
 {{- $page := . -}}
-{{- $captions := dict "cloud" "Hosted at repsy.io" "os" "Self-hosted, open source" -}}
+{{- $captions := dict "cloud" "Hosted at repsy.io" "os" "Self-hosted" -}}
 {{- $current := .Site.Params.product -}}
 <details class="product-switcher" data-current-product="{{ $current }}">
   <summary class="product-switcher-toggle" aria-label="Switch product, current: {{ .Site.Language.LanguageName }}">

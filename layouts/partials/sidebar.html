@@ -44,7 +44,7 @@
     </details>
     {{ end }}
     {{ if not site.Sections }}
-    {{- /* A product without sections (Repsy OS while it only has its home page) still gets a link to its home page */ -}}
+    {{- /* A product without sections (Repsy Open Source while it only has its home page) still gets a link to its home page */ -}}
     <ul class="sidebar-subpages sidebar-home">
       <li><a href="{{ site.Home.RelPermalink }}" class="{{ if $.IsHome }}active{{ end }}">{{ site.Home.Title }}</a></li>
     </ul>

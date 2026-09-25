@@ -1,0 +1,10 @@
+{{- /*
+  The Repsy Open Source release the docs are written for, from the `version` param in config.toml (e.g. "26.10.0"),
+  for pinned image tags in install examples:
+
+    `repsy/os:{{< os-version >}}`
+
+  Renders nothing when the param is empty (until the release is known) and on Cloud pages, so a page must not
+  rely on it until the version is set: an empty value leaves a bare `repsy/os:` behind. It never fails the build.
+*/ -}}
+{{- .Page.Site.Params.version -}}

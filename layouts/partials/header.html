@@ -11,7 +11,9 @@
         <span class="docs-text">DOCS</span>
       </a>
       {{- if eq .Site.Params.product "os" }}
-      <button type="button" class="product-badge" onclick="openProductSwitcher()" aria-label="Repsy OS docs, switch product">&middot; OS</button>
+      {{- $badge := .Site.Params.shortName }}
+      {{- with .Site.Params.version }}{{ $badge = printf "%s %s" $badge . }}{{ end }}
+      <button type="button" class="product-badge" onclick="openProductSwitcher()" aria-label="{{ .Site.Language.LanguageName }} docs{{ with .Site.Params.version }} {{ . }}{{ end }}, switch product">&middot; <span class="product-badge-full">{{ $badge }}</span><span class="product-badge-compact" aria-hidden="true">{{ .Site.Params.compactName | default .Site.Params.shortName }}</span></button>
       {{- end }}
     </div>
     <!-- Mobile dropdown menu toggle -->

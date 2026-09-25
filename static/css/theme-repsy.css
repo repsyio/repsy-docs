@@ -524,7 +524,7 @@ overflow-x: auto;
   outline: none;
 }
 
-/* Product switcher (Repsy Cloud / Repsy OS) */
+/* Product switcher (Repsy Cloud / Repsy Open Source) */
 .product-switcher {
   position: relative;
   margin-bottom: 12px;
@@ -614,7 +614,7 @@ overflow-x: auto;
   color: var(--color-secondaryBrand-500);
 }
 
-/* "DOCS · OS" indicator */
+/* "DOCS · Open Source" indicator */
 .product-badge {
   flex-shrink: 0;
   margin-top: 6px;
@@ -630,6 +630,25 @@ overflow-x: auto;
 
 .product-badge:hover {
   background-color: var(--color-secondaryBrand-900);
+}
+
+/* The full label ("Open Source" plus the version) does not fit next to the logo on narrow screens */
+.product-badge-compact {
+  display: none;
+}
+
+@media (max-width: 599px) {
+  .product-badge {
+    padding: 2px 8px;
+  }
+
+  .product-badge-compact {
+    display: inline;
+  }
+
+  .product-badge-full {
+    display: none;
+  }
 }
 
 /* "You're reading ... docs" banner */

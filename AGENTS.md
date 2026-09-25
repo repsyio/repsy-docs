@@ -8,11 +8,11 @@ and the upstream `hugo-theme-learn` 2.5.0 theme.
 - `content/` — the Repsy Cloud documentation pages (Markdown), one directory per protocol or topic:
   `getting-started`, `maven`, `npm`, `pypi`, `docker`, `cargo`, `go`, `helm`, `nuget`, `ruby`,
   `api-integration`. Cloud only: nothing here is published under `/os/`.
-- `content-os/` — the Repsy OS documentation pages, and the OS variants of pages that differ from Cloud.
-  OS only, published under `/os/`.
+- `content-os/` — the Repsy Open Source documentation pages, and the OS variants of pages that differ from Cloud.
+  Open Source only, published under `/os/`.
 - `shared/` — pages that are identical for both products; mounted into both sites, so a page here appears
-  in Cloud and in OS. The directory does not exist yet; create it when the first shared page is needed.
-- `config/production/hugo.toml` — the production environment: `disableLanguages = ["os"]`, so the Repsy OS
+  in Cloud and in Open Source. The directory does not exist yet; create it when the first shared page is needed.
+- `config/production/hugo.toml` — the production environment: `disableLanguages = ["os"]`, so the Repsy Open Source
   site is not built or published until it launches.
 - `layouts/` — site-level layout, partial and shortcode overrides.
 - `static/` — images, CSS, JS and mermaid assets.
@@ -22,16 +22,38 @@ and the upstream `hugo-theme-learn` 2.5.0 theme.
   goes in `layouts/`, `static/` or `config.toml`.
 
 The two products are Hugo languages (`config.toml`): `en` is Repsy Cloud, served at the root, and `os` is
-Repsy OS, served under `/os/`. The `[module]` mounts in `config.toml` map `content/` and `shared/` into `en`,
+Repsy Open Source, served under `/os/`. The names are decided (RPS-1374): the hosted product is "Repsy Cloud";
+the self-hosted product is displayed as "Repsy Open Source" (short form "Open Source", switcher caption
+"Self-hosted"), never "Repsy OS", because "OS" reads as "operating system". The internal keys keep the short form:
+the language `os`, `product = "os"`, the CSS classes, the `repsy-docs-product` localStorage key and the `/os/` URL
+prefix. The `[module]` mounts in `config.toml` map `content/` and `shared/` into `en`,
 and `content-os/` and `shared/` into `os`. Never mount the same files from `content/` into `os`. Sidebar,
 breadcrumbs, previous/next links, `index.json` and the sitemap only contain the pages of the current product.
 Link between pages with relative links (`../../maven/`), as in `content/`, so that pages in `shared/` work under
 both `/` and `/os/`; Hugo's default link render hooks are disabled in `config.toml` to keep them as written. `layouts/index.html` redirects the Cloud root to its first page;
-`layouts/index.os.html` renders `content-os/_index.md` as the Repsy OS home page.
+`layouts/index.os.html` renders `content-os/_index.md` as the Repsy Open Source home page.
+
+Rules for templates and configuration:
+
+- Key templates and shortcodes on `.Site.Params.product` (`"cloud"` or `"os"`), never on `.Language.Lang`, and
+  take product names from `.Site.Language.LanguageName` and the `shortName` / `compactName` params in
+  `config.toml` instead of hard-coding them, so that a later change of the language layout does not touch them.
+- Do not put product wording in Hugo i18n bundles (`i18n/`). Product-specific text belongs in `config.toml` or, in
+  content, in `{{< product >}}` blocks.
+- No translations are planned. If they are ever needed, add languages as a matrix or move the product to Hugo's
+  `roles` dimension (Hugo 0.153 or later); English URLs are unaffected. That is why the rules above matter.
+- The sitemap is overridden in `layouts/_default/sitemap.xml` to drop the `xhtml:link` hreflang alternates: with
+  products as languages, Hugo's default would list the Cloud and Open Source version of a page as `hreflang="en-us"`
+  alternates of each other. If real translations arrive, restore alternates for translations only.
+- The `[languages.os.params]` `version` param holds the Repsy Open Source release the docs are written for
+  (the next big release, decided in RPS-1374). Keep it empty until the release is known; while it is empty nothing is shown and the
+  `{{< os-version >}}` shortcode renders nothing, so pages must not rely on it (an empty value would leave a bare
+  `repsy/os:` in an image tag). Once set, it appears in the header badge and on the Open Source home page.
 
 The sidebar starts with the product switcher (`layouts/partials/product-switcher.html`): two real links to the
 counterpart of the current page in the other product, else the nearest parent section that exists there, else its
-home. The switcher, the "· OS" header badge, the "you were reading the other product" banner and
+home. The switcher, the "· Open Source" header badge (compact "· OSS" on narrow screens, where the full label does
+not fit), the "you were reading the other product" banner and
 `static/js/product.js` (remembers the last product in `localStorage`) are only rendered when more than one product
 is built, so the production output stays Cloud-only. "Edit This Page" links to the real source file (`content/`,
 `content-os/` or `shared/`); `editURL` in `config.toml` is the repository's edit URL without a directory.
@@ -42,12 +64,12 @@ Hugo v0.135.0 is used by CI. Download the theme once (see `README.md` for the ex
 `.github/actions/setup-hugo-site`).
 
 - `hugo -w server` — local development server. It uses the `development` environment, which includes
-  both Repsy Cloud and Repsy OS (`http://localhost:1313/os/`).
+  both Repsy Cloud and Repsy Open Source (`http://localhost:1313/os/`).
 - `hugo --minify` — production build into `public/`, Repsy Cloud only. The pull request check
   (`build-docs.yml`) and the production deploy run this, so run it before pushing and make sure it succeeds.
   The output must not change unless you meant to change Cloud content.
-- `hugo --minify --environment staging` — build that also includes Repsy OS under `public/os/`; this is what the
-  dev deploy (`deploy-docs-dev.yml`) runs. Preview the OS site locally with
+- `hugo --minify --environment staging` — build that also includes Repsy Open Source under `public/os/`; this is what the
+  dev deploy (`deploy-docs-dev.yml`) runs. Preview the Open Source site locally with
   `hugo server --environment staging`.
 
 ## Content conventions

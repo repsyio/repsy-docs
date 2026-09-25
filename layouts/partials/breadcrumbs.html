@@ -1,5 +1,5 @@
 <nav class="breadcrumbs">
-  <a href="{{ "/" | relLangURL }}">Docs</a>
+  <a href="{{ .Site.Home.RelPermalink }}">{{ if eq .Site.Params.product "os" }}Repsy OS docs{{ else }}Docs{{ end }}</a>
 
   {{ $sections := slice }}
   {{ $currentSection := .CurrentSection }}
@@ -23,7 +23,7 @@
   {{ if gt $len 0 }}
   {{ range $i := seq (sub $len 1) -1 0 }}
   {{ $sec := index $sections $i }}
-  {{ if $sec.Title }}
+  {{ if and $sec.Title (not $sec.IsHome) }}
   <img src="{{ "images/chevron-right.svg" | relURL }}" class="breadcrumb-separator" alt=">">
   <a href="{{ $sec.Permalink }}">{{ $sec.Title }}</a>
   {{ end }}

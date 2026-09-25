@@ -15,7 +15,7 @@ home = ["HTML", "RSS", "JSON"]
 [params]
   # Change default color scheme with a variant one. Can be "red", "blue", "green".
   themeVariant = "repsy"
-  editURL = "https://github.com/repsyio/repsy-docs/edit/main/content/"
+  editURL = "https://github.com/repsyio/repsy-docs/edit/main/"
 
 [languages]
   [languages.en]
@@ -30,7 +30,6 @@ home = ["HTML", "RSS", "JSON"]
     weight = 2
     [languages.os.params]
       product = "os"
-      editURL = "https://github.com/repsyio/repsy-docs/edit/main/content-os/"
 
 # content/ is Cloud only, content-os/ is Repsy OS only, shared/ is mounted into both languages.
 [module]

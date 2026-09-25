@@ -1,0 +1,46 @@
+{{- /*
+  Repsy Cloud / Repsy OS switcher. Products are Hugo languages, so every link points to the counterpart of the
+  current page in the other product: the translation of the page, else the translation of the nearest parent
+  section, else the product's home page. Only rendered when more than one product is built (not in production,
+  where Repsy OS is disabled). Works without JavaScript; static/js/product.js adds Escape / outside-click closing.
+*/ -}}
+{{- if gt (len .Sites) 1 -}}
+{{- $page := . -}}
+{{- $captions := dict "cloud" "Hosted at repsy.io" "os" "Self-hosted, open source" -}}
+{{- $current := .Site.Params.product -}}
+<details class="product-switcher" data-current-product="{{ $current }}">
+  <summary class="product-switcher-toggle" aria-label="Switch product, current: {{ .Site.Language.LanguageName }}">
+    <span class="product-switcher-label">
+      <span class="product-switcher-name">{{ .Site.Language.LanguageName }}</span>
+      <span class="product-switcher-caption">{{ index $captions $current }}</span>
+    </span>
+    <img src="{{ "images/chevron-down.svg" | relURL }}" alt="" class="chevron-icon" />
+  </summary>
+  <ul class="product-switcher-menu">
+    {{- range .Sites }}
+    {{- $site := . }}
+    {{- $lang := $site.Language.Lang }}
+    {{- $target := $site.Home }}
+    {{- $found := eq $lang $page.Language.Lang }}
+    {{- $match := cond $found "page" "home" }}
+    {{- if $found }}{{ $target = $page }}{{ end }}
+    {{- /* the counterpart page, then the nearest ancestor that exists in the other product (the home is the last ancestor) */ -}}
+    {{- $candidate := $page }}
+    {{- range $depth := seq 20 }}
+      {{- if and $candidate (not $found) }}
+        {{- range $candidate.AllTranslations }}
+          {{- if and (eq .Language.Lang $lang) (not $found) }}{{ $target = . }}{{ $found = true }}{{ $match = cond (eq $depth 1) "page" (cond .IsHome "home" "section") }}{{ end }}
+        {{- end }}
+        {{- $candidate = $candidate.Parent }}
+      {{- end }}
+    {{- end }}
+    <li>
+      <a href="{{ $target.RelPermalink }}" data-product="{{ $site.Params.product }}" data-match="{{ $match }}"{{ if eq $lang $page.Language.Lang }} aria-current="true"{{ end }}>
+        <span class="product-switcher-name">{{ $site.Language.LanguageName }}</span>
+        <span class="product-switcher-caption">{{ index $captions $site.Params.product }}</span>
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+</details>
+{{- end -}}

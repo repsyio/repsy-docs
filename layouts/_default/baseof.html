@@ -15,6 +15,9 @@
   <script src="{{ "js/learn.js" | relURL }}"></script>
   <script src="{{ "js/jquery.sticky.js" | relURL }}"></script>
   <script src="{{ "js/clipboard.min.js" | relURL }}"></script>
+  {{- if gt (len .Sites) 1 }}
+  <script src="{{ "js/product.js" | relURL }}" defer></script>
+  {{- end }}
 </head>
 <body>
 
@@ -25,12 +28,15 @@
 
   <main>
     <div>
+      {{ partial "product-banner.html" . }}
       <div class="main-header">
         {{ partial "breadcrumbs.html" . }}
       </div>
 
       {{ with .File }}
-      <a href="{{ $.Site.Params.editURL }}{{ replace .Path "\\" "/" }}" class="edit-page-link">
+      {{- /* Edit link from the real source path: mounted files live in content/, content-os/ or shared/, not under the language's content directory */ -}}
+      {{ $source := strings.TrimPrefix (printf "%s/" (replace hugo.WorkingDir "\\" "/")) (replace .Filename "\\" "/") }}
+      <a href="{{ $.Site.Params.editURL }}{{ $source }}" class="edit-page-link">
         <img src="{{ "images/edit.svg" | relURL }}" alt="Edit icon" class="edit-icon" />
         Edit This Page
       </a>

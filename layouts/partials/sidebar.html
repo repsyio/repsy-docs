@@ -1,7 +1,7 @@
 <!-- Sidebar -->
 <aside id="sidebar" class="sidebar">
   <div style="display: flex">
-    <a href="/" class="logo">
+    <a href="{{ .Site.Home.RelPermalink }}" class="logo">
       <img src="{{ "images/logo.svg" | relURL }}" alt="Repsy logo" />
       <span class="docs-text">DOCS</span>
     </a>
@@ -12,6 +12,7 @@
       </svg>
     </button>
   </div>
+  {{ partial "product-switcher.html" . }}
   <div class="sidebar-searchbox">
     {{ $icon := "images/search.svg" | relURL }}
     <img src="{{ $icon }}" alt="Search icon" class="search-icon" />
@@ -41,6 +42,12 @@
         {{ end }}
       </ul>
     </details>
+    {{ end }}
+    {{ if not site.Sections }}
+    {{- /* A product without sections (Repsy OS while it only has its home page) still gets a link to its home page */ -}}
+    <ul class="sidebar-subpages sidebar-home">
+      <li><a href="{{ site.Home.RelPermalink }}" class="{{ if $.IsHome }}active{{ end }}">{{ site.Home.Title }}</a></li>
+    </ul>
     {{ end }}
   </nav>
 </aside>

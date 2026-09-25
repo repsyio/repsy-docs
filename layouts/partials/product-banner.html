@@ -1,0 +1,8 @@
+{{- /* Inert, hidden banner that static/js/product.js fills and shows when the reader last used the other product. Only rendered when more than one product is built. */ -}}
+{{- if gt (len .Sites) 1 -}}
+<div class="product-banner" id="product-banner" role="status" hidden>
+  <span class="product-banner-text"></span>
+  <a class="product-banner-link" href="#"></a>
+  <button type="button" class="product-banner-close" aria-label="Dismiss">&times;</button>
+</div>
+{{- end -}}

@@ -8,7 +8,7 @@ description = "Move dist-tags, deprecate or unpublish versions, search a registr
 
 This page shows what you can do with a package after you have published it: move dist-tags, deprecate a version, unpublish it, search a registry, audit an installation and log out. The commands are npm's. The last section says which of them the other package managers have.
 
-The examples assume that npm is configured for your registry as described in [Authenticating with npm](../authenticating-with-npm/), with `@foo` routed to it. `<registry-url>` stands for `{{% repo-url %}}/<repo-name>/`. Every command that changes a registry needs a credential with write access: a user account or a **Read/Write** deploy token. A **Read Only** token is refused with `E401`.
+The examples assume that npm is configured for your registry as described in [Authenticating with npm](../authenticating-with-npm/), with `@foo` routed to it. `<registry-url>` stands for `{{% repo-url %}}/<repo-name>/`. Every command that changes a registry needs a credential with write access: a user account or a **Read/Write** deploy token. A **Read Only** token is refused with `E401`. The exception is [unpublishing](#unpublishing-a-version): it removes stored files, so it needs the `ADMIN` role, and no deploy token can do it. Dist-tags and deprecations only change what the registry advertises, so they need write access only.
 
 ## Dist-tags
 
@@ -32,7 +32,7 @@ The web UI shows the tags of a package on the page of its versions.
 
 ## Deprecating a Version
 
-A deprecated version stays installable, but package managers warn about it. Give a message, and a version or a version range:
+A deprecated version stays installable, but package managers warn about it. Deprecating needs write access, so a **Read/Write** deploy token can do it. Give a message, and a version or a version range:
 
 ```bash
 npm deprecate @foo/<package-name>@1.0.0 "use 1.1.0 instead"
@@ -65,7 +65,7 @@ npm unpublish @foo/<package-name> --force
 
 When the last version of a package goes, the package is gone from the registry. npm warns that a version cannot be published again for 24 hours after that. That is a rule of npmjs.org, and Repsy does not enforce it.
 
-Unpublishing needs write access to the registry, like publishing. You can also delete a package or a version in the web UI, as an administrator.
+Unpublishing needs the `ADMIN` role, the same as deleting a package or a version in the web UI: it removes the stored files. Log in with the username and password of an administrator. A deploy token never unpublishes, not even a **Read/Write** one, and neither does the account of a user without the `ADMIN` role. Repsy refuses them with `401` and all three requests of `npm unpublish` (it sends more than one) are refused, so nothing is removed. Publishing, `npm deprecate` and `npm dist-tag` need only write access, so a CI job with a Read/Write deploy token keeps running them. To take a version out of use without removing it, [deprecate it](#deprecating-a-version).
 
 ## Searching a Registry
 

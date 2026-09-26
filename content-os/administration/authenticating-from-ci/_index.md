@@ -38,6 +38,11 @@ How Repsy treats a deploy token:
   web UI.
 - **Read/Write or Read Only.** A read-only token can download but is refused for anything that changes a repository. The
   refusal is a `401`, not a `403`.
+- **It never deletes.** A token reads and, unless it is read-only, writes, but it can not remove stored files: a job that
+  runs `npm unpublish`, deletes a Helm chart version or deletes a Docker manifest is refused with `401`, also with a
+  Read/Write token. Those calls need the username and password of an administrator (a service account with the `ADMIN`
+  role, kept out of routine jobs). Publishing, `npm deprecate`, `npm dist-tag`, `cargo yank`, NuGet unlist and
+  `gem yank` need write access only.
 - **It expires.** The web UI only accepts an expiry date within one year. An expired token is refused with
   `Deploy token expired.`
 - **Rotate and revoke.** Rotating gives the token a new secret and the old one stops working at once. Revoking deletes

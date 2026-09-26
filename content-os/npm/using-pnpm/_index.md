@@ -51,7 +51,7 @@ In a workspace, `pnpm -r publish` publishes every package that Repsy does not ha
 | --- | --- |
 | `pnpm dist-tag ls`, `add` and `rm` | Manage dist-tags, see [Managing npm Packages](../managing-npm-packages/#dist-tags). |
 | `pnpm deprecate` and `pnpm undeprecate` | Set and clear the deprecation of a version. pnpm resolves a version range to the newest version that is not deprecated, and an install prints `deprecated <package-name>@<version>` without the message. |
-| `pnpm unpublish <package-name>@<version>` | Remove a version. |
+| `pnpm unpublish <package-name>@<version>` | Remove a version. It needs the `ADMIN` role, and a deploy token is refused, see [Unpublishing a Version](../managing-npm-packages/#unpublishing-a-version). |
 | `pnpm view`, `pnpm search`, `pnpm ping` and `pnpm whoami` | Read from the registry. |
 | `pnpm audit` | Audit the dependencies, see [Managing npm Packages](../managing-npm-packages/#auditing-an-installation). It needs a `pnpm-lock.yaml`. |
 | `pnpm logout` | Revoke a login token. For a deploy token Repsy answers `403 Forbidden` and pnpm fails with `ERR_PNPM_LOGOUT_FAILED`, because you revoke a deploy token in the web UI. |

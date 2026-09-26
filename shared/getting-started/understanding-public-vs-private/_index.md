@@ -63,6 +63,15 @@ Only *manage* operations need the `ADMIN` role:
 - Managing a repository's deploy tokens
 - Managing users
 
+{{< product "os" >}}
+The package clients follow the same rule as the web UI. What removes stored files is a manage operation there as well:
+`npm unpublish`, deleting a Helm chart version with `DELETE /api/charts/<name>/<version>` and deleting a Docker manifest or
+tag all need the `ADMIN` role. A user without it and a deploy token are refused with `401`. What only changes what a
+repository advertises needs write access: `npm deprecate`, `npm dist-tag`, `cargo yank`, unlisting a NuGet package and
+`gem yank`. A deploy token reads and, unless it is read-only, writes, but it **never** manages, so a CI credential can
+publish and cannot delete what it published.
+{{< /product >}}
+
 ### Keeping Repositories Apart
 
 If you need some repositories to stay hidden from some people, keep this model in mind:

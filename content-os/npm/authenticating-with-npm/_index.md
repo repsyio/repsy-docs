@@ -14,12 +14,13 @@ npm needs two things to talk to a Repsy registry: the address of the registry, a
 | --- | --- | --- |
 | Install, `npm view`, `npm ping`, `npm search` | A credential | None |
 | `npm whoami` | A credential | A credential |
-| Publish, `npm dist-tag`, `npm deprecate`, `npm unpublish` | A credential with write access | A credential with write access |
+| Publish, `npm dist-tag`, `npm deprecate` | A credential with write access | A credential with write access |
+| `npm unpublish` | The username and password of an `ADMIN` account (a deploy token never can) | The username and password of an `ADMIN` account (a deploy token never can) |
 
 A credential is one of these:
 
 - **A user account:** the username and the password of an account of your instance.
-- **A deploy token:** a token of that repository. A **Read Only** token can install but is refused for everything that changes the registry. The username that goes with it can be any value. See [Creating a Deploy Token](../../getting-started/creating-a-deploy-token/).
+- **A deploy token:** a token of that repository. A **Read Only** token can install but is refused for everything that changes the registry. No deploy token can unpublish, because that removes stored files. The username that goes with it can be any value. See [Creating a Deploy Token](../../getting-started/creating-a-deploy-token/).
 - **A login token:** the token that `npm login` receives from Repsy for your username and password (or for a deploy token). It is valid for 90 days, and `npm logout` revokes it.
 
 ## Log In with npm login

@@ -50,7 +50,7 @@ Store the token for the registry:
 cargo login --registry repsy
 ```
 
-Cargo asks for the token: paste it and press Enter. Cargo saves it in `$CARGO_HOME/credentials.toml`, by default `$HOME/.cargo/credentials.toml`, in plain text and readable by your user only. The dialog of the web UI shows the older form `cargo login --registry repsy <your-deploy-token>`. It still works, but recent Cargo versions warn that a token on the command line is deprecated: it lands in your shell history.
+Cargo asks for the token: paste it and press Enter. Cargo saves it in `$CARGO_HOME/credentials.toml`, by default `$HOME/.cargo/credentials.toml`, in plain text and readable by your user only. This is what the dialog of the web UI shows too. Do not put the token on the command line (`cargo login --registry repsy <your-deploy-token>`): it still works, but recent Cargo versions warn that it is deprecated, because the token lands in your shell history.
 
 A public repository can be read without a token, so you only need to sign in to publish to it. To give a token to one command without saving it, set the environment variable instead, see [Cargo in CI](../cargo-in-ci/).
 

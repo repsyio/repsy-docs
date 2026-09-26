@@ -42,8 +42,10 @@ In order to successfully publish crates to your `cargo` registry, you must authe
 To authenticate, run:
 
 ```bash
-cargo login --registry repsy <your-deploy-token>
+cargo login --registry repsy
 ```
+
+Cargo asks for the token: paste it and press Enter. Cargo saves it in `$HOME/.cargo/credentials.toml`. Do not put the token on the command line (`cargo login --registry repsy <your-deploy-token>`): it still works, but recent Cargo versions warn that it is deprecated, because the token lands in your shell history.{{< product "os" >}} In CI, set the `CARGO_REGISTRIES_REPSY_TOKEN` environment variable instead of running `cargo login`, see [Cargo in CI](../cargo-in-ci/).{{< /product >}}
 
 If this command is executed successfully, you will be authenticated and ready to publish your crate. As a final step, please run:
 

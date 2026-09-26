@@ -86,7 +86,7 @@ repository, Repsy checks the pair as an account username and password instead.
 | [npm](../../npm/publishing-an-npm-package/) | The prompts of `npm login` | Any value | Token |
 | [PyPI](../../pypi/publishing-a-pypi-package/) | The `[repsy]` section of `~/.pypirc` | Any value | Token |
 | [Docker](../../docker/publishing-a-docker-image/) | The prompts of `docker login repo.repsy.io` | Any value | Token |
-| [Cargo](../../cargo/publishing-a-cargo-crate/) | `cargo login --registry repsy <token>` | Not used | Token |
+| [Cargo](../../cargo/publishing-a-cargo-crate/) | The prompt of `cargo login --registry repsy` | Not used | Token |
 | [Go](../../go/installing-a-go-module/) | The `machine repo.repsy.io` entry in `~/.netrc` | Any value | Token |
 | [Helm](../../helm/publishing-a-helm-chart/) | The `--password` option of `helm repo add` or `helm registry login` | Any value | Token |
 | [NuGet](../../nuget/publishing-a-nuget-package/) | The `ClearTextPassword` value in your user-level `NuGet.Config` | Any value | Token |
@@ -100,7 +100,7 @@ repository, Repsy checks the pair as an account username and password instead.
 | [npm](../../npm/publishing-an-npm-package/) | The prompts of `npm login` | Any value | Token |
 | [PyPI](../../pypi/publishing-a-pypi-package/) | The repository section of `~/.pypirc` | Any value | Token |
 | [Docker](../../docker/publishing-a-docker-image/) | The prompts of `docker login <your-repsy-host>` | Any value | Token |
-| [Cargo](../../cargo/publishing-a-cargo-crate/) | `cargo login --registry repsy <token>` | Not used | Token |
+| [Cargo](../../cargo/publishing-a-cargo-crate/) | The prompt of `cargo login --registry repsy` | Not used | Token |
 | [Go](../../go/using-go-modules-from-repsy/#give-the-go-command-your-credentials) | The `machine <your-repsy-host>` entry in `~/.netrc`, with the port when the address has one, for example `machine localhost:9443`; the address must use `https://` because the `go` command refuses to send credentials over plain HTTP | Any value | Token |
 | [Helm](../../helm/publishing-a-helm-chart/) | The `--password` option of `helm repo add` or `helm registry login` | Any value | Token |
 | [NuGet](../../nuget/publishing-a-nuget-package/) | The `ClearTextPassword` value in your user-level `NuGet.Config` | Any value | Token |

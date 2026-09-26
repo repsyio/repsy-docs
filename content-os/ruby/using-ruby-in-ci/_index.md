@@ -91,7 +91,7 @@ yank_gem() {
 yank_gem my_gem 1.0.0
 ```
 
-A **Read Only** token, or the password of a user without the `ADMIN` role, is refused with `unAuthorized`, see [Yanking Gems](../yanking-gems/).
+A **Read Only** token is refused with `unAuthorized`, see [Yanking Gems](../yanking-gems/).
 
 ### A GitHub Actions Example
 

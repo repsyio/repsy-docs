@@ -29,6 +29,10 @@ repositories and for publishing.
   [Use the token in your client](#use-the-token-in-your-client) below.
 
 {{< product "os" >}}
+A token never deletes. It reads and, unless it is read-only, writes, but it can not manage, so it can not remove stored
+files: `npm unpublish`, deleting a Helm chart version and deleting a Docker manifest need the `ADMIN` role and refuse every
+deploy token with `401`. Hiding a version, for example with `npm deprecate` or `cargo yank`, is writing and works.
+
 You create a token in the **Create Deploy Token** dialog, which the **Create Token** button in the repository settings opens:
 
 {{< figure src="os/getting-started/creating-a-deploy-token/create-token-dialog.png" alt="The Create Deploy Token dialog with the fields Name, Username and Description filled in, the access type Read/Write selected and an expiration date." caption="The **Create Deploy Token** dialog. Fill it in as described in the steps below and click **Create**." >}}

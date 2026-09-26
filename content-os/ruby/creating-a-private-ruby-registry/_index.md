@@ -43,7 +43,7 @@ Open the repository in the web UI and click **Configure** to see the commands wi
 
 Use a deploy token in CI jobs and whenever you give somebody access to one repository only. A **Read Only** token is enough to install, and publishing needs **Read/Write**. You need the `ADMIN` role to create deploy tokens. See [Creating a Deploy Token](../../getting-started/creating-a-deploy-token/).
 
-Yanking a gem is a management operation: it needs the password of a user with the `ADMIN` role or a **Read/Write** deploy token. The password of a user with the `USER` role can publish but cannot yank, see [Yanking Gems](../yanking-gems/).
+Yanking a gem needs write access, like publishing: the password of any user or a **Read/Write** deploy token. A **Read Only** token cannot yank, see [Yanking Gems](../yanking-gems/).
 {{< /steps >}}
 
 You can now publish to and install from your repository: see [Publishing a Ruby Gem](../publishing-a-ruby-gem/) and [Installing a Ruby Gem](../installing-a-ruby-gem/), or the tutorials for [gem](../publishing-and-installing-gems-with-gem/) and [Bundler](../using-repsy-with-bundler/).

@@ -29,13 +29,13 @@ Successfully yanked gem: my_gem (1.0.0)
 
 Add `--platform <platform>` for a gem that was built for a platform other than `ruby`, for example `--platform java`. Without it, Repsy looks for the `ruby` platform of that version, and answers `Gem version not found.` when there is none. Current versions of `gem yank` have no `--pre` option: name a pre-release version like any other, for example `-v 1.0.0.pre1`.
 
-Yanking is a management operation, so it needs more than publishing does:
+Yanking needs write access, like publishing. It only takes the version out of the index and keeps its file, so an administrator is not needed:
 
 | Credential | Can yank |
 | --- | --- |
 | The password of a user with the `ADMIN` role | Yes |
 | A deploy token with the **Read/Write** access type, of this repository | Yes |
-| The password of a user with the `USER` role | No. The user can publish, but the answer to a yank is `unAuthorized`. |
+| The password of a user with the `USER` role | Yes |
 | A **Read Only** deploy token | No, `unAuthorized`. |
 
 {{% notice warning %}}
@@ -46,7 +46,7 @@ Repsy answers a request that it refuses with one of these:
 
 | Answer | Cause |
 | --- | --- |
-| `401`, `unAuthorized`: `The user has logged in but has no permissions.` | The credential is not accepted, or it is not allowed to yank, see the table above. The text is the same for a wrong password. |
+| `401`, `unAuthorized`: `The user has logged in but has no permissions.` | The credential is not accepted, or it is read-only, see the table above. The text is the same for a wrong password. |
 | `404`, `gemNotFound`: `Gem not found.` | The repository has no gem with that name. |
 | `404`, `gemVersionNotFound`: `Gem version not found.` | The gem has no such version, or none for that platform. |
 | `400`, `gemVersionAlreadyYanked`: `Gem version has already been yanked.` | The version is yanked already. |

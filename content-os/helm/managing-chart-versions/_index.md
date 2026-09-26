@@ -51,7 +51,7 @@ A version that you have deleted no longer exists, so you can publish it again, a
 
 ### Deleting Versions and Charts
 
-Deleting needs the `ADMIN` role in the web UI. Other users do not see the delete buttons.
+Deleting needs the `ADMIN` role. In the web UI other users do not see the delete buttons.
 
 1. Sign in to the web UI and open the **Repositories** tab. Open your repository.
 2. To delete a whole chart with all its versions, use the menu (⋮) of its row in the list and click **Delete**.
@@ -62,14 +62,14 @@ When you delete the last version of a chart, the chart disappears from the list 
 
 A delete removes the version for both protocols: the chart archive, its OCI tags and manifests, and the OCI blobs that no other manifest of the repository uses any more. The disk usage of the repository drops by the size of what was removed.
 
-You can also delete one version through the classic API, with any credential that can publish, a user account or a **Read/Write** deploy token:
+You can also delete one version through the classic API, with the username and password of an administrator:
 
 ```bash
 curl -X DELETE -u <username>:<password-or-token> \
   {{% repo-url path="helm" %}}/<repo-name>/api/charts/<chart-name>/<version>
 ```
 
-It answers `200` when the version is gone and `404` with `chartNotFound` when the chart or the version does not exist. It removes the version for both protocols, like the web UI does. A **Read Only** token is refused with `401`. Note that this route needs write access only, and not the `ADMIN` role that the web UI asks for.
+It answers `200` when the version is gone and `404` with `chartNotFound` when the chart or the version does not exist. It removes the version for both protocols, like the web UI does. It needs the `ADMIN` role, as the web UI does, because it removes stored files. A user without the `ADMIN` role and a deploy token, also a **Read/Write** one, are refused with `401`. Publishing a chart needs only write access, so a CI job with a Read/Write deploy token can still publish.
 
 #### What Your Clients See
 

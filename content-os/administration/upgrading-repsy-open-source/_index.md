@@ -87,33 +87,24 @@ This matters more than it looks: the Docker image now defaults to the embedded H
 `DB_URL` starts on a **new, empty H2 database** instead of your PostgreSQL. You would see a fresh instance with a new
 admin user. Nothing is lost, but stop it, set `DB_URL` and start again.
 
-### Every password is reset
+### Passwords are upgraded transparently on login
 
-A 26.08 release stores passwords as salted SHA-256 hashes. The next release stores them with BCrypt, and a SHA-256 hash
-cannot be converted without the password. The upgrade therefore resets the password of every account that still has an
-old hash, which is every account of a 26.08 instance that has not signed in to a newer build. It is a one-time migration.
-The users' web UI sessions are ended.
+A 26.08 release stores passwords as salted SHA-256 hashes. The next release stores them with BCrypt. The upgrade
+does not reset any password: old passwords keep working for the panel and for package clients (Maven, npm, Docker,
+PyPI, Cargo, NuGet, Ruby, Go). Each account's legacy SHA-256 hash is converted to BCrypt when the account signs in
+for the first time after the upgrade.
 
-What you have to do:
+**What you need to know:**
 
-- **Administrators.** At the first start Repsy generates a new password for each administrator and logs it once, at
-  `WARN` level. Copy it from the log straight after the upgrade. It is not stored anywhere and not logged again:
-
-  ```bash
-  docker logs repsy 2>&1 | grep "Admin password has been reset"
-  ```
-
-  ```text
-  Admin password has been reset for user admin. New password: <password>
-  ```
-
-- **Other users.** They cannot sign in until an administrator resets their password: sign in with an administrator
-  account, open **Users** and use **Reset password**. See [Managing Users](../managing-users/). Tell your users, and
-  update the passwords in CI jobs that use an account instead of a deploy token.
-- If no administrator can sign in, use one of the methods in
-  [Recovering a Lost Password](../recovering-a-lost-password/).
-
-Deploy tokens are not affected.
+- **No password reset.** All passwords work on the first try after the upgrade.
+- **Automatic upgrade to BCrypt.** On the first successful sign-in of each account, the legacy hash is replaced with a
+  BCrypt hash. The password does not change; the hash algorithm does.
+- **Accounts that have not signed in yet.** They keep the legacy hash until they sign in. A later release will retire the
+  legacy check and reset the password of any account that has not signed in by then. To avoid a reset later, ask each
+  account holder to sign in once before that release ships.
+- **Deploy tokens are unaffected.** They keep working throughout the upgrade and after.
+- **Emergency access still works.** The forgotten-password recovery (setting a marker file) still works if you lose
+  administrator access. See [Recovering a Lost Password](../recovering-a-lost-password/).
 
 ### Docker manifests are stored by digest
 

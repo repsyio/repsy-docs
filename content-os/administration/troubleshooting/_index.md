@@ -115,8 +115,8 @@ and match the password and the alias.
   start: `docker logs repsy 2>&1 | grep "temporarily generated password"`.
 - **You changed `ADMIN_INITIAL_PASSWORD` later.** It is only used when the instance has no administrator yet. It does
   not change the password of an existing account.
-- **You upgraded from a 26.08 release.** The upgrade resets every password. See
-  [Upgrading Repsy Open Source](../upgrading-repsy-open-source/#every-password-is-reset).
+- **You upgraded from a 26.08 release.** Passwords are not reset; they work on the first try after the upgrade. See
+  [Upgrading Repsy Open Source](../upgrading-repsy-open-source/#passwords-are-upgraded-transparently-on-login).
 - **You forgot the password.** See [Recovering a Lost Password](../recovering-a-lost-password/).
 
 ### `429 Too Many Requests` and "Too many failed authentication attempts"

@@ -191,9 +191,11 @@ registry to `insecure-registries`, see [Docker over plain HTTP](../enabling-http
 This is expected. Port `9090` is for package clients, and it answers `404` with `{"msgId":"unknownPath",...}` for a path it
 does not serve, such as `/`. The web UI is on port `8080`.
 
-### The browser reports `Invalid CORS request` or a CSP violation
+### The browser reports `Invalid CORS request`, a blocked cross-origin request or a CSP violation
 
-See [Security Headers and CORS](../security-headers-and-cors/).
+After an upgrade, a web UI that is served from another origin than the API can stop working, with a message in the
+browser console that the request was blocked by CORS policy: the API allows no other origin unless you list it in
+`APP_ALLOWED_ORIGINS`. See [Security Headers and CORS](../security-headers-and-cors/).
 
 ## Data and storage
 

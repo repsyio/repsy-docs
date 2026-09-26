@@ -74,20 +74,23 @@ violation messages before you enforce it. A policy that is too strict makes part
 ## Cross-origin requests (CORS)
 
 Browsers only let a web page call an API on another origin (another scheme, host or port) when that API allows it. The
-web UI normally calls the API on the same origin it was loaded from, and then CORS plays no role. It matters when:
+web UI normally calls the API on the same origin it was loaded from, and then CORS plays no role. By default Repsy allows
+no other origin: the API of the web UI is **same-origin only** and sends no CORS headers. You need the setting below when
+a web page on another origin has to call the API from a browser, for example when:
 
 - you serve the web UI and the API from different host names (see [`API_BASE_URL`](../running-behind-a-reverse-proxy/#tell-repsy-its-public-addresses)), or
-- you want to limit which sites may call your API from a browser.
+- you host the web UI somewhere else, or run its development server (`http://localhost:4200`) against your instance.
 
 ### Settings
 
 | Variable | Default | Meaning |
 | --- | --- | --- |
-| `APP_ALLOWED_ORIGINS` | empty | Comma-separated list of the origins allowed to call Repsy with credentials from a browser. Empty allows any origin. |
+| `APP_ALLOWED_ORIGINS` | empty | Comma-separated list of the origins allowed to call Repsy with credentials from a browser. Empty allows no other origin: same-origin only. |
 
-With the variable empty, Repsy answers a browser preflight request from any origin and allows credentials. Once you set
-it, only the listed origins are accepted, and a request from any other origin is answered with `403 Invalid CORS
-request`. Rules for the list:
+With the variable empty, Repsy sends no CORS headers at all, so a browser refuses to let a page on another origin read an
+answer of the API. Repsy does not judge the origin: it still serves the request, only the browser blocks the page. Once
+you set the variable, exactly the listed origins are allowed, with credentials, and a request from any other origin is
+answered with `403 Invalid CORS request`. Rules for the list:
 
 - Write exact origins: scheme, host and port if it is not the default one, without a path or a trailing slash, for
   example `https://repsy.example.com`. Wildcards are not supported.
@@ -120,7 +123,12 @@ curl -si -X OPTIONS https://api.example.com/ \
 ```
 
 The first call answers `200` with `Access-Control-Allow-Origin: https://panel.example.com`. The same call with any other
-`Origin` answers `403`.
+`Origin` answers `403`. With `APP_ALLOWED_ORIGINS` empty, the same call answers without any `Access-Control-Allow-*`
+header, whatever the `Origin`.
+
+Earlier releases allowed any origin, with credentials, when the variable was empty. If you served the web UI from another
+origin and never set the variable, set it before you upgrade, see
+[Upgrading Repsy Open Source](../upgrading-repsy-open-source/).
 
 ## Other security headers
 

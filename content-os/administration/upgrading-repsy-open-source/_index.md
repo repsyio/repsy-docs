@@ -172,8 +172,12 @@ a lookup that finds nothing under the exact spelling tries the lowercase spellin
   answered with `429` after 20 failures in a minute. Behind a reverse proxy, check that Repsy trusts it, or all clients
   share one count. See [Authenticating from CI](../authenticating-from-ci/) and
   [Running Behind a Reverse Proxy](../running-behind-a-reverse-proxy/).
-- **The web UI sends a Content-Security-Policy header and its CORS setting is configurable.** By default any origin is
-  still allowed to call the API, as before, but the web UI can no longer be shown in a frame. See
+- **The web UI sends a Content-Security-Policy header, and the API allows no other origin by default.** The web UI can no
+  longer be shown in a frame. Earlier releases allowed a browser page from any origin to call the API with credentials.
+  With `APP_ALLOWED_ORIGINS` empty, the API is now same-origin only and sends no CORS headers. This changes nothing for
+  the Docker image as it is normally run, where the web UI and the API share an origin. It breaks a web UI that is served
+  from another origin than the API (for example with `API_BASE_URL` set to another host, or a web UI hosted elsewhere): set
+  `APP_ALLOWED_ORIGINS` to the origin of the web UI, for example `https://panel.example.com`, before you upgrade. See
   [Security Headers and CORS](../security-headers-and-cors/).
 - **The package port sends no CORS headers, and the security headers are new.** Only the port of the web UI and its API
   answers cross-origin requests. Both ports send `X-Content-Type-Options: nosniff`, and the port of the web UI and its

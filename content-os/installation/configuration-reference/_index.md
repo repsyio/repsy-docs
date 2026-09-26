@@ -189,6 +189,19 @@ Repsy can scan pushed packages for known vulnerabilities with a separate scanner
 service of the source repository. Scanning is off by default and needs nothing else to run Repsy. This section only
 describes the settings: it does not describe how to set up the scanner service.
 
+### What a Scan Covers
+
+A scan covers what a package **contains**, not what it declares. For Maven, npm and PyPI the scanner unpacks the stored file and runs Trivy's `rootfs` scan on it. That scan reads the packages that are installed or bundled in the file (a `node_modules` directory, jars, Python package metadata). It does not read lock files and it does not look up the dependencies that a package declares.
+
+| Format | What is scanned | What is not scanned |
+| --- | --- | --- |
+| npm | The package tarball, so the packages bundled in it (`node_modules/*/package.json`). | The `dependencies`, `devDependencies` and `peerDependencies` of the package, and a `package-lock.json` in the tarball. |
+| Maven | The main file of the version (a jar, or a war, ear or rar, depending on the packaging), including the jars nested in it. | The dependencies that the POM declares. A jar without bundled dependencies is scanned as itself only. |
+| PyPI | The source distribution (`.tar.gz`) if the release has one, otherwise the first file of the release, such as a wheel. | The dependencies that the package declares (`Requires-Dist`). |
+| Docker | The whole image, which the scanner pulls from Repsy by its reference. | |
+
+A package that declares vulnerable dependencies without bundling them is therefore reported without findings. A clean scan does not mean that the dependencies of a package are free of vulnerabilities. For `npm audit`, see [Auditing an Installation](../../npm/managing-npm-packages/#auditing-an-installation).
+
 ### Settings of Repsy
 
 | Variable | Default | Description |

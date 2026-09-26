@@ -86,6 +86,8 @@ When the section is there, the switch decides whether newly pushed versions are 
 push starts a scan. With it off, a push does not start a scan, and a version can still be scanned by hand. The switch is
 labelled **Allow** and **Deny** like the one of **Package Override**.
 
+A scan covers what a package contains, not the dependencies it declares, see [What a Scan Covers](../../installation/configuration-reference/#what-a-scan-covers).
+
 ## Version Allowance
 
 **Version Allowance** exists for Maven and NuGet repositories only. It restricts a repository to one kind of version, and

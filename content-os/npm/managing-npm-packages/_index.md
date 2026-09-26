@@ -98,6 +98,8 @@ Repsy answers from the scans of vulnerability scanning, so this works only when 
 - only the versions the audit asks about and that a scan of **this repository** found a vulnerability in. It uses the latest completed scan of each version.
 - nothing, with the exit code `0`, when scanning is off (the scanner is disabled, or scanning is turned off for the repository, even if an earlier scan found something), and for a version that has not been scanned yet. `found 0 vulnerabilities` therefore does not mean that a package is free of vulnerabilities.
 
+An advisory therefore appears only for a package name and version that a scanned tarball of this repository **bundled**. A scan reads what a tarball contains and does not look up the `dependencies` it declares (see [What a Scan Covers](../../installation/configuration-reference/#what-a-scan-covers)), and most npm packages bundle nothing. So `npm audit` against Repsy reports far less than `npm audit` against npmjs.org for the same dependency tree: an audit with no findings means that no scanned package of this repository contains a known vulnerability, not that the packages in your tree have none.
+
 An audit request may hold up to 20,000 packages and 8 MiB (after decompression). Yarn classic (`yarn audit`) always asks `registry.yarnpkg.com` and never reaches Repsy.
 
 ## Logging Out

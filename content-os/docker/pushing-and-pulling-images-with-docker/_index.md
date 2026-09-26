@@ -87,7 +87,7 @@ docker pull --platform <platform> {{% repo-url scheme="false" %}}/<repo-name>/<i
 2. The list has one row per image, with the digest of its most recently moved tag, the last update and the size. Open the image to see its tags with their platform.
 3. Open a tag to see its manifests, and the tag detail to see the manifest and the config of the image and the `docker pull` command.
 
-There is no `docker search` and no tag listing over the registry API on Repsy; the web UI is where you see the tags. See [Managing Docker Tags and Manifests](../managing-docker-tags-and-manifests/).
+There is no `docker search` on Repsy. Clients that list tags, such as `crane ls`, use the `tags/list` call of the registry API, which Repsy answers; the web UI shows the same tags with more detail. See [Managing Docker Tags and Manifests](../managing-docker-tags-and-manifests/).
 {{< /steps >}}
 
 ### Private and Public Repositories

@@ -27,13 +27,26 @@ What this means for your tags:
 
 ### Seeing the Tags of an Image
 
-Repsy does not implement the `tags/list` call of the registry API, so clients such as `crane ls` cannot list tags. Use the web UI:
+Clients list the tags of an image with the `tags/list` call of the registry API, for example `crane ls`; see [Listing Tags Through the Registry API](#listing-tags-through-the-registry-api). In the web UI:
 
 1. Open the **Repositories** tab and open your Docker repository. Every row is an image.
 2. Open an image to see its tags, each with its platform and the time it was last updated. You can search the tags and sort them.
 3. Open a tag to see the manifests behind it (several for a multi-platform tag), and the tag detail to see the manifest, the config and the `docker pull` command.
 
 {{< figure src="os/docker/pushing-a-docker-image/image-list.png" alt="The list of Docker images in a repository." caption="The images of a Docker repository: one row for each image, with the digest of its most recently moved tag, when it was last updated and its size." >}}
+
+### Listing Tags Through the Registry API
+
+`GET /v2/<repo-name>/<image-name>/tags/list` answers the tags of an image, so `crane ls`, `skopeo list-tags`, `regctl tag ls` and `oras repo tags` work, and so does `skopeo inspect` without `--no-tags`, which lists the tags first:
+
+```json
+{"name": "<repo-name>/<image-name>", "tags": ["1.0", "1.1", "latest"]}
+```
+
+- The tags come in alphabetical order (by character code, so `v10` comes before `v2`). An image that stores manifests but no tags has an empty list.
+- `n` limits the answer to that many tags and `last` starts after the tag you name. When more tags follow, the answer carries a `Link` header with `rel="next"` that names the next page, and clients follow it by themselves. Without `n` you get every tag at once. An `n` that is not a whole number of at least 0 is refused with `400` and the error code `PAGINATION_NUMBER_INVALID`.
+- Listing needs the same access as a pull. A private repository answers a request without credentials with `401` and the usual token challenge for the `pull` scope, whether or not the image exists, so the answer does not tell you which images a repository has. With valid credentials, an image that does not exist is `404` with `NAME_UNKNOWN`. A deploy token, also a Read-only one, can list the tags of its own repository.
+- Repsy has no `_catalog` call, so a client cannot list the images of a repository this way; use the web UI.
 
 ### An Image Without Tags
 

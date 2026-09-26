@@ -175,6 +175,10 @@ a lookup that finds nothing under the exact spelling tries the lowercase spellin
 - **The web UI sends a Content-Security-Policy header and its CORS setting is configurable.** By default any origin is
   still allowed to call the API, as before, but the web UI can no longer be shown in a frame. See
   [Security Headers and CORS](../security-headers-and-cors/).
+- **The package port sends no CORS headers, and the security headers are new.** Only the port of the web UI and its API
+  answers cross-origin requests. Both ports send `X-Content-Type-Options: nosniff`, and the port of the web UI and its
+  API also sends `Referrer-Policy` and `X-Frame-Options`. `Strict-Transport-Security` is sent only if you set
+  `APP_HSTS_MAX_AGE`. See [Security Headers and CORS](../security-headers-and-cors/#other-security-headers).
 - **Uploads are checked more strictly.** Repsy refuses uploads that earlier releases accepted, for example Maven files
   outside the artifact layout and POMs whose group id does not match their path (both answered with `400`). See the pages
   of the package formats.
@@ -184,7 +188,7 @@ a lookup that finds nothing under the exact spelling tries the lowercase spellin
 ### New settings
 
 The next release adds settings you may want to know about: `REPO_BASE_URL` and `API_BASE_URL`, the upload size limits,
-`TRASH_RETENTION`, the cleanup jobs, `PASSWORD_RESET_MARKER_DIR`, `APP_ALLOWED_ORIGINS` and the `APP_CSP_*` settings, and
+`TRASH_RETENTION`, the cleanup jobs, `PASSWORD_RESET_MARKER_DIR`, `APP_ALLOWED_ORIGINS`, `APP_HSTS_MAX_AGE` and the `APP_CSP_*` settings, and
 the `AUTH_THROTTLE_*` and `BASIC_AUTH_CACHE_*` settings. They are described in the pages of this section.
 
 The remaining database migrations of the release only add tables, columns and indexes for new features.

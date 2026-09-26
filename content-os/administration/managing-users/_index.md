@@ -92,13 +92,17 @@ Tell the person their username and password. They can change both on their own *
 
 Open the menu of the user's row and choose **Edit**. You can change the username and the role. When you rename a user,
 their web UI sessions end and they sign in again with the new name. Clients that use the old username and their password
-need the new name too. Deploy tokens are not affected.
+need the new name too. The sessions the user's package manager holds (a Docker login, an npm login token, a Cargo
+token) end as well, and the user logs in again. Deploy tokens are not affected. Changing only the role changes none of
+this.
 
 ### Reset a user's password
 
 Click **Reset password** in the user's row and confirm. Repsy generates a random password, shows it once, and signs the
-user out of every web UI session. The old password stops working at once. Copy the new password and hand it to the user
-over a secure channel. They should change it after signing in.
+user out of every web UI session. The old password stops working at once, and so does every session the user's package
+manager holds (a Docker login, an npm login token, a Cargo token): the next request answers `401`, and the user logs in
+again with the new password. Deploy tokens are not affected. Copy the new password and hand it to the user over a secure
+channel. They should change it after signing in.
 
 If you reset your own password, you are signed out as well. To keep your session, change your own password on your
 **Profile** page instead.

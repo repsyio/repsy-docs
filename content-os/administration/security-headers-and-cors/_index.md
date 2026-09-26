@@ -1,14 +1,15 @@
 +++
 title = "Security Headers and CORS"
 weight = 163
-description = "Configure the Content-Security-Policy header and the cross-origin (CORS) rules, for example to serve the web UI and API from different hosts."
+description = "Configure the Content-Security-Policy header, the cross-origin (CORS) rules and HSTS, and see which security headers Repsy sends on which port."
 +++
 
 # Security Headers and CORS
 
 Two settings decide what a browser may do with the Repsy web UI: the `Content-Security-Policy` header that Repsy sends
-with the web UI, and the cross-origin (CORS) rules of its API. Package managers such as Maven, npm and Docker are not
-browsers, so neither setting affects them.
+with the web UI, and the cross-origin (CORS) rules of its API. Repsy also sends a few fixed security headers and, if you
+ask for it, `Strict-Transport-Security`, see [Other security headers](#other-security-headers). Package managers such as
+Maven, npm and Docker are not browsers, so these settings do not affect them.
 
 ## Content Security Policy
 
@@ -91,8 +92,9 @@ request`. Rules for the list:
 - Write exact origins: scheme, host and port if it is not the default one, without a path or a trailing slash, for
   example `https://repsy.example.com`. Wildcards are not supported.
 - Separate several origins with commas. Spaces around the commas are ignored.
-- The rule applies on every port of Repsy, including the package port. Package managers do not send an `Origin` header,
-  so it does not affect them.
+- The rule applies to the port of the web UI and its API (`8080` by default) only. The package port (`9090` by default),
+  which Maven, npm, Docker and the other package managers use, sends no CORS headers at all, whatever this variable says:
+  no browser calls it across origins, and package managers do not send an `Origin` header.
 
 ### Serving the web UI and the API from different hosts
 
@@ -119,3 +121,35 @@ curl -si -X OPTIONS https://api.example.com/ \
 
 The first call answers `200` with `Access-Control-Allow-Origin: https://panel.example.com`. The same call with any other
 `Origin` answers `403`.
+
+## Other security headers
+
+Repsy sends these headers besides the Content Security Policy:
+
+| Header | Where |
+| --- | --- |
+| `X-Content-Type-Options: nosniff` | Every response, on both ports. The package port serves files that users uploaded. |
+| `Referrer-Policy: strict-origin-when-cross-origin` | Every response on the port of the web UI and its API. |
+| `X-Frame-Options: DENY` | Every response on the port of the web UI and its API. It does the same as `frame-ancestors 'none'` in the Content Security Policy, for browsers that ignore that directive. |
+| `Strict-Transport-Security` | Only when you set `APP_HSTS_MAX_AGE` to a positive number, and only on a secure request, see below. |
+
+### HSTS
+
+| Variable | Default | Meaning |
+| --- | --- | --- |
+| `APP_HSTS_MAX_AGE` | `0` | The `max-age` in seconds of the `Strict-Transport-Security` header. `0` never sends it. |
+
+With a positive value, Repsy sends `Strict-Transport-Security: max-age=<value>` on both ports, but only on a secure request:
+one that arrives on an HTTPS port of Repsy (see [Enabling HTTPS](../enabling-https/)), or through a reverse proxy that sends
+`X-Forwarded-Proto: https` (see [Running Behind a Reverse Proxy](../running-behind-a-reverse-proxy/)).
+
+HSTS is off by default because a browser applies it to a whole host, not to one port. A browser that has seen the header
+for a host also upgrades `http://<host>:8080` to HTTPS, which breaks a setup that serves the panel over plain HTTP on
+`8080` and over HTTPS on `8443` of the same host. Set it when everything on the host is served over HTTPS only. A reverse
+proxy in front of Repsy normally sends HSTS itself, and then you need no setting here.
+
+To check what Repsy sends, look at the headers of an answer:
+
+```bash
+curl -sI https://repsy.example.com/ | grep -i "x-content-type-options\|referrer-policy\|x-frame-options\|strict-transport-security"
+```

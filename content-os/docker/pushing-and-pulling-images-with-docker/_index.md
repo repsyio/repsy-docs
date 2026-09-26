@@ -45,6 +45,8 @@ echo "$REPSY_DEPLOY_TOKEN" | docker login {{% repo-url scheme="false" account="f
 
 Docker keeps the credentials in `~/.docker/config.json` until you run `docker logout`.
 
+When the password of the account is changed or reset by an administrator, or the username is changed, the tokens that the registry handed out for the account end as well, even though they would be valid for about 30 minutes: a request that still uses one answers `401` with `sessionExpired`, and the old password no longer gets a new one. Run `docker login` again with the new password. A deploy token is not affected.
+
 ### Tag the image
 
 Give a local image the name it will have in Repsy:

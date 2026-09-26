@@ -92,11 +92,19 @@ crane delete {{% repo-url scheme="false" %}}/<repo-name>/<image-name>@<digest>
 
 This needs the `ADMIN` role: log in with the username and password of an administrator. With a tag, only the tag is deleted and the manifest stays pullable by its digest. With a digest, the manifest is deleted with every tag that points at it. A deploy token is refused, also a Read/Write one, with `UNAUTHORIZED: The user has logged in but has no permissions.`, and so is a user without the `ADMIN` role. See [Deleting Through the Registry API](../managing-docker-tags-and-manifests/#deleting-through-the-registry-api) for the answers of Repsy.
 
+### List the Tags of an Image
+
+```bash
+crane ls {{% repo-url scheme="false" %}}/<repo-name>/<image-name>
+```
+
+This prints the tags of the image, one per line and in alphabetical order. It needs the same access as a pull: a deploy token, also a Read-only one, may list the tags of its repository. See [Listing Tags Through the Registry API](../managing-docker-tags-and-manifests/#listing-tags-through-the-registry-api) for the details.
+
 ### What Does Not Work
 
-- `crane ls` and `crane catalog` list the tags of an image and the images of a registry. Repsy does not implement the registry API calls they need, and answers them with `NAME_UNKNOWN: unknownPath`. See the web UI for the tags of an image, as described in [Managing Docker Tags and Manifests](../managing-docker-tags-and-manifests/#seeing-the-tags-of-an-image).
+- `crane catalog` lists the images of a registry. Repsy does not implement the registry API call it needs, and answers it with `NAME_UNKNOWN: unknownPath`. See the web UI for the images of a repository.
 - Repsy has no referrers API.
 
 ### Other OCI Tools
 
-Repsy implements the Docker Registry HTTP API v2 with the OCI media types. A client authenticates with the usual token exchange: it sends its username and password (or deploy token) to the token endpoint that the `WWW-Authenticate` challenge of `/v2/` names, and then uses the bearer token it gets. The automated tests of Repsy use crane. Other tools, such as skopeo and podman, are not part of them, so this documentation makes no statement about them. A tool that works with registries that use this token exchange should work with Repsy under the rules described on these pages: image names of one path segment, no tag listing and no referrers.
+Repsy implements the Docker Registry HTTP API v2 with the OCI media types. A client authenticates with the usual token exchange: it sends its username and password (or deploy token) to the token endpoint that the `WWW-Authenticate` challenge of `/v2/` names, and then uses the bearer token it gets. The automated tests of Repsy use crane. Other tools, such as skopeo and podman, are not part of them, so this documentation makes no statement about them. A tool that works with registries that use this token exchange should work with Repsy under the rules described on these pages: image names of one path segment, no catalog listing and no referrers.

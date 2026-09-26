@@ -136,7 +136,9 @@ disk space, use **Delete Untagged Manifests**, or delete the image. See
   then, and the trash is not an undelete function. See
   [Managing Storage and Cleanup](../../administration/managing-storage-and-cleanup/#the-trash).
 - **Maven metadata.** When a version of a Maven artifact is deleted and the artifact has a `maven-metadata.xml` that a
-  client uploaded, Repsy removes the version from that file, so that version ranges and `LATEST` no longer find it.
+  client uploaded, Repsy removes the version from that file, so that version ranges and `LATEST` no longer find it. An
+  artifact without a stored file has nothing to update: Repsy generates the file from the versions that are left, see
+  [Dynamic Versions and maven-metadata.xml](../../maven/dynamic-versions-and-maven-metadata/).
 - **Scan results.** The scan results of a deleted version go with it.
 
 ### What Your Clients See

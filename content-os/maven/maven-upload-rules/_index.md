@@ -52,6 +52,7 @@ What counts as an override:
 - Any file of a release version that is already stored, for example the second `mvn deploy` or `gradle publish` of `1.0.0`, and the checksum of a file that already has one.
 - Not the `maven-metadata.xml` files and their checksums: they are rewritten on every deploy and are never refused.
 - Not a SNAPSHOT deploy by Maven or Gradle. Every deploy writes new timestamped files (`demo-1.1.0-20260925.101010-1.jar`, then `...-2.jar`) and rewrites the metadata, so you can deploy a SNAPSHOT again and again, also with **Deny**.
+- Not a SNAPSHOT deploy by sbt or Apache Ivy. They publish a SNAPSHOT under its literal file names (`demo-1.1.0-SNAPSHOT.jar`) every time, so a repeated deploy replaces those files, also with **Deny**. A timestamped build of Maven or Gradle stays immutable, and so does every file of a release.
 
 Maven and Gradle stop at the first refusal. A refused redeploy of a release is refused on the first file it sends, so it leaves the repository as it was, and everything that was published earlier stays downloadable.
 
@@ -78,7 +79,7 @@ When both rules would refuse an upload, Package Override is checked first and yo
 
 - A checksum (`.sha1`, `.md5`, `.sha256`, `.sha512`) is judged by the file it belongs to: it has to be in the layout, and it is refused when its file would be refused. A checksum of `maven-metadata.xml` is judged by its directory: only the ones in a SNAPSHOT directory count as SNAPSHOT files.
 - A signature (`.asc`) is verified before it is stored, see [Signing Maven Artifacts](../signing-maven-artifacts/) for the answers.
-- Repsy stores the `maven-metadata.xml` files that your build tool uploads, and it does not generate them. Maven `LATEST`, version ranges and Gradle dynamic versions such as `1.+` resolve through them, so they work for artifacts published with Maven or Gradle. For an artifact uploaded by other means without metadata, use fixed versions.
+- Repsy stores the `maven-metadata.xml` files that your build tool uploads. When none is stored for an artifact, which is what Apache Ivy, sbt and a plain `PUT` leave, Repsy answers a `GET` or `HEAD` of it (and of its checksums) from the versions it has registered, so Maven `LATEST`, `RELEASE` and version ranges, Gradle `1.+` and `latest.release` of Ivy and sbt resolve. It does the same for the file of a group, which Maven uses to find a plugin by its prefix. When a POM registers a version that a stored file does not list, Repsy adds it to the file. Nothing is generated for a signature or for the file in the directory of a SNAPSHOT version. See [Dynamic Versions and maven-metadata.xml](../dynamic-versions-and-maven-metadata/).
 
 ### Summary of the Answers
 

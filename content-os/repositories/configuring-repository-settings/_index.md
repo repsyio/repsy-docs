@@ -60,7 +60,7 @@ What counts as "the same" depends on the package format:
 
 | Format | What an upload of the same thing is |
 | --- | --- |
-| Maven | A file of a release version that is already stored. A SNAPSHOT deploy is never an override, because every deploy writes new timestamped files. See [Maven Upload Rules](../../maven/maven-upload-rules/#package-override). |
+| Maven | A file of a release version that is already stored. A SNAPSHOT deploy is never an override: Maven and Gradle write new timestamped files with every deploy, and sbt and Apache Ivy replace the literal `-SNAPSHOT` files. See [Maven Upload Rules](../../maven/maven-upload-rules/#package-override). |
 | npm | A version of a package that already exists. |
 | PyPI | A file with a name that already exists. See [Publishing a Python Package with Twine](../../pypi/publishing-a-python-package-with-twine/#uploading-a-version-again). |
 | NuGet | A version of a package that already exists. With **Allow**, the new package replaces the stored one. |

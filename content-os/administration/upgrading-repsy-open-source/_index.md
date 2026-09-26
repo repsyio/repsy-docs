@@ -103,7 +103,7 @@ for the first time after the upgrade.
   legacy check and reset the password of any account that has not signed in by then. To avoid a reset later, ask each
   account holder to sign in once before that release ships.
 - **Deploy tokens are unaffected.** They keep working throughout the upgrade and after.
-- **Emergency access still works.** The forgotten-password recovery (setting a marker file) still works if you lose
+- **Emergency access still works.** The forgotten-password recovery (creating a marker file) still works if you lose
   administrator access. See [Recovering a Lost Password](../recovering-a-lost-password/).
 
 ### Docker manifests are stored by digest

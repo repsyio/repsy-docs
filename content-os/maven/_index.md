@@ -22,6 +22,7 @@ The URL of a Maven repository is the address of your instance's repository port 
 - [Publishing and Consuming with Maven](publishing-and-consuming-with-maven/): release and SNAPSHOT versions, credentials, verification and troubleshooting.
 - [Publishing and Consuming with Gradle (Kotlin DSL)](publishing-and-consuming-with-gradle-kotlin-dsl/) and [Publishing and Consuming with Gradle (Groovy DSL)](publishing-and-consuming-with-gradle-groovy-dsl/).
 - [Using Repsy as a Gradle Plugin Repository](using-repsy-as-a-gradle-plugin-repository/): publish a Gradle plugin and apply it with `plugins {}`.
+- [Dynamic Versions and maven-metadata.xml](dynamic-versions-and-maven-metadata/): how `LATEST`, version ranges, `1.+`, `latest.release` and plugin prefixes resolve when Maven, Gradle, Ivy and sbt publish to the same repository.
 
 ### Signing and Upload Rules
 

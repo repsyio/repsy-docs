@@ -136,7 +136,7 @@ A version shows up in the list when its POM has been uploaded.
 
 ### Dynamic Versions
 
-`LATEST`, `RELEASE` and version ranges such as `[1.0,2.0)` are resolved through the `maven-metadata.xml` of the artifact. Repsy stores the metadata file that Maven uploads with `mvn deploy`, so they work for artifacts published by Maven and Gradle. Repsy does not generate `maven-metadata.xml` itself: for an artifact that was uploaded by other means (for example with a plain HTTP `PUT`) and has no metadata file, they do not resolve, so use fixed versions there.
+`LATEST`, `RELEASE` and version ranges such as `[1.0,2.0)` are resolved through the `maven-metadata.xml` of the artifact. Repsy stores the metadata file that Maven uploads with `mvn deploy`, so they work for artifacts published by Maven and Gradle. For an artifact that has no stored metadata file, for example one that Apache Ivy, sbt or a plain HTTP `PUT` published, Repsy generates the answer from the versions it has registered, so they resolve there too. When Maven, Gradle, Ivy and sbt publish to the same artifact, Repsy also adds a version that a stored file lacks. The plugin prefix of `mvn <prefix>:<goal>` is resolved the same way. See [Dynamic Versions and maven-metadata.xml](../dynamic-versions-and-maven-metadata/) for the rules and the limits.
 
 ### Troubleshooting
 

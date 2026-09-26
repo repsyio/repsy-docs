@@ -131,7 +131,7 @@ configurations.all {
 
 ### Dynamic Versions
 
-Dynamic versions such as `1.+` and dependency locking resolve through the artifact's `maven-metadata.xml`. Repsy stores the metadata file that Gradle uploads with `publish`, so they work for artifacts published by Gradle and Maven. Repsy does not generate `maven-metadata.xml` itself: for an artifact that was uploaded by other means and has no metadata file, use a fixed version.
+Dynamic versions such as `1.+` and dependency locking resolve through the artifact's `maven-metadata.xml`. Repsy stores the metadata file that Gradle uploads with `publish`, so they work for artifacts published by Gradle and Maven. For an artifact that has no stored metadata file, for example one that Apache Ivy, sbt or a plain HTTP `PUT` published, Repsy generates the answer from the versions it has registered, so they resolve there too. When several clients publish to the same artifact, Repsy also adds a version that a stored file lacks. See [Dynamic Versions and maven-metadata.xml](../dynamic-versions-and-maven-metadata/) for the rules and the limits.
 
 ### Troubleshooting
 

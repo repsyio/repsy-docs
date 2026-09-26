@@ -31,6 +31,9 @@ When the password is changed:
 - Every other session of your account ends, and those browsers have to sign in again.
 - Package manager clients and CI jobs that use your username and password stop working until you give them the new
   password. Deploy tokens are not affected.
+- Every session your package manager holds ends too (a Docker login, an npm login token, a Cargo token). The next
+  request that uses one answers `401` with `sessionExpired`. Log in again with the new password. Deploy tokens are not
+  affected.
 
 If you have forgotten your password and cannot sign in, ask an administrator to reset it on the **Users** page, see
 [Managing Users](../../administration/managing-users/#reset-a-users-password). Repsy
@@ -45,7 +48,8 @@ A username has 3 to 25 characters and can contain lowercase letters, digits, `_`
 user has, and a few names it reserves for itself, with "Username is in use. Please try another one."
 
 Sign in with the new username from now on, and update package manager clients and CI jobs that use your username and
-password.
+password. A rename ends the sessions your package manager holds (a Docker login, an npm login token, a Cargo token) in
+the same way as a password change does: log in again.
 
 The web UI warns that changing your username changes your repository URLs. In Repsy Open Source that does not apply:
 the address of a repository has no username in it, so the repository URLs stay the same. See

@@ -26,7 +26,8 @@ Repsy shows the new password once. See [Managing Users](../managing-users/#reset
 ## A marker file
 
 Repsy watches a directory for files whose name is a username. When one appears, Repsy deletes the file, generates a new
-password for that user, ends the user's web UI sessions, and logs the password. It needs no database access and works for
+password for that user, ends the user's web UI sessions and the sessions the user's package manager holds, and logs the
+password. It needs no database access and works for
 any user, also when the only administrator is locked out.
 
 In the Docker image the directory is `/app/data/password-reset`, on the persisted volume.

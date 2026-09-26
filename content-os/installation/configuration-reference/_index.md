@@ -38,7 +38,10 @@ source, the table says so.
 
 The panel signs users in with an access token that is valid for 30 minutes and a refresh token that is valid for 60 minutes
 and can be used once. A session ends at the latest 24 hours after the sign-in. These lifetimes are fixed and cannot be
-configured. Changing the password or the username of an account invalidates its older refresh tokens.
+configured. Changing the password or the username of an account invalidates its older refresh tokens. It also ends the
+sessions of the package managers: the Docker token, the npm login token and the Cargo token of that account. Their
+lifetimes are 30 minutes for Docker and Cargo and 90 days for npm; after a change the next request that uses one answers
+`401` with `sessionExpired`. Deploy tokens are not affected.
 
 ## Database
 
@@ -123,7 +126,8 @@ of the two ports has its own set of variables, one starting with `API_SSL_` for 
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `APP_ALLOWED_ORIGINS` | Empty: every origin is allowed | A comma-separated list of exact origins, for example `https://panel.example.com`, from which a browser may call the panel API across origins with credentials. Set it once the panel is reached from a fixed set of addresses. It also adds these origins to the `connect-src` directive of the built-in Content Security Policy. |
+| `APP_ALLOWED_ORIGINS` | Empty: every origin is allowed | A comma-separated list of exact origins, for example `https://panel.example.com`, from which a browser may call the panel API across origins with credentials. Set it once the panel is reached from a fixed set of addresses. It applies to the panel API only: the package port sends no CORS headers. It also adds these origins to the `connect-src` directive of the built-in Content Security Policy. |
+| `APP_HSTS_MAX_AGE` | `0`: never sent | The `max-age` in seconds of a `Strict-Transport-Security` header. When it is positive, Repsy sends the header on secure requests only (a request that arrives on an HTTPS port of Repsy, or through a reverse proxy that sends `X-Forwarded-Proto: https`), on both ports. It is off by default because a browser applies HSTS to a whole host, not to one port: with the panel on plain `:8080` and on HTTPS `:8443` of one host, browsers would upgrade the plain panel address as well. A reverse proxy in front of Repsy normally sets HSTS itself. |
 | `APP_CSP_ENABLED` | `true` | Sends a `Content-Security-Policy` header with the panel and its files. The API responses (`/api/...`) and the package port do not carry it. Set it to `false` if a reverse proxy in front of Repsy sends its own. |
 | `APP_CSP_REPORT_ONLY` | `false` | Sends the header `Content-Security-Policy-Report-Only` instead: a browser reports violations but blocks nothing. Useful while you test a changed policy. |
 | `APP_CSP_POLICY` | Empty: the built-in policy | Replaces the built-in policy completely with the value you give. |
@@ -134,7 +138,7 @@ loads scripts, styles and fonts from: `https://www.googletagmanager.com`, `https
 start from the built-in policy when you write one. The other directives of the built-in policy are `default-src 'self'`,
 `object-src 'none'`, `base-uri 'self'`, `frame-ancestors 'none'` and `form-action 'self'`.
 
-[Security Headers and CORS](../../administration/security-headers-and-cors/) explains both settings.
+Repsy also sends `X-Content-Type-Options: nosniff` on both ports, and `Referrer-Policy` and `X-Frame-Options` on the panel port. [Security Headers and CORS](../../administration/security-headers-and-cors/) explains these settings and headers.
 
 ## Authentication
 

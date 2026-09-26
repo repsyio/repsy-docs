@@ -21,7 +21,7 @@ A credential is one of these:
 
 - **A user account:** the username and the password of an account of your instance.
 - **A deploy token:** a token of that repository. A **Read Only** token can install but is refused for everything that changes the registry. No deploy token can unpublish, because that removes stored files. The username that goes with it can be any value. See [Creating a Deploy Token](../../getting-started/creating-a-deploy-token/).
-- **A login token:** the token that `npm login` receives from Repsy for your username and password (or for a deploy token). It is valid for 90 days, and `npm logout` revokes it.
+- **A login token:** the token that `npm login` receives from Repsy for your username and password (or for a deploy token). It is valid for 90 days, and `npm logout` revokes it. Changing the password of the account, having it reset by an administrator, or changing the username also ends every login token of that account: Repsy answers `401` with `sessionExpired` (npm shows `E401`), and you run `npm login` again. The login token of a deploy token is not affected.
 
 ## Log In with npm login
 

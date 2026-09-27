@@ -1,6 +1,6 @@
 +++
 title = "Installing from Source"
-weight = 154
+weight = 155
 description = "Build Repsy Open Source from source as a Java backend and a web panel, put them together, run the application and update it."
 +++
 

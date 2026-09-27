@@ -74,5 +74,5 @@ It hosts packages in these formats, all from one instance:
 - [Ports and Repository URLs](../ports-and-repository-urls/): which port serves what, and how the address of a repository
   is formed.
 - [Creating Your First Repository](../creating-your-first-repository/)
-- [Installation](../../installation/): the other ways to install Repsy, with PostgreSQL, Docker Compose or from source.
+- [Installation](../../installation/): the other ways to install Repsy: with PostgreSQL, Docker Compose, Kubernetes with Helm or from source.
 - [Administration](../../administration/): HTTPS, reverse proxies, users, backups and upgrades.

@@ -2,14 +2,14 @@
 title = "Installation"
 chapter = true
 weight = 150
-description = "Choose how to install Repsy Open Source: Docker, Docker with PostgreSQL, Docker Compose or from source, and what to do before production."
+description = "Choose how to install Repsy Open Source: Docker, Docker Compose, Kubernetes with Helm or from source, and what to do before production."
 +++
 
 # Installation
 
 Repsy Open Source runs as one application that serves the web panel and every package protocol. You can start it as a
 single Docker container in a minute, run it with a PostgreSQL database for a long-lived installation, describe both in a
-Docker Compose file, or build it from source.
+Docker Compose file, deploy it to Kubernetes with a Helm chart, or build it from source.
 
 ## Choose How to Install
 
@@ -18,6 +18,7 @@ Docker Compose file, or build it from source.
 | [Installing with Docker](installing-with-docker/) | Embedded H2, stored on a Docker volume | You want to try Repsy or run a small instance with no other services. |
 | [Installing with Docker and PostgreSQL](installing-with-docker-and-postgresql/) | PostgreSQL 18 in a second container | You run Repsy for a team and want the database to be a separate, backed-up service. |
 | [Installing with Docker Compose](installing-with-docker-compose/) | PostgreSQL 18 in the same Compose project | You want the whole installation described in one file that you keep and start with one command. |
+| [Installing on Kubernetes with Helm](installing-on-kubernetes-with-helm/) | Embedded H2, PostgreSQL 18 installed by the chart, or your own PostgreSQL | You run a Kubernetes cluster and want Repsy, and optionally its database, ingress and scanner, as one Helm release. |
 | [Installing from Source](installing-from-source/) | PostgreSQL 18 or embedded H2 | You cannot use Docker, or you want to run a build of your own. |
 
 All options run the same application, so everything else in this documentation applies to each of them. The

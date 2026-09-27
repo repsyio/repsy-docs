@@ -1,6 +1,6 @@
 +++
 title = "Configuration Reference"
-weight = 155
+weight = 156
 description = "Reference of every environment variable that configures Repsy Open Source, with its default and when you would change it."
 +++
 

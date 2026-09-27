@@ -26,7 +26,7 @@ New here? Read [What is Repsy Open Source?](getting-started/what-is-repsy/), the
   - [Understanding Public vs Private](getting-started/understanding-public-vs-private/)
   - [Creating a Deploy Token](getting-started/creating-a-deploy-token/)
   - [Managing Your Account](getting-started/managing-your-account/)
-- [Installation](installation/): install with Docker, with Docker and PostgreSQL, with Docker Compose or from source, and
+- [Installation](installation/): install with Docker, with Docker and PostgreSQL, with Docker Compose, on Kubernetes with Helm or from source, and
   look up every setting in the configuration reference.
 - [Administration](administration/): serve Repsy over HTTPS or behind a reverse proxy, manage users and recover a lost
   password, back up your data, clean up storage and upgrade.

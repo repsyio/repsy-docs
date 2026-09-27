@@ -65,7 +65,7 @@ or a version, Repsy first moves its files into a `trash` directory inside the di
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `STORAGE_BASE_PATH` | The `.repsy` directory of the home directory of the user who runs Repsy: `/home/appuser/.repsy` in the image | The directory for package files. **In the Docker image, set it to `/app/data/storage` and mount a volume on `/app/data`**: the image does not set it, and the default lies inside the container, where the files are deleted with it. |
+| `STORAGE_BASE_PATH` | `/app/data/storage` in the Docker image. From source, the `.repsy` directory of the home directory of the user who runs Repsy | The directory for package files. **In the Docker image, mount a volume on `/app/data`**: the default lies inside it, and the files survive a new container. Images up to `26.08.4` stored the files in `/home/appuser/.repsy`, inside the container. When the variable has the image default, `/app/data/storage` is empty and `/home/appuser/.repsy` holds files, the image keeps using `/home/appuser/.repsy` and logs a `WARN`, see [Upgrading Repsy Open Source](../../administration/upgrading-repsy-open-source/). |
 | `TRASH_RETENTION` | `P7D` (seven days) | How long deleted items stay in the trash before they are removed for good. The minimum is `P1D`: a shorter value stops Repsy from starting. Raise it to be able to recover deleted items for longer. |
 | `TRASH_CLEANUP_ENABLED` | `true` | Runs the job that empties the trash. Set it to `false` to keep the trash for ever. The first run after an upgrade removes all trash that is older than `TRASH_RETENTION` and cannot be undone. |
 | `TRASH_CLEANUP_INTERVAL` | `PT24H` | How often the trash is emptied. |
@@ -96,7 +96,7 @@ Repsy runs a few maintenance jobs. The defaults suit most installations.
 | --- | --- | --- |
 | `API_PORT` | `8080` | The port of the web panel and its REST API inside the container or process. In Docker, you normally keep it and change the published port instead, for example `-p 8081:8080`. |
 | `SERVER_PORT` | `9090` | The port of all package protocols. In Docker, you normally keep it and change the published port instead. |
-| `REPO_BASE_URL` | `http://localhost:9090` in the panel of the Docker image. Unset for the npm registry, which then derives the address from each request | The public address of the package port, for example `https://repo.example.com`. The panel shows it in its client configuration snippets, and the npm registry uses it in the download links (`dist.tarball`) of packages. Set it whenever users do not reach Repsy as `localhost:9090`, and always behind a reverse proxy. The Docker start script copies it into the panel, so set it as an environment variable of the container. From source, also edit `static/assets/static-env.js`. |
+| `REPO_BASE_URL` | `http://localhost:9090` in the panel of the Docker image. Unset for the npm registry and NuGet, which then derive the address from each request | The public address of the package port, for example `https://repo.example.com`. The panel shows it in its client configuration snippets, the npm registry uses it in the download links (`dist.tarball`) of packages, and NuGet uses it, followed by the repository name, for the addresses in its service index, its registration and its search results. Set it whenever users do not reach Repsy as `localhost:9090`, and always behind a reverse proxy. The Docker start script copies it into the panel, so set it as an environment variable of the container. From source, also edit `static/assets/static-env.js`. |
 | `API_BASE_URL` | Empty: the panel calls the API on its own address | The address that the panel uses to reach the REST API. Set it only when the panel and the API are reached under different addresses. Only the Docker start script reads it, and writes it into the panel; from source, edit `static/assets/static-env.js`. |
 | `SERVER_COMPRESSION_ENABLED` | `true` | Compresses JSON responses of 1 KB or more on the package port, which makes the metadata of npm packages with many versions much smaller. Set it to `false` when a reverse proxy in front of Repsy already compresses. |
 | `SERVER_TOMCAT_REMOTEIP_INTERNAL_PROXIES` | Every private and loopback address | The addresses of the reverse proxies that Repsy trusts when they send the `X-Forwarded-For` header. This is a setting of the underlying Spring Boot server. It is not defined in Repsy's own configuration file and is described in the README of the project; it has not been checked here. |
@@ -132,9 +132,8 @@ of the two ports has its own set of variables, one starting with `API_SSL_` for 
 | `APP_CSP_REPORT_ONLY` | `false` | Sends the header `Content-Security-Policy-Report-Only` instead: a browser reports violations but blocks nothing. Useful while you test a changed policy. |
 | `APP_CSP_POLICY` | Empty: the built-in policy | Replaces the built-in policy completely with the value you give. |
 
-The built-in policy allows the files of the panel itself, and also the third-party hosts that the panel's start page
-loads scripts, styles and fonts from: `https://www.googletagmanager.com`, `https://www.google-analytics.com` and
-`https://cdnjs.cloudflare.com`. A policy that you set in `APP_CSP_POLICY` must allow everything the panel needs, so
+The built-in policy allows the files of the panel itself and no third-party host: the panel makes no request to another
+origin. A policy that you set in `APP_CSP_POLICY` must allow everything the panel needs, so
 start from the built-in policy when you write one. The other directives of the built-in policy are `default-src 'self'`,
 `object-src 'none'`, `base-uri 'self'`, `frame-ancestors 'none'` and `form-action 'self'`.
 

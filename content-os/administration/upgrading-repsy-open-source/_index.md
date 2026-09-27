@@ -24,7 +24,10 @@ cannot be undone, and lists what you need to know when you upgrade from a 26.08 
    ```
 
    Your files are in the directory that has the size; the other one does not exist or is nearly empty. If your files are in `/home/appuser/.repsy`, first follow
-   [Moving artifacts to the volume](../persisting-data-and-backups/#moving-artifacts-to-the-volume).
+   [Moving artifacts to the volume](../persisting-data-and-backups/#moving-artifacts-to-the-volume). An instance that
+   mounted `/home/appuser/.repsy` keeps working: while `STORAGE_BASE_PATH` is still the image default, `/app/data/storage`
+   is empty and `/home/appuser/.repsy` holds files, the new image keeps using `/home/appuser/.repsy` and logs a `WARN`
+   at startup. Move the files, or set `STORAGE_BASE_PATH=/home/appuser/.repsy` and keep mounting it.
 4. **Write down your `docker run` options** or keep your Compose file. You start the new container with the same
    options.
 
@@ -85,7 +88,9 @@ more: set `DB_URL` instead, for example `DB_URL=jdbc:postgresql://repsy-postgres
 
 This matters more than it looks: the Docker image now defaults to the embedded H2 database, so a container that has no
 `DB_URL` starts on a **new, empty H2 database** instead of your PostgreSQL. You would see a fresh instance with a new
-admin user. Nothing is lost, but stop it, set `DB_URL` and start again.
+admin user. Nothing is lost, but stop it, set `DB_URL` and start again. To help, Repsy logs a `WARN` at startup that names
+the removed variables and suggests a `DB_URL`, whenever any of them is set, whatever `DB_URL` is. It does not refuse to
+start.
 
 ### Passwords are upgraded transparently on login
 
@@ -125,6 +130,14 @@ per image and digest, and a tag only points to it.
 
 **This step cannot be undone.** Once the manifest files are renamed, the previous version can no longer read them, and it
 cannot push against the migrated database either. Take a backup first.
+
+### Helm manifests are rewritten (PostgreSQL only)
+
+On PostgreSQL, earlier releases stored the manifest of an OCI Helm chart (`helm_oci_manifest.content`) as a large object,
+and kept only its number in the column. The database migration V0028 rewrites each such row to hold the manifest itself
+and removes the large object of every row it converts. Large objects of rows that were deleted before the migration are
+not tracked anywhere, so they stay in `pg_largeobject`. They only take space, and the PostgreSQL tool `vacuumlo` removes
+them. Take a backup before you run it. The embedded H2 database needs nothing.
 
 ### The trash is emptied for the first time
 
@@ -186,4 +199,4 @@ The next release adds settings you may want to know about: `REPO_BASE_URL` and `
 `TRASH_RETENTION`, the cleanup jobs, `PASSWORD_RESET_MARKER_DIR`, `APP_ALLOWED_ORIGINS`, `APP_HSTS_MAX_AGE` and the `APP_CSP_*` settings, and
 the `AUTH_THROTTLE_*` and `BASIC_AUTH_CACHE_*` settings. They are described in the pages of this section.
 
-The remaining database migrations of the release only add tables, columns and indexes for new features.
+The remaining database migrations of the release add tables, columns and indexes for new features, and remove the `searchable` setting of repositories, which had no effect.

@@ -22,11 +22,11 @@ The built-in policy is:
 
 ```text
 default-src 'self';
-script-src 'self' https://www.googletagmanager.com;
-style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
-font-src 'self' https://cdnjs.cloudflare.com data:;
-img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com;
-connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com <allowed origins>;
+script-src 'self';
+style-src 'self' 'unsafe-inline';
+font-src 'self' data:;
+img-src 'self' data:;
+connect-src 'self' <allowed origins>;
 object-src 'none';
 base-uri 'self';
 frame-ancestors 'none';
@@ -38,10 +38,10 @@ Repsy sends it as one line. `<allowed origins>` stands for the origins you list 
 
 Two things in the policy are worth knowing:
 
-- **External hosts.** The policy allows `cdnjs.cloudflare.com`, `www.googletagmanager.com` and
-  `www.google-analytics.com`, because the web UI of this release loads content from them: an icon stylesheet and fonts
-  from cdnjs, and analytics scripts from Google. The requests come from the browser of whoever opens the web UI. If your
-  security or privacy rules do not allow them, set your own policy as described below.
+- **No external hosts.** The policy allows the origin of the web UI itself and nothing else, apart from the
+  origins you list in `APP_ALLOWED_ORIGINS` for `connect-src`. The web UI makes no request to a third-party host: it
+  loads no analytics, tag manager, stylesheet, font or avatar image from another origin, so it also works without
+  internet access.
 - **`frame-ancestors 'none'`.** No other site can show the web UI in a frame or an `<iframe>`.
 
 ### Settings
@@ -56,7 +56,7 @@ Two things in the policy are worth knowing:
 you need, and pass the result as one line. For example, to let a portal at `https://portal.example.com` embed the web UI:
 
 ```bash
--e APP_CSP_POLICY="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com data:; img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; object-src 'none'; base-uri 'self'; frame-ancestors https://portal.example.com; form-action 'self'"
+-e APP_CSP_POLICY="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors https://portal.example.com; form-action 'self'"
 ```
 
 A custom policy does not add `APP_ALLOWED_ORIGINS` to `connect-src` for you. If you use both settings, put the origins

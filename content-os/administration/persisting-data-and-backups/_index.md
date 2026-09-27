@@ -24,8 +24,8 @@ directory holds their files. Restore both from the same moment.
 
 ### Set `STORAGE_BASE_PATH` explicitly
 
-The Docker image declares `/app/data` as a volume. Put the package files inside it as well, so that a single volume
-holds everything, by always starting Repsy with:
+The Docker image declares `/app/data` as a volume and sets `STORAGE_BASE_PATH` to `/app/data/storage`, inside it, so that a
+single volume holds everything. Name the volume, and keep the variable in your command so that the location is visible:
 
 ```bash
 docker run -d \
@@ -36,9 +36,9 @@ docker run -d \
   repo.repsy.io/repsy/os/repsy:latest
 ```
 
-If `STORAGE_BASE_PATH` is not set, Repsy stores package files in `.repsy` in the home directory of its user, which is
-`/home/appuser/.repsy` in the image. That path is not inside the volume, so the files are lost when the container is
-removed. Do not rely on the default: set the variable and use a named volume or a directory that you back up.
+Images up to `26.08.4` did not set `STORAGE_BASE_PATH`: Repsy then stored package files in `.repsy` in the home directory
+of its user, `/home/appuser/.repsy`, which is not inside the volume, so the files were lost when the container was removed.
+Outside the image, the same default applies. Use a named volume or a directory that you back up.
 
 With `STORAGE_BASE_PATH=/app/data/storage` and the default H2 database, the volume looks like this:
 
@@ -205,7 +205,7 @@ Moving is a backup on the old host and a restore on the new one:
 
 ## Moving artifacts to the volume
 
-If you started an instance without `STORAGE_BASE_PATH` and want the package files in the volume from now on, copy them
+If you started an instance with an image up to `26.08.4` without `STORAGE_BASE_PATH` and want the package files in the volume from now on, copy them
 into the volume once and then start Repsy with the variable set. The files of an existing container are in its own file
 system, so copy them out of the stopped container first:
 

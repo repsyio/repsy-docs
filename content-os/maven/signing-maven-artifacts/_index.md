@@ -29,6 +29,13 @@ The same section lists the built-in key servers and lets you add **additional ke
 
 Changing **Verify every signature** recalculates the **Signed** state of the existing versions of the repository in the background, so the web UI shows the new state within moments. Turning it on also verifies the signatures that were stored while it was off: a version whose stored signatures verify stays **Signed**, and a version with a signature that does not verify, or whose key cannot be found, is shown as not signed until its file and signature are uploaded again.
 
+The same recalculation runs, for a repository with **Verify every signature** on, when the places Repsy looks a key up change: you register or delete a public key, add or remove a key server, or switch **Look up keys on key servers** on or off. Registering a key or adding a key server can make a version **Signed** whose signatures could not be verified before. Deleting a key or a key server does **not** unsign a version whose signatures were already verified: only a signature that is found not to verify makes a version not signed. A repository with **Verify every signature** off is not recalculated, because its **Signed** state comes from the POM signature that was verified when it was uploaded.
+
+Two limits of the recalculation:
+
+- **It does not survive a restart.** The runs wait in a queue in the memory of Repsy. When Repsy stops while a run is waiting or going, the run is lost and nothing starts it again. Switch **Verify every signature** off and on again to run it again. When the queue is full, Repsy logs that it skipped the run, and you can repeat the change.
+- **An upload that meets the switch can be left out.** A file that is uploaded at the very moment **Verify every signature** is switched on can leave its version with a **Signed** state that was worked out without that file. It corrects itself with the next upload into that version or the next switch of the setting.
+
 ### Use Verify Every Signature for Signed Deploys
 
 Maven uploads the files of a deploy in parallel, so a signature can reach Repsy before the file it signs, or before the POM that registers the version. With **Verify every signature** on, Repsy accepts the files and the signatures in any order: a signature that arrives first is answered with `200`, held (it is not served and `GET` answers `404`), and verified when its file arrives, then stored. A held signature that no file claims is deleted after 24 hours (an operator can change this).

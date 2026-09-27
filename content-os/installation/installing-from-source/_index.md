@@ -98,7 +98,7 @@ sed -i \
 ```
 
 Use the same address for the `REPO_BASE_URL` variable in the next step: the panel takes it from this file, while the npm
-registry takes it from the variable.
+registry and NuGet take it from the variable.
 
 ### Run It
 

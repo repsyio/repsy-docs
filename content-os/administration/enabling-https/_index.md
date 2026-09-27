@@ -14,6 +14,8 @@ HTTP ones and never replaces them, so the HTTP ports `8080` and `9090` stay open
 | `8443` | The web UI | `8080` | `API_SSL_ENABLED` |
 | `9443` | The package protocols (Maven, npm, Docker, ...) | `9090` | `REPO_SSL_ENABLED` |
 
+The HTTPS ports handle requests like the HTTP ones. That includes the encoded slash in the address of a scoped npm package (`@<scope>%2F<package-name>`), so scoped packages work over `9443`, and the compression of JSON answers on the package port (`SERVER_COMPRESSION_ENABLED`).
+
 If you already run a reverse proxy, let it terminate TLS instead and keep Repsy on plain HTTP behind it. See
 [Running Behind a Reverse Proxy](../running-behind-a-reverse-proxy/).
 
@@ -82,7 +84,7 @@ docker run -d \
 ```
 
 Both ports can use the same keystore, as here, or two different ones. Set `REPO_BASE_URL` to the HTTPS address of the
-package port so that the connection snippets in the web UI, and the tarball addresses of the npm registry, use it. See
+package port so that the connection snippets in the web UI, the tarball addresses of the npm registry and the addresses of the NuGet service index use it. See
 [Running Behind a Reverse Proxy](../running-behind-a-reverse-proxy/#tell-repsy-its-public-addresses).
 
 ### Check the result

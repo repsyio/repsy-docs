@@ -120,7 +120,7 @@ nothing to serve.
 | Cargo | The crate with all its versions. | The version. The last version removes the crate. |
 | Go | The module with all its versions. | The version. The last version removes the module. |
 | Helm | The chart with all its versions, classic and OCI. | The version. The last version removes the chart. |
-| Ruby | The gem with all its versions. | The version. When only one version that is not yanked is left, the whole gem is removed. |
+| Ruby | The gem with all its versions. | The version, a yanked one too. The gem is removed with its last version, yanked or not. |
 | Docker | The image with all its tags and manifests. Its layers stay until a clean-up action deletes them. | A tag: only the tag. The manifest stays stored and can still be pulled by its digest. |
 
 Deleting a Docker tag never deletes the image, so an image can be left with no tags. To remove the manifests and free the

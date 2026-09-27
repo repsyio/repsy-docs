@@ -121,7 +121,7 @@ A refused push changes nothing in the repository, and `gem push` exits with a no
 
 | Answer | Cause |
 | --- | --- |
-| `401`, `unAuthorized`: `The user has logged in but has no permissions.` | The key is not accepted: a wrong password, an unknown user, a value that is a bare password, or a deploy token that is expired, revoked, **Read Only** or belongs to another repository. Repsy gives the same answer for all of them, so the text is misleading: check the credential first. |
+| `401`, `unAuthorized`: `The credentials are missing, invalid or expired, or they do not allow this action.` | The key is not accepted: a wrong password, an unknown user, a value that is a bare password, or a deploy token that is expired, revoked, **Read Only** or belongs to another repository. Repsy gives the same answer for a wrong password and an unknown user, so check the credential first. |
 | `404`, `unknownPath` | There is no Ruby repository with that name at that address: the name is misspelled, the repository is of another type, or `--host` is the address of the instance without the name of the repository. |
 | `409`, `gemVersionAlreadyExists`: `Gem version already exists.` | The version exists and **Package Override** of the repository is on **Deny**, or the version was [yanked](../yanking-gems/). See [Pushing a Version Again](#pushing-a-version-again). |
 | `400`, `invalidGemFile`: `Invalid gem file.` | The file is not a gem, or its `metadata.gz` is missing or is not a valid gemspec. |

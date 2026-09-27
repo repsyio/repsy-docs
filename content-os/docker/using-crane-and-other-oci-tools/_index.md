@@ -90,7 +90,9 @@ crane delete {{% repo-url scheme="false" %}}/<repo-name>/<image-name>:<image-tag
 crane delete {{% repo-url scheme="false" %}}/<repo-name>/<image-name>@<digest>
 ```
 
-This needs the `ADMIN` role: log in with the username and password of an administrator. With a tag, only the tag is deleted and the manifest stays pullable by its digest. With a digest, the manifest is deleted with every tag that points at it. A deploy token is refused, also a Read/Write one, with `UNAUTHORIZED: The user has logged in but has no permissions.`, and so is a user without the `ADMIN` role. See [Deleting Through the Registry API](../managing-docker-tags-and-manifests/#deleting-through-the-registry-api) for the answers of Repsy.
+This needs the `ADMIN` role: log in with the username and password of an administrator. With a tag, only the tag is deleted and the manifest stays pullable by its digest. With a digest, the manifest is deleted with every tag that points at it. A deploy token is refused, also a Read/Write one, with `UNAUTHORIZED: The credentials are missing, invalid or expired, or they do not allow this action.`, and so is a user without the `ADMIN` role.
+
+The token that the registry hands out has to carry the `delete` scope (or `*`) for the image, and an administrator's token that was asked for `pull` or `push,pull` only cannot delete. Current versions of crane ask for `delete` up front, so `crane delete` needs nothing from you. A client that asked for less, as older versions of crane do, gets one `401` whose challenge carries `error="insufficient_scope"` and names the scope to ask for, `repository:<repo-name>/<image-name>:delete`. It then asks the token endpoint again for that scope and repeats the delete. See [Deleting Through the Registry API](../managing-docker-tags-and-manifests/#deleting-through-the-registry-api) for the answers of Repsy.
 
 ### List the Tags of an Image
 

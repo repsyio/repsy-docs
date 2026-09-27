@@ -64,7 +64,7 @@ curl -u <username>:<password-or-token> {{% repo-url %}}/v2/<repo-name>/my-chart/
 ```
 
 ```json
-{"name":"my-chart","tags":["0.1.0"]}
+{"name":"<repo-name>/my-chart","tags":["0.1.0"]}
 ```
 
 The address of the OCI API starts with `/v2/` directly after the host, and the repository name follows it.
@@ -105,9 +105,9 @@ Deleting a version in the web UI removes it for both protocols, see [Managing Ch
 | What you see | Cause |
 | --- | --- |
 | `http: server gave HTTP response to HTTPS client` | The instance serves plain HTTP. Add `--plain-http`, or serve the instance over HTTPS. |
-| `authenticating to "<host>": ... response status code 401: Unauthorized` | `helm registry login` with a wrong password, an expired or revoked deploy token, or a token of another repository. |
+| `authenticating to "<host>": ... response status code 401: unauthorized: The credentials are missing, invalid or expired, or they do not allow this action.` | `helm registry login` with a wrong password, a revoked deploy token, or a token of another repository. An expired deploy token is named: `unauthorized: Deploy token expired.` |
 | `basic credential not found` | You have not logged in to this host, and the repository is private. Run `helm registry login`. |
-| `response status code 401: unauthorized: The user has logged in but has no permissions.` | The credentials are known, but they cannot publish: the deploy token is **Read Only**, or it belongs to another repository. |
+| `response status code 401: unauthorized: The credentials are missing, invalid or expired, or they do not allow this action.` | The credentials are known, but they cannot publish: the deploy token is **Read Only**, or it belongs to another repository. |
 | `response status code 409: denied: This chart version already exists in the repository.: chartAlreadyExists` | The version exists and **Package Override** is **Deny**. Publish a new version, or ask an administrator to allow overriding. |
 | `response status code 404: name unknown: unknownPath` on `helm push` | The address of `helm push` contains the chart name. Use `oci://<host>/<repo-name>`. Or the repository name is wrong, or the repository has another type. |
 | `not found` on `helm pull` | The chart or the version does not exist in that repository, or it was published the classic way and has no OCI manifest. |

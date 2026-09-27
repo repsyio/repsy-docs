@@ -201,9 +201,10 @@ browser console that the request was blocked by CORS policy: the API allows no o
 
 ### My packages disappeared after I recreated the container
 
-**Cause:** the package files were not in a volume. Without `STORAGE_BASE_PATH`, Repsy stores them in
-`/home/appuser/.repsy`, which is part of the container and is deleted with it. A volume created without a name is also
-new for every container.
+**Cause:** the package files were not in a volume. Images up to `26.08.4` stored them in `/home/appuser/.repsy` unless you
+set `STORAGE_BASE_PATH`, which is part of the container and is deleted with it. The current image stores them in
+`/app/data/storage`, on the volume `/app/data`, so this happens to it only when the volume is not the one the old container used. A volume created
+without a name is also new for every container.
 
 **Fix:** always start Repsy with `-e STORAGE_BASE_PATH=/app/data/storage` and a named volume such as
 `-v repsy-data:/app/data`. If the old container still exists, copy its files out before you remove it, see

@@ -36,7 +36,7 @@ container after changing them.
 | `API_BASE_URL` | empty | Leave it empty. |
 
 - **`REPO_BASE_URL`** is the address the web UI prints in its connection snippets (`docker login`, `mvn`, `npm` and so
-  on). It is also the address the npm registry writes into the `dist.tarball` of every package version it serves. Leave
+  on). It is also the address the npm registry writes into the `dist.tarball` of every package version it serves, and the address NuGet writes into its service index, its registration and its search results (followed by the repository name). Leave
   it at the default and every snippet points at `http://localhost:9090`, which is wrong for everyone but you.
 - **`API_BASE_URL`** is the address the web UI uses to reach its API. Empty means the same host that served the web UI,
   which is what you want behind a proxy. Set it only if the API is served from a different host than the web UI. The
@@ -54,6 +54,7 @@ in responses:
   `https://repo.example.com` is sent to `http://repo.example.com/v2/token`, and `docker login` fails.
 - **PyPI** builds the links of its simple index the same way.
 - **npm** builds its tarball addresses the same way, unless `REPO_BASE_URL` is set, in which case that value wins.
+- **NuGet** builds the addresses of its service index, registration and search results the same way, unless `REPO_BASE_URL` is set, in which case that value wins. `dotnet` follows these addresses, so set it when your proxy strips a path prefix or cannot send the headers.
 - **The failed-login limit** counts failed logins per client address, which behind a proxy is the address the proxy puts
   in `X-Forwarded-For`. See [Authenticating from CI](../authenticating-from-ci/).
 
@@ -210,7 +211,7 @@ curl -i https://repo.example.com/v2/
 
 ```text
 HTTP/2 401
-www-authenticate: Bearer realm="https://repo.example.com/v2/token",service="repsy",scope="repository:*:pull"
+www-authenticate: Bearer realm="https://repo.example.com/v2/token",service="repsy"
 ```
 
 If it says `http://` or an internal host name instead, the proxy is not sending the forwarded headers, or Repsy does

@@ -89,8 +89,9 @@ Replace `<database-password>` with the password from the previous step. The othe
 `REPO_BASE_URL` is the address under which your users reach port `9090`, and `OS_APP_JWT_SECRET` keeps sessions valid across
 restarts. Use a release tag instead of `latest` in production.
 
-`STORAGE_BASE_PATH` together with `-v repsy-data:/app/data` keeps the package files on a volume. **Always set both.** Without
-them the files are stored inside the container and are deleted with it, while the database still lists the packages.
+`STORAGE_BASE_PATH=/app/data/storage`, the default of the image, together with `-v repsy-data:/app/data` keeps the package files
+on a volume. **Always keep the named volume.** Without it a recreated container starts with no package files, while the
+PostgreSQL database still lists the packages.
 
 ### Check the Result
 

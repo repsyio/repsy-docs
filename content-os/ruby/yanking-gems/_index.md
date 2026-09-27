@@ -46,7 +46,7 @@ Repsy answers a request that it refuses with one of these:
 
 | Answer | Cause |
 | --- | --- |
-| `401`, `unAuthorized`: `The user has logged in but has no permissions.` | The credential is not accepted, or it is read-only, see the table above. The text is the same for a wrong password. |
+| `401`, `unAuthorized`: `The credentials are missing, invalid or expired, or they do not allow this action.` | The credential is not accepted, or it is read-only, see the table above. The text is the same for a wrong password. |
 | `404`, `gemNotFound`: `Gem not found.` | The repository has no gem with that name. |
 | `404`, `gemVersionNotFound`: `Gem version not found.` | The gem has no such version, or none for that platform. |
 | `400`, `gemVersionAlreadyYanked`: `Gem version has already been yanked.` | The version is yanked already. |
@@ -78,6 +78,6 @@ Deleting removes the version and its `.gem` file for good, and it is the only wa
 
 After a delete, the version is no longer in the index, its `.gem` file answers `404`, and the disk usage of the repository drops by its size. You can push the version number again, also when **Package Override** is on **Deny**. Delete a whole gem with the menu (⋮) of its row in the list of gems.
 
-When the gem has at most one version that is not yanked, deleting any version of it deletes the whole gem, all its versions included, so look at the versions of the gem before you delete a yanked one.
+Deleting a version removes only that version, a yanked one as well: the other versions of the gem stay, and the gem goes only when its last version, yanked or not, is deleted. The **Latest** version of the gem moves to a version that is left.
 
 Clients that have installed the version, or have it in their Bundler cache, keep it: a delete does not reach into their machines.

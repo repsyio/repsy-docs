@@ -33,12 +33,12 @@ The answers of the repository change at once:
 | Request | After the delete |
 | --- | --- |
 | `.../@v/<version>.info`, `.mod` and `.zip` of the deleted version | `404`. |
-| `.../@v/list` | The version is no longer in the list. When it was the last version, the answer is `200` with an empty body, the same as for a module that never existed. |
+| `.../@v/list` | The version is no longer in the list. When it was the last version, the answer is `404`, the same as for a module that never existed. |
 | `.../@latest` | The highest version that is left. `404` when the module has no version left. |
 
 What this means for the projects that use the module:
 
-- A project that needs the deleted version can no longer download it from the repository. On a machine that has it in its module cache, `go` still finds it there. On any other machine, for example a new CI runner, `go build` fails with `module lookup disabled by GOPROXY=off`, or, when `GOPROXY` ends with `,direct`, `go` looks for the source of the module. Tell the users of the module before you delete a version they depend on.
+- A project that needs the deleted version can no longer download it from the repository. On a machine that has it in its module cache, `go` still finds it there. On any other machine, for example a new CI runner, `go build` fails with `module lookup disabled by GOPROXY=off`, or, when `GOPROXY` continues with another entry, such as `,direct`, `go` asks that entry. Tell the users of the module before you delete a version they depend on.
 - A version that was deleted and uploaded again with other content is refused by every project that has recorded the old one: the `go` command reports `SECURITY ERROR` and `This download does NOT match an earlier download recorded in go.sum`. Repsy allows the upload, since the version is gone, but Repsy has no checksum database that could vouch for the change. Publish a fixed module as a new version, and delete the wrong one if it must not be used.
 - The other versions keep working, and `@latest` moves to the next highest version.
 

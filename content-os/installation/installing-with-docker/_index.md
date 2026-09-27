@@ -60,8 +60,9 @@ docker run -d \
 What the options do:
 
 - `ADMIN_INITIAL_PASSWORD` sets the password of the first administrator. See [The Admin Password](#the-admin-password).
-- `STORAGE_BASE_PATH=/app/data/storage` puts the files of your packages in the volume. **Always set it together with
-  the volume.** See [What Is Kept and What Is Lost](#what-is-kept-and-what-is-lost).
+- `STORAGE_BASE_PATH=/app/data/storage` puts the files of your packages in the volume. It is the default of the image, and
+  the command names it so that the location is visible. **Always mount a volume on `/app/data`.** See
+  [What Is Kept and What Is Lost](#what-is-kept-and-what-is-lost).
 - `-v repsy-data:/app/data` mounts a named Docker volume where Repsy keeps its data.
 
 ### Wait Until It Is Running
@@ -110,7 +111,7 @@ The command above is enough for a first look on your own machine. Before other p
 settings:
 
 - `REPO_BASE_URL` is the address under which your users reach port `9090`. The panel shows it in the configuration
-  snippets for Maven, npm and the other clients, and the npm registry uses it in the download links of packages. By
+  snippets for Maven, npm and the other clients, and the npm registry and NuGet use it in the addresses they give to their clients. By
   default it is `http://localhost:9090`, which is wrong for everyone else.
 - `OS_APP_JWT_SECRET` is the secret that signs the sessions of the panel. If you leave it out, Repsy picks a new random
   secret on every start and everybody has to sign in again after each restart. Create a value with
@@ -150,10 +151,11 @@ Removing the container, for example to use a new image, does not touch the volum
 `-v` and `-e STORAGE_BASE_PATH` options and it continues with the same users and packages.
 
 {{% notice warning %}}
-**Always set `STORAGE_BASE_PATH` together with the volume.** The image does not set it for you. Without it Repsy stores
-the files of your packages in `/home/appuser/.repsy`, inside the container itself and outside the volume. They survive
-`docker stop` and `docker start`, but they are deleted with the container. The database is on the volume and survives,
-so after you recreate the container it still lists packages whose files are gone.
+**Always mount a volume on `/app/data`.** The image sets `STORAGE_BASE_PATH` to `/app/data/storage`, inside it. Keep it
+as a named volume, so that a new container finds the data (see the next paragraph). Images up to `26.08.4` did not set
+`STORAGE_BASE_PATH` and stored the files in `/home/appuser/.repsy`, inside the container and outside the volume: with such
+an image the database survived a new container and still listed packages whose files were gone. See
+[Upgrading Repsy Open Source](../../administration/upgrading-repsy-open-source/).
 {{% /notice %}}
 
 If you leave out `-v` altogether, Docker still creates an unnamed volume for `/app/data`, because the image declares it.

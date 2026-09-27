@@ -59,6 +59,10 @@ The form has these fields:
 | Access Type | No | **Read/Write** (the default) or **Read Only**. |
 | Expiration Date | No | From tomorrow up to 365 days from today. The form starts at 365 days from today. |
 
+{{< product "os" >}}
+The limit is not only a rule of the form: a request to the API of the web UI with a later expiration date is refused with `400` and the message id `deployTokenExpirationTooLate` ("A deploy token can expire in 365 days at most.").
+{{< /product >}}
+
 The **Deploy Tokens** table then lists each token with its name, username, creation date, expiry date and permissions
 (`R/W` or `R/O`).
 

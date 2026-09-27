@@ -140,9 +140,8 @@ instance already has nine private repositories, one for every package type.
 - **`repsy`** runs the Repsy image. It reaches the database as `postgres`, the name of the service. `DB_URL`,
   `DB_USERNAME` and `DB_PASSWORD` select PostgreSQL; without `DB_URL` the image would use its embedded H2 database.
 - **`STORAGE_BASE_PATH: /app/data/storage`** and the volume `repsy-data` on `/app/data` keep the package files outside
-  the container. **Always set both.** The image does not set `STORAGE_BASE_PATH` for you. Without it, Repsy stores the
-  files inside the container, where they are deleted when the container is recreated, and the database still lists the
-  packages.
+  the container. **Always keep the volume.** `/app/data/storage` is the default of the image; the file names it so that the
+  location is visible. Without a named volume, a recreated container starts empty.
 - **The health check** of `repsy` requests the panel's start page. Repsy has no separate health endpoint: the start
   page answers with `200` once the application is up.
 - **`restart: unless-stopped`** starts both containers again after a reboot of the server or a crash.

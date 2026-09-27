@@ -197,7 +197,7 @@ Allow HTTP for the source with the `allowInsecureConnections` attribute:
 
 `dotnet nuget add source` writes the attribute when you pass `--allow-insecure-connections`, and `dotnet nuget push` takes the same option for a source you name by its address. Anything you configure that way sends the credentials in clear text over the network, so use it for a local trial and serve a shared instance over HTTPS, see [Enabling HTTPS](../../administration/enabling-https/).
 
-The client does not use the address you configured for the rest of its requests. It reads the service index and follows the addresses in it, and Repsy builds them from the address the request came in on: the scheme, the host and the port. Behind a reverse proxy, the proxy has to send the forwarded headers, or the client is sent to the internal address of Repsy. See [Running Behind a Reverse Proxy](../../administration/running-behind-a-reverse-proxy/).
+The client does not use the address you configured for the rest of its requests. It reads the service index and follows the addresses in it: the resources of the index, the registration of a package with the `.nupkg` address of each version, and the registration addresses in the search results. When `REPO_BASE_URL` is set, Repsy builds all of them from it, followed by the name of the repository, and a path prefix in it is kept. Otherwise it builds them from the address the request came in on: the scheme, the host and the port. Set `REPO_BASE_URL` to the address of your clients when a reverse proxy strips a path prefix or cannot send the forwarded headers, or the client is sent to the internal address of Repsy. See [Running Behind a Reverse Proxy](../../administration/running-behind-a-reverse-proxy/).
 
 ### Rules Repsy Applies to a Push
 

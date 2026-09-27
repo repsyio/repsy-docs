@@ -46,15 +46,16 @@ There is no user name in the address. For a default local start, the `maven` rep
 
 The [Configuration Reference](../../installation/configuration-reference/#network-and-addresses) lists the related settings.
 
-Repsy uses it in two places:
+Repsy uses it in three places:
 
 - In the web UI: the client configuration behind the **Configure** button of a repository and the install
   commands on the package pages are built from it.
 - In npm: when it is set, the registry writes this address into the download URL (`dist.tarball`) of every package
   version it serves. Without it, npm uses the address the request came in on.
+- In NuGet: when it is set, the service index, the registration and the search results name their addresses with it, followed by the repository name. Without it, NuGet uses the address the request came in on.
 
-`REPO_BASE_URL` does not change the ports Repsy listens on or the host names it answers to. It only tells the web UI and
-npm what address to write down. If the snippets in the web UI show `localhost` while your clients reach Repsy under another
+`REPO_BASE_URL` does not change the ports Repsy listens on or the host names it answers to. It only tells the web UI, npm
+and NuGet what address to write down. If the snippets in the web UI show `localhost` while your clients reach Repsy under another
 name, set it.
 
 ### URLs per package format

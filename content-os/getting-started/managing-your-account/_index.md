@@ -51,9 +51,9 @@ Sign in with the new username from now on, and update package manager clients an
 password. A rename ends the sessions your package manager holds (a Docker login, an npm login token, a Cargo token) in
 the same way as a password change does: log in again.
 
-The web UI warns that changing your username changes your repository URLs. In Repsy Open Source that does not apply:
-the address of a repository has no username in it, so the repository URLs stay the same. See
-[Ports and Repository URLs](../ports-and-repository-urls/).
+The address of a repository has no username in it, so the repository URLs stay the same, and the web UI says so when you
+change the username. It warns that clients that sign in with your username, for example a Maven `settings.xml` or an npm
+`.npmrc`, must be updated to the new one. See [Ports and Repository URLs](../ports-and-repository-urls/).
 
 ## Deleting Your Account
 
@@ -61,8 +61,8 @@ Under **Delete Account**, click **Delete** and confirm. Repsy deletes your user 
 longer sign in with it. Deleting an account cannot be undone.
 
 Deleting your account only removes the account itself. Repositories, packages and deploy tokens do not belong to a user,
-so they are not deleted, and they stay available to everybody else. The text next to the button in the web UI says that all of your
-data is deleted, but there is no other data than the account.
+so they are not deleted, and they stay available to everybody else. The text next to the button in the web UI says the same: your user account and its sign-in
+sessions are deleted, and repositories, packages and deploy tokens are kept.
 
 The last administrator cannot delete their account: Repsy refuses with "You cannot delete the last admin user." Make
 another user an administrator first.

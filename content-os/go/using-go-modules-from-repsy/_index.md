@@ -111,29 +111,16 @@ A Go repository does not fetch anything from other proxies. What `go` does with 
 
 | `GOPROXY` | What happens to a module that is not in the repository |
 | --- | --- |
-| `{{% repo-url %}}/<repo-name>,off` | It is not found: `module lookup disabled by GOPROXY=off`, for a version that you named and in a build; `@latest` ends with `no matching versions for query "latest"`, see below. Use it when everything your project needs is in the repository, or when the build has to run without a network. |
+| `{{% repo-url %}}/<repo-name>,off` | It is not found: `module lookup disabled by GOPROXY=off`, for a version that you named, for `@latest` and in a build. Use it when everything your project needs is in the repository, or when the build has to run without a network. |
 | `{{% repo-url %}}/<repo-name>,https://proxy.golang.org,direct` | `go` asks the public proxy, and then the source of the module. |
-| `{{% repo-url %}}/<repo-name>\|https://proxy.golang.org,direct` | The same as the line above, and `go` also goes on after any other answer of the repository, such as an empty list of versions or a `401`. See below. |
+| `{{% repo-url %}}/<repo-name>\|https://proxy.golang.org,direct` | The same as the line above, and `go` also goes on after any other error of the repository, such as a `401`. |
 | `{{% repo-url %}}/<repo-name>,direct` | `go` fetches it from the source of the module, for example from its Git host. |
 
-The `go` command goes on to the next entry of a list separated by commas when the answer is "not found" (`404` or `410`), and stops at any other error. Separate the entries with `|` instead of a comma to go on after any error.
+For a module that it does not have, Repsy answers with `404` and a plain-text reason (`not found: <path>`), also for the list of versions (`/@v/list`) and for `@latest`. That is the answer the `go` command needs to go on to the next entry, so a new public dependency with no version, as in `go get github.com/google/uuid` or `go mod tidy` with a new import, resolves through a list such as the second line. The same answer is given for a module whose last version was deleted, see [Deleting Go Module Versions](../deleting-go-module-versions/).
 
-Two things to know about the lists with a fallback:
+The `go` command goes on to the next entry of a list separated by commas when the answer is "not found" (`404` or `410`), and stops at any other error. Separate the entries with `|` instead of a comma to go on after any error. The price is that a wrong, expired or revoked credential (`401`) is then no longer reported for your own modules, and `go` ends with a misleading `unrecognized import path` error after it has asked the public proxy and the source of the module. Use commas unless you need it.
 
-- **A new public dependency with no version does not resolve when the entries are separated by commas.** For a module that it does not have, Repsy answers the list of versions (`/@v/list`) with `200` and an empty list, not with "not found". A `go` command that has to choose a version, as in `go get github.com/google/uuid`, `go get github.com/google/uuid@latest` or `go mod tidy` with a new import, takes the empty list as the answer and fails with `no matching versions for query "latest"`. The same happens with `,off`, for a module that the repository does not have: `go get example.com/other@latest` ends with `no matching versions for query "latest"`, not with `module lookup disabled by GOPROXY=off`. A build, `go mod download` and `go get <module>@<version>` with an explicit version are not affected, since they ask for a file that is not there and go on. To add a public dependency, separate the repository and the public proxy with `|`, which goes on after any answer, the empty list included. Quote the value, since `|` is a shell operator:
-
-  ```bash
-  export GOPROXY='{{% repo-url %}}/<repo-name>|https://proxy.golang.org,direct'
-  go get github.com/google/uuid@latest
-  ```
-
-  With this list, `go get github.com/google/uuid@latest` and `go mod tidy` with a new import find the version at the public proxy. The price is that `|` goes on after every error, not only after "not found": a wrong, expired or revoked credential (`401`) is no longer reported for your own modules, and `go` ends with a misleading `unrecognized import path` error after it has asked the public proxy and the source of the module. If you keep the comma, put the public proxy in front for that one command instead:
-
-  ```bash
-  GOPROXY=https://proxy.golang.org,direct go get github.com/google/uuid@latest
-  ```
-
-- **Public modules are checked against the public checksum database** as always, while `GONOSUMDB` keeps your modules out of it. Choose module paths under a domain of your own, so that nobody can publish a public module with the same path.
+Public modules are checked against the public checksum database as always, while `GONOSUMDB` keeps your modules out of it. Choose module paths under a domain of your own, so that nobody can publish a public module with the same path.
 
 Do not set `GOPRIVATE` or `GONOPROXY` to a prefix that covers the modules in your repository. Both tell the `go` command not to use a proxy for those modules, and to go to the source of the module instead, which a module that exists only in Repsy does not have. The download then fails with an error like this, and Repsy never sees the request:
 
@@ -175,13 +162,12 @@ The error of the `go` command names the address it asked. Repeat the request wit
 
 | What you see | Cause |
 | --- | --- |
-| `reading https://.../@v/v1.0.0.info: 401` | The repository is private and the credentials did not arrive or are wrong. Check that the `.netrc` `machine` is the host and the port of the `GOPROXY`, that the address is `https://`, and that the deploy token is not expired or revoked and belongs to this repository. A revoked or rotated token that a job still sends counts as a failed login: see [Authenticating from CI](../../administration/authenticating-from-ci/#the-failed-login-limit). |
+| `reading https://.../@v/v1.0.0.info: 401` | The repository is private and the credentials did not arrive or are wrong. Repsy sends a plain-text reason with the `401`, which `go` prints: `Authentication is required to access this resource.` when no credentials arrived, `Deploy token expired.` for an expired deploy token, and `The credentials are missing, invalid or expired, or they do not allow this action.` for any other credential it refuses, a wrong password and an unknown user alike. Check that the `.netrc` `machine` is the host and the port of the `GOPROXY`, that the address is `https://`, and that the deploy token is not expired or revoked and belongs to this repository. A revoked or rotated token that a job still sends counts as a failed login: see [Authenticating from CI](../../administration/authenticating-from-ci/#the-failed-login-limit). |
 | `refusing to pass credentials to insecure URL` | The credentials are in an `http://` address. Use `https://`, see [HTTPS for Private Repositories](#https-for-private-repositories). |
 | `x509: certificate signed by unknown authority` | The certificate of the instance is self-signed or of a company CA, and this machine does not trust it. |
 | `verifying module: ...: reading https://sum.golang.org/lookup/...: 404 Not Found` | The module path is not in `GONOSUMDB`. |
 | `module lookup disabled by GOPROXY=off` | The repository does not have the module or the version you named, or the `GOPROXY` names the wrong repository. Check the list with `curl` and check that the module path is spelled as it was published, capital letters included. |
 | `unrecognized import path "example.com/hello": reading https://example.com/hello?go-get=1` | The `go` command tried the source of the module. Either `GOPRIVATE` or `GONOPROXY` covers the module path, or `GOPROXY` ends with `,direct` and the repository did not have that version. |
-| `no matching versions for query "latest"` (or `"upgrade"`) | Either a public module is asked for through a `GOPROXY` whose first entry is the repository and whose entries are separated by commas, or a module that the repository does not have is asked for by `@latest` (or with no version), also with `,off`. See [Using Your Modules Next to Public Ones](#using-your-modules-next-to-public-ones). |
 | `SECURITY ERROR`, `This download does NOT match an earlier download recorded in go.sum` | The version was deleted and uploaded again with other content, or another repository serves other files for it. |
 | `zip for example.com/hello@v1.0.0 has unexpected file ...` | The zip that was uploaded holds files outside `<module-path>@<version>/`. A version cannot be replaced: build the zip again, see [Publishing a Go Module with curl](../publishing-a-go-module-with-curl/#build-the-module-zip), and publish it as a new version. |
 | `429` | Wrong credentials were sent too often from your address, see [Authenticating from CI](../../administration/authenticating-from-ci/#the-failed-login-limit). |

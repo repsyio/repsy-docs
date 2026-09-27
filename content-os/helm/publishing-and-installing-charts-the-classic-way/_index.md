@@ -103,6 +103,7 @@ entries:
     description: A Helm chart for Kubernetes
     appVersion: 1.16.0
     type: application
+    apiVersion: v2
     digest: sha256:5b968fb6e03f6769561f6c1bf54762217443e3069756b77842b07eda7b77224e
     urls:
     - charts/my-chart-0.1.0.tgz
@@ -110,7 +111,7 @@ entries:
 generated: '2026-09-25T12:18:56.375253852Z'
 ```
 
-Every version of every chart of the repository is one entry, and the chart is downloaded from the relative URL in `urls`, here `{{% repo-url path="helm" %}}/<repo-name>/charts/my-chart-0.1.0.tgz`. This is the same for a chart that was published over OCI, see [Publishing and Pulling Charts over OCI](../publishing-and-pulling-charts-over-oci/#how-the-two-protocols-see-each-others-charts).
+Every version of every chart of the repository is one entry. An entry carries the `apiVersion` of the `Chart.yaml` of the chart (`v1` when it has none) and, when the chart declares any, its `dependencies`. The chart is downloaded from the relative URL in `urls`, here `{{% repo-url path="helm" %}}/<repo-name>/charts/my-chart-0.1.0.tgz`. This is the same for a chart that was published over OCI, see [Publishing and Pulling Charts over OCI](../publishing-and-pulling-charts-over-oci/#how-the-two-protocols-see-each-others-charts).
 
 ### Search, pull and install
 
@@ -151,7 +152,7 @@ A public repository needs no credentials to add, search, pull or install. A **Re
 | What you see | Cause |
 | --- | --- |
 | `Error: 401: ...`, no body | The credentials are missing or wrong, or the deploy token is expired, revoked or belongs to another repository. |
-| `Error: 401: ...` with `The user has logged in but has no permissions.` | The credentials are known, but the deploy token is **Read Only**. Publishing needs a **Read/Write** token. |
+| `Error: 401: ...` with `The credentials are missing, invalid or expired, or they do not allow this action.` | The credentials are known, but the deploy token is **Read Only**. Publishing needs a **Read/Write** token. |
 | `looks like "<address>" is not a valid chart repository or cannot be reached: failed to fetch <address>/index.yaml : 401` | `helm repo add` on a private repository without credentials, or with wrong ones. |
 | `... failed to fetch <address>/index.yaml : 404` | The address is not a Helm repository of your instance: the repository name is wrong or the repository has another type. |
 | `409`, `chartAlreadyExists`: `This chart version already exists in the repository.` | The version exists and **Package Override** is **Deny**. `helm cm-push --force` does not change that. Publish a new version, or ask an administrator to allow overriding, see [Managing Chart Versions](../managing-chart-versions/#uploading-a-version-again). |

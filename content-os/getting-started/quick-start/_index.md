@@ -37,7 +37,7 @@ What the options do:
 | `-p 8080:8080` | The web UI. |
 | `-p 9090:9090` | The package protocols: the address your build tools and `docker` talk to. See [Ports and Repository URLs](../ports-and-repository-urls/). |
 | `-v repsy-data:/app/data` | Keeps the embedded database in a Docker volume, so it survives a restart or a new container. |
-| `-e STORAGE_BASE_PATH=/app/data/storage` | Keeps the packages in the same volume. Without it they are stored inside the container's own file system and are lost when the container is removed. |
+| `-e STORAGE_BASE_PATH=/app/data/storage` | Keeps the packages in the same volume. This is the default of the image, and the command names it so that the location is visible. Without the named volume they are not found by a new container. |
 | `-e ADMIN_INITIAL_PASSWORD=...` | The password of the first administrator, `admin`. It is only read while no administrator exists, that is, on the very first start. |
 
 If you leave out `ADMIN_INITIAL_PASSWORD`, Repsy generates a random password for `admin` and writes it to the

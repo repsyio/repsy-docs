@@ -18,6 +18,8 @@ A refused upload changes nothing in the repository. An upload has to pass all of
    | `name` | Required. Lower case letters, digits and `-`, starting with a letter or a digit, up to 255 characters. |
    | `version` | Required. A [semantic version](https://semver.org/) such as `1.0.0` or `1.0.0-rc.1`, without a `v` in front, up to 64 characters. |
    | `description`, `appVersion`, `type` | Optional, and they have to be strings: quote a value such as `appVersion: "2"`. `appVersion` can have up to 64 characters and `type` up to 32. |
+   | `apiVersion` | Optional, a string of up to 32 characters. A chart without one is a `v1` chart. |
+   | `dependencies` | Optional, a list of mappings of at most 256 KiB in total. Repsy keeps the fields that Helm defines for a dependency (`name`, `version`, `repository`, `condition`, `tags`, `enabled`, `import-values`, `alias`). |
 
    The name of the chart in the OCI address has to be the name in `Chart.yaml`. `helm push` takes care of that, because it builds the address from `Chart.yaml`.
 3. **The size limit.** A classic upload of more than 500 MB is refused with `413`. An administrator can change the limit with the `MULTIPART_MAX_FILE_SIZE` and `MULTIPART_MAX_REQUEST_SIZE` environment variables, see the [Configuration Reference](../../installation/configuration-reference/). The limit is for the multipart upload of the classic protocol.
@@ -33,6 +35,7 @@ A chart that fails the second check is answered with `400` and one of these iden
 | `chartVersionMissing`, `chartVersionInvalid`, `chartVersionTooLong` | `Chart version is missing.`, `Invalid chart version.`, `The chart version is longer than 64 characters.` |
 | `chartDescriptionInvalid`, `chartAppVersionInvalid`, `chartTypeInvalid` | The value is not a string: `Invalid chart appVersion: it must be a string, quote it (for example "2").` |
 | `chartAppVersionTooLong` | `The chart appVersion is longer than 64 characters.` |
+| `chartApiVersionInvalid`, `chartDependenciesInvalid` | `Invalid chart apiVersion: it must be a string of at most 32 characters (v1 or v2).`, `Invalid chart dependencies: they must be a list of mappings, at most 256 KiB in total.` |
 
 ### Uploading a Version Again
 

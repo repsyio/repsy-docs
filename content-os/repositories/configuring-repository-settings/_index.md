@@ -72,7 +72,8 @@ The error message and the HTTP status that a client gets on a refused upload dif
 publishing page lists the one for that format.
 
 **Cargo and Go repositories have no Package Override section.** Both formats are immutable: a version that exists is
-never replaced, whatever the settings say.
+never replaced, whatever the settings say. The settings API does not list `allowOverride` for them either, and a request that
+sets it is answered as usual (`200`) and changes nothing.
 
 Turning **Deny** on does not change what is already stored. Deleting a version removes it, and after that you can publish
 the same version again, also with **Deny**.
@@ -84,7 +85,7 @@ Scanning requires the scanner service. Without it, the section is not shown.
 
 When the section is there, the switch decides whether newly pushed versions are scanned automatically. With it on, every
 push starts a scan. With it off, a push does not start a scan, and a version can still be scanned by hand. The switch is
-labelled **Allow** and **Deny** like the one of **Package Override**.
+labelled **On** and **Off**. Only **Package Override** is labelled **Allow** and **Deny**.
 
 A scan covers what a package contains, not the dependencies it declares, see [What a Scan Covers](../../installation/configuration-reference/#what-a-scan-covers).
 
@@ -125,7 +126,7 @@ Both switches save at once. For what Repsy checks, how to register a public key 
 ## Deploy Tokens
 
 Here an administrator creates, rotates and revokes the deploy tokens of the repository. It exists for every package format.
-A deploy token belongs to one repository. It is deleted with the repository. See
+A deploy token belongs to one repository. It is deleted with the repository. A token expires after 365 days at most. See
 [Creating a Deploy Token](../../getting-started/creating-a-deploy-token/).
 
 ## Repository Storage
@@ -159,8 +160,8 @@ What stays: everything the repository contains, its settings and its deploy toke
 rename: the files are stored under an internal id, not under the name.
 
 {{% notice note %}}
-The panel warns "Do not forget to change settings of your projects and settings.xml". `settings.xml` is a Maven file.
-The advice applies to every package format: change whatever holds the address of the repository.
+The panel warns that changing the name changes the repository URL, and to update the repository URL in the configuration
+of your clients and build tools. This applies to every package format: change whatever holds the address of the repository.
 {{% /notice %}}
 
 ### Description

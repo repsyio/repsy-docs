@@ -165,7 +165,7 @@ curl -u <username>:<password-or-token> "$BASE/${VERSION}.mod"
 
 The first call prints one version per line, sorted by version number. The second prints `{"Version":"v1.0.0","Time":"..."}`. The `Time` is the moment of the upload, not the time of a commit. The third prints the `go.mod` of the version, the one Repsy read out of your zip. The `.zip` file is served too. The answers of `.info` and `.mod` for a version that does not exist are `404`, and the list of a module that does not exist is `200` with an empty body.
 
-`curl -I` (a `HEAD` request) is answered with `404` for every address, even for a file that exists. Use `GET`.
+`curl -I` (a `HEAD` request) is answered like the `GET` of the same address, without the body: the same status and headers, with the `Content-Length` of an existing file, and the same credential rules. A `HEAD` does not count as a download.
 
 Then install the module in another project, see [Using Go Modules from Repsy](../using-go-modules-from-repsy/).
 

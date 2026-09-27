@@ -192,6 +192,8 @@ It lists the matching crates with their newest version and their description:
 hello_repsy = "0.1.0"    # A small example crate
 ```
 
+The crates come sorted by name, so the pages of a search never repeat or skip a crate. A page holds at most 100 crates, ten by default; `cargo search --limit 0` asks for no crates and gets only the total number of matches.
+
 `cargo owner --list` prints the name of the repository as the only owner, with the note `Ownership is managed at the repository level in this registry`:
 
 ```bash

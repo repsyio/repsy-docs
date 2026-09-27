@@ -2,13 +2,13 @@
 title = "Administration"
 chapter = true
 weight = 160
-description = "Run a Repsy Open Source instance: secure and expose it, manage users, keep the data safe, upgrade it and fix problems."
+description = "Run a Repsy Open Source instance: secure and expose it, manage users, keep the data safe, scan for vulnerabilities, upgrade it and fix problems."
 +++
 
 # Administration
 
 This section is for the people who run a Repsy Open Source instance: how to secure it, put it behind a proxy, manage
-its users, keep its data safe, and upgrade it.
+its users, keep its data safe, scan its packages for vulnerabilities, and upgrade it.
 
 Repsy Open Source is one container that serves the web UI on port `8080` and all package protocols on port `9090`. It keeps its metadata (users, repositories, versions, tokens) in a database, either the embedded H2
 database that the image uses by default or PostgreSQL, and its package files in a directory on disk. Everything below
@@ -36,6 +36,12 @@ is configured with environment variables.
   instance.
 - [Managing Storage and Cleanup](managing-storage-and-cleanup/) describes the storage layout, the trash folder and the
   background cleanup jobs.
+
+## Scan for vulnerabilities
+
+- [Setting Up Vulnerability Scanning](setting-up-vulnerability-scanning/) runs the scanner service next to Repsy, switches
+  scanning on, explains the vulnerability databases and shows how to run the scanner without internet access. To read the
+  results, see [Reviewing Scan Results](../repositories/reviewing-scan-results/).
 
 ## Upgrade and fix problems
 

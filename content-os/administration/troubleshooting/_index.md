@@ -245,3 +245,15 @@ you freed space. Remember that uploads also need temporary space in `/tmp` of th
 ### The password reset marker does nothing
 
 See [Recovering a Lost Password](../recovering-a-lost-password/#if-the-marker-does-nothing).
+
+## Vulnerability scanning
+
+### A scan shows **Failed**
+
+The reason is under the status in the **Security** section of the version. The causes and what to do about each are in
+[When a Scan Fails](../setting-up-vulnerability-scanning/#when-a-scan-fails).
+
+### `npm audit` reports nothing
+
+Scanning is off for the instance or for the repository, or the version was never scanned and the scanner did not answer
+the lookup. See [Auditing an Installation](../../npm/managing-npm-packages/#auditing-an-installation).

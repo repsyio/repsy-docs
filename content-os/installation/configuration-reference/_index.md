@@ -189,21 +189,22 @@ directory of Java (`java.io.tmpdir`) on a disk that has room for the largest pac
 ## Vulnerability Scanning
 
 Repsy can scan pushed packages for known vulnerabilities with a separate scanner service, the `repsy-scanner-trivy`
-service of the source repository. Scanning is off by default and needs nothing else to run Repsy. This section only
-describes the settings: it does not describe how to set up the scanner service.
+service. Scanning is off by default and needs nothing else to run Repsy. This section describes the settings.
+[Setting Up Vulnerability Scanning](../../administration/setting-up-vulnerability-scanning/) shows how to run the scanner
+service, and [Reviewing Scan Results](../../repositories/reviewing-scan-results/) how to read what it finds.
 
 ### What a Scan Covers
 
-A scan covers what a package **contains**, not what it declares. For Maven, npm and PyPI the scanner unpacks the stored file and runs Trivy's `rootfs` scan on it. That scan reads the packages that are installed or bundled in the file (a `node_modules` directory, jars, Python package metadata). It does not read lock files and it does not look up the dependencies that a package declares.
+A scan covers what a package **contains**, not what it declares. For Maven, npm and PyPI the scanner unpacks the stored file and runs Trivy's `rootfs` scan on it. That scan reads the packages that are installed or bundled in the file: the package's own metadata (`package/package.json` for npm, `PKG-INFO` or `*.dist-info` for PyPI), a `node_modules` directory, and nested jars. It does not read lock files and it does not look up the dependencies that a package declares.
 
 | Format | What is scanned | What is not scanned |
 | --- | --- | --- |
-| npm | The package tarball, so the packages bundled in it (`node_modules/*/package.json`). | The `dependencies`, `devDependencies` and `peerDependencies` of the package, and a `package-lock.json` in the tarball. |
+| npm | The package tarball: the package's own metadata (`package/package.json`) and the packages bundled in it (`node_modules/*/package.json`). | The `dependencies`, `devDependencies` and `peerDependencies` of the package, and a `package-lock.json` or `yarn.lock` in the tarball. |
 | Maven | The main file of the version (a jar, or a war, ear or rar, depending on the packaging), including the jars nested in it. | The dependencies that the POM declares. A jar without bundled dependencies is scanned as itself only. |
-| PyPI | The source distribution (`.tar.gz`) if the release has one, otherwise the first file of the release, such as a wheel. | The dependencies that the package declares (`Requires-Dist`). |
+| PyPI | The source distribution (`.tar.gz`) if the release has one, otherwise the first matching file, such as a wheel; the package's own metadata. | The dependencies that the package declares (`Requires-Dist`). |
 | Docker | The whole image, which the scanner pulls from Repsy by its reference. | |
 
-A package that declares vulnerable dependencies without bundling them is therefore reported without findings. A clean scan does not mean that the dependencies of a package are free of vulnerabilities. For `npm audit`, see [Auditing an Installation](../../npm/managing-npm-packages/#auditing-an-installation).
+A package that declares vulnerable dependencies without bundling them is therefore reported without findings. A clean scan does not mean that the dependencies of a package are free of vulnerabilities. A scan uses the vulnerability database that the scanner holds locally, and it only sees a version that was pushed while scanning was on for the repository, or that somebody scanned by hand. Its findings are frozen at the time of the scan and do not change when the database learns a new advisory. For `npm audit`, which also asks the database directly, see [Auditing an Installation](../../npm/managing-npm-packages/#auditing-an-installation).
 
 ### Settings of Repsy
 
@@ -212,9 +213,14 @@ A package that declares vulnerable dependencies without bundling them is therefo
 | `SECURITY_SCANNER` | `disabled` | Set to `enabled` to scan pushed packages. |
 | `TRIVY_SCANNER_BASE_URL` | `http://localhost:8090` | The address of the scanner service. |
 | `TRIVY_SCANNER_API_KEY` | Empty | The shared key that Repsy sends to the scanner. It must equal the `SCANNER_API_KEY` of the scanner, or the scanner rejects every request. |
-| `TRIVY_REQUEST_TIMEOUT_SECONDS` | `10` | How long Repsy waits for the scanner to answer a request, in seconds. |
+| `TRIVY_REQUEST_TIMEOUT_SECONDS` | `10` | How long Repsy waits on the scanner at one time, in seconds: for its answer once a request has been sent in full, and for the scanner to accept more of an upload that it has stopped reading. It does not limit how long an artifact takes to upload, so a large artifact still scans over a slow link; the whole submit is cut off after `TRIVY_MAX_SCAN_DURATION_SECONDS`. A submit that fails on this timeout is not retried. |
 | `TRIVY_POLL_INTERVAL_MS` | `3000` | How often Repsy asks the scanner for the state of running scans, in milliseconds. |
-| `TRIVY_MAX_SCAN_DURATION_SECONDS` | `330` | After this time a scan counts as failed with the message that it exceeded the maximum duration. The default is a little longer than the default of `TRIVY_TIMEOUT_SECONDS` of the scanner. |
+| `TRIVY_MAX_SCAN_DURATION_SECONDS` | `330` | How long Repsy waits for a scan to finish, the upload of the artifact to the scanner included. After that the scan counts as failed with the message that it exceeded the maximum duration. The default is a little longer than the default of `TRIVY_TIMEOUT_SECONDS` of the scanner. |
+| `TRIVY_SUBMIT_MAX_ATTEMPTS` | `3` | How many times Repsy submits a scan when it cannot reach the scanner (connection refused, a DNS failure or a connection reset, as while the scanner restarts), the first submit included. `1` turns the retry off. A scanner that answers with an error, or does not answer in time, is not retried: start that scan again from the web UI. From 1 to 5. |
+| `TRIVY_SUBMIT_RETRY_INITIAL_DELAY_SECONDS` | `15` | The wait before the first retry of a scanner that cannot be reached. From 1 to 300. |
+| `TRIVY_SUBMIT_RETRY_MAX_DELAY_SECONDS` | `60` | The longest wait before any retry. The wait grows fourfold per retry: 15 seconds, then 60. From the initial delay to 300. Keep the waits well below `TRIVY_MAX_SCAN_DURATION_SECONDS`, and note that a retry that is waiting is lost when Repsy restarts: the scan is then marked failed after that duration. |
+| `TRIVY_ADVISORY_LOOKUP_MAX_CONCURRENCY` | `2` | How many lookups of `npm audit` run on the scanner at once, see [Auditing an Installation](../../npm/managing-npm-packages/#auditing-an-installation). An audit that finds no free place within `TRIVY_ADVISORY_LOOKUP_MAX_WAIT_MILLIS` is answered from the stored findings only. Each lookup is bounded by `TRIVY_REQUEST_TIMEOUT_SECONDS` and never delays a scan. |
+| `TRIVY_ADVISORY_LOOKUP_MAX_WAIT_MILLIS` | `2000` | How long an `npm audit` waits for a free place for its lookup, in milliseconds. |
 | `DOCKER_INTERNAL_REGISTRY_BASE_URL` | `http://localhost:9090` | The address under which the **scanner** reaches the Docker registry of this Repsy instance to pull images for a scan. Repsy passes it to the scanner, so it is resolved from the scanner's side: with a scanner in a container it must not be `localhost`, which would be the scanner itself. Use the name of the Repsy service, for example `http://repsy:9090`. |
 
 ### Settings of the Scanner Service
@@ -230,12 +236,17 @@ These variables belong to the scanner service, not to Repsy. They come from the 
 | `SCANNER_WORKER_COUNT` | `1` | How many scans run at the same time. |
 | `SCANNER_JOB_RETENTION_MINUTES` | `60` | How long the state and result of a finished scan can be queried. |
 | `SCANNER_JOB_RETENTION_CHECK_INTERVAL_MS` | `600000` | How often expired scan jobs are removed, in milliseconds. |
-| `SHUTDOWN_TIMEOUT_SECONDS` | `300` | How long the scanner waits for running scans when it shuts down. Not described in the scanner's README; taken from its configuration file. |
-| `TRIVY_DB_REPOSITORY` | `ghcr.io/aquasecurity/trivy-db:2,mirror.gcr.io/aquasec/trivy-db:2` | The locations that Trivy downloads its vulnerability database from. Taken from the scanner's configuration file; not described in its README. |
-| `TRIVY_JAVA_DB_REPOSITORY` | `ghcr.io/aquasecurity/trivy-java-db:1,mirror.gcr.io/aquasec/trivy-java-db:1` | The locations that Trivy downloads its Java package database from. Taken from the scanner's configuration file; not described in its README. |
+| `SHUTDOWN_TIMEOUT_SECONDS` | `300` | How long the scanner waits for running scans when it shuts down. |
+| `TRIVY_DB_REPOSITORY` | `ghcr.io/aquasecurity/trivy-db:2,mirror.gcr.io/aquasec/trivy-db:2` | The OCI repositories that Trivy downloads its vulnerability database from, as a comma-separated list that is tried in order. Set it to a mirror on a network without access to `ghcr.io`, see [Running Without Internet Access](../../administration/setting-up-vulnerability-scanning/#running-without-internet-access). |
+| `TRIVY_JAVA_DB_REPOSITORY` | `ghcr.io/aquasecurity/trivy-java-db:1,mirror.gcr.io/aquasec/trivy-java-db:1` | The same for the Java database. |
+| `TRIVY_CACHE_DIR` | `$HOME/.cache/trivy` (`/home/appuser/.cache/trivy` in the image) | Where Trivy keeps its databases. The scanner passes it to every Trivy run and reads the dates of the databases from it. Mount a volume here, and leave room for a second copy of the databases while a refresh runs, about 3 GB. |
+| `TRIVY_DB_REFRESH_INTERVAL` | `PT12H` | How often the scanner refreshes the databases, as an ISO-8601 duration. The first refresh after a start is one interval later, because the download at start-up comes first. A refresh downloads only when a database is past its `NextUpdate`. Trivy publishes a database every 6 hours and gives it a `NextUpdate` a day ahead. |
+| `TRIVY_ADVISORY_TIMEOUT_SECONDS` | `30` | The longest a lookup of `npm audit` waits for its Trivy run. The scanner then answers `504`. |
+| `SCANNER_ADVISORY_CONCURRENCY` | `2` | How many lookups may run or wait for the database at once. The next one is refused with `503`. |
+| `SCANNER_ADVISORY_MAX_WAIT_SECONDS` | `5` | How long a lookup waits for a running scan, or for a switch of the database, to end before it is refused with `503`. |
 
-The README of the project also lists `TRIVY_GATE_ACQUIRE_TIMEOUT_SECONDS` (60) among the settings. Nothing in the source of
-Repsy or of the scanner reads it, so it has no effect that could be confirmed. Do not rely on it.
+The scanner's own README describes the scanner's interface in full, including the lookup of `npm audit` (`POST /advisories`)
+and `GET /status`, which reports the version of Trivy and the dates of its databases.
 
 ## Logging
 

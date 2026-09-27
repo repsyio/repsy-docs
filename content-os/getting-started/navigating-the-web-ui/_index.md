@@ -114,7 +114,9 @@ by username. See [Managing Users](../../administration/managing-users/).
 
 Administrators see the results of vulnerability scans across all repositories: a chart of the severity distribution and the
 list of scans, which you can filter by severity, package format and repository name. Scanning is optional and has to be set
-up on your instance, so the page stays empty until then. Scanning covers Maven, npm, PyPI and Docker repositories.
+up on your instance, so the page stays empty until then. Scanning covers Maven, npm, PyPI and Docker repositories. See
+[Setting Up Vulnerability Scanning](../../administration/setting-up-vulnerability-scanning/) and
+[Reviewing Scan Results](../../repositories/reviewing-scan-results/).
 
 ### Profile
 

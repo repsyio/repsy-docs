@@ -93,14 +93,26 @@ A search text that consists of qualifiers Repsy cannot filter on finds no packag
 npm audit --registry {{% repo-url %}}/<repo-name>/
 ```
 
-Repsy answers from the scans of vulnerability scanning, so this works only when scanning is enabled on your instance and for the repository, see [Vulnerability Scanning in the Configuration Reference](../../installation/configuration-reference/#vulnerability-scanning). Repsy reports:
+This works only when vulnerability scanning is enabled on your instance and for the repository, see
+[Setting Up Vulnerability Scanning](../../administration/setting-up-vulnerability-scanning/). Repsy reports the vulnerabilities of the package versions the audit asks about, from two sources that it merges:
 
-- only the versions the audit asks about and that a scan of **this repository** found a vulnerability in. It uses the latest completed scan of each version.
-- nothing, with the exit code `0`, when scanning is off (the scanner is disabled, or scanning is turned off for the repository, even if an earlier scan found something), and for a version that has not been scanned yet. `found 0 vulnerabilities` therefore does not mean that a package is free of vulnerabilities.
+- **A lookup** in the vulnerability database of the scanner, for the exact name and version pairs that the client sends. It is made when the audit runs, whether or not Repsy ever stored or scanned that version, so it also covers the packages of your dependency tree that are not in this repository. A private package whose name equals a public one gets the advisories of the public package, as it would on npmjs.org.
+- **The stored findings** of the scans of **this repository**, from the latest completed scan of each version. A scan reports the vulnerabilities of a package's own metadata (its `package.json`) and of the packages bundled in `node_modules`. It does not resolve the `dependencies` that `package.json` declares (see [What a Scan Covers](../../installation/configuration-reference/#what-a-scan-covers)).
 
-An advisory therefore appears only for a package name and version that a scanned tarball of this repository **bundled**. A scan reads what a tarball contains and does not look up the `dependencies` it declares (see [What a Scan Covers](../../installation/configuration-reference/#what-a-scan-covers)), and most npm packages bundle nothing. So `npm audit` against Repsy reports far less than `npm audit` against npmjs.org for the same dependency tree: an audit with no findings means that no scanned package of this repository contains a known vulnerability, not that the packages in your tree have none.
+A vulnerability that both sources report is listed once, as the stored finding. The date that an advisory carries as its last update is the time its scan finished for a stored finding, and the date of the scanner's database for a finding of the lookup. Repsy reports as vulnerable only the versions the audit names, one by one, never a range such as `<1.2.3`, so it never flags a version the audit did not ask about.
 
-An audit request may hold up to 20,000 packages and 8 MiB (after decompression). Yarn classic (`yarn audit`) always asks `registry.yarnpkg.com` and never reaches Repsy.
+Repsy reports nothing, with the exit code `0`, and does not ask the scanner, when scanning is off: when the scanner is disabled, or scanning is turned off for the repository, even if an earlier scan found something.
+
+The lookup is best-effort and never fails an audit. When it gets no answer, the audit is answered from the stored findings only, and Repsy logs the reason as a warning. That happens when:
+
+- the scanner is running a scan. It holds its database for the run and answers `503`, so a scan of a large Docker image can keep the lookup away for a while,
+- the scanner swaps its database after a refresh, which takes a few seconds, or has not downloaded a database yet,
+- the scanner is slow, longer than `TRIVY_REQUEST_TIMEOUT_SECONDS`, or unreachable, or answers with any error,
+- `TRIVY_ADVISORY_LOOKUP_MAX_CONCURRENCY` lookups of other audits are already running, and no place becomes free within `TRIVY_ADVISORY_LOOKUP_MAX_WAIT_MILLIS`.
+
+An empty audit therefore does not always mean that a dependency is safe, and two audits a moment apart can report different findings when the second finds the scanner busy. `found 0 vulnerabilities` never means that a package is free of vulnerabilities. Stored findings are frozen at the time of the scan, and a re-scan refreshes them. The lookup reads the current database of the scanner, which the scanner refreshes on a schedule, see [The Vulnerability Databases](../../administration/setting-up-vulnerability-scanning/#the-vulnerability-databases).
+
+An audit request may hold up to 20,000 packages and 8 MiB (after decompression). Repsy sends the pairs to the scanner in requests of at most 20,000 pairs, and at most five requests for one audit. Pairs beyond that are answered from the stored findings only, and so are pairs the scanner would refuse, such as a name that is not an npm package name. Yarn classic (`yarn audit`) always asks `registry.yarnpkg.com` and never reaches Repsy.
 
 ## Logging Out
 

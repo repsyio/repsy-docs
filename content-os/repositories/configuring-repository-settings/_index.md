@@ -88,6 +88,8 @@ push starts a scan. With it off, a push does not start a scan, and a version can
 labelled **On** and **Off**. Only **Package Override** is labelled **Allow** and **Deny**.
 
 A scan covers what a package contains, not the dependencies it declares, see [What a Scan Covers](../../installation/configuration-reference/#what-a-scan-covers).
+[Setting Up Vulnerability Scanning](../../administration/setting-up-vulnerability-scanning/) shows how to run the scanner
+service, and [Reviewing Scan Results](../reviewing-scan-results/) how to read the results and start a scan by hand.
 
 ## Version Allowance
 

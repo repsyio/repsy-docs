@@ -16,3 +16,6 @@ To create a repository, see [Creating Your First Repository](../getting-started/
   the repository.
 - [Browsing and Deleting Packages](browsing-and-deleting-packages/) shows the package pages of the web UI, and what
   deleting a package, a version, an image or a tag removes.
+- [Reviewing Scan Results](reviewing-scan-results/) explains the vulnerability badges, findings and scan history of the
+  packages, and how to start a scan by hand. Scanning has to be
+  [set up](../administration/setting-up-vulnerability-scanning/) first.

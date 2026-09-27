@@ -212,7 +212,7 @@ A package that declares vulnerable dependencies without bundling them is therefo
 | --- | --- | --- |
 | `SECURITY_SCANNER` | `disabled` | Set to `enabled` to scan pushed packages. |
 | `TRIVY_SCANNER_BASE_URL` | `http://localhost:8090` | The address of the scanner service. |
-| `TRIVY_SCANNER_API_KEY` | Empty | The shared key that Repsy sends to the scanner. It must equal the `SCANNER_API_KEY` of the scanner, or the scanner rejects every request. |
+| `TRIVY_SCANNER_API_KEY` | None: required when the scanner is enabled | The shared key that Repsy sends to the scanner. It must equal the `SCANNER_API_KEY` of the scanner, or the scanner rejects every request. Repsy refuses to start with the scanner enabled and this key blank. |
 | `TRIVY_REQUEST_TIMEOUT_SECONDS` | `10` | How long Repsy waits on the scanner at one time, in seconds: for its answer once a request has been sent in full, and for the scanner to accept more of an upload that it has stopped reading. It does not limit how long an artifact takes to upload, so a large artifact still scans over a slow link; the whole submit is cut off after `TRIVY_MAX_SCAN_DURATION_SECONDS`. A submit that fails on this timeout is not retried. |
 | `TRIVY_POLL_INTERVAL_MS` | `3000` | How often Repsy asks the scanner for the state of running scans, in milliseconds. |
 | `TRIVY_MAX_SCAN_DURATION_SECONDS` | `330` | How long Repsy waits for a scan to finish, the upload of the artifact to the scanner included. After that the scan counts as failed with the message that it exceeded the maximum duration. The default is a little longer than the default of `TRIVY_TIMEOUT_SECONDS` of the scanner. |
@@ -229,7 +229,7 @@ These variables belong to the scanner service, not to Repsy. They come from the 
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `SCANNER_API_KEY` | None: required | The shared key that the scanner checks in the `X-Scanner-Api-Key` header. |
+| `SCANNER_API_KEY` | None: required | The shared key that the scanner checks in the `X-Scanner-Api-Key` header. The scanner refuses to start when it is missing, blank or an unresolved `${...}` value. |
 | `SERVER_PORT` | `8090` | The port of the scanner. |
 | `TRIVY_BINARY_PATH` | `trivy` | The path of the `trivy` program. |
 | `TRIVY_TIMEOUT_SECONDS` | `300` | The longest time a single Trivy run may take. |

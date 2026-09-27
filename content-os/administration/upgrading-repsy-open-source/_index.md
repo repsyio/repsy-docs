@@ -53,6 +53,10 @@ docker run -d \
 Use the same environment variables and volumes as before. With Docker Compose, change the `image` line, then run
 `docker compose pull` and `docker compose up -d`.
 
+If you run the vulnerability scanner, upgrade it in the same step to the same release,
+`repo.repsy.io/repsy/os/repsy-scanner-trivy:<new-version>`, and keep its `trivy-cache` volume. Repsy and the scanner of
+different releases are not supported, see [Setting Up Vulnerability Scanning](../setting-up-vulnerability-scanning/).
+
 When Repsy starts, it applies the database migrations that the new version needs. Then check that it is up:
 
 ```bash
@@ -198,5 +202,9 @@ a lookup that finds nothing under the exact spelling tries the lowercase spellin
 The next release adds settings you may want to know about: `REPO_BASE_URL` and `API_BASE_URL`, the upload size limits,
 `TRASH_RETENTION`, the cleanup jobs, `PASSWORD_RESET_MARKER_DIR`, `APP_ALLOWED_ORIGINS`, `APP_HSTS_MAX_AGE` and the `APP_CSP_*` settings, and
 the `AUTH_THROTTLE_*` and `BASIC_AUTH_CACHE_*` settings. They are described in the pages of this section.
+
+The vulnerability scanner is published as an image of its own, `repo.repsy.io/repsy/os/repsy-scanner-trivy`, with the same
+tags as Repsy. [Setting Up Vulnerability Scanning](../setting-up-vulnerability-scanning/) describes it, and the new
+settings of the scanner and of the `npm audit` lookup.
 
 The remaining database migrations of the release add tables, columns and indexes for new features, and remove the `searchable` setting of repositories, which had no effect.

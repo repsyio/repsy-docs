@@ -54,7 +54,8 @@ It hosts packages in these formats, all from one instance:
 
 8. **Optional vulnerability scanning**  
    Repsy can scan Maven, npm, PyPI and Docker packages for known vulnerabilities with a separate, Trivy-based scanner
-   service. Scanning is switched off by default and adds no requirement to a plain installation.
+   service. Scanning is switched off by default and adds no requirement to a plain installation. See
+   [Setting Up Vulnerability Scanning](../../administration/setting-up-vulnerability-scanning/).
 
 
 ## Good to Know

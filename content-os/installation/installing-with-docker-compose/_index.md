@@ -168,10 +168,16 @@ Repsy writes only warnings and errors to its log by default, so a healthy start 
 under `environment` to see more, for example the database migrations. Do not raise it above `WARN`: the generated
 passwords of a reset are logged as warnings.
 
+## Adding Vulnerability Scanning
+
+Repsy can scan the packages you push for known vulnerabilities with a second service, the scanner. It is not part of this
+file and is off by default. [Setting Up Vulnerability Scanning](../../administration/setting-up-vulnerability-scanning/)
+adds it to this Compose file.
+
 ## Changing the Release
 
 Change `REPSY_TAG` in `.env` and run `docker compose up -d` again: Compose recreates the `repsy` container with the new
-image and keeps the volumes. Take a backup of the database and of the package files first. Database migrations only go
+image and keeps the volumes. If you run the vulnerability scanner, it uses the same tag. Take a backup of the database and of the package files first. Database migrations only go
 forward, so an older release may not work with a database that a newer one has already migrated.
 [Persisting Data and Backups](../../administration/persisting-data-and-backups/) and
 [Upgrading Repsy Open Source](../../administration/upgrading-repsy-open-source/) describe backups and upgrades in detail.

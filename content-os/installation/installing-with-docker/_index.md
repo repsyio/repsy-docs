@@ -12,6 +12,12 @@ other service, and it keeps the database and your packages on one Docker volume.
 This setup suits an evaluation and a small instance. For a long-lived installation that several people depend on, keep
 the database in PostgreSQL instead: see [Installing with Docker and PostgreSQL](../installing-with-docker-and-postgresql/).
 
+{{% notice warning %}}
+The embedded H2 database is for evaluation. Releases up to and including 26.08.4 stop accepting writes about 30 minutes
+after the start when they run on H2; see
+[Known issue: embedded H2 stops accepting writes](../../administration/upgrading-repsy-open-source/#known-issue-embedded-h2-stops-accepting-writes-up-to-26084).
+{{% /notice %}}
+
 ## Before You Start
 
 You need a machine with [Docker](https://docs.docker.com/get-docker/) and these ports free:

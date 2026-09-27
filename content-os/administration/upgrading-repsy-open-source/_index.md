@@ -75,6 +75,25 @@ To go back, restore the backup you took before the upgrade, both the database an
 old image on it. Everything written after the backup is lost. If you have to go back to an older version, this is why the
 backup comes first.
 
+## Known issue: embedded H2 stops accepting writes (up to 26.08.4)
+
+Every release up to and including 26.08.4 (all published releases, from 26.03.0) that runs on the embedded H2 database
+stops accepting writes about 30 minutes after it starts. H2 was the default database of the Docker image until 26.08.0;
+26.08.2 to 26.08.4 use it when `DB_URL` points to H2. An instance on PostgreSQL is not affected.
+
+These releases ship H2 2.4.240, which has a bug (fixed in H2 2.5.250): a `CHECK (column IN (...))` constraint keeps the
+database session that prepared it. The connection pool retires every connection after 30 minutes by default, and after
+that every insert or update of a table with such a constraint fails with `Check constraint invalid ... The database has
+been closed`. You notice it when a repository cannot be created or a login cannot be recorded, and only a restart of
+the container clears it. The next release after 26.08.4 ships H2 2.5.252 and does not have the problem, so the upgrade
+fixes it.
+
+If you cannot upgrade yet, set `SPRING_DATASOURCE_HIKARI_MAX_LIFETIME=2147483647` on the container, so that the pool
+never retires its connections. `2147483647` milliseconds is about 24.8 days, so restart the container at least that
+often. This was verified on the 26.08.4 image over a 200 second run (repository creation kept working, while with a
+30 second lifetime it failed from the 20th second on); it was not run for the full 30 minutes. The reliable options are
+to upgrade, or to use PostgreSQL (see [Installing with Docker and PostgreSQL](../../installation/installing-with-docker-and-postgresql/)).
+
 ## Upgrading from 26.08.x to the next release
 
 These are the changes that matter to someone who runs a 26.08 release and upgrades to the next one. Some need an action

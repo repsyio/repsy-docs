@@ -18,6 +18,14 @@ When a client uploads a signature, Repsy looks up the public key of the signer b
 
 Repsy asks a key server over HTTPS with a short timeout (3 seconds to connect and 5 seconds for the answer) and remembers a key it found for ten minutes, so a deploy with many signatures by one key asks the server once. A key that is revoked, or that had expired when the signature was made, is refused.
 
+{{% notice note %}}
+**What Signed means**
+
+With keyserver lookup on, a version shows **Signed** when anyone published a key matching the signature's key ID to a public keyserver. There is no identity binding to the deployer. Only a registered key (or keyserver lookup off) makes **Signed** meaningful — registered keys prove you control the repository and accept signatures by that key.
+
+Signature verification is performed on upload only. Proxied and downloaded artifacts are not verified.
+{{% /notice %}}
+
 Two settings of the repository change what is verified and where keys are looked up. Both are in the **PGP Signature Key Stores** section of the repository settings, which only administrators can open and which exists for Maven repositories only: open the more options menu (⋮) of the repository in the **Repositories** tab and click **Settings**.
 
 | Setting | Default | What it does |

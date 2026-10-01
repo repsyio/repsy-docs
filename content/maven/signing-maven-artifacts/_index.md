@@ -43,9 +43,13 @@ The same section lists the built-in key servers and lets you add **additional ke
 
 Repsy can verify signatures made with a key that is on no key server (a company key, a CI key, a new key), and it must do so on an air-gapped instance. Register the public key on the repository. Registered keys are tried first and need no network access.
 
-{{% notice note %}}
-There is no form for this in the web UI at the moment: public keys can be registered only with a request to the panel API, which is in beta. The requests need an administrator account.
-{{% /notice %}}
+#### Using the web UI (recommended)
+
+Repository administrators can register public keys in the **PGP Public Keys** section of repository settings. Open the repository, click the more options menu (⋮) and select **Settings**.
+
+In the **PGP Signature Key Stores** section, paste the ASCII-armored public key block into the text field and click **Add Public Key**. The key is registered immediately and appears in the **Registered public keys** list with its user ID or key ID and fingerprint. To remove a key, click the delete button next to it.
+
+#### Using the panel API (for automation)
 
 Export the public key of the key pair you sign with, as one ASCII-armored block:
 

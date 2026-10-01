@@ -53,7 +53,7 @@ Export the public key of the key pair you sign with, as one ASCII-armored block:
 gpg --armor --export <key-id> > public-key.asc
 ```
 
-The block must contain exactly one key with its subkeys, and it can have 65,536 characters at most. A private key is refused. Sign in to get a token, then register the key (`<panel-url>` is the address of your Repsy instance):
+The block must contain exactly one key with its subkeys, and it can have 65,536 characters at most. A private key is refused. Sign in to get a token, then register the key (`<panel-url>` is the address of your Repsy instance, and `<owner>` is the repository owner shown in the panel URL):
 
 ```bash
 TOKEN=$(curl -s -X POST <panel-url>/api/auth/login \
@@ -61,13 +61,13 @@ TOKEN=$(curl -s -X POST <panel-url>/api/auth/login \
   -d '{"username": "MY REPSY USERNAME", "password": "MY REPSY PASSWORD"}' \
   | jq -r .data.token)
 
-curl -X POST <panel-url>/api/mvn/key-stores/<repo-name>/public-keys \
+curl -X POST <panel-url>/api/mvn/key-stores/<owner>/<repo-name>/public-keys \
   -H "Authorization: Bearer $TOKEN" \
   -H 'Content-Type: application/json' \
   -d "$(jq -n --rawfile key public-key.asc '{armoredKey: $key}')"
 ```
 
-The answer contains the `keyId` and the `fingerprint` of the key. Registering the same key twice on one repository is refused with `409` (`This public key is already registered for the repository.`), and a value that is not one armored public key is refused with `400`. The same key can be registered on several repositories, and a key registered on one repository is not used by another. `GET <panel-url>/api/mvn/key-stores/<repo-name>/public-keys` lists the registered keys, and `DELETE <panel-url>/api/mvn/key-stores/<repo-name>/public-keys/<key-uuid>` removes one; a signature by a removed key is verified against the key servers again, or refused when the lookup is off.
+The answer contains the `keyId` and the `fingerprint` of the key. Registering the same key twice on one repository is refused with `409` (`This public key is already registered for the repository.`), and a value that is not one armored public key is refused with `400`. The same key can be registered on several repositories, and a key registered on one repository is not used by another. `GET <panel-url>/api/mvn/key-stores/<owner>/<repo-name>/public-keys` lists the registered keys, and `DELETE <panel-url>/api/mvn/key-stores/<owner>/<repo-name>/public-keys/<key-uuid>` removes one; a signature by a removed key is verified against the key servers again, or refused when the lookup is off.
 
 ### What Your Build Tool Sees
 

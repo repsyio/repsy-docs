@@ -8,6 +8,8 @@ Repsy allows you to receive webhook notifications whenever specific Cargo regist
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
+**Note:** Webhook payload field names use camelCase (e.g., `eventId`, `webhookUrl`). This applies since 2026-10-05.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -22,14 +24,14 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
     "uuid": "fa3b0ffb-8468-4821-8db2-bd09e814c431",
     "name": "repsy_e2e_platform_dep",
     "version": "2.0.1775591494",
-    "created_at": "2026-04-07T10:25:22.380500Z",
+    "createdAt": "2026-04-07T10:25:22.380500Z",
     "description": "Repsy e2e platform dependency crate",
     "homepage": null,
-    "repository_url": null,
+    "repositoryUrl": null,
     "license": "MIT",
-    "license_file": null,
+    "licenseFile": null,
     "documentation": null,
-    "rust_version": null,
+    "rustVersion": null,
     "authors": [],
     "keywords": [],
     "categories": [],
@@ -38,17 +40,17 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
       "owner": "repsy",
       "name": "cargo",
       "description": null,
-      "private_repo": true,
+      "privateRepo": true,
       "searchable": false,
-      "created_at": "2026-04-07T10:24:36.565999Z",
+      "createdAt": "2026-04-07T10:24:36.565999Z",
       "metadata": null
     }
   },
   "date": "2026-04-07T19:51:35.842454Z",
-  "event_id": "baf61626-bca7-4039-b9bf-e30c6d5ec708",
-  "event_type": "crate.deployed",
+  "eventId": "baf61626-bca7-4039-b9bf-e30c6d5ec708",
+  "eventType": "crate.deployed",
   "repoType": "CARGO",
-  "webhook_url": "https://example.com"
+  "webhookUrl": "https://example.com"
 }
 ```
 
@@ -75,7 +77,7 @@ You should reject requests if:
 * Use HTTPS for your webhook URL.
 * You should verify the request by recalculating the signature
 * Validate the timestamp and signature.
-* To prevent duplicate processing, always use the `event_id` to ensure idempotency.
+* To prevent duplicate processing, always use the `eventId` to ensure idempotency.
 * Log received events for auditing and debugging.
 
 {{< /steps >}}

@@ -8,6 +8,8 @@ Repsy allows you to receive webhook notifications whenever specific Maven reposi
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
+**Note:** Webhook payload field names use camelCase (e.g., `eventId`, `webhookUrl`). This applies since 2026-10-05.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -18,22 +20,22 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
-  "event_id": "3bc54d4e-47b2-490d-8f2a-6973c30bc773",
-  "event_type": "artifact.deployed",
-  "webhook_url": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
+  "eventId": "3bc54d4e-47b2-490d-8f2a-6973c30bc773",
+  "eventType": "artifact.deployed",
+  "webhookUrl": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
   "date": "2025-07-21T11:53:43.414706844Z",
   "artifact": {
     "uuid": "e7a2fe3e-5950-4782-801f-49e35814817f",
     "metadata": {
       "plugin": false,
-      "group_name": "io.repsy.war_nosnapshot",
+      "groupName": "io.repsy.war_nosnapshot",
       "prefix": null,
       "name": "nosnapshot Maven Webapp",
       "packaging": "war"
     },
     "name": "nosnapshot",
-    "created_at": "2025-07-21T11:53:43.345355221Z",
-    "last_updated_at": "2025-07-21T11:53:43.345357643Z",
+    "createdAt": "2025-07-21T11:53:43.345355221Z",
+    "lastUpdatedAt": "2025-07-21T11:53:43.345357643Z",
     "repository": {
       "uuid": "74626c11-4abe-4df1-b007-f402958b21b5",
       "owner": "owner",
@@ -44,8 +46,8 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
         "snapshots": true,
         "releases": true
       },
-      "private_repo": true,
-      "created_at": "2025-07-21T11:46:45.006108Z"
+      "privateRepo": true,
+      "createdAt": "2025-07-21T11:46:45.006108Z"
     },
     "version": {
       "uuid": "e2f2fcfd-7102-40b5-97b8-f01f3734b637",
@@ -53,24 +55,24 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
       "latest": null,
       "release": null,
       "metadata": {
-        "scm_url": "",
+        "scmUrl": "",
         "developers": [],
         "prefix": null,
         "packaging": "war",
         "type": "RELEASE",
         "url": "http://maven.apache.org",
         "pomFile": null,
-        "source_code_url": "",
-        "has_modules": false,
+        "sourceCodeUrl": "",
+        "hasModules": false,
         "licenses": [],
-        "has_sources": false,
+        "hasSources": false,
         "organization": "",
-        "has_documents": false,
+        "hasDocuments": false,
         "name": "nosnapshot Maven Webapp"
       },
       "name": "2025.07.21-1753098807423",
-      "created_at": "2025-07-21T11:53:43.348303489Z",
-      "last_updated_at": "2025-07-21T11:53:43.348306115Z"
+      "createdAt": "2025-07-21T11:53:43.348303489Z",
+      "lastUpdatedAt": "2025-07-21T11:53:43.348306115Z"
     }
   }
 }
@@ -99,7 +101,7 @@ You should reject requests if:
 * Use HTTPS for your webhook URL.
 * You should verify the request by recalculating the signature
 * Validate the timestamp and signature.
-* To prevent duplicate processing, always use the `event_id` to ensure idempotency.
+* To prevent duplicate processing, always use the `eventId` to ensure idempotency.
 * Log received events for auditing and debugging.
 
 {{< /steps >}}

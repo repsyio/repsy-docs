@@ -8,6 +8,8 @@ Repsy allows you to receive webhook notifications whenever specific NuGet reposi
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
+**Note:** Webhook payload field names use camelCase (e.g., `eventId`, `webhookUrl`). This applies since 2026-10-05.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -20,34 +22,34 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 {
   "nugetPackage": {
     "uuid": "f4750e91-e74f-4392-88e4-069b59dd1fa0",
-    "package_id": "repsy.e2e.nuget",
+    "packageId": "repsy.e2e.nuget",
     "version": "1.0.1779172335",
-    "published_at": "2026-05-19T06:32:19.386212Z",
+    "publishedAt": "2026-05-19T06:32:19.386212Z",
     "title": null,
     "description": "Repsy NuGet e2e package",
     "authors": "Repsy",
     "tags": "repsy e2e nuget",
-    "icon_url": null,
-    "license_url": null,
-    "project_url": null,
-    "repository_url": null,
-    "is_prerelease": false,
+    "iconUrl": null,
+    "licenseUrl": null,
+    "projectUrl": null,
+    "repositoryUrl": null,
+    "isPrerelease": false,
     "registry": {
       "uuid": "b84af809-132a-4fc9-a0ba-f1fa7d83104a",
       "owner": "repsy",
       "name": "nuget-webhook-89109313",
       "description": null,
-      "private_repo": false,
+      "privateRepo": false,
       "searchable": false,
-      "created_at": "2026-05-19T06:32:15.448993Z",
+      "createdAt": "2026-05-19T06:32:15.448993Z",
       "metadata": null
     }
   },
   "date": "2026-05-19T06:32:19.387832Z",
-  "event_id": "3bf5bfe2-e38b-41c3-8e7f-fa29660beb08",
-  "event_type": "package.deployed",
+  "eventId": "3bf5bfe2-e38b-41c3-8e7f-fa29660beb08",
+  "eventType": "package.deployed",
   "repoType": "NUGET",
-  "webhook_url": "https://example.com"
+  "webhookUrl": "https://example.com"
 }
 ```
 
@@ -93,7 +95,7 @@ if (!CryptographicOperations.FixedTimeEquals(
 * Use HTTPS for your webhook URL.
 * Verify the request by recalculating the signature.
 * Validate the timestamp and signature.
-* To prevent duplicate processing, always use the `event_id` to ensure idempotency.
+* To prevent duplicate processing, always use the `eventId` to ensure idempotency.
 * Log received events for auditing and debugging.
 
 {{< /steps >}}

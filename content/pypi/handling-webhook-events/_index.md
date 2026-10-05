@@ -8,6 +8,8 @@ Repsy allows you to receive webhook notifications whenever specific PyPI reposit
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
+**Note:** Webhook payload field names use camelCase (e.g., `eventId`, `webhookUrl`). This applies since 2026-10-05.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -18,46 +20,46 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
-  "event_id": "4d64f286-bcef-4b2c-bd8d-adab5769c10a",
-  "event_type": "package.deployed",
-  "webhook_url": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
+  "eventId": "4d64f286-bcef-4b2c-bd8d-adab5769c10a",
+  "eventType": "package.deployed",
+  "webhookUrl": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
   "date": "2025-07-21T12:02:15.449078537Z",
   "package": {
     "uuid": "1e120ef4-a7ed-40a7-ac5d-4c4b1f3700ec",
     "name": "test-package",
     "metadata": {
-      "normalized_name": "test-package"
+      "normalizedName": "test-package"
     },
-    "created_at": "2025-07-21T12:02:14.564288Z",
+    "createdAt": "2025-07-21T12:02:14.564288Z",
     "repository": {
       "uuid": "8ea2f776-d5cd-446c-8320-ce81c3bc415d",
       "owner": "owner",
       "name": "pypi",
       "description": null,
       "searchable": false,
-      "private_repo": true,
-      "created_at": "2025-07-21T11:46:45.143984Z"
+      "privateRepo": true,
+      "createdAt": "2025-07-21T11:46:45.143984Z"
     },
     "release": {
       "uuid": "7185497c-a923-47e1-b195-9bea1f28defb",
       "description": null,
       "metadata": {
         "summary": "Test package.",
-        "home_page": null,
+        "homePage": null,
         "license": null,
         "author": null,
-        "stable_version": null,
+        "stableVersion": null,
         "classifiers": [],
-        "author_email": null,
-        "project_urls": [],
-        "description_content_type": null
+        "authorEmail": null,
+        "projectUrls": [],
+        "descriptionContentType": null
       },
       "name": "2025.7.21.1753099316751",
-      "final_release": true,
-      "pre_release": false,
-      "post_release": false,
-      "dev_release": false,
-      "created_at": "2025-07-21T12:02:14.582392Z"
+      "finalRelease": true,
+      "preRelease": false,
+      "postRelease": false,
+      "devRelease": false,
+      "createdAt": "2025-07-21T12:02:14.582392Z"
     }
   }
 }
@@ -86,7 +88,7 @@ You should reject requests if:
 * Use HTTPS for your webhook URL.
 * You should verify the request by recalculating the signature
 * Validate the timestamp and signature.
-* To prevent duplicate processing, always use the `event_id` to ensure idempotency.
+* To prevent duplicate processing, always use the `eventId` to ensure idempotency.
 * Log received events for auditing and debugging.
 
 {{< /steps >}}

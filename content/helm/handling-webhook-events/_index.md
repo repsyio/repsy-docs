@@ -8,6 +8,8 @@ Repsy allows you to receive webhook notifications whenever specific Helm chart r
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
+**Note:** Webhook payload field names use camelCase (e.g., `eventId`, `webhookUrl`). This applies since 2026-10-05.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -18,24 +20,24 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
-  "event_id": "7d4e9c31-12ab-4f56-8910-bc3d2e7f0a11",
-  "event_type": "chart.deployed",
-  "webhook_url": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
+  "eventId": "7d4e9c31-12ab-4f56-8910-bc3d2e7f0a11",
+  "eventType": "chart.deployed",
+  "webhookUrl": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
   "date": "2025-11-14T09:22:05.123456789Z",
   "chart": {
     "uuid": "b91c4d72-3e5f-4a10-b234-7e8f9c0d1a2b",
     "name": "my-chart",
     "version": "1.0.0",
-    "app_version": "2.1.0",
-    "created_at": "2025-11-14T09:22:05.100000Z",
+    "appVersion": "2.1.0",
+    "createdAt": "2025-11-14T09:22:05.100000Z",
     "repo": {
       "uuid": "c03d5e84-4f6a-5b21-c345-8f9a0d1e2b3c",
       "owner": "owner",
       "name": "helm",
       "description": null,
-      "private_repo": true,
+      "privateRepo": true,
       "searchable": false,
-      "created_at": "2025-11-14T08:00:00.000000Z"
+      "createdAt": "2025-11-14T08:00:00.000000Z"
     }
   }
 }
@@ -64,7 +66,7 @@ You should reject requests if:
 * Use HTTPS for your webhook URL.
 * You should verify the request by recalculating the signature
 * Validate the timestamp and signature.
-* To prevent duplicate processing, always use the `event_id` to ensure idempotency.
+* To prevent duplicate processing, always use the `eventId` to ensure idempotency.
 * Log received events for auditing and debugging.
 
 {{< /steps >}}

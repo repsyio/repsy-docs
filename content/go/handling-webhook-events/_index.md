@@ -8,6 +8,8 @@ Repsy allows you to receive webhook notifications whenever specific Go module re
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
+**Note:** Webhook payload field names use camelCase (e.g., `eventId`, `webhookUrl`). This applies since 2026-10-05.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -18,30 +20,30 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
-  "event_id": "3a7f1c92-84de-4b10-bcf3-9e2d5a701f44",
-  "event_type": "module.deployed",
-  "webhook_url": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
+  "eventId": "3a7f1c92-84de-4b10-bcf3-9e2d5a701f44",
+  "eventType": "module.deployed",
+  "webhookUrl": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
   "date": "2025-07-21T14:35:12.304812543Z",
   "module": {
     "uuid": "c2d41e87-9a3b-4f72-b610-e1fc83a220d5",
-    "module_path": "corp.internal/mymodule",
-    "created_at": "2025-07-21T14:35:12.287643Z",
+    "modulePath": "corp.internal/mymodule",
+    "createdAt": "2025-07-21T14:35:12.287643Z",
     "repo": {
       "uuid": "a94f3bc1-2d7e-4501-b823-f6e09d1c83a7",
       "owner": "owner",
       "name": "go",
       "description": null,
-      "private_repo": true,
+      "privateRepo": true,
       "searchable": false,
-      "created_at": "2025-07-21T11:46:45.242642Z"
+      "createdAt": "2025-07-21T11:46:45.242642Z"
     },
     "version": {
       "uuid": "78b20e4a-1f63-4d09-a751-3c5b9e8f017c",
       "version": "v1.0.0",
-      "go_version": "1.21",
-      "mod_hash": "h1:abc123...",
-      "zip_hash": "h1:def456...",
-      "created_at": "2025-07-21T14:35:12.291038Z"
+      "goVersion": "1.21",
+      "modHash": "h1:abc123...",
+      "zipHash": "h1:def456...",
+      "createdAt": "2025-07-21T14:35:12.291038Z"
     }
   }
 }
@@ -70,7 +72,7 @@ You should reject requests if:
 * Use HTTPS for your webhook URL.
 * You should verify the request by recalculating the signature
 * Validate the timestamp and signature.
-* To prevent duplicate processing, always use the `event_id` to ensure idempotency.
+* To prevent duplicate processing, always use the `eventId` to ensure idempotency.
 * Log received events for auditing and debugging.
 
 {{< /steps >}}

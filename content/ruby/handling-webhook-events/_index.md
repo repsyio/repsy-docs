@@ -8,6 +8,8 @@ Repsy allows you to receive webhook notifications whenever specific Ruby reposit
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
+**Note:** Webhook payload field names use camelCase (e.g., `eventId`, `webhookUrl`). This applies since 2026-10-05.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -23,7 +25,7 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
     "name": "my_gem",
     "version": "1.0.0",
     "platform": "ruby",
-    "published_at": "2026-06-24T10:00:00.000000Z",
+    "publishedAt": "2026-06-24T10:00:00.000000Z",
     "description": "A sample gem published to Repsy.",
     "authors": "Your Name",
     "homepage": null,
@@ -33,17 +35,17 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
       "owner": "repsy",
       "name": "ruby-webhook-12345678",
       "description": null,
-      "private_repo": false,
+      "privateRepo": false,
       "searchable": false,
-      "created_at": "2026-06-24T09:59:55.000000Z",
+      "createdAt": "2026-06-24T09:59:55.000000Z",
       "metadata": null
     }
   },
   "date": "2026-06-24T10:00:00.001000Z",
-  "event_id": "c3d4e5f6-a7b8-9012-cdef-ab3456789012",
-  "event_type": "package.deployed",
+  "eventId": "c3d4e5f6-a7b8-9012-cdef-ab3456789012",
+  "eventType": "package.deployed",
   "repoType": "RUBY",
-  "webhook_url": "https://example.com"
+  "webhookUrl": "https://example.com"
 }
 ```
 
@@ -70,7 +72,7 @@ You should reject requests if:
 * Use HTTPS for your webhook URL.
 * Verify the request by recalculating the signature.
 * Validate the timestamp and signature.
-* To prevent duplicate processing, always use the `event_id` to ensure idempotency.
+* To prevent duplicate processing, always use the `eventId` to ensure idempotency.
 * Log received events for auditing and debugging.
 
 {{< /steps >}}

@@ -8,7 +8,7 @@ Repsy allows you to receive webhook notifications whenever specific PyPI reposit
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
-**Note:** Webhook payload field names use camelCase (e.g., `eventId`, `webhookUrl`). This applies since 2026-10-05.
+**Note:** Webhook payload field names are camelCase (for example `eventId`, `eventType`, `webhookUrl`, `createdAt`). Events sent before 2026-10-05 used snake_case names (`event_id`, `event_type`, `webhook_url`, `created_at`); update your receiver if it reads the old names.
 
 {{< steps >}}
 
@@ -20,46 +20,47 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
-  "eventId": "4d64f286-bcef-4b2c-bd8d-adab5769c10a",
+  "eventId": "0e3ce46d-98db-42a8-b9f4-6be52ceee0eb",
   "eventType": "package.deployed",
   "webhookUrl": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
-  "date": "2025-07-21T12:02:15.449078537Z",
+  "date": "2025-07-21T12:01:03.525814226Z",
+  "repoType": "PYPI",
   "package": {
     "uuid": "1e120ef4-a7ed-40a7-ac5d-4c4b1f3700ec",
     "name": "test-package",
-    "metadata": {
-      "normalizedName": "test-package"
-    },
     "createdAt": "2025-07-21T12:02:14.564288Z",
     "repository": {
-      "uuid": "8ea2f776-d5cd-446c-8320-ce81c3bc415d",
+      "uuid": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
       "owner": "owner",
       "name": "pypi",
       "description": null,
-      "searchable": false,
       "privateRepo": true,
-      "createdAt": "2025-07-21T11:46:45.143984Z"
+      "createdAt": "2025-07-21T11:46:45.242642Z",
+      "metadata": null
     },
     "release": {
       "uuid": "7185497c-a923-47e1-b195-9bea1f28defb",
-      "description": null,
-      "metadata": {
-        "summary": "Test package.",
-        "homePage": null,
-        "license": null,
-        "author": null,
-        "stableVersion": null,
-        "classifiers": [],
-        "authorEmail": null,
-        "projectUrls": [],
-        "descriptionContentType": null
-      },
       "name": "2025.7.21.1753099316751",
+      "description": null,
       "finalRelease": true,
       "preRelease": false,
       "postRelease": false,
       "devRelease": false,
-      "createdAt": "2025-07-21T12:02:14.582392Z"
+      "createdAt": "2025-07-21T12:02:14.582392Z",
+      "metadata": {
+        "stableVersion": null,
+        "summary": "Test package.",
+        "homePage": null,
+        "author": null,
+        "authorEmail": null,
+        "license": null,
+        "descriptionContentType": null,
+        "classifiers": [],
+        "projectUrls": []
+      }
+    },
+    "metadata": {
+      "normalizedName": "test-package"
     }
   }
 }

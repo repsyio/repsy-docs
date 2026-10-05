@@ -8,7 +8,7 @@ Repsy allows you to receive webhook notifications whenever specific Go module re
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
-**Note:** Webhook payload field names use camelCase (e.g., `eventId`, `webhookUrl`). This applies since 2026-10-05.
+**Note:** Webhook payload field names are camelCase (for example `eventId`, `eventType`, `webhookUrl`, `createdAt`). Events sent before 2026-10-05 used snake_case names (`event_id`, `event_type`, `webhook_url`, `created_at`); update your receiver if it reads the old names.
 
 {{< steps >}}
 
@@ -20,22 +20,23 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
-  "eventId": "3a7f1c92-84de-4b10-bcf3-9e2d5a701f44",
+  "eventId": "0e3ce46d-98db-42a8-b9f4-6be52ceee0eb",
   "eventType": "module.deployed",
   "webhookUrl": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
-  "date": "2025-07-21T14:35:12.304812543Z",
+  "date": "2025-07-21T12:01:03.525814226Z",
+  "repoType": "GOLANG",
   "module": {
     "uuid": "c2d41e87-9a3b-4f72-b610-e1fc83a220d5",
     "modulePath": "corp.internal/mymodule",
     "createdAt": "2025-07-21T14:35:12.287643Z",
     "repo": {
-      "uuid": "a94f3bc1-2d7e-4501-b823-f6e09d1c83a7",
+      "uuid": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
       "owner": "owner",
       "name": "go",
       "description": null,
       "privateRepo": true,
-      "searchable": false,
-      "createdAt": "2025-07-21T11:46:45.242642Z"
+      "createdAt": "2025-07-21T11:46:45.242642Z",
+      "metadata": null
     },
     "version": {
       "uuid": "78b20e4a-1f63-4d09-a751-3c5b9e8f017c",

@@ -8,7 +8,7 @@ Repsy allows you to receive webhook notifications whenever specific NuGet reposi
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
-**Note:** Webhook payload field names use camelCase (e.g., `eventId`, `webhookUrl`). This applies since 2026-10-05.
+**Note:** Webhook payload field names are camelCase (for example `eventId`, `eventType`, `webhookUrl`, `createdAt`). Events sent before 2026-10-05 used snake_case names (`event_id`, `event_type`, `webhook_url`, `created_at`); update your receiver if it reads the old names.
 
 {{< steps >}}
 
@@ -20,6 +20,11 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
+  "eventId": "0e3ce46d-98db-42a8-b9f4-6be52ceee0eb",
+  "eventType": "package.deployed",
+  "webhookUrl": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
+  "date": "2025-07-21T12:01:03.525814226Z",
+  "repoType": "NUGET",
   "nugetPackage": {
     "uuid": "f4750e91-e74f-4392-88e4-069b59dd1fa0",
     "packageId": "repsy.e2e.nuget",
@@ -35,21 +40,15 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
     "repositoryUrl": null,
     "isPrerelease": false,
     "registry": {
-      "uuid": "b84af809-132a-4fc9-a0ba-f1fa7d83104a",
-      "owner": "repsy",
-      "name": "nuget-webhook-89109313",
+      "uuid": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
+      "owner": "owner",
+      "name": "nuget",
       "description": null,
-      "privateRepo": false,
-      "searchable": false,
-      "createdAt": "2026-05-19T06:32:15.448993Z",
+      "privateRepo": true,
+      "createdAt": "2025-07-21T11:46:45.242642Z",
       "metadata": null
     }
-  },
-  "date": "2026-05-19T06:32:19.387832Z",
-  "eventId": "3bf5bfe2-e38b-41c3-8e7f-fa29660beb08",
-  "eventType": "package.deployed",
-  "repoType": "NUGET",
-  "webhookUrl": "https://example.com"
+  }
 }
 ```
 

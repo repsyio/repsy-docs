@@ -8,7 +8,7 @@ Repsy allows you to receive webhook notifications whenever specific Ruby reposit
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
-**Note:** Webhook payload field names use camelCase (e.g., `eventId`, `webhookUrl`). This applies since 2026-10-05.
+**Note:** Webhook payload field names are camelCase (for example `eventId`, `eventType`, `webhookUrl`, `createdAt`). Events sent before 2026-10-05 used snake_case names (`event_id`, `event_type`, `webhook_url`, `created_at`); update your receiver if it reads the old names.
 
 {{< steps >}}
 
@@ -20,38 +20,32 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
-  "rubyGem": {
-    "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "eventId": "0e3ce46d-98db-42a8-b9f4-6be52ceee0eb",
+  "eventType": "gem.deployed",
+  "webhookUrl": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
+  "date": "2025-07-21T12:01:03.525814226Z",
+  "repoType": "RUBY",
+  "gem": {
     "name": "my_gem",
     "version": "1.0.0",
     "platform": "ruby",
-    "publishedAt": "2026-06-24T10:00:00.000000Z",
-    "description": "A sample gem published to Repsy.",
-    "authors": "Your Name",
-    "homepage": null,
-    "license": "MIT",
+    "createdAt": "2026-06-24T10:00:00.000000Z",
     "registry": {
-      "uuid": "b84af809-132a-4fc9-a0ba-f1fa7d83104a",
-      "owner": "repsy",
-      "name": "ruby-webhook-12345678",
+      "uuid": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
+      "owner": "owner",
+      "name": "ruby",
       "description": null,
-      "privateRepo": false,
-      "searchable": false,
-      "createdAt": "2026-06-24T09:59:55.000000Z",
+      "privateRepo": true,
+      "createdAt": "2025-07-21T11:46:45.242642Z",
       "metadata": null
     }
-  },
-  "date": "2026-06-24T10:00:00.001000Z",
-  "eventId": "c3d4e5f6-a7b8-9012-cdef-ab3456789012",
-  "eventType": "package.deployed",
-  "repoType": "RUBY",
-  "webhookUrl": "https://example.com"
+  }
 }
 ```
 
 ### Event Types
 
-* `package.deployed`: Triggered when a new gem version is successfully deployed to a Repsy Ruby repository.
+* `gem.deployed`: Triggered when a new gem version is successfully deployed to a Repsy Ruby repository.
 
 ### Authenticating Webhook Events
 

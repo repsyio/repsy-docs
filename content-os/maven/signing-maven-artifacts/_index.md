@@ -70,7 +70,7 @@ The block must contain exactly one key with its subkeys, and it can have 65,536 
 TOKEN=$(curl -s -X POST <panel-url>/api/auth/login \
   -H 'Content-Type: application/json' \
   -d '{"username": "MY REPSY USERNAME", "password": "MY REPSY PASSWORD"}' \
-  | jq -r .data.token)
+  | jq -r .token)
 
 curl -X POST <panel-url>/api/mvn/key-stores/<repo-name>/public-keys \
   -H "Authorization: Bearer $TOKEN" \

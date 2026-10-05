@@ -1,9 +1,8 @@
 // A small client of the panel REST API (`/api/...` on the panel port); see
 // repsy-backend/src/main/resources/openapi/openapi-spec.yaml of repsyio/repsy. A success body is the bare resource
-// (`PagedModel` for a list, 201 with `Location` on create, 204 when empty) on every route used here except `auth` and
-// `users`, which still answer the envelope `{ data: ... }` until they are migrated: `request` returns
-// `{ status, body }` and the helpers below unwrap `body.data` for those two only. A failure is an
-// `application/problem+json` document (`code`, `detail`, `errors[]`, `traceId`).
+// (`PagedModel` for a list, 201 with `Location` on create, 204 when empty) on every route. `request` returns
+// `{ status, body }` with the bare resource. A failure is an `application/problem+json` document
+// (`code`, `detail`, `errors[]`, `traceId`).
 
 export class PanelApi {
   constructor(baseUrl) {
@@ -36,17 +35,16 @@ export class PanelApi {
   /** A fresh login = a new refresh-token family (refresh tokens are single use, so never share one). */
   async login(username, password) {
     const { body } = await this.request('POST', '/api/auth/login', { username, password });
-    const data = body.data; // still the envelope
-    this.token = data.token;
-    return data; // { username, token, refreshToken }
+    this.token = body.token;
+    return body; // { username, token, refreshToken }
   }
 
   async createUser(username, password, role) {
-    return (await this.request('POST', '/api/users', { username, password, role })).body.data; // envelope
+    return (await this.request('POST', '/api/users', { username, password, role })).body;
   }
 
   async listUsers() {
-    return (await this.request('GET', '/api/users?size=100')).body.data.content ?? []; // envelope
+    return (await this.request('GET', '/api/users?size=100')).body.content ?? [];
   }
 
   async createRepo(type, name, description, privateRepo) {

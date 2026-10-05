@@ -92,7 +92,7 @@ scan, see [Configuring Repository Settings](../configuring-repository-settings/#
 that scans a whole repository: you scan version by version.
 
 The web UI calls `POST /api/repos/<repo-name>/artifacts/<artifact-name>/versions/<version>/scan` with the access token of
-a signed-in user. The panel API is in beta and can change.
+a signed-in user. Repsy answers `202` with no body and a `Location` header that points to the scan, `GET /api/repos/<repo-name>/scans/<scan-id>`; poll that address for the status. A refused scan is an error document, see [Panel API Errors](../../api-integration/panel-api-errors/). The panel API is in beta and can change.
 
 For Docker, the version is the tag. A Docker image that is pushed by its digest, with no tag, is not scanned on a push. A
 scan of a Maven SNAPSHOT scans the newest jar that is stored for it.

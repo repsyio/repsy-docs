@@ -82,7 +82,7 @@ export function fakeDates(root, clusterMs = 0) {
  * instant. Break those ties by name, so the same data is always listed in the same order.
  */
 export function sortListStably(json, clusterMs = 0) {
-  const rows = json?.data?.content;
+  const rows = json?.content ?? json?.data?.content; // bare PagedModel, or the envelope of `users`
   if (!Array.isArray(rows) || rows.length < 2 || !rows.every((r) => r && typeof r.createdAt === 'string')) return;
   const times = rows.map((r) => Date.parse(r.createdAt));
   for (let i = 1; i < rows.length; i++) if (times[i] > times[i - 1]) return;
@@ -164,8 +164,8 @@ export async function newPage(browser, { panelUrl, session, viewport, mobile = f
     }
     sortListStably(json, clusterMs);
     let changed = fakeDates(json, clusterMs);
-    if (request.method() === 'POST' && /\/deploy-tokens(\?|$)/.test(request.url()) && typeof json?.data?.token === 'string') {
-      json.data.token = FAKE_TOKEN;
+    if (request.method() === 'POST' && /\/deploy-tokens(\?|$)/.test(request.url()) && typeof json?.token === 'string') {
+      json.token = FAKE_TOKEN; // the create answer is the bare TokenInfo
       changed = true;
     }
     return changed ? route.fulfill({ response, json }) : route.fulfill({ response });

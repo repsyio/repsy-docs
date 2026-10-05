@@ -8,6 +8,8 @@ Repsy allows you to receive webhook notifications whenever specific Cargo regist
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
+**Note:** Webhook payload field names are camelCase (for example `eventId`, `eventType`, `webhookUrl`, `createdAt`). Events sent before 2026-10-05 used snake_case names (`event_id`, `event_type`, `webhook_url`, `created_at`); update your receiver if it reads the old names.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -18,37 +20,36 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
+  "eventId": "0e3ce46d-98db-42a8-b9f4-6be52ceee0eb",
+  "eventType": "crate.deployed",
+  "webhookUrl": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
+  "date": "2025-07-21T12:01:03.525814226Z",
+  "repoType": "CARGO",
   "crate": {
     "uuid": "fa3b0ffb-8468-4821-8db2-bd09e814c431",
     "name": "repsy_e2e_platform_dep",
     "version": "2.0.1775591494",
-    "created_at": "2026-04-07T10:25:22.380500Z",
+    "createdAt": "2026-04-07T10:25:22.380500Z",
     "description": "Repsy e2e platform dependency crate",
     "homepage": null,
-    "repository_url": null,
+    "repositoryUrl": null,
     "license": "MIT",
-    "license_file": null,
+    "licenseFile": null,
     "documentation": null,
-    "rust_version": null,
+    "rustVersion": null,
     "authors": [],
     "keywords": [],
     "categories": [],
     "registry": {
-      "uuid": "087bf481-cf09-421f-94ab-28cd438b59f6",
-      "owner": "repsy",
+      "uuid": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
+      "owner": "owner",
       "name": "cargo",
       "description": null,
-      "private_repo": true,
-      "searchable": false,
-      "created_at": "2026-04-07T10:24:36.565999Z",
+      "privateRepo": true,
+      "createdAt": "2025-07-21T11:46:45.242642Z",
       "metadata": null
     }
-  },
-  "date": "2026-04-07T19:51:35.842454Z",
-  "event_id": "baf61626-bca7-4039-b9bf-e30c6d5ec708",
-  "event_type": "crate.deployed",
-  "repoType": "CARGO",
-  "webhook_url": "https://example.com"
+  }
 }
 ```
 
@@ -75,7 +76,7 @@ You should reject requests if:
 * Use HTTPS for your webhook URL.
 * You should verify the request by recalculating the signature
 * Validate the timestamp and signature.
-* To prevent duplicate processing, always use the `event_id` to ensure idempotency.
+* To prevent duplicate processing, always use the `eventId` to ensure idempotency.
 * Log received events for auditing and debugging.
 
 {{< /steps >}}

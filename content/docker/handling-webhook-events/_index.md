@@ -8,6 +8,8 @@ Repsy allows you to receive webhook notifications whenever specific Docker repos
 
 This guide explains how to configure, receive, and verify webhook events securely.
 
+**Note:** Webhook payload field names are camelCase (for example `eventId`, `eventType`, `webhookUrl`, `createdAt`). Events sent before 2026-10-05 used snake_case names (`event_id`, `event_type`, `webhook_url`, `created_at`); update your receiver if it reads the old names.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -18,35 +20,36 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 
 ```json
 {
-  "event_id": "0e3ce46d-98db-42a8-b9f4-6be52ceee0eb",
-  "event_type": "image.deployed",
-  "webhook_url": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
+  "eventId": "0e3ce46d-98db-42a8-b9f4-6be52ceee0eb",
+  "eventType": "image.deployed",
+  "webhookUrl": "https://webhook.site/084cfab7-cd5b-4ed3-affa-5d394b635e1e",
   "date": "2025-07-21T12:01:03.525814226Z",
+  "repoType": "DOCKER",
   "image": {
     "uuid": "b1ff0315-9179-471f-8090-b86363cae072",
     "name": "default",
-    "created_at": "2025-07-21T12:01:03.456839Z",
-    "last_updated_at": "2025-07-21T12:01:03.456844Z",
+    "createdAt": "2025-07-21T12:01:03.456839Z",
+    "lastUpdatedAt": "2025-07-21T12:01:03.456844Z",
     "repository": {
       "uuid": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
       "owner": "owner",
       "name": "docker",
       "description": null,
-      "searchable": false,
-      "private_repo": true,
-      "created_at": "2025-07-21T11:46:45.242642Z"
+      "privateRepo": true,
+      "createdAt": "2025-07-21T11:46:45.242642Z",
+      "metadata": null
     },
     "tag": {
       "uuid": "a3f6078e-bc53-4a0e-982b-5905dc68ae53",
       "name": "2025.07.21-1753099258149",
+      "createdAt": "2025-07-21T12:01:03.472843Z",
+      "lastUpdatedAt": "2025-07-21T12:01:03.472848Z",
       "metadata": {
-        "config_digest": null,
-        "media_type": "application/vnd.docker.distribution.manifest.v2+json",
         "digest": "sha256:7565f2c7034d87673c5ddc3b1b8e97f8da794c31d9aa73ed26afffa1c8194889",
+        "configDigest": null,
+        "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
         "platform": "linux/amd64"
-      },
-      "created_at": "2025-07-21T12:01:03.472843Z",
-      "last_updated_at": "2025-07-21T12:01:03.472848Z"
+      }
     }
   }
 }
@@ -55,6 +58,7 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
 ### Event Types
 
 * `image.deployed`: Triggered when a new image is successfully deployed to a Repsy Docker repository.
+* `image.removed`: Triggered when a tag is removed, either by you in the panel or by a cleanup policy. One event is sent per removed tag, with the same payload shape as `image.deployed`.
 
 ### Authenticating Webhook Events
 
@@ -75,7 +79,7 @@ You should reject requests if:
 * Use HTTPS for your webhook URL.
 * You should verify the request by recalculating the signature
 * Validate the timestamp and signature.
-* To prevent duplicate processing, always use the `event_id` to ensure idempotency.
+* To prevent duplicate processing, always use the `eventId` to ensure idempotency.
 * Log received events for auditing and debugging.
 
 {{< /steps >}}

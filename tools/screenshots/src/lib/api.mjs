@@ -1,5 +1,9 @@
-// A small client of the panel REST API (`/api/...` on the panel port). Every answer is the JSON envelope
-// `{ data: ... }`; see repsy-backend/src/main/resources/openapi/openapi-spec.yaml of repsyio/repsy.
+// A small client of the panel REST API (`/api/...` on the panel port); see
+// repsy-backend/src/main/resources/openapi/openapi-spec.yaml of repsyio/repsy. A success body is the bare resource
+// (`PagedModel` for a list, 201 with `Location` on create, 204 when empty) on every route used here except `auth` and
+// `users`, which still answer the envelope `{ data: ... }` until they are migrated: `request` returns
+// `{ status, body }` and the helpers below unwrap `body.data` for those two only. A failure is an
+// `application/problem+json` document (`code`, `detail`, `errors[]`, `traceId`).
 
 export class PanelApi {
   constructor(baseUrl) {
@@ -26,30 +30,31 @@ export class PanelApi {
     } catch {
       json = undefined;
     }
-    return { status: res.status, data: json?.data };
+    return { status: res.status, body: json };
   }
 
   /** A fresh login = a new refresh-token family (refresh tokens are single use, so never share one). */
   async login(username, password) {
-    const { data } = await this.request('POST', '/api/auth/login', { username, password });
+    const { body } = await this.request('POST', '/api/auth/login', { username, password });
+    const data = body.data; // still the envelope
     this.token = data.token;
     return data; // { username, token, refreshToken }
   }
 
   async createUser(username, password, role) {
-    return (await this.request('POST', '/api/users', { username, password, role })).data;
+    return (await this.request('POST', '/api/users', { username, password, role })).body.data; // envelope
   }
 
   async listUsers() {
-    return (await this.request('GET', '/api/users?size=100')).data.content ?? [];
+    return (await this.request('GET', '/api/users?size=100')).body.data.content ?? []; // envelope
   }
 
   async createRepo(type, name, description, privateRepo) {
-    return (await this.request('POST', '/api/repos', { type, name, description, privateRepo })).data;
+    return (await this.request('POST', '/api/repos', { type, name, description, privateRepo })).body;
   }
 
   async listRepos() {
-    return (await this.request('GET', '/api/repos?size=100&sort=name,asc')).data.content ?? [];
+    return (await this.request('GET', '/api/repos?size=100&sort=name,asc')).body.content ?? [];
   }
 
   async deleteRepo(name) {
@@ -61,11 +66,11 @@ export class PanelApi {
   }
 
   async createDeployToken(repoName, form) {
-    return (await this.request('POST', `/api/repos/${encodeURIComponent(repoName)}/deploy-tokens`, form)).data;
+    return (await this.request('POST', `/api/repos/${encodeURIComponent(repoName)}/deploy-tokens`, form)).body;
   }
 
   /** One page (up to 100) of the vulnerability scans of all repositories. */
   async listScans() {
-    return (await this.request('GET', '/api/security/scans?size=100')).data.content ?? [];
+    return (await this.request('GET', '/api/security/scans?size=100')).body.content ?? [];
   }
 }

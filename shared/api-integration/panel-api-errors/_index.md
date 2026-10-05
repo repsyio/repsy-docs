@@ -26,14 +26,10 @@ A success is the bare resource, with no wrapper around it:
 An answer that carries a secret (login, a new or rotated deploy token, a password reset) has `Cache-Control: no-store`.
 
 {{< product "os" >}}
-Two groups of routes still answer the older wrapper `{"msgId": "...", "type": "SUCCESS", "text": "...", "errorCode": null, "data": ...}`
-on success, and the resource is in `data`: `/api/auth/...` (login, token refresh) and `/api/users/...`. They move to the bare
-form later. Failures are always the error document below.
+Failures are always the error document below.
 {{< /product >}}
 {{< product "cloud" >}}
-A few routes still answer the older wrapper `{"msgId": "...", "type": "SUCCESS", "text": "...", "errorCode": null, "data": ...}`
-on success, and the resource is in `data`: the public profile lookups under `/api/repos/lookup/...` and `POST /api/logs/frontend`.
-They move to the bare form later. Failures are always the error document below.
+The route `POST /api/logs/frontend` still answers the older wrapper `{"msgId": "...", "type": "SUCCESS", "text": "...", "errorCode": null, "data": ...}` on success. It will move to the bare form later. Failures are always the error document below.
 {{< /product >}}
 
 ## The Error Document

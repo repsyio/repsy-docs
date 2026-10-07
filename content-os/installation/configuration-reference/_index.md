@@ -47,7 +47,7 @@ lifetimes are 30 minutes for Docker and Cargo and 90 days for npm; after a chang
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `DB_URL` | Image: `jdbc:h2:file:/app/data/repsy;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE`, an embedded H2 database in the data volume. From source: `jdbc:postgresql://localhost:5432/repsy` | The JDBC URL of the database. Set it to `jdbc:postgresql://<host>:5432/<database>` to use PostgreSQL 18. It is the only place for the host, port and database name. Only PostgreSQL and H2 URLs are supported. |
+| `DB_URL` | Image: `jdbc:h2:file:/app/data/repsy;MODE=PostgreSQL;DB_CLOSE_DELAY=-1`, an embedded H2 database in the data volume. From source: `jdbc:postgresql://localhost:5432/repsy` | The JDBC URL of the database. Set it to `jdbc:postgresql://<host>:5432/<database>` to use PostgreSQL 18. It is the only place for the host, port and database name. Only PostgreSQL and H2 URLs are supported. Remove `;DB_CLOSE_ON_EXIT=FALSE` from an H2 URL copied from an older version of this page: with it H2 is never closed when Repsy stops, so a restart can lose recent changes. |
 | `DB_USERNAME` | `repsy` | The database user. With PostgreSQL it must be able to create tables in the `public` schema. |
 | `DB_PASSWORD` | `repsy123` | The password of the database user. Always set your own. |
 | `H2_TCP_SERVER_ENABLED` | `false` | Starts the TCP server of the H2 database. It has an effect with an H2 database only. The server accepts connections from the same container or host only, so it is not a way to reach the database from another machine. |

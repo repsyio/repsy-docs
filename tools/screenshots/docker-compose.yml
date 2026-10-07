@@ -10,7 +10,7 @@ services:
       - '127.0.0.1::8080'
       - '127.0.0.1::9090'
     environment:
-      DB_URL: jdbc:h2:file:/app/data/repsy;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      DB_URL: jdbc:h2:file:/app/data/repsy;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
       DB_USERNAME: repsy
       DB_PASSWORD: repsy123
       ADMIN_INITIAL_PASSWORD: ${SHOTS_ADMIN_PASSWORD:?set by the script}

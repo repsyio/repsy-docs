@@ -108,7 +108,7 @@ environment variables and start the jar from its own directory. With the embedde
 ```bash
 mkdir -p /var/lib/repsy
 cd /opt/repsy
-export DB_URL='jdbc:h2:file:/var/lib/repsy/repsy;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE'
+export DB_URL='jdbc:h2:file:/var/lib/repsy/repsy;MODE=PostgreSQL;DB_CLOSE_DELAY=-1'
 export STORAGE_BASE_PATH=/var/lib/repsy/storage
 export ADMIN_INITIAL_PASSWORD=ChangeMe123
 export REPO_BASE_URL=https://repo.example.com

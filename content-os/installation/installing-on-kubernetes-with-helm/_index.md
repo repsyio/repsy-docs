@@ -174,6 +174,11 @@ one process can open, and it is what Repsy suggests for evaluation and developme
 can back up, monitor and move on its own, see [Persisting Data and Backups](../../administration/persisting-data-and-backups/#choosing-the-database).
 Repsy creates and updates its own tables in all three cases.
 
+With the embedded H2 database the pod needs time to close it when it stops, so the chart sets `terminationGracePeriodSeconds` to
+`120` (the Kubernetes default is 30). A pod that is killed first starts the next time as after a crash and can lose recent changes.
+Chart versions up to `26.08.5` also set `DB_CLOSE_ON_EXIT=FALSE` on the H2 URL, with which every restart loses recent changes:
+upgrade the chart, or remove the option with `extraEnv` (a `DB_URL` without it).
+
 If you enable both `postgresql` and `externalDatabase`, the render stops with an error: choose one.
 
 **Moving from one database to another is not something the chart does.** The data stays in the database it was written to.

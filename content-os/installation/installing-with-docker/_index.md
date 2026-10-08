@@ -223,6 +223,10 @@ docker restart repsy    # stop and start
 docker rm -f repsy      # remove the container; the volume and its data stay
 ```
 
+With the embedded H2 database Repsy closes the database while it stops, which can take longer than the 10 seconds Docker
+waits by default. A container that is killed first starts the next time as after a crash, and can lose recent changes, so
+stop it with `docker stop -t 120 repsy`, or create it with `--stop-timeout 120`. (Compose: `stop_grace_period: 120s`.)
+
 To remove the data as well, remove the volume with `docker volume rm repsy-data`. This deletes your database and all
 packages for good.
 

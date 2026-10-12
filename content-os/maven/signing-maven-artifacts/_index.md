@@ -18,6 +18,13 @@ When a client uploads a signature, Repsy looks up the public key of the signer b
 
 Repsy asks a key server over HTTPS with a short timeout (3 seconds to connect and 5 seconds for the answer) and remembers a key it found for ten minutes, so a deploy with many signatures by one key asks the server once. A key that is revoked, or that had expired when the signature was made, is refused.
 
+Repsy also holds a new signature to a policy. It refuses, with `422` and `artifactSignatureNotVerified`:
+
+- a signature made with the digest **MD5** or **SHA-1**. SHA-256, SHA-384 and SHA-512 are accepted, and so is any other digest, because the policy names only the two weak ones;
+- an **inline-signed** message, that is a file made with `gpg --sign` or `gpg --clearsign`, which holds the signed data as well as the signature. Only a detached signature is a Maven `.asc`.
+
+The policy does not need a key, so it is applied before any key is looked up. It applies wherever Repsy verifies a signature on upload. The key size and the algorithm of the key are not part of it. A signature that is already stored is not held to it: it was accepted when it was uploaded, and it keeps verifying when Repsy checks the stored signatures of a version again, see below.
+
 {{% notice note %}}
 **What Signed means**
 
@@ -161,6 +168,7 @@ Repsy answers a refused signature with a JSON body that carries the identifier a
 | Status | Identifier and message | When |
 | --- | --- | --- |
 | `422` | `artifactSignatureNotVerified`: `Artifact signature isn't verified!` | The `.asc` is not an OpenPGP signature, it does not match the file it belongs to, or the signing key is revoked or had expired when the signature was made. Nothing is stored and nothing that is already there is changed. |
+| `422` | `artifactSignatureNotVerified`: `Artifact signature isn't verified!` | The signature was made with MD5 or SHA-1, or it is an inline-signed message. See [How Repsy Verifies Signatures](#how-repsy-verifies-signatures). |
 | `404` | `artifactSigningKeyNotFound`: `No public key was found for the key that signed this artifact.` | The key is not registered and no key server has it. |
 | `404` | `artifactSigningKeyNotRegistered`: `The key that signed this artifact is not registered, and key-server lookup is off.` | Air-gapped repository: the key is not registered. Repsy answers at once and asks no key server. |
 | `422` | `pendingSignatureNotVerified`: `The signature uploaded earlier for this file does not verify; upload both again.` | **Verify every signature** is on, the signature arrived before its file and does not verify. The file is refused and taken back out of the repository, and the held signature is dropped. |
@@ -170,6 +178,7 @@ With **Verify every signature** on, a signature can arrive before its file and i
 ### Troubleshooting
 
 - **The deploy fails with `404` although the files exist.** The key that signed is not registered and not on a key server (or the lookup is off). Register the public key, see above.
+- **`422 artifactSignatureNotVerified` for a signature that is valid.** Check the digest and the form of the signature: `gpg --list-packets file.asc` shows the digest algorithm as a number (`1` is MD5, `2` is SHA-1, `8` is SHA-256), and an `.asc` made with `--sign` or `--clearsign` is inline-signed. Sign with a detached signature (`gpg --detach-sign --armor`, which is what `maven-gpg-plugin` and Gradle's `signing` do) and with a digest of SHA-256 or stronger, for example with `digest-algo SHA256` in `gpg.conf`.
 - **`422 artifactSignatureNotVerified` after you changed a file.** The signature belongs to the old bytes of the file. Sign again: run `mvn clean deploy` or `./gradlew clean publish`.
 - **A version is not Signed although you signed everything.** With **Verify every signature** on, every file needs a verified signature, and uploading a file again (with **Package Override** on **Allow**) makes the version not signed until the signature of the new file is uploaded and verified. Check the list of files with **Browse Files**: every file should have an `.asc`.
 - **A key on a key server is not found.** Repsy asks over HTTPS and gives up after a few seconds. Register the key on the repository, or switch **Look up keys on key servers** off and register all keys.

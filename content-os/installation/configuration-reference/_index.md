@@ -186,6 +186,12 @@ see [Running Behind a Reverse Proxy](../../administration/running-behind-a-rever
 Repsy copies an upload into a temporary file while it checks it, instead of holding it in memory. Keep the temporary
 directory of Java (`java.io.tmpdir`) on a disk that has room for the largest package you allow.
 
+## Helm OCI
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `HELM_OCI_STRICT_WIRE` | `true` | Makes the OCI routes of Helm repositories keep to the wire rules of the Docker registry: a manifest push is refused with `400` when its tag breaks the distribution grammar, its `Content-Type` is not the OCI image manifest, its `schemaVersion` is not `2`, it has no config digest, or a digest reference is not the digest of the manifest; and a manifest pull whose `Accept` header names no manifest type gets `406`. Set it to `false` to go back to the earlier, lenient wire without waiting for a release. It does not change the `n` and `last` paging of `tags/list`. See [What Repsy Checks on an OCI Push and Pull](../../helm/publishing-and-pulling-charts-over-oci/#what-repsy-checks-on-an-oci-push-and-pull). |
+
 ## Vulnerability Scanning
 
 Repsy can scan pushed packages for known vulnerabilities with a separate scanner service, the `repsy-scanner-trivy`

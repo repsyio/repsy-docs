@@ -132,6 +132,8 @@ Use `host:port` for a host with a port, for example `--trusted-host repsy.exampl
 
 `pip` installs the highest final release by default. To install a pre-release, dev release or post release, name the version (`example-package==1.0.0rc1`) or add `--pre`. Repsy lists every version of a package, whatever its kind.
 
+A local version such as `example-package==1.0.0+cu118` is installed by naming its label. A requirement without the label (`example-package==1.0.0`) also matches the local builds of `1.0.0`, and `pip` prefers the highest match, which is a local build. To install only the public release, use `example-package===1.0.0`. See [Local Versions](../publishing-a-python-package-with-twine/#local-versions).
+
 ### Check the Repository Without pip
 
 `pip` reads the project page of a package, `{{% repo-url %}}/<repo-name>/simple/<package-name>/`. It is an HTML page with a link to every file of the package. Each link has the SHA-256 digest of the file as its fragment (`#sha256=...`), which `pip` checks after the download, and a `data-requires-python` attribute when the release has a `Requires-Python`, which `pip` uses to skip versions that do not support your Python:

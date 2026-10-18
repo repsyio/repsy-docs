@@ -40,7 +40,7 @@ export function removeTempDirs() {
 }
 
 /**
- * Puts a copy of origin/main of repsyio/repsy (with its `core` submodule) into `destDir` and returns
+ * Puts a copy of origin/main of repsyio/repsy into `destDir` and returns
  * the short commit. With REPSY_REPO_DIR (a local clone) the clone is only READ: `git fetch` and `git archive`,
  * never a checkout or a build inside it. Without it, the repository is cloned from GitHub into `destDir`.
  */
@@ -53,16 +53,20 @@ async function copyOsSource(destDir) {
     }
     const sha = await sh('git', ['-C', local, 'rev-parse', 'origin/main']);
     await pipeArchive(['-C', local, 'archive', sha], destDir);
+    // repsy-core is a released version that Maven downloads since RPS-2265. Only an origin/main that still has the
+    // `core` submodule (older than that) needs it copied in.
     const link = await sh('git', ['-C', local, 'ls-tree', sha, 'core']);
     const coreSha = link.split(/\s+/)[2];
-    const coreDir = path.join(destDir, 'core');
-    fs.mkdirSync(coreDir, { recursive: true });
-    try {
-      await pipeArchive(['-C', path.join(local, 'core'), 'archive', coreSha], coreDir);
-    } catch {
-      // The submodule of the local clone does not have that commit yet: fetch it from the submodule's remote.
-      await sh('git', ['-C', path.join(local, 'core'), 'fetch', '--quiet', 'origin']);
-      await pipeArchive(['-C', path.join(local, 'core'), 'archive', coreSha], coreDir);
+    if (coreSha) {
+      const coreDir = path.join(destDir, 'core');
+      fs.mkdirSync(coreDir, { recursive: true });
+      try {
+        await pipeArchive(['-C', path.join(local, 'core'), 'archive', coreSha], coreDir);
+      } catch {
+        // The submodule of the local clone does not have that commit yet: fetch it from the submodule's remote.
+        await sh('git', ['-C', path.join(local, 'core'), 'fetch', '--quiet', 'origin']);
+        await pipeArchive(['-C', path.join(local, 'core'), 'archive', coreSha], coreDir);
+      }
     }
     return sha;
   }

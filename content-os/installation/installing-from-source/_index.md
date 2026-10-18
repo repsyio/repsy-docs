@@ -17,41 +17,33 @@ and described in detail.
 
 | Requirement | Version | Why |
 | --- | --- | --- |
-| Git | Any recent version | To fetch the source, including a submodule. |
+| Git | Any recent version | To fetch the source. |
 | JDK | **25** | The build only accepts Java 25, and Repsy runs on it. |
 | Apache Maven | 3.9.7 or newer | Builds the backend. |
 | Node.js | 24.x | Builds the web panel. The project declares that other major versions are not supported. |
 | pnpm | 12.5.1 | The package manager of the web panel. This is the version the project's own build uses. |
 | A database | PostgreSQL 18, or the embedded H2 database | Nothing to install for H2. |
 
-The first frontend build downloads the OpenAPI generator from Maven Central, and both builds download their dependencies, so
-you need internet access. The generator runs on Java.
+The first frontend build downloads the OpenAPI generator from Maven Central, and both builds download their dependencies
+(the shared Maven parent of the backend build comes from the public Repsy repository at `repo.repsy.io`), so you need
+internet access. The generator runs on Java.
 
 {{< steps >}}
 ### Get the Source
 
-Clone the repository together with its submodule, `core`, which holds the shared Maven parent of the build. Use the tag of
-the release you want to build; release tags start with `v`. Without `--branch` you get the development branch `main`,
-which is not a release.
+Clone the repository. Use the tag of the release you want to build; release tags start with `v`. Without `--branch` you
+get the development branch `main`, which is not a release.
 
 ```bash
-git clone --branch <release-tag> --recurse-submodules https://github.com/repsyio/repsy.git
+git clone --branch <release-tag> https://github.com/repsyio/repsy.git
 cd repsy
-```
-
-The submodule is configured with an SSH address (`git@github.com:repsyio/repsy-core.git`). If you have no SSH key for GitHub,
-tell Git to use HTTPS for it:
-
-```bash
-git -c url."https://github.com/".insteadOf="git@github.com:" clone --branch <release-tag> --recurse-submodules https://github.com/repsyio/repsy.git
 ```
 
 ### Build the Backend
 
-Install the shared modules first, then build the backend with everything it needs:
+Build the backend with everything it needs:
 
 ```bash
-mvn -f core/pom.xml install -DskipTests
 mvn install -pl repsy-backend -am -DskipTests -DskipITs
 ```
 
@@ -158,7 +150,7 @@ its environment variables in a file that only its user can read: they contain pa
 
 ## Updating
 
-To move to a newer release, fetch its tag, update the submodule, and repeat the build steps. Then replace `app.jar` and
+To move to a newer release, fetch its tag and repeat the build steps. Then replace `app.jar` and
 the `static` directory in your run directory and restart Repsy. Take a backup of the database and of the storage
 directory before you start a new release: database migrations only go forward.
 [Upgrading Repsy Open Source](../../administration/upgrading-repsy-open-source/) describes upgrades in detail.

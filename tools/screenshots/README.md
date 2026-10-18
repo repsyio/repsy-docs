@@ -37,7 +37,7 @@ the image `repsy-os-docs-shots:<commit>`. Environment variables:
 | Variable | Meaning |
 | --- | --- |
 | `REPSY_IMAGE` | Use this image (local, or pulled, e.g. `repo.repsy.io/repsy/os/repsy:latest`) instead of building one. |
-| `REPSY_REPO_DIR` | A local clone of repsyio/repsy. It is only read (`git fetch`, `git archive` of `origin/main` and of its `core` submodule), never checked out or built in. Without it the repository is cloned from `REPSY_REPO_URL` (default GitHub). |
+| `REPSY_REPO_DIR` | A local clone of repsyio/repsy. It is only read (`git fetch`, `git archive` of `origin/main`), never checked out or built in. Without it the repository is cloned from `REPSY_REPO_URL` (default GitHub). |
 | `SHOTS_NO_FETCH` | Skip the `git fetch` in `REPSY_REPO_DIR`. |
 | `SHOTS_REBUILD` | Build the image even when the tag exists. |
 | `SHOTS_VERBOSE` | Show the output of `docker build`. |

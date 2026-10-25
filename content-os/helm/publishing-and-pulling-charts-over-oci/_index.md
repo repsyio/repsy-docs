@@ -69,6 +69,8 @@ curl -u <username>:<password-or-token> {{% repo-url %}}/v2/<repo-name>/my-chart/
 
 The address of the OCI API starts with `/v2/` directly after the host, and the repository name follows it.
 
+The tags come in alphabetical order (by character code), and the list holds tags only: a chart that was pushed by a digest is not listed under that digest. `n` limits the answer to that many tags and `last` starts after the tag you name. When more tags follow, the answer carries a `Link` header with `rel="next"` that names the next page, and clients follow it by themselves. Without `n` you get every tag at once. An `n` that is not a whole number of at least 0 is refused with `400` and the error code `PAGINATION_NUMBER_INVALID`.
+
 ### Pull and install
 
 Download the chart, or install it into your cluster:
@@ -100,6 +102,22 @@ Both protocols share the name and the version of a chart. The web UI lists the c
 
 Deleting a version in the web UI removes it for both protocols, see [Managing Chart Versions](../managing-chart-versions/#deleting-versions-and-charts).
 
+### What Repsy Checks on an OCI Push and Pull
+
+Repsy keeps to the same wire rules as its [Docker registry](../../docker/) on the OCI routes of a Helm repository. A manifest push is refused with `400` when:
+
+- the **tag** in the address does not follow the distribution grammar: it has to start with a letter, a digit or `_`, may continue with letters, digits, `_`, `.` and `-`, and has at most 128 characters (`dockerReferenceInvalid`, shown to OCI clients as `TAG_INVALID`);
+- the manifest is sent with a **`Content-Type`** other than `application/vnd.oci.image.manifest.v1+json` (`manifestMediaTypeUnsupported`);
+- its **`schemaVersion`** is not `2` (`manifestSchemaVersionInvalid`);
+- it has **no config digest** (`manifestConfigMissing`);
+- it is pushed by a **digest** that is not the digest of the manifest bytes (`digestMismatch`, shown as `DIGEST_INVALID`). A tag is always accepted by this check.
+
+`helm push` sends a conforming manifest, so you meet these refusals only with a hand-written client or script. A pull whose `Accept` header names no manifest type that Repsy serves is answered with `406`. A missing `Accept` header, `*/*`, `application/json` and the Docker and OCI manifest types are accepted.
+
+When a manifest is pushed by a digest, the `Location` and `Docker-Content-Digest` headers of the answer carry the digest in the algorithm of that reference (`sha256` or `sha512`). A push by tag answers with the `sha256` digest of the manifest.
+
+The checks of the push and the `406` can be switched off with `HELM_OCI_STRICT_WIRE=false`, see [Helm OCI](../../installation/configuration-reference/#helm-oci). The paging of `tags/list` does not depend on it.
+
 ### Troubleshooting
 
 | What you see | Cause |
@@ -111,6 +129,8 @@ Deleting a version in the web UI removes it for both protocols, see [Managing Ch
 | `response status code 409: denied: This chart version already exists in the repository.: chartAlreadyExists` | The version exists and **Package Override** is **Deny**. Publish a new version, or ask an administrator to allow overriding. |
 | `response status code 404: name unknown: unknownPath` on `helm push` | The address of `helm push` contains the chart name. Use `oci://<host>/<repo-name>`. Or the repository name is wrong, or the repository has another type. |
 | `not found` on `helm pull` | The chart or the version does not exist in that repository, or it was published the classic way and has no OCI manifest. |
+| `400` with `dockerReferenceInvalid`, `manifestMediaTypeUnsupported`, `manifestSchemaVersionInvalid`, `manifestConfigMissing` or `digestMismatch` on a manifest push | The manifest or its tag breaks a rule of [What Repsy Checks on an OCI Push and Pull](#what-repsy-checks-on-an-oci-push-and-pull). `helm push` does not cause this: look at the script or the tool that sent the manifest. |
+| `406` on a manifest pull | The `Accept` header of the request names no manifest type that Repsy serves. |
 | `invalid reference: invalid repository "<repo-name>/<Chart>"` | Helm refuses a chart name with upper case letters before it sends anything. Repsy needs a lower case name in `Chart.yaml` too. |
 | `400`, `chartNameInvalid`, `chartVersionInvalid` or `chartYamlNotFound` | The chart does not pass the checks in [What Repsy Checks on Upload](../managing-chart-versions/#what-repsy-checks-on-upload). |
 

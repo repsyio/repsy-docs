@@ -144,18 +144,28 @@ A refused upload changes nothing in the repository: nothing is stored and no ver
    | --- | --- |
    | `1.0.0` | `v1.0.0` |
    | `1.0.0rc1`, `1.0.0a1`, `1.0.0b2` | `1.0.0alpha1` (spelled out) |
-   | `1.0.0.post1` | `1.0.0+build5` (a local version) |
+   | `1.0.0.post1` | `1.0.0+Build5` (upper case in a local version) |
    | `1.0.0.dev1` | `01.0.0` (leading zeros) |
+   | `1.0.0+cu118`, `1.0.0+local.1` (local versions) | `1.0.0+build-5` (a local version with a `-` in it) |
 
    Other kinds of files, such as eggs or Windows installers, are refused too.
 4. **The digest.** Every upload has to state the SHA-256 digest of its file, and Repsy compares it with the file it received. `twine` does this for you. A hand-written client that leaves it out or sends a wrong one is refused with `400`.
 5. **Package Override.** See [Uploading a Version Again](#uploading-a-version-again).
-6. **The version.** The version in the metadata of the upload has to be a valid Python version. Repsy normalizes the spelling it accepts here, for example `1.0-rc1` to `1.0rc1`.
+6. **The version.** The version in the metadata of the upload has to be a valid Python version. Repsy normalizes the spelling it accepts here, for example `1.0-rc1` to `1.0rc1`. It also has to be the version in the file name, once normalized: a file named `example_package-1.0.0-py3-none-any.whl` cannot be uploaded as version `1.0.1`. The upload is refused with `400` and the identifier `archiveVersionMismatch`.
 7. **The size limit.** An upload of more than 500 MB is refused with `413`. An administrator can change the limit of Repsy with the `MULTIPART_MAX_FILE_SIZE` and `MULTIPART_MAX_REQUEST_SIZE` environment variables.
 
 The name of a package is normalized before it is stored: runs of `-`, `_` and `.` become one `-`, and upper case becomes lower case. `Example_Package`, `example.package` and `example-package` are the same package, and `pip` asks for it by the normalized name.
 
 Repsy accepts pre-releases, dev releases and post releases like final releases: `1.0.0rc1`, `1.0.0.dev1` and `1.0.0.post1` are published like `1.0.0`. The repository has no setting that switches one of these kinds off.
+
+### Local Versions
+
+A [local version](https://packaging.python.org/en/latest/specifications/version-specifiers/#local-version-identifiers) is a version with a label after a `+`, such as `2.1.0+cu118` or `1.0.0+local.1`. Builds of the same release for different environments use it, for example a wheel built for one CUDA version. Repsy keeps the label: `1.0.0`, `1.0.0+cu118` and `1.0.0+cu121` are three separate releases, each with its own files.
+
+- In a file name the label is written in lower case, with `.` between its parts: `example_package-1.0.0+cu118-py3-none-any.whl` or `example-package-1.0.0+local.1.tar.gz`. `python -m build` writes it this way.
+- Deleting a release in the web UI removes the files of that exact version. Deleting `1.0.0` leaves `1.0.0+cu118` alone, and deleting `1.0.0+cu118` leaves `1.0.0` alone.
+- `pip` and `uv` order a local version after its public release, so `1.0.0+cu118` is newer than `1.0.0`, and older than `1.0.1`. The web UI lists them in this order.
+- A requirement without a label, such as `example-package==1.0.0`, also matches the local builds of `1.0.0`, as PEP 440 defines. To install one of them, write its label in the requirement: `example-package==1.0.0+cu118`.
 
 ### Uploading a Version Again
 
@@ -179,8 +189,9 @@ Publish a new version instead of replacing an old one whenever you can: a client
 | `401` | The credentials are missing or wrong, or the deploy token is read-only, expired, revoked or belongs to another repository. With `--non-interactive` and no credentials, `twine` stops before it sends anything. |
 | `403`, `fileAlreadyExists` | The file already exists and **Package Override** is **Deny**. Publish a new version, or ask an administrator to allow overriding. |
 | `404` | The address is not a PyPI repository of your instance: the repository name is wrong, the repository has another type, or the address ends in `/simple`. |
-| `400`, `archiveFileNameInvalid`: `Invalid archive file name. It must start with the package name followed by a hyphen followed by the version name.` | The file name is not in the form above, or it is another kind of file. Check that the version is in the canonical form. |
+| `400`, `archiveFileNameInvalid`: `Invalid archive file name. It must start with the package name followed by a hyphen followed by the version name.` | The file name is not in the form above, or it is another kind of file. Check that the version is in the canonical form, and that a local version is written in lower case with `.` between its parts. |
 | `400`, `badVersionString`: `Release version is invalid.` | The version in the metadata is not a valid Python version. |
+| `400`, `archiveVersionMismatch`: `The version in the archive file name does not match the release version.` | The version in the metadata of the upload is not the version in the file name. Build the package again, so that both carry the same version. |
 | `400`, `sha256DigestMissing` or `sha256DigestMismatch` | The upload did not carry the digest of its file, or the digest is not the one of the file. Upload with `twine`. |
 | `400`, `badPackageMetadata`: `Package metadata is invalid.` | The metadata of the upload could not be read. |
 | `400`, `pypiPackageNameTooLong`, `pypiVersionTooLong`, `pypiArchiveFileNameTooLong` or `pypiRequiresPythonTooLong` | A value is longer than 255 characters. |

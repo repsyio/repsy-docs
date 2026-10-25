@@ -141,8 +141,8 @@ Repsy also sends `X-Content-Type-Options: nosniff` on both ports, and `Referrer-
 
 ## Authentication
 
-Repsy limits and caches the password checks of package clients and of the panel's sign-in.
-See [Authenticating from CI](../../administration/authenticating-from-ci/) for how the limit and the cache affect CI jobs.
+Repsy limits and caches the password checks of package clients and of the panel's sign-in, and bans clients that send probes.
+See [Authenticating from CI](../../administration/authenticating-from-ci/) for how the limit, the probe ban and the cache affect CI jobs.
 
 | Variable | Default | Description |
 | --- | --- | --- |
@@ -153,9 +153,19 @@ See [Authenticating from CI](../../administration/authenticating-from-ci/) for h
 | `AUTH_THROTTLE_MAX_FAILURES` | `20` | How many failed checks a client may make in one window. Raise it if many users share one address, for example a company network. |
 | `AUTH_THROTTLE_WINDOW_SECONDS` | `60` | The length of the window in seconds. When it ends, the count starts again. |
 | `AUTH_THROTTLE_MAX_CLIENTS` | `10000` | How many clients Repsy tracks at once. The least recently seen client is dropped first. |
+| `PROBE_THROTTLE_MODE` | `enforce` | `enforce`, `observe` or `off`. Bans a client that sends probes, such as path traversals or requests for `.env`. A banned client gets `429 Too Many Requests` with a `Retry-After` header on every path. In `observe` Repsy only logs and counts what it would refuse, which is the way to try the feature on real traffic first. `off` switches it off. |
+| `PROBE_THROTTLE_MAX_STRIKES` | `10` | How many strikes ban a client within one window. Every probe weighs a number of strikes, see the table of signals in [Authenticating from CI](../../administration/authenticating-from-ci/#the-probe-ban). |
+| `PROBE_THROTTLE_WINDOW_SECONDS` | `60` | The length of the strike window in seconds. |
+| `PROBE_THROTTLE_BAN_SECONDS` | `3600` | How long a banned client is refused, in seconds. |
+| `PROBE_THROTTLE_MAX_CLIENTS` | `10000` | How many clients Repsy tracks at once. The least recently seen client is dropped first. |
+| `PROBE_THROTTLE_ALLOWLIST` | empty | Comma-separated addresses or CIDR ranges, for example `10.0.0.0/8,192.0.2.5`, that are never counted or banned. Use it for your own vulnerability scanner. |
+| `PROBE_THROTTLE_SIGNALS_<FAMILY>_ENABLED` | `true` | Switches one kind of probe off. `<FAMILY>` is a name from the table of signals, written with underscores, for example `SCRIPT_TARGET`. |
+| `PROBE_THROTTLE_SIGNALS_<FAMILY>_WEIGHT` | see the table | The strikes one request of that kind counts. `0` has the same effect as switching it off. |
+| `PROBE_THROTTLE_SIGNALS_<FAMILY>_API_PORT_ONLY` | see the table | `true` looks for that kind of probe only on the web UI and API port, `false` on the package ports too. |
 
-The numeric `AUTH_THROTTLE_` values and the two numeric cache values must be positive unless the feature is disabled;
-otherwise Repsy does not start. A client is told apart by its address. Behind a reverse proxy this is the address the proxy
+The numeric `AUTH_THROTTLE_` and `PROBE_THROTTLE_` values and the two numeric cache values must be positive unless the
+feature is disabled; otherwise Repsy does not start. The probe ban and the failed-login limit tell a client apart by its
+address. Behind a reverse proxy this is the address the proxy
 passes in `X-Forwarded-For`, and an IPv6 client counts by its `/64` network. The proxy must be one that Repsy trusts,
 otherwise all clients look like one and share a count.
 

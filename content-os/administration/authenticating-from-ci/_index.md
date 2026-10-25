@@ -187,6 +187,81 @@ blocked, at ten times the limit, loses the exception for remembered passwords to
 
   If the address in that line is your proxy, see [Running Behind a Reverse Proxy](../running-behind-a-reverse-proxy/#forward-the-clients-address-scheme-and-host).
 
+## The probe ban
+
+Repsy also bans clients that send probes: requests that no Repsy client sends and that vulnerability scanners fire at
+every server they find, such as `/api/orders/../../proc/self/environ` or `/.env`. Each such request counts strikes
+against the client. A client that collects `PROBE_THROTTLE_MAX_STRIKES` (10) strikes within `PROBE_THROTTLE_WINDOW_SECONDS`
+seconds (60) is banned for `PROBE_THROTTLE_BAN_SECONDS` seconds (3600), and a single request that weighs 10 strikes bans
+at once. While a client is banned, every request is answered, on every path and port, with:
+
+```text
+HTTP/1.1 429
+Retry-After: 3541
+
+Too many requests
+```
+
+`Retry-After` holds the seconds left of the ban. Unlike the failed-login limit, a ban does not make an exception for
+valid credentials or deploy tokens. A path traversal on the web UI and API port is answered `404 Not Found` in every
+mode except `off`, banned or not.
+
+The signals, with the strikes one request counts. Package clients such as Maven, npm, Docker, pip, NuGet, Cargo and Helm
+do not send any of them:
+
+| Signal (`<FAMILY>`) | Strikes | Looks for | Where |
+| --- | --- | --- | --- |
+| `TRAVERSAL` | 5 | A `..` path segment, also percent-encoded or with a backslash | Every port |
+| `SECRET_PATH` | 5 | Paths that hunt for secrets: `.env`, `/proc/self/`, `.git/`, `.aws/`, `web.config`, `actuator/env` | API port |
+| `NULL_BYTE` | 3 | A NUL byte (`%00`) in the request | Every port |
+| `METHOD_ABUSE` | 3 | `TRACE`, `CONNECT`, `PROPFIND` and other methods that no route accepts | API port |
+| `SCRIPT_TARGET` | 3 | Scripts the server does not have (`.php`, `wp-login`, `phpMyAdmin`). Not counted for a browser that is navigating, and not under `/api/`, where the names of your repositories and files travel | API port |
+| `SQLI` | 2 | SQL injection in the path or query, such as `union select` or `sleep(` | API port |
+| `XSS` | 2 | Script injection in the path or query, such as `<script` | API port |
+| `CMDI` | 2 | Command injection in the query | API port |
+| `SSRF_URL` | 3 | A query that points the server at cloud metadata addresses or at `file://`, `gopher://` and `dict://` URLs | API port |
+| `LOG4SHELL` | 5 | `${jndi:` and the related lookups | Every port |
+| `SSTI` | 2 | Template injection such as `{{7*7}}` | API port |
+| `DOUBLE_ENCODED` | 1 | A twice percent-encoded path | API port |
+| `OVERLONG_URI` | 1 | A request URI over 2048 characters | API port |
+| `SCANNER_UA` | 3 | The User-Agent of a known scanner. It adds to a client's strikes but never bans alone | Every port |
+
+Set `PROBE_THROTTLE_SIGNALS_<FAMILY>_ENABLED`, `..._WEIGHT` or `..._API_PORT_ONLY` to switch one signal off, give it
+another weight or widen it to the package ports, see the [Configuration Reference](../../installation/configuration-reference/#authentication).
+
+How it counts:
+
+- **Who is the client.** The same as for the failed-login limit: the remote address, the one from `X-Forwarded-For`
+  behind a trusted proxy, and the `/64` network for IPv6. See
+  [Running Behind a Reverse Proxy](../running-behind-a-reverse-proxy/).
+- **Browsers acting for another site.** Requests that a browser marks `Sec-Fetch-Site: cross-site` or `same-site` are
+  answered as usual but never counted, so a page of another site cannot get a visitor banned. A scanner that sends that
+  header only avoids the ban.
+- **Per instance.** Bans are held in memory, so each instance counts on its own and a restart clears them.
+
+### Try it first
+
+Set `PROBE_THROTTLE_MODE` to `observe` to see what would happen without refusing anyone. Repsy then logs the clients it
+would ban and counts the requests it would have refused in the metric `repsy.security.probe_would_block`. The first probe
+of a client in a window is logged at `INFO` and a ban at `WARN`:
+
+```text
+Client 203.0.113.7 (network 203.0.113.7) sent suspicious requests [TRAVERSAL, SECRET_PATH] reaching 10 strikes (would be banned if repsy.security.probe-throttle.mode were enforce)
+```
+
+### If a legitimate client is banned
+
+- **A vulnerability scanner of your own.** Put its address in `PROBE_THROTTLE_ALLOWLIST`, or run it with
+  `PROBE_THROTTLE_MODE=observe` for the test.
+- **Many users behind one address.** A company network or a shared egress address counts as one client, so one machine
+  that runs a scanner or an infected tool gets everyone behind that address banned for an hour. Allowlist the egress
+  address if you trust it, find the machine from the `WARN` line in the log, or raise `PROBE_THROTTLE_MAX_STRIKES`.
+- **The proxy address is used as the client.** If Repsy does not trust your proxy, every request appears to come from
+  the proxy and one probe bans everybody. See
+  [Running Behind a Reverse Proxy](../running-behind-a-reverse-proxy/#forward-the-clients-address-scheme-and-host).
+- **A false positive.** If a request of a real client is counted, switch off or lower the signal that the log line
+  names, for example `PROBE_THROTTLE_SIGNALS_SCRIPT_TARGET_ENABLED=false`, and report the request in an issue.
+
 ## The Basic authentication cache
 
 To avoid one BCrypt check for every request of a client that sends its username and password each time, Repsy remembers

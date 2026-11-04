@@ -29,10 +29,22 @@
     }
   }
 
+  // The redirect target comes from a DOM attribute. Only a plain absolute path on this site is followed
+  // (letters, digits and - _ . / ~ only, no scheme, no host, no "//"); anything else is ignored.
+  function sameSitePath(value) {
+    if (typeof value !== 'string' || !/^\/(?!\/)[A-Za-z0-9\-_.~/]*$/.test(value)) {
+      return null;
+    }
+    return value;
+  }
+
   var script = document.currentScript;
   if (script && script.getAttribute('data-os-home')) {
     if (read() === 'os') {
-      window.location.replace(script.getAttribute('data-os-home'));
+      var home = sameSitePath(script.getAttribute('data-os-home'));
+      if (home) {
+        window.location.replace(home);
+      }
     }
     return;
   }

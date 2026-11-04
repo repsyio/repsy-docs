@@ -29,10 +29,27 @@
     }
   }
 
+  // The redirect target comes from a DOM attribute; only follow it when it resolves to this site's own origin
+  // (never a javascript: or other-site URL) and return the resolved same-site path.
+  function sameSitePath(value) {
+    try {
+      var url = new URL(value, window.location.href);
+      if (url.origin !== window.location.origin) {
+        return null;
+      }
+      return url.pathname + url.search + url.hash;
+    } catch (e) {
+      return null;
+    }
+  }
+
   var script = document.currentScript;
   if (script && script.getAttribute('data-os-home')) {
     if (read() === 'os') {
-      window.location.replace(script.getAttribute('data-os-home'));
+      var home = sameSitePath(script.getAttribute('data-os-home'));
+      if (home) {
+        window.location.replace(home);
+      }
     }
     return;
   }

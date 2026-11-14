@@ -16,7 +16,3 @@ description = "The rp command line client for Repsy OS and Repsy Cloud: installa
 - [Exit codes](exit-codes/)
 - [Environment variables](environment-variables/)
 - [Command reference](reference/)
-
-{{% notice note %}}
-The CLI is under development. Only the commands listed in the [command reference](reference/) exist today; this section grows with them.
-{{% /notice %}}

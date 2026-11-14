@@ -19,7 +19,3 @@ A flag beats the matching environment variable, which beats the stored profile (
 | `XDG_CONFIG_HOME` | When absolute, the configuration directory is `$XDG_CONFIG_HOME/repsy`. |
 | `HTTPS_PROXY`, `HTTP_PROXY`, `NO_PROXY` | The standard proxy settings. Requests to `localhost` are never proxied. |
 | `NO_COLOR` | When non-empty, disables colored output, like `--no-color`. |
-
-{{% notice note %}}
-The authentication commands are not available yet, so `REPSY_TOKEN` has no effect on the commands that exist today.
-{{% /notice %}}

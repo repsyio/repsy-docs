@@ -10,6 +10,8 @@ This guide explains how to configure, receive, and verify webhook events securel
 
 **Note:** Webhook payload field names are camelCase (for example `eventId`, `eventType`, `webhookUrl`, `createdAt`). Events sent before 2026-10-05 used snake_case names (`event_id`, `event_type`, `webhook_url`, `created_at`); update your receiver if it reads the old names.
 
+**Note:** The repository, package and version objects carry their identifier in `id`. Events sent before 2026-11-16 named it `uuid`, and for older objects the `id` value differs from the old `uuid` value; update your receiver if it reads `uuid` or stores these values.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -26,12 +28,12 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
   "date": "2025-07-21T12:01:03.525814226Z",
   "repoType": "MAVEN",
   "artifact": {
-    "uuid": "e7a2fe3e-5950-4782-801f-49e35814817f",
+    "id": "e7a2fe3e-5950-4782-801f-49e35814817f",
     "name": "nosnapshot",
     "createdAt": "2025-07-21T11:53:43.345355221Z",
     "lastUpdatedAt": "2025-07-21T11:53:43.345357643Z",
     "repository": {
-      "uuid": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
+      "id": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
       "owner": "owner",
       "name": "maven",
       "description": null,
@@ -43,7 +45,7 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
       }
     },
     "version": {
-      "uuid": "e2f2fcfd-7102-40b5-97b8-f01f3734b637",
+      "id": "e2f2fcfd-7102-40b5-97b8-f01f3734b637",
       "name": "2025.07.21-1753098807423",
       "description": null,
       "createdAt": "2025-07-21T11:53:43.348303489Z",

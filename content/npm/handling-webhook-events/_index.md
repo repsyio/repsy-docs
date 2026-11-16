@@ -10,6 +10,8 @@ This guide explains how to configure, receive, and verify webhook events securel
 
 **Note:** Webhook payload field names are camelCase (for example `eventId`, `eventType`, `webhookUrl`, `createdAt`). Events sent before 2026-10-05 used snake_case names (`event_id`, `event_type`, `webhook_url`, `created_at`); update your receiver if it reads the old names.
 
+**Note:** The repository, package and version objects carry their identifier in `id`. Events sent before 2026-11-16 named it `uuid`, and for older objects the `id` value differs from the old `uuid` value; update your receiver if it reads `uuid` or stores these values.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -26,13 +28,13 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
   "date": "2025-07-21T12:01:03.525814226Z",
   "repoType": "NPM",
   "package": {
-    "uuid": "78da8374-36a6-471b-9956-80f46659b765",
+    "id": "78da8374-36a6-471b-9956-80f46659b765",
     "name": "scoped",
     "scope": "foo",
     "latest": "2025.7.21-1753098726995",
     "createdAt": "2025-07-21T11:52:08.488494390Z",
     "registry": {
-      "uuid": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
+      "id": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
       "owner": "owner",
       "name": "npm",
       "description": null,
@@ -41,7 +43,7 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
       "metadata": null
     },
     "version": {
-      "uuid": "1e3aac96-8e04-40c9-8672-b0ea365ed8ef",
+      "id": "1e3aac96-8e04-40c9-8672-b0ea365ed8ef",
       "version": "2025.7.21-1753098726995",
       "description": null,
       "createdAt": "2025-07-21T11:52:08.490848023Z",

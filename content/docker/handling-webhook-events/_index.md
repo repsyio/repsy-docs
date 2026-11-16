@@ -10,6 +10,8 @@ This guide explains how to configure, receive, and verify webhook events securel
 
 **Note:** Webhook payload field names are camelCase (for example `eventId`, `eventType`, `webhookUrl`, `createdAt`). Events sent before 2026-10-05 used snake_case names (`event_id`, `event_type`, `webhook_url`, `created_at`); update your receiver if it reads the old names.
 
+**Note:** The repository, package and version objects carry their identifier in `id`. Events sent before 2026-11-16 named it `uuid`, and for older objects the `id` value differs from the old `uuid` value; update your receiver if it reads `uuid` or stores these values.
+
 {{< steps >}}
 
 ### What is a Webhook Event?
@@ -26,12 +28,12 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
   "date": "2025-07-21T12:01:03.525814226Z",
   "repoType": "DOCKER",
   "image": {
-    "uuid": "b1ff0315-9179-471f-8090-b86363cae072",
+    "id": "b1ff0315-9179-471f-8090-b86363cae072",
     "name": "default",
     "createdAt": "2025-07-21T12:01:03.456839Z",
     "lastUpdatedAt": "2025-07-21T12:01:03.456844Z",
     "repository": {
-      "uuid": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
+      "id": "064a1f9d-af9f-4cb0-8875-12b739a5fb88",
       "owner": "owner",
       "name": "docker",
       "description": null,
@@ -40,7 +42,7 @@ A webhook is an HTTP POST request sent by Repsy to a URL you define when a speci
       "metadata": null
     },
     "tag": {
-      "uuid": "a3f6078e-bc53-4a0e-982b-5905dc68ae53",
+      "id": "a3f6078e-bc53-4a0e-982b-5905dc68ae53",
       "name": "2025.07.21-1753099258149",
       "createdAt": "2025-07-21T12:01:03.472843Z",
       "lastUpdatedAt": "2025-07-21T12:01:03.472848Z",

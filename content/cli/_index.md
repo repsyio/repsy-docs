@@ -15,6 +15,7 @@ description = "The rp command line client for Repsy OS and Repsy Cloud: installa
 - [Configuration](configuration/)
 - [Exit codes](exit-codes/)
 - [Environment variables](environment-variables/)
+- [MCP server](mcp/): use Repsy from an AI agent such as Claude Code, Cursor or VS Code
 - [Command reference](reference/)
 
 {{% notice note %}}

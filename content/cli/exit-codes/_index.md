@@ -23,3 +23,14 @@ An HTTP 403 means the credentials are valid but not allowed to do the thing. Log
 ## Error output
 
 A failed command reports the error once. With `--output json` the error goes to standard output as an object `{"error": {status, code, title, detail, traceId, hint, errors}}`; otherwise it goes to standard error as `Error: <detail> (code: <code>, trace: <trace>)`, with an optional `Hint:` line. Quote the trace id when you report a problem.
+
+Every member of the JSON object is always present. `status` is the HTTP status of the answer, or 0 when the error did not come from the server. For an error from the server, `code` and `title` are the server's. For an error of `rp` itself (`status` 0), they name its kind:
+
+| `code` | `title` | Exit code |
+| --- | --- | --- |
+| `usageError` | Usage error | 2 |
+| `notSupported` | Not supported | 2 |
+| `authRequired` | Authentication required | 4 |
+| `scanThreshold` | Scan threshold exceeded | 5 |
+
+Any other error of `rp` itself, such as a network failure, has an empty `code` and exits with 1. To tell an error of `rp` from one of the server, test `status == 0`. Before `rp` 0.1.6 the `code` of an error of `rp` itself was always empty.

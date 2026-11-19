@@ -11,7 +11,7 @@ description = "Let an AI agent such as Claude Code, Cursor or VS Code browse Rep
 
 The MCP client (Claude Code, Claude Desktop, Cursor, VS Code and others) starts `rp mcp` itself and talks to it over standard input and output. You do not run it by hand; you add it to the client's configuration, as shown below.
 
-- The server **only reads** unless it is started with `--allow-writes`, which adds three tools: create a repository, start a security scan and create a deploy token.
+- The credential decides what the agent can do. Three tools change the registry (create a repository, start a security scan, create a deploy token); the server offers them only while its credential may use them, and `--read-only` hides them.
 - No tool deletes, revokes or rotates anything.
 - [MCP Tools](tools/) lists every tool and its arguments; `rp mcp tools` prints the same list.
 
@@ -31,7 +31,7 @@ The MCP client (Claude Code, Claude Desktop, Cursor, VS Code and others) starts 
 rp token create --name mcp --scope repo:read --show-secret
 ```
 
-`repo:read` is enough for every read tool. With `--allow-writes`, creating a repository needs `repo:manage` and starting a scan needs `repo:write`; give the token those scopes only if you enable writes.
+`repo:read` is enough for every read tool, and with it the agent sees no write tool. Starting a scan needs `repo:write`; creating a repository or a deploy token needs `repo:manage`. Give the token those scopes only if the agent should write.
 
 {{% notice warning %}}
 A token written into a configuration file is stored in plain text. Prefer the client's way of keeping it outside the file where there is one (the `${...}` references below), keep the file out of version control, and revoke the token with `rp token revoke <id>` when you no longer need it.
@@ -49,7 +49,7 @@ Add the server for all your projects:
 claude mcp add --transport stdio --scope user repsy -- rp mcp
 ```
 
-Everything after `--` is the command Claude Code runs; add `--allow-writes` or `--hostname <host>` there. Options such as `--env REPSY_TOKEN=...` go before `--`, but that stores the token in `~/.claude.json`; to keep it out of the file, export `REPSY_TOKEN` in the shell you start Claude Code from instead.
+Everything after `--` is the command Claude Code runs; add `--read-only` or `--hostname <host>` there. Options such as `--env REPSY_TOKEN=...` go before `--`, but that stores the token in `~/.claude.json`; to keep it out of the file, export `REPSY_TOKEN` in the shell you start Claude Code from instead.
 
 To share the server with a project, put it in `.mcp.json` at the project root. Claude Code expands `${VAR}` there, so the token stays in each person's environment:
 
@@ -138,15 +138,15 @@ Leave out `inputs` and `env` to use the stored `rp auth login`. Copilot also rea
 
 ## Writes
 
-Start the server with `--allow-writes` (add it after `mcp` in the arguments) to add three tools:
+Three tools change the registry. The server lists each one only while its credential may use it: a stored `rp auth login` may use all three, and an access token needs the scope in the table. The server checks the credential again while it runs and tells the client when the list changes, so a new `rp auth login` or another token takes effect without a restart. Start the server with `--read-only` (add it after `mcp` in the arguments) to hide them whatever the credential may do.
 
-| Tool | What it does |
-| --- | --- |
-| `create_repo` | Creates a repository, private unless the agent asks for a public one. A name that is taken is an error. |
-| `trigger_scan` | Starts a security scan of a package version, or follows the one that is already running, and can wait up to five minutes for it. |
-| `create_deploy_token` | Creates a deploy token for a repository. The token is in the tool's answer, so it ends up in the conversation and in the client's history. Create deploy tokens with `rp token create` in a terminal when that matters. |
+| Tool | Scope | What it does |
+| --- | --- | --- |
+| `create_repo` | `repo:manage` | Creates a repository, private unless the agent asks for a public one. A name that is taken is an error. |
+| `trigger_scan` | `repo:write` | Starts a security scan of a package version, or follows the one that is already running, and can wait up to five minutes for it. |
+| `create_deploy_token` | `repo:manage` | Creates a deploy token for a repository. The token is in the tool's answer, so it ends up in the conversation and in the client's history. Create deploy tokens with `rp token create` in a terminal when that matters. |
 
-The `whoami` tool tells the agent whether writes are enabled.
+The `whoami` tool tells the agent whether a write tool is listed. Before `rp` 0.2.3 the write tools needed `--allow-writes`; the flag is still accepted, prints a warning and changes nothing.
 
 ## Safety
 

@@ -1,19 +1,19 @@
 +++
 title = "MCP Tools"
 weight = 72
-description = "Every tool the rp MCP server offers an AI agent, with its arguments and whether it needs --allow-writes."
+description = "Every tool the rp MCP server offers an AI agent, with its arguments and the token scope a write tool needs."
 # Copied from docs/reference/mcp-tools.md of repsy-cli, which "make docs" generates from the server
 # (RPS-2640). Refresh the tool sections from there; do not edit them by hand.
 +++
 
 # MCP Tools
 
-The tools that [rp mcp](../) offers to an AI agent. The read tools are always there; the write tools exist only when the server is started with `rp mcp --allow-writes`. No tool deletes, revokes or rotates anything. `rp mcp tools` prints the same list.
+The tools that [rp mcp](../) offers to an AI agent. The read tools are always there; a write tool is listed only while the credential may use it: a login session may use every write tool, an access token needs the scope named below, and `rp mcp --read-only` hides them all. No tool deletes, revokes or rotates anything. `rp mcp tools` prints the same list.
 
 | Tool | Access | Title |
 | --- | --- | --- |
-| [`create_deploy_token`](#create_deploy_token) | Write, needs `--allow-writes`. | Create a deploy token |
-| [`create_repo`](#create_repo) | Write, needs `--allow-writes`. | Create a repository |
+| [`create_deploy_token`](#create_deploy_token) | Write, needs a login session or a token with `repo:manage`. | Create a deploy token |
+| [`create_repo`](#create_repo) | Write, needs a login session or a token with `repo:manage`. | Create a repository |
 | [`get_client_setup`](#get_client_setup) | Read. | Get client setup |
 | [`get_package`](#get_package) | Read. | Get a package |
 | [`get_repo`](#get_repo) | Read. | Get a repository |
@@ -26,12 +26,12 @@ The tools that [rp mcp](../) offers to an AI agent. The read tools are always th
 | [`list_repos`](#list_repos) | Read. | List repositories |
 | [`list_scan_findings`](#list_scan_findings) | Read. | List scan findings |
 | [`list_scans`](#list_scans) | Read. | List the scans of a version |
-| [`trigger_scan`](#trigger_scan) | Write, needs `--allow-writes`. | Start a security scan |
+| [`trigger_scan`](#trigger_scan) | Write, needs a login session or a token with `repo:write`. | Start a security scan |
 | [`whoami`](#whoami) | Read. | Who am I |
 
 ## create_deploy_token
 
-**Create a deploy token.** Write, needs `--allow-writes`.
+**Create a deploy token.** Write, needs a login session or a token with `repo:manage`.
 
 Create a deploy token for a repository, for a CI job or a client that must not use a personal credential. The result holds the secret once: it goes into this conversation and the transcript of the client, so prefer creating it in a terminal with rp token create when that matters.
 
@@ -46,7 +46,7 @@ Create a deploy token for a repository, for a CI job or a client that must not u
 
 ## create_repo
 
-**Create a repository.** Write, needs `--allow-writes`.
+**Create a repository.** Write, needs a login session or a token with `repo:manage`.
 
 Create a repository, private unless public is true. On Repsy OS only an administrator can; on Repsy Cloud it belongs to the account of the credential. A name that is taken is an error, nothing is overwritten.
 
@@ -162,7 +162,7 @@ List the packages of a repository, or the next level down for the given coordina
 
 **List repository contents.** Read.
 
-List the files and directories stored in a repository at one path, as the registry keeps them (one level, not recursive).
+List the files and directories stored in a Maven repository at one path, as the registry keeps them (one level, not recursive). Only Maven repositories have this file tree; list the packages of any other format with list_packages.
 
 | Argument | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -217,7 +217,7 @@ List the security scans of one package version, newest first: status, highest se
 
 ## trigger_scan
 
-**Start a security scan.** Write, needs `--allow-writes`.
+**Start a security scan.** Write, needs a login session or a token with `repo:write`.
 
 Start a security scan of one package version. When a scan of the version is already running (an upload starts one when a scanner is enabled) the tool attaches to it instead of failing. With wait_seconds it waits for the scan to finish, up to 300 seconds.
 

@@ -153,7 +153,7 @@ The `whoami` tool tells the agent whether writes are enabled.
 Repsy bans an IP address for an hour when requests from it look like an attack (a path traversal, SQL or script text in a search, ...) or when too many sign-ins fail. An agent can produce such a request by accident, for example by pasting a code fragment into a search. `rp mcp` therefore checks every request before it is sent:
 
 - Arguments are checked first: a name with `..`, a control character, a percent escape or a leading `/` is refused with an error that names the argument.
-- Every request is checked against the same rules the server applies, and is refused locally, with the rule it would break, instead of being sent.
+- Every request is checked against the same rules the server applies, and is refused locally, with the rule it would break, instead of being sent. Since `rp` 0.2.3 every `rp` command except `rp api` does this too (see [Exit Codes](../exit-codes/#requests-that-would-get-the-ip-address-banned)).
 - A credential the server has refused is not sent again for a minute, and an expired browser sign-in is not sent at all. Sign in again with `rp auth login`; the server picks it up without a restart.
 - A tool that the server answers only for a web panel session (`get_usage`) refuses an access token without sending the request.
 

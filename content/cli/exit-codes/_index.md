@@ -20,6 +20,17 @@ When one failure carries several of these, the order of precedence is 5, 4, 2, 1
 
 An HTTP 403 means the credentials are valid but not allowed to do the thing. Logging in again would not help, so it is a general error (1) and not an authentication error (4).
 
+## Requests that would get the IP address banned
+
+Repsy bans an IP address for an hour when its requests look like an attack, for example script or SQL text in a search, or `..` in a path (the probe ban of Repsy Open Source, on by default there). Since `rp` 0.2.3 every command checks each request against the same rules before it is sent, and refuses one that the server would count, with a usage error (exit code 2) that names the rule:
+
+```text
+$ rp repo list --search '<script>alert(1)</script>'
+Error: rp did not send this request: the server's probe ban would count it as xss and ban this IP address after a few such requests; change the name, path or search text that put it there (GET /api/repos)
+```
+
+`rp api` is the exception: it sends the request it is given.
+
 ## Error output
 
 A failed command reports the error once. With `--output json` the error goes to standard output as an object `{"error": {status, code, title, detail, traceId, hint, errors}}`; otherwise it goes to standard error as `Error: <detail> (code: <code>, trace: <trace>)`, with an optional `Hint:` line. Quote the trace id when you report a problem.

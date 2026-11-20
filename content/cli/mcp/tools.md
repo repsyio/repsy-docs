@@ -1,19 +1,20 @@
 +++
 title = "MCP Tools"
 weight = 72
-description = "Every tool the rp MCP server offers an AI agent, with its arguments and the token scope a write tool needs."
+description = "Every tool the rp MCP server offers an AI agent, with its arguments and the token scope a write or destructive tool needs."
 # Copied from docs/reference/mcp-tools.md of repsy-cli, which "make docs" generates from the server
 # (RPS-2640). Refresh the tool sections from there; do not edit them by hand.
 +++
 
 # MCP Tools
 
-The tools that [rp mcp](../) offers to an AI agent. The read tools are always there; a write tool is listed only while the credential may use it: a login session may use every write tool, an access token needs the scope named below, and `rp mcp --read-only` hides them all. No tool deletes, revokes or rotates anything. `rp mcp tools` prints the same list.
+The tools that [rp mcp](../) offers to an AI agent. The read tools are always there; a write tool is listed only while the credential may use it: a login session may use every write tool, an access token needs the scope named below, and `rp mcp --read-only` hides them all. The destructive tools, which revoke, rotate or delete, follow the same rule and take a `confirm` argument that repeats their target. `rp mcp tools` prints the same list.
 
 | Tool | Access | Title |
 | --- | --- | --- |
 | [`create_deploy_token`](#create_deploy_token) | Write, needs a login session or a token with `repo:manage`. | Create a deploy token |
 | [`create_repo`](#create_repo) | Write, needs a login session or a token with `repo:manage`. | Create a repository |
+| [`delete_package_version`](#delete_package_version) | Destructive, needs a login session or a token with `repo:manage`; repeats its target in `confirm`. | Delete a package version |
 | [`get_client_setup`](#get_client_setup) | Read. | Get client setup |
 | [`get_package`](#get_package) | Read. | Get a package |
 | [`get_repo`](#get_repo) | Read. | Get a repository |
@@ -26,6 +27,8 @@ The tools that [rp mcp](../) offers to an AI agent. The read tools are always th
 | [`list_repos`](#list_repos) | Read. | List repositories |
 | [`list_scan_findings`](#list_scan_findings) | Read. | List scan findings |
 | [`list_scans`](#list_scans) | Read. | List the scans of a version |
+| [`revoke_deploy_token`](#revoke_deploy_token) | Destructive, needs a login session or a token with `repo:manage`; repeats its target in `confirm`. | Revoke a deploy token |
+| [`rotate_deploy_token`](#rotate_deploy_token) | Destructive, needs a login session or a token with `repo:manage`; repeats its target in `confirm`. | Rotate a deploy token |
 | [`trigger_scan`](#trigger_scan) | Write, needs a login session or a token with `repo:write`. | Start a security scan |
 | [`whoami`](#whoami) | Read. | Who am I |
 
@@ -56,6 +59,20 @@ Create a repository, private unless public is true. On Repsy OS only an administ
 | `name` | string | yes | the name of the new repository |
 | `description` | string | no | a description of the repository |
 | `public` | boolean | no | true makes the repository readable without credentials; default private |
+
+## delete_package_version
+
+**Delete a package version.** Destructive, needs a login session or a token with `repo:manage`; repeats its target in `confirm`.
+
+Delete one version of a package (for Docker, one tag). It cannot be undone, and clients that pin the version can no longer download it. A whole package or repository cannot be deleted with this server. confirm must repeat coordinates. Coordinates are the natural ones of the format: maven group[:artifact[:version]], npm [@scope/]name[@version] (@scope alone: the packages of a scope), docker image[:tag] or image@sha256:digest (the image may contain /), go module/path[@version], cargo, helm, nuget, pypi and ruby name[@version].
+
+| Argument | Type | Required | Description |
+| --- | --- | --- | --- |
+| `confirm` | string | yes | the coordinates again, exactly; the call is refused without sending anything otherwise |
+| `coordinates` | string | yes | one version: maven group:artifact:version, npm [@scope/]name@version, docker image:tag, others name@version |
+| `repo` | string | yes | the repository name, as list_repos returns it |
+| `format` | string | no | the repository format (maven, npm, pypi, docker, cargo, nuget, go, helm or ruby); omit it to read it from the repository, which costs one request |
+| `owner` | string | no | Repsy Cloud only: the owner (user or organisation) of the repository, as list_repos returns it; omit it for the owner of the rp profile. Refused on Repsy OS and on a Cloud custom domain |
 
 ## get_client_setup
 
@@ -214,6 +231,32 @@ List the security scans of one package version, newest first: status, highest se
 | `limit` | integer | no | the most rows to return, 1 to 200; default 50 |
 | `owner` | string | no | Repsy Cloud only: the owner (user or organisation) of the repository, as list_repos returns it; omit it for the owner of the rp profile. Refused on Repsy OS and on a Cloud custom domain |
 | `scope` | string | no | npm only: the scope of a scoped package, with or without the @ |
+
+## revoke_deploy_token
+
+**Revoke a deploy token.** Destructive, needs a login session or a token with `repo:manage`; repeats its target in `confirm`.
+
+Revoke a deploy token of a repository at once: every client and CI job that uses it stops working. It cannot be undone. confirm must repeat token_id.
+
+| Argument | Type | Required | Description |
+| --- | --- | --- | --- |
+| `confirm` | string | yes | the token id again, exactly; the call is refused without sending anything otherwise |
+| `repo` | string | yes | the repository name, as list_repos returns it |
+| `token_id` | string | yes | the id of the deploy token, as list_deploy_tokens returns it |
+| `owner` | string | no | Repsy Cloud only: the owner (user or organisation) of the repository, as list_repos returns it; omit it for the owner of the rp profile. Refused on Repsy OS and on a Cloud custom domain |
+
+## rotate_deploy_token
+
+**Rotate a deploy token.** Destructive, needs a login session or a token with `repo:manage`; repeats its target in `confirm`.
+
+Replace the secret of a deploy token: the old secret stops working at once, so every client that uses it breaks until it gets the new one. The result holds the new secret once: it goes into this conversation and the transcript of the client, so prefer rp token rotate in a terminal when that matters. confirm must repeat token_id.
+
+| Argument | Type | Required | Description |
+| --- | --- | --- | --- |
+| `confirm` | string | yes | the token id again, exactly; the call is refused without sending anything otherwise |
+| `repo` | string | yes | the repository name, as list_repos returns it |
+| `token_id` | string | yes | the id of the deploy token, as list_deploy_tokens returns it |
+| `owner` | string | no | Repsy Cloud only: the owner (user or organisation) of the repository, as list_repos returns it; omit it for the owner of the rp profile. Refused on Repsy OS and on a Cloud custom domain |
 
 ## trigger_scan
 

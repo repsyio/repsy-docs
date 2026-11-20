@@ -11,7 +11,9 @@ Create a token and show its secret once.
 Without --repo this creates a PERSONAL ACCESS TOKEN, bound to your user, with
 the scopes of --scope (repo:read, repo:write, repo:manage; repeat the flag or
 separate with commas; default repo:read). repo:read also reads scan results.
-It lives 365 days unless --expires-in is shorter.
+It lives 365 days unless --expires-in is shorter. Its name must differ, ignoring
+case, from your other tokens that are not revoked and have not expired; a taken
+name is refused (409 accessTokenNameInUse, RPS-2655).
 
 With --repo &lt;name&gt; this creates a DEPLOY TOKEN, bound to that repository only,
 for package clients. --username sets the username of the pair (the server

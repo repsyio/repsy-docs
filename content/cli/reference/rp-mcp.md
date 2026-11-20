@@ -29,10 +29,16 @@ a login session (rp auth login) may use all three; an access token needs
 repo:manage for create_repo and create_deploy_token and repo:write for
 trigger_scan. A repo:read token sees only the read tools. The server checks
 the credential again while it runs and tells the client when the list
-changes. --read-only hides the three tools whatever the credential may do.
-No tool deletes, revokes or rotates anything. A deploy token that
-create_deploy_token makes is in the tool's result, so it enters the
-conversation and the transcript of the client.
+changes. --read-only hides every tool that changes the registry, whatever the
+credential may do.
+A deploy token that create_deploy_token makes is in the tool's result, so it
+enters the conversation and the transcript of the client.
+
+Three more revoke, rotate or delete: revoke_deploy_token, rotate_deploy_token
+and delete_package_version (one version or Docker tag, never a whole package
+or repository). They follow the same rule and need repo:manage or a login
+session. Each repeats its target in a confirm argument, and clients always
+ask before calling one.
 
 rp mcp tools lists the tools, and the reference page "MCP tools" describes
 each of them with its arguments.

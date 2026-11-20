@@ -12,10 +12,10 @@ Manage the two kinds of token of Repsy.
 personal access token (PAT)  bound to YOUR USER. It signs panel API calls (and
 rp itself) with the scopes you give it, whatever
 the repository. This is what rp commands without
---repo manage. Managing them takes the
-browser sign-in of rp auth login (a
-24 hour session), never a personal access
-token.
+--repo manage. Managing them works with the
+browser sign-in of rp auth login or with a
+personal access token (also in REPSY_TOKEN)
+that holds the scopes involved (RPS-2440).
 deploy token                 bound to ONE REPOSITORY. It is a username and
 token pair for package clients (npm, Maven,
 Docker, ...) to push or pull in that repository

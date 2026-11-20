@@ -6,9 +6,9 @@ weight = 34
 
 List the tools the MCP server offers
 
-List the tools of rp mcp: name, whether it reads or writes (with the
-token scope a write tool needs; a login session may use every one), and its
-title. --output json adds the description and the arguments of each
+List the tools of rp mcp: name, whether it reads, writes or destroys (with
+the token scope such a tool needs; a login session may use every one), and
+its title. --output json adds the description and the arguments of each
 tool (name, type, required, description), as a client sees them in tools/list.
 
 It sends no request and needs no profile.

@@ -60,7 +60,7 @@ confuse `traceId` with `code`.
 | `404` | There is no such thing. {{< product "cloud" >}}A private repository that you have no access to answers like one that does not exist, so a stranger cannot tell the difference.{{< /product >}} | `itemNotFound`{{< product "cloud" >}}, `repoNotFound`{{< /product >}} |
 | `405` | The path exists, but not for this HTTP method. The `Allow` header lists the methods that work. | `methodNotSupported` |
 | `406` | The `Accept` header names no media type the route can produce. | `notAcceptable` |
-| `409` | The name is taken, or the state does not allow it (for example a scan that is already running, or two changes of the same item at once). | `itemAlreadyExists`, `concurrentModification` |
+| `409` | The name is taken, or the state does not allow it (for example a scan that is already running, or two changes of the same item at once). | `itemAlreadyExists`, `accessTokenNameInUse`, `concurrentModification` |
 | `413` | An upload over the size limit. | `payloadTooLarge` |
 | `415` | The body has a content type the route cannot read. The `Accept` header lists the ones it can. | `unsupportedMediaType` |
 | `429` | Too many failed attempts, see [Retry-After](#retry-after). | `tooManyRequests` |

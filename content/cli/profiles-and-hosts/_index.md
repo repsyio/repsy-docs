@@ -1,8 +1,10 @@
 +++
 title = "Profiles and Hosts"
 weight = 30
-description = "How the rp command line client addresses Repsy Cloud and self-hosted Repsy OS: profiles, host names and schemes, custom domains and URL precedence."
+description = "How the rp command line client addresses Repsy Cloud and self-hosted Repsy Open Source: profiles, hosts and schemes, custom domains and URL precedence."
 +++
+
+# Profiles and Hosts
 
 A profile stores everything `rp` needs to talk to one Repsy host. Profiles are kept in `hosts.yml`, keyed by host name; the one used when you name no host is `current_host` in `config.yml` (see [Configuration](../configuration/)).
 
@@ -38,9 +40,11 @@ The Cloud hosts are known to `rp`, and their URLs are derived:
 
 Cloud serves the panel API and the package protocols on separate hosts, and its protocol URLs may carry an owner segment. `--owner` sets it; `--owner=` (empty) means none. `rp profile doctor --repo <name>` can detect which variant a host uses.
 
-## Self-hosted Repsy OS
+## Self-hosted Repsy Open Source
 
-Any host that is not a known Cloud host is treated as Repsy OS. Its panel API also serves the panel UI, and the protocols run on the same host on another port. Default ports:
+For any other host, `rp` asks the server which product it runs (one request to its login route, without a credential) and stores the answer in the profile. When the server cannot tell, `rp` warns and treats the host as Repsy Open Source.
+
+On Repsy Open Source the panel API also serves the panel UI, and the protocols run on the same host on another port. Default ports:
 
 | Scheme | Panel API and UI | Protocols |
 | --- | --- | --- |
@@ -51,7 +55,7 @@ A port you write in the host is the panel port; the protocol port keeps its defa
 
 ## Custom domains
 
-A Cloud custom domain looks like Repsy OS to `rp`, because only the known hosts are recognised by name. Tell `rp` explicitly:
+A Cloud custom domain is not one of the known hosts, and serves no panel API of its own. Tell `rp` explicitly:
 
 ```bash
 rp profile add <custom-domain> --type cloud \

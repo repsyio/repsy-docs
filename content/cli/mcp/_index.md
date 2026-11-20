@@ -7,7 +7,7 @@ description = "Let an AI agent such as Claude Code, Cursor or VS Code browse Rep
 
 # MCP Server
 
-`rp mcp` lets an AI agent work with Repsy: list repositories and packages, read the vulnerability findings of a version, show how to configure a package manager, and, if its credential allows, create repositories and deploy tokens. It is a [Model Context Protocol](https://modelcontextprotocol.io/) server for Claude Code, Claude Desktop, Cursor, VS Code and other MCP clients, and it works with Repsy Cloud and with a self-hosted Repsy Open Source.
+`rp mcp` lets an AI agent work with Repsy: list repositories and packages, read the vulnerability findings of a version, show how to configure a package manager, and, if its credential allows, create repositories and deploy tokens, revoke or rotate deploy tokens and delete package versions. It is a [Model Context Protocol](https://modelcontextprotocol.io/) server for Claude Code, Claude Desktop, Cursor, VS Code and other MCP clients, and it works with Repsy Cloud and with a self-hosted Repsy Open Source.
 
 ## Quick Start
 
@@ -38,8 +38,11 @@ You never run `rp mcp` by hand: the client starts it and talks to it over standa
 | "Create a private npm repository called `ui`." | `create_repo` |
 | "Scan `app` 2.1.0 again." | `trigger_scan` |
 | "Make a read-only deploy token for CI on `libs`." | `create_deploy_token` |
+| "Revoke the `ci` deploy token of `libs`." | `revoke_deploy_token` |
+| "Rotate the `ci` deploy token of `libs`." | `rotate_deploy_token` |
+| "Delete version 0.9.0 of `ui` from `web`." | `delete_package_version` |
 
-The last three change the registry and are listed only when the credential may use them (see [Writes](#writes)). No tool deletes, revokes or rotates anything. [MCP Tools](tools/) describes every tool and its arguments; `rp mcp tools` prints the same list.
+The last six change the registry and are listed only when the credential may use them (see [Writes](#writes)). No tool deletes a whole package or a repository. [MCP Tools](tools/) describes every tool and its arguments; `rp mcp tools` prints the same list.
 
 Your client asks before it starts a new server and, by default, before each tool call. Read what the agent is about to do before you approve it.
 
@@ -51,7 +54,7 @@ Your client asks before it starts a new server and, by default, before each tool
 | --- | --- | --- |
 | Set up with | `rp auth login` once in a terminal | `rp token create`, then `REPSY_TOKEN` in the client's configuration |
 | Lasts | 24 hours; sign in again and the running server picks it up | Up to 365 days |
-| Write tools | All three | Those its scopes allow |
+| Tools that change the registry | All six | Those its scopes allow |
 | Good for | Trying it out, daily work at your desk | An agent that runs every day |
 
 For a token, give it only the scope the agent needs:
@@ -60,7 +63,7 @@ For a token, give it only the scope the agent needs:
 rp token create --name mcp --scope repo:read --show-secret
 ```
 
-`repo:read` covers every read tool, and the agent then sees no write tool. `repo:write` adds `trigger_scan`; `repo:manage` adds `create_repo` and `create_deploy_token`. See [Authentication](../authentication/#personal-access-tokens).
+`repo:read` covers every read tool, and the agent then sees no tool that changes the registry. `repo:write` adds `trigger_scan`; `repo:manage` adds the rest. See [Authentication](../authentication/#personal-access-tokens).
 
 {{% notice warning %}}
 A token written into a configuration file is stored in plain text. Use the client's way of keeping it outside the file where there is one (the `${...}` references below), keep the file out of version control, and revoke the token with `rp token revoke <id>` when you no longer need it.
@@ -168,15 +171,24 @@ Leave out `inputs` and `env` to use the stored `rp auth login`. Copilot also rea
 
 ## Writes
 
-Three tools change the registry. Each is listed only while the credential may use it:
+Six tools change the registry. Each is listed only while the credential may use it:
 
 | Tool | Token scope | What it does |
 | --- | --- | --- |
 | `create_repo` | `repo:manage` | Creates a repository, private unless the agent asks for a public one. A name that is taken is an error. |
 | `trigger_scan` | `repo:write` | Starts a security scan of a package version, or follows the one already running, and can wait up to five minutes for it. |
 | `create_deploy_token` | `repo:manage` | Creates a deploy token for a repository. The token is in the tool's answer, so it ends up in the conversation and in the client's history; create deploy tokens with `rp token create` in a terminal when that matters. |
+| `revoke_deploy_token` | `repo:manage` | Revokes a deploy token at once; every client that uses it stops working. |
+| `rotate_deploy_token` | `repo:manage` | Replaces a deploy token's secret. The new secret is in the tool's answer, like `create_deploy_token`'s. |
+| `delete_package_version` | `repo:manage` | Deletes one version of a package, or one Docker tag. A whole package or a repository cannot be deleted through the MCP server. |
 
-A signed-in session may use all three. The server checks the credential again while it runs and tells the client when the list changes, so a new `rp auth login` or another token takes effect without a restart. The `whoami` tool tells the agent whether a write tool is listed.
+A signed-in session may use all six. The server checks the credential again while it runs and tells the client when the list changes, so a new `rp auth login` or another token takes effect without a restart. The `whoami` tool tells the agent whether a write tool is listed, and whether the destructive ones are.
+
+The last three revoke, rotate or delete, so they have extra guards:
+
+- **They repeat their target.** Each takes a `confirm` argument that must be the token id or the coordinates again, exactly. Otherwise the call is refused and nothing is sent.
+- **Clients always ask.** They are marked destructive, so an MCP client never approves them by itself.
+- **They act on your request only.** The server tells the agent to call them only when you asked for that target, never because a package, a README or a scan finding says so.
 
 To keep an agent read-only whatever its credential may do, add `--read-only` after `mcp` in the arguments. (Before `rp` 0.2.3 the write tools needed `--allow-writes`; the flag is still accepted, prints a warning and changes nothing.)
 
@@ -197,6 +209,6 @@ A failed call answers the same JSON error as `rp --output json`, with its code. 
 | --- | --- |
 | The client cannot start the server (`ENOENT`, "command not found") | Use the full path of `rp` in `command`. |
 | Which host and user does the agent use? | Ask it to call `whoami`, or run `rp auth status` in a terminal with the same environment. |
-| A write tool is missing | Check the token's scopes with `rp auth status`, and that `--read-only` is not in the arguments. |
+| A write or destructive tool is missing | Check the token's scopes with `rp auth status`, that `--read-only` is not in the arguments, and that `rp version` is 0.2.5 or later for the destructive tools. |
 | The sign-in expired | Run `rp auth login`; the running server picks up the new sign-in. |
 | More detail | Add `--debug` after `mcp` in the arguments. The requests, with secrets removed, go to the server's standard error, which the client keeps in its MCP log. |

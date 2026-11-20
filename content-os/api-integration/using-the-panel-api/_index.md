@@ -73,7 +73,7 @@ The answer has the secret in `token`, starting with `rut-`. It is shown once. Th
 | `repo:write` | Also publish and start scans. |
 | `repo:manage` | Also delete, change settings and manage deploy tokens. It gives nothing to a user who is not an administrator. |
 
-What a token may do is what its owner may do, narrowed by its scopes. `expirationDate` is optional and at most 365 days ahead, which is also the default. A personal access token cannot manage users, a password or a username: those operations need the access token of a sign-in.
+What a token may do is what its owner may do, narrowed by its scopes. `expirationDate` is optional and at most 365 days ahead, which is also the default. A name can be used by only one of your tokens that is not revoked and has not expired, ignoring case: a second one answers `409` with the code `accessTokenNameInUse`, and the name of a revoked or expired token is free again. A personal access token cannot manage users, a password or a username: those operations need the access token of a sign-in.
 
 ### HTTP Basic
 

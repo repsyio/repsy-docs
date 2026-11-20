@@ -4,12 +4,15 @@ weight = 40
 description = "Where the rp command line client keeps its configuration: config.yml, hosts.yml, their location, file mode and the rp config commands."
 +++
 
-`rp` keeps two files in its configuration directory.
+# Configuration
+
+`rp` keeps its settings in two files in its configuration directory, and its credentials in the OS keyring.
 
 | File | Content |
 | --- | --- |
 | `config.yml` | `current_host`, the profile used when no host is given. |
 | `hosts.yml` | One profile per host: `product`, `api_url`, `registry_url`, `web_url`, `owner`, and the result of the last `rp profile doctor`. |
+| `credentials.json` | Only when the OS keyring cannot be used, or with `--insecure-storage`: the stored credentials, mode `0600`. See [Authentication](../authentication/#where-the-credential-is-stored). |
 
 ## Location
 
@@ -24,7 +27,7 @@ The same rule applies on every platform.
 ## File mode and content
 
 - The files are written atomically with mode `0600`.
-- Tokens are never stored in these files. A token written there by hand is ignored.
+- Tokens are never stored in `config.yml` or `hosts.yml`. A token written there by hand is ignored.
 - A key that `rp` does not know is kept and written back unchanged when the file is rewritten. YAML comments are not preserved.
 
 ## Commands

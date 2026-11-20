@@ -7,51 +7,82 @@ description = "Let an AI agent such as Claude Code, Cursor or VS Code browse Rep
 
 # MCP Server
 
-`rp mcp` runs a [Model Context Protocol](https://modelcontextprotocol.io/) server, so that an AI agent can work with Repsy: list repositories and packages, read the vulnerability findings of a version, or show how to configure a package client. It works with Repsy Cloud and with a self-hosted Repsy Open Source, through the same profile `rp` uses for every other command.
+`rp mcp` lets an AI agent work with Repsy: list repositories and packages, read the vulnerability findings of a version, show how to configure a package manager, and, if its credential allows, create repositories and deploy tokens. It is a [Model Context Protocol](https://modelcontextprotocol.io/) server for Claude Code, Claude Desktop, Cursor, VS Code and other MCP clients, and it works with Repsy Cloud and with a self-hosted Repsy Open Source.
 
-The MCP client (Claude Code, Claude Desktop, Cursor, VS Code and others) starts `rp mcp` itself and talks to it over standard input and output. You do not run it by hand; you add it to the client's configuration, as shown below.
+## Quick Start
 
-- The credential decides what the agent can do. Three tools change the registry (create a repository, start a security scan, create a deploy token); the server offers them only while its credential may use them, and `--read-only` hides them.
-- No tool deletes, revokes or rotates anything.
-- [MCP Tools](tools/) lists every tool and its arguments; `rp mcp tools` prints the same list.
+With [`rp` installed](../installation/) and Claude Code:
 
-## Before You Start
+```bash
+rp auth login                                                  # sign in once
+claude mcp add --transport stdio --scope user repsy -- rp mcp  # add the server
+```
 
-1. Install `rp` (see [Installation](../installation/)) and note where it is: `command -v rp` on macOS and Linux, `where rp` on Windows. Desktop applications often do not see the `PATH` of your shell, so the configurations below use the full path; replace `/usr/local/bin/rp` with yours.
-2. Choose the Repsy host. `rp mcp` uses the current profile (see [Profiles and Hosts](../profiles-and-hosts/)). To pin a host for the agent, add `--hostname <host>` to the arguments or set `REPSY_HOST`.
-3. Choose a credential (next section). `rp mcp` signs every request with `REPSY_TOKEN` when it is set, and with the credential `rp auth login` stored otherwise.
+Start Claude Code, run `/mcp` to see the server, and ask, for example, *"Which of my Repsy repositories have critical vulnerabilities?"*. For other clients, see [Configure Your Client](#configure-your-client).
+
+You never run `rp mcp` by hand: the client starts it and talks to it over standard input and output.
+
+## What the Agent Can Do
+
+| You ask | The agent uses |
+| --- | --- |
+| "Who am I signed in as?" | `whoami` |
+| "List my npm repositories." | `list_repos` |
+| "Show the settings of `libs`." | `get_repo` |
+| "What is in the `com/acme` folder of my Maven repository?" | `list_repo_contents` |
+| "Which versions of `react` are in `web`?" | `list_packages`, `get_package`, `list_package_tags` |
+| "Are there critical findings in `app` 2.1.0?" | `get_scan_overview`, `list_scans`, `list_scan_findings` |
+| "Which deploy tokens does `libs` have?" | `list_deploy_tokens` |
+| "How much disk and traffic do I use?" | `get_usage` (signed-in session only) |
+| "How do I point pip at `pypi-internal`?" | `get_client_setup` |
+| "Create a private npm repository called `ui`." | `create_repo` |
+| "Scan `app` 2.1.0 again." | `trigger_scan` |
+| "Make a read-only deploy token for CI on `libs`." | `create_deploy_token` |
+
+The last three change the registry and are listed only when the credential may use them (see [Writes](#writes)). No tool deletes, revokes or rotates anything. [MCP Tools](tools/) describes every tool and its arguments; `rp mcp tools` prints the same list.
+
+Your client asks before it starts a new server and, by default, before each tool call. Read what the agent is about to do before you approve it.
 
 ## Credentials
 
-**Quick start: the stored sign-in.** Run `rp auth login` once in a terminal and configure the client without a token. The browser sign-in lasts 24 hours, and the next `rp auth login` (on any machine) replaces it. When it expires, run `rp auth login` again: the running server picks up the new sign-in without a restart.
+`rp mcp` uses the same profile and credential as any other `rp` command: `REPSY_TOKEN` when it is set, else what `rp auth login` stored.
 
-**Durable setup: a personal access token.** For an agent that runs every day, create a personal access token with only the scope it needs and give it to the client in `REPSY_TOKEN`:
+| | Signed-in session | Personal access token |
+| --- | --- | --- |
+| Set up with | `rp auth login` once in a terminal | `rp token create`, then `REPSY_TOKEN` in the client's configuration |
+| Lasts | 24 hours; sign in again and the running server picks it up | Up to 365 days |
+| Write tools | All three | Those its scopes allow |
+| Good for | Trying it out, daily work at your desk | An agent that runs every day |
+
+For a token, give it only the scope the agent needs:
 
 ```bash
 rp token create --name mcp --scope repo:read --show-secret
 ```
 
-`repo:read` is enough for every read tool, and with it the agent sees no write tool. Starting a scan needs `repo:write`; creating a repository or a deploy token needs `repo:manage`. Give the token those scopes only if the agent should write.
+`repo:read` covers every read tool, and the agent then sees no write tool. `repo:write` adds `trigger_scan`; `repo:manage` adds `create_repo` and `create_deploy_token`. See [Authentication](../authentication/#personal-access-tokens).
 
 {{% notice warning %}}
-A token written into a configuration file is stored in plain text. Prefer the client's way of keeping it outside the file where there is one (the `${...}` references below), keep the file out of version control, and revoke the token with `rp token revoke <id>` when you no longer need it.
+A token written into a configuration file is stored in plain text. Use the client's way of keeping it outside the file where there is one (the `${...}` references below), keep the file out of version control, and revoke the token with `rp token revoke <id>` when you no longer need it.
 {{% /notice %}}
 
 ## Configure Your Client
 
-The snippets follow each client's documentation as of November 2026. The clients ask before they use a new server and, by default, before a tool call; read what the agent is about to do before you approve it.
+Desktop applications often do not see the `PATH` of your shell, so the configurations below give the full path of `rp`. Find yours with `command -v rp` (macOS, Linux) or `where rp` (Windows) and replace `/usr/local/bin/rp`. To pin a host for the agent, add `--hostname <host>` to the arguments or set `REPSY_HOST`; otherwise the current profile is used (see [Profiles and Hosts](../profiles-and-hosts/)).
 
-### Claude Code
+The snippets follow each client's documentation as of November 2026.
 
+{{< tabs groupId="mcp-client" >}}
+{{% tab name="Claude Code" %}}
 Add the server for all your projects:
 
 ```bash
 claude mcp add --transport stdio --scope user repsy -- rp mcp
 ```
 
-Everything after `--` is the command Claude Code runs; add `--read-only` or `--hostname <host>` there. Options such as `--env REPSY_TOKEN=...` go before `--`, but that stores the token in `~/.claude.json`; to keep it out of the file, export `REPSY_TOKEN` in the shell you start Claude Code from instead.
+Everything after `--` is the command Claude Code runs; add `--read-only` or `--hostname <host>` there. `--env REPSY_TOKEN=...` goes before `--`, but stores the token in `~/.claude.json`; to keep it out of the file, export `REPSY_TOKEN` in the shell you start Claude Code from.
 
-To share the server with a project, put it in `.mcp.json` at the project root. Claude Code expands `${VAR}` there, so the token stays in each person's environment:
+To share the server with a project, put it in `.mcp.json` at the project root. Claude Code expands `${VAR}`, so the token stays in each person's environment:
 
 ```json
 {
@@ -68,9 +99,8 @@ To share the server with a project, put it in `.mcp.json` at the project root. C
 ```
 
 `/mcp` in Claude Code shows the server and its tools.
-
-### Claude Desktop
-
+{{% /tab %}}
+{{% tab name="Claude Desktop" %}}
 Open the configuration with **Settings > Developer > Edit Config** from the Claude menu of your system's menu bar (not the settings inside the window). The file is `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS, `%APPDATA%\Claude\claude_desktop_config.json` on Windows and `~/.config/Claude/claude_desktop_config.json` on Linux.
 
 ```json
@@ -85,9 +115,8 @@ Open the configuration with **Settings > Developer > Edit Config** from the Clau
 ```
 
 This uses the stored `rp auth login`. Claude Desktop has no documented way to read a secret from outside the file, so a token goes into `env` as plain text (`"env": {"REPSY_TOKEN": "<token>"}`). Quit and restart Claude Desktop after every change. The server's messages are in `mcp-server-repsy.log` in Claude's log folder (`~/Library/Logs/Claude` on macOS).
-
-### Cursor
-
+{{% /tab %}}
+{{% tab name="Cursor" %}}
 Put the server in `~/.cursor/mcp.json` (all projects) or `.cursor/mcp.json` (one project). Cursor expands `${env:NAME}`, so the token stays in your environment:
 
 ```json
@@ -106,9 +135,8 @@ Put the server in `~/.cursor/mcp.json` (all projects) or `.cursor/mcp.json` (one
 ```
 
 Leave out `env` to use the stored `rp auth login`.
-
-### VS Code
-
+{{% /tab %}}
+{{% tab name="VS Code" %}}
 Run **MCP: Add Server** from the Command Palette and choose **Command (stdio)**, or put the server in `.vscode/mcp.json` in the workspace (**MCP: Open User Configuration** opens the file for all workspaces). An input keeps the token out of the file: VS Code asks for it once and stores it securely.
 
 ```json
@@ -134,34 +162,41 @@ Run **MCP: Add Server** from the Command Palette and choose **Command (stdio)**,
 }
 ```
 
-Leave out `inputs` and `env` to use the stored `rp auth login`. Copilot also reads a `.mcp.json` at the workspace root in the `mcpServers` format shown for Claude Code above.
+Leave out `inputs` and `env` to use the stored `rp auth login`. Copilot also reads a `.mcp.json` at the workspace root in the `mcpServers` format shown for Claude Code.
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Writes
 
-Three tools change the registry. The server lists each one only while its credential may use it: a stored `rp auth login` may use all three, and an access token needs the scope in the table. The server checks the credential again while it runs and tells the client when the list changes, so a new `rp auth login` or another token takes effect without a restart. Start the server with `--read-only` (add it after `mcp` in the arguments) to hide them whatever the credential may do.
+Three tools change the registry. Each is listed only while the credential may use it:
 
-| Tool | Scope | What it does |
+| Tool | Token scope | What it does |
 | --- | --- | --- |
 | `create_repo` | `repo:manage` | Creates a repository, private unless the agent asks for a public one. A name that is taken is an error. |
-| `trigger_scan` | `repo:write` | Starts a security scan of a package version, or follows the one that is already running, and can wait up to five minutes for it. |
-| `create_deploy_token` | `repo:manage` | Creates a deploy token for a repository. The token is in the tool's answer, so it ends up in the conversation and in the client's history. Create deploy tokens with `rp token create` in a terminal when that matters. |
+| `trigger_scan` | `repo:write` | Starts a security scan of a package version, or follows the one already running, and can wait up to five minutes for it. |
+| `create_deploy_token` | `repo:manage` | Creates a deploy token for a repository. The token is in the tool's answer, so it ends up in the conversation and in the client's history; create deploy tokens with `rp token create` in a terminal when that matters. |
 
-The `whoami` tool tells the agent whether a write tool is listed. Before `rp` 0.2.3 the write tools needed `--allow-writes`; the flag is still accepted, prints a warning and changes nothing.
+A signed-in session may use all three. The server checks the credential again while it runs and tells the client when the list changes, so a new `rp auth login` or another token takes effect without a restart. The `whoami` tool tells the agent whether a write tool is listed.
+
+To keep an agent read-only whatever its credential may do, add `--read-only` after `mcp` in the arguments. (Before `rp` 0.2.3 the write tools needed `--allow-writes`; the flag is still accepted, prints a warning and changes nothing.)
 
 ## Safety
 
-Repsy bans an IP address for an hour when requests from it look like an attack (a path traversal, SQL or script text in a search, ...) or when too many sign-ins fail. An agent can produce such a request by accident, for example by pasting a code fragment into a search. `rp mcp` therefore checks every request before it is sent:
+Repsy bans an IP address for an hour when its requests look like an attack (a path traversal, SQL or script text in a search) or when too many sign-ins fail. An agent can produce such a request by accident, for example by pasting a code fragment into a search, so `rp mcp` checks every request before it is sent:
 
-- Arguments are checked first: a name with `..`, a control character, a percent escape or a leading `/` is refused with an error that names the argument.
-- Every request is checked against the same rules the server applies, and is refused locally, with the rule it would break, instead of being sent. Since `rp` 0.2.3 every `rp` command except `rp api` does this too (see [Exit Codes](../exit-codes/#requests-that-would-get-the-ip-address-banned)).
-- A credential the server has refused is not sent again for a minute, and an expired browser sign-in is not sent at all. Sign in again with `rp auth login`; the server picks it up without a restart.
-- A tool that the server answers only for a web panel session (`get_usage`) refuses an access token without sending the request.
+- **Arguments:** a name with `..`, a control character, a percent escape or a leading `/` is refused with an error that names the argument.
+- **Requests:** a request the server would count as an attack is refused locally, with the rule it would break. Every `rp` command except `rp api` does this too (see [Exit Codes](../exit-codes/#requests-that-would-get-the-ip-address-banned)).
+- **Credentials:** a credential the server has refused is not sent again for a minute, and an expired sign-in is not sent at all. Sign in again with `rp auth login`; the running server picks it up.
+- **Session-only tools:** `get_usage` works with a signed-in session only, and refuses an access token without sending anything.
 
-A failed call answers the same JSON error as `rp --output json`, with its code, and secrets are removed from every message.
+A failed call answers the same JSON error as `rp --output json`, with its code. Secrets are removed from every message.
 
 ## Troubleshooting
 
-- **The client cannot start the server** (`ENOENT`, "command not found"): use the full path of `rp` in `command`.
-- **Which host and user does the agent use?** Ask it to call `whoami`, or run `rp auth status` in a terminal with the same environment.
-- **The tool list:** `rp mcp tools` prints it; [MCP Tools](tools/) describes each tool.
-- **More detail:** add `--debug` after `mcp` in the arguments. The requests (with secrets removed) go to the server's standard error, which the client keeps in its MCP log.
+| Problem | What to do |
+| --- | --- |
+| The client cannot start the server (`ENOENT`, "command not found") | Use the full path of `rp` in `command`. |
+| Which host and user does the agent use? | Ask it to call `whoami`, or run `rp auth status` in a terminal with the same environment. |
+| A write tool is missing | Check the token's scopes with `rp auth status`, and that `--read-only` is not in the arguments. |
+| The sign-in expired | Run `rp auth login`; the running server picks up the new sign-in. |
+| More detail | Add `--debug` after `mcp` in the arguments. The requests, with secrets removed, go to the server's standard error, which the client keeps in its MCP log. |

@@ -4,6 +4,8 @@ weight = 50
 description = "The exit codes of the rp command line client: success, general error, usage error, authentication error and scan threshold."
 +++
 
+# Exit Codes
+
 `rp` exits with one of these codes, so scripts can tell the failures apart.
 
 | Code | Meaning |

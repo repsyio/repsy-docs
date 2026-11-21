@@ -76,7 +76,7 @@ curl -u <username>:<password> \
   "{{% repo-url %}}/<repo-name>/${MODULE_PATH}/@v/${VERSION}.zip"
 ```
 
-{{< product "cloud" >}}Authentication is only required for private registries. Omit the `-u` flag if your registry is public.{{< /product >}}{{< product "os" >}}Uploading always needs credentials, also to a public repository, so keep the `-u` flag. Use your username and password, or a [deploy token](../../getting-started/creating-a-deploy-token/) with the **Read/Write** access type in place of the password: the username can be any value. `https://<your-repsy-host>` stands for the address of the package protocol port of your Repsy Open Source instance, see [Ports and Repository URLs](../../getting-started/ports-and-repository-urls/).{{< /product >}}
+{{< product "cloud" >}}Publishing always needs credentials, also to a public repository, so keep the `-u` flag. Use your username and password, or a [deploy token](../../getting-started/creating-a-deploy-token/) in place of the password.{{< /product >}}{{< product "os" >}}Uploading always needs credentials, also to a public repository, so keep the `-u` flag. Use your username and password, or a [deploy token](../../getting-started/creating-a-deploy-token/) with the **Read/Write** access type in place of the password: the username can be any value. `https://<your-repsy-host>` stands for the address of the package protocol port of your Repsy Open Source instance, see [Ports and Repository URLs](../../getting-started/ports-and-repository-urls/).{{< /product >}}
 
 The `Content-Sha256` header is optional — remove the `-H` line if you prefer to skip integrity verification.
 

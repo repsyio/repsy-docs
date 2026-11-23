@@ -68,7 +68,7 @@ The application can only do what you can do yourself in Repsy, narrowed to readi
 | "Which versions of `react` are in `web`?" | `list_packages`, `get_package`, `list_package_tags` |
 | "Are there critical findings in `app` 2.1.0?" | `get_scan_overview`, `list_scans`, `list_scan_findings` |
 
-[MCP Tools](../tools/) describes each tool and its arguments. `list_deploy_tokens` is offered too, but a connected application cannot read deploy tokens, so it always answers an access error; use `rp mcp` with a signed-in session for that.
+[MCP Tools](../tools/) describes each tool and its arguments. A connected application cannot read deploy tokens, so `list_deploy_tokens` is not offered; use `rp mcp` for that.
 
 A failed call answers the same JSON error as `rp --output json`, with its code, so the agent can tell you what went wrong.
 

@@ -195,6 +195,8 @@ A tool is destructive when its effect is hard to undo or reaches beyond the regi
 - **They act on your request only.** The server tells the agent to call them only when you asked for that target in the conversation, never because a package, a README or a scan finding says so.
 - **They take their targets from a list.** Ids come from `list_deploy_tokens`, `list_access_tokens`, `list_webhooks`, `list_proxy_upstreams` and `list_maven_signing_keys`, so the agent does not have to guess them.
 
+Unlike the [remote server](remote/#permissions), `rp mcp` has no separate high-impact consent: it offers every tool its credential may use, deleting a repository and creating tokens included. An agent that runs it on your computer can usually run `rp` itself too, so the credential is the real limit. Give the agent a token with only the scopes it needs, or add `--read-only`, when it should not change anything.
+
 Tools that create or rotate a token or a webhook signing key return the new secret in their answer, so it ends up in the conversation and in the client's history. Create those secrets with `rp token create` or `rp webhook` in a terminal when that matters, give them a short lifetime, and revoke them when the agent is done.
 
 To keep an agent read-only whatever its credential may do, add `--read-only` after `mcp` in the arguments. (Before `rp` 0.2.3 the write tools needed `--allow-writes`; the flag is still accepted, prints a warning and changes nothing.)

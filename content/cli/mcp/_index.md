@@ -10,7 +10,7 @@ description = "Let an AI agent such as Claude Code, Cursor or VS Code browse Rep
 `rp mcp` lets an AI agent work with Repsy: list repositories and packages, read the vulnerability findings of a version, show how to configure a package manager, and, if its credential allows, create repositories and deploy tokens, revoke or rotate deploy tokens and delete package versions. It is a [Model Context Protocol](https://modelcontextprotocol.io/) server for Claude Code, Claude Desktop, Cursor, VS Code and other MCP clients, and it works with Repsy Cloud and with a self-hosted Repsy Open Source.
 
 {{% notice tip %}}
-To use Repsy from claude.ai, ChatGPT or another client on the web, without installing `rp`, connect it to the remote server at `https://mcp.repsy.io/mcp`: see [Connecting claude.ai and ChatGPT](remote/). It offers the read tools only.
+To use Repsy from claude.ai, ChatGPT or another client on the web, without installing `rp`, connect it to the remote server at `https://mcp.repsy.io/mcp`: see [Connecting claude.ai and ChatGPT](remote/). You choose on its consent page what the client may read and change.
 {{% /notice %}}
 
 ## Quick Start

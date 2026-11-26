@@ -33,6 +33,18 @@ Error: rp did not send this request: the server's probe ban would count it as xs
 
 `rp api` is the exception: it sends the request it is given.
 
+## A Repsy Open Source server that is too old
+
+`rp` needs Repsy Open Source 26.11.0 or newer. An older server is refused before any other request, with exit code 2 and the code `notSupported`, naming the server's version (or "older than 26.11.0" when the server has no `GET /api/info`) and the minimum:
+
+```text
+$ rp repo list
+Error: the Repsy OS server at repsy.example.com is version 26.10.0; rp needs Repsy OS 26.11.0 or newer
+Hint: Upgrade the Repsy OS server to 26.11.0 or newer (https://github.com/repsyio/repsy/releases). The next command checks the version again, so nothing needs to be reset after the upgrade.
+```
+
+Repsy Cloud is not checked.
+
 ## Error output
 
 A failed command reports the error once. With `--output json` the error goes to standard output as an object `{"error": {status, code, title, detail, traceId, hint, errors}}`; otherwise it goes to standard error as `Error: <detail> (code: <code>, trace: <trace>)`, with an optional `Hint:` line. Quote the trace id when you report a problem.

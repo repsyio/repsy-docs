@@ -29,6 +29,10 @@ rp version
 
 `rp version --output json` prints `version`, `commit`, `date` and `goVersion`.
 
+## Supported Servers
+
+`rp` works with Repsy Cloud and with Repsy Open Source **26.11.0 or newer**. Before its first panel API request to a Repsy Open Source host, `rp` asks the server for its version (`GET /api/info`, no credential sent) and refuses an older server, or one that does not answer that route, with exit code 2 (see [Exit Codes](../exit-codes/)). The answer is kept in the profile for a day, so a supported server is asked at most once a day. A development or snapshot build cannot be compared; `rp` warns once and goes on.
+
 ## What the Installer Does
 
 1. Downloads the archive for your platform and the list of checksums from `cli.repsy.io`.

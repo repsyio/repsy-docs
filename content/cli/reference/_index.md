@@ -34,6 +34,7 @@ rp
 
 * [rp api](/cli/reference/rp-api/) - Make an authenticated request to the panel API of the profile
 * [rp auth](/cli/reference/rp-auth/) - Sign in to Repsy and manage the stored credential
+* [rp cache](/cli/reference/rp-cache/) - Manage the cache of a proxy repository (Repsy Cloud)
 * [rp cargo](/cli/reference/rp-cargo/) - Work with cargo repositories
 * [rp completion](/cli/reference/rp-completion/) - Print a shell completion script
 * [rp config](/cli/reference/rp-config/) - Read and change the rp configuration
@@ -47,10 +48,12 @@ rp
 * [rp nuget](/cli/reference/rp-nuget/) - Work with nuget repositories
 * [rp package](/cli/reference/rp-package/) - List, show and delete the packages of a repository
 * [rp profile](/cli/reference/rp-profile/) - Manage the host profiles
+* [rp proxy](/cli/reference/rp-proxy/) - Manage the upstreams of a proxy repository (Repsy Cloud)
 * [rp push](/cli/reference/rp-push/) - Upload artifacts to a repository
 * [rp pypi](/cli/reference/rp-pypi/) - Work with pypi repositories
-* [rp repo](/cli/reference/rp-repo/) - List, show, create and delete repositories
+* [rp repo](/cli/reference/rp-repo/) - List, show, create, change and delete repositories
 * [rp ruby](/cli/reference/rp-ruby/) - Work with ruby repositories
 * [rp scan](/cli/reference/rp-scan/) - Trigger vulnerability scans and read their results
 * [rp token](/cli/reference/rp-token/) - Manage personal access tokens and deploy tokens
 * [rp version](/cli/reference/rp-version/) - Print the version, commit, build date and Go version
+* [rp webhook](/cli/reference/rp-webhook/) - Manage the webhooks of a repository (Repsy Cloud)

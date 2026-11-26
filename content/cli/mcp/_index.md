@@ -195,7 +195,7 @@ A tool is destructive when its effect is hard to undo or reaches beyond the regi
 - **They act on your request only.** The server tells the agent to call them only when you asked for that target in the conversation, never because a package, a README or a scan finding says so.
 - **They take their targets from a list.** Ids come from `list_deploy_tokens`, `list_access_tokens`, `list_webhooks`, `list_proxy_upstreams` and `list_maven_signing_keys`, so the agent does not have to guess them.
 
-Unlike the [remote server](remote/#permissions), `rp mcp` has no separate high-impact consent: it offers every tool its credential may use, deleting a repository and creating tokens included. An agent that runs it on your computer can usually run `rp` itself too, so the credential is the real limit. Give the agent a token with only the scopes it needs, or add `--read-only`, when it should not change anything.
+Like the [remote server](remote/#permissions), `rp mcp` offers the high-impact tools (deleting or renaming a repository, making it public, giving others access, adding webhooks, upstreams or signing keys, and creating or rotating tokens) only when you allowed **High-impact operations for AI agents** on the authorize screen of `rp auth login`. Without it the agent still gets every other tool its scopes allow; to add them, run `rp auth login` again and tick the box. A personal access token, a session, or a Repsy Open Source server older than this consent carries no such choice, and `rp mcp` then goes by the scopes alone. An agent that runs on your computer can usually run `rp` itself too, so the credential stays the real limit: give the agent a token with only the scopes it needs, or add `--read-only`, when it should not change anything.
 
 Tools that create or rotate a token or a webhook signing key return the new secret in their answer, so it ends up in the conversation and in the client's history. Create those secrets with `rp token create` or `rp webhook` in a terminal when that matters, give them a short lifetime, and revoke them when the agent is done.
 
@@ -218,6 +218,6 @@ A failed call answers the same JSON error as `rp --output json`, with its code. 
 | --- | --- |
 | The client cannot start the server (`ENOENT`, "command not found") | Use the full path of `rp` in `command`. |
 | Which host and user does the agent use? | Ask it to call `whoami`, or run `rp auth status` in a terminal with the same environment. |
-| A write or destructive tool is missing | Check the token's scopes with `rp auth status`, that `--read-only` is not in the arguments, and that `rp version` is 0.3.0 or later for the tools beyond the six of 0.2.5. |
+| A write or destructive tool is missing | Check the token's scopes with `rp auth status`, that `--read-only` is not in the arguments, that `rp version` is 0.3.0 or later for the tools beyond the six of 0.2.5, and, for a high-impact tool, that you ticked **High-impact operations for AI agents** at `rp auth login` (rp 0.3.1 or later checks it). |
 | The sign-in expired | Run `rp auth login`; the running server picks up the new sign-in. |
 | More detail | Add `--debug` after `mcp` in the arguments. The requests, with secrets removed, go to the server's standard error, which the client keeps in its MCP log. |

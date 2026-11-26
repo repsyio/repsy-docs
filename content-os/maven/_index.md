@@ -29,3 +29,5 @@ The URL of a Maven repository is the address of your instance's repository port 
 
 - [Signing Maven Artifacts](signing-maven-artifacts/): how Repsy verifies PGP signatures, and how to sign with Maven and Gradle.
 - [Maven Upload Rules](maven-upload-rules/): what Repsy accepts on upload and what each refusal looks like to your build tool.
+
+To sign your client in with a token instead of your password, see [Personal Access Tokens](../getting-started/personal-access-tokens/). A personal access token reaches every repository you can reach, narrowed to the scopes you pick; a [deploy token](../getting-started/creating-a-deploy-token/) reaches one repository.

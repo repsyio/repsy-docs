@@ -24,3 +24,5 @@ A repository has only the gems that you push to it. Bundler and `gem` fetch the 
 - [Using Repsy with Bundler](using-repsy-with-bundler/): `source` blocks, credentials with `bundle config` and environment variables, dependencies, lock files and troubleshooting.
 - [Yanking Gems](yanking-gems/): what a yanked version means for `gem`, Bundler and the web UI, who may yank, and what you can do afterwards.
 - [Using Ruby in CI](using-ruby-in-ci/): deploy tokens and secrets in a pipeline that publishes or installs gems.
+
+To sign your client in with a token instead of your password, see [Personal Access Tokens](../getting-started/personal-access-tokens/). A personal access token reaches every repository you can reach, narrowed to the scopes you pick; a [deploy token](../getting-started/creating-a-deploy-token/) reaches one repository.

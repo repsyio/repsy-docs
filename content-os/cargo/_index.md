@@ -21,3 +21,5 @@ The address of the registry index is the address of your instance's repository p
 - [Publishing and Using Crates with Cargo](publishing-and-using-crates-with-cargo/): a complete crate from `cargo new` to a dependency in another project, `cargo install`, `cargo search`, what the web UI shows and the errors you may meet.
 - [Yanking and Un-yanking Crates](yanking-and-un-yanking-crates/): withdraw a version from new dependency resolution and bring it back.
 - [Cargo in CI](cargo-in-ci/): give a pipeline a token through an environment variable and publish from it.
+
+To sign your client in with a token instead of your password, see [Personal Access Tokens](../getting-started/personal-access-tokens/). A personal access token reaches every repository you can reach, narrowed to the scopes you pick; a [deploy token](../getting-started/creating-a-deploy-token/) reaches one repository.

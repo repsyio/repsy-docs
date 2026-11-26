@@ -15,6 +15,7 @@ system, and how Repsy Open Source protects itself from wrong credentials.
 | Credential | Scope | Use it for |
 | --- | --- | --- |
 | Deploy token | One repository | CI jobs, build servers and outside parties. **This is the one to use.** |
+| [Personal access token](../../getting-started/personal-access-tokens/) | Every repository its user can reach, narrowed by its scopes | Scripts, the `rp` CLI and the panel API, with the rights of one user. |
 | Username and password of a user | Every repository | People, working on their own machine. |
 | Access token of the web UI | The web UI only | Nothing else: the web UI gets it when you sign in, and package clients cannot use it. |
 

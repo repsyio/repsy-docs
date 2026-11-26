@@ -34,3 +34,5 @@ The address of a registry is the repository address of your instance, the name o
 - Repsy Open Source does not proxy or mirror npmjs.org. A project that uses a Repsy registry as its only registry can only install what that registry holds. Route the scopes of your own packages to Repsy and leave everything else on npmjs.org.
 - Repsy does not support npm's web login. The classic login with a username and a password, and a deploy token in `.npmrc`, both work.
 - These pages were checked with npm 11, Yarn 1.22 and 4.18, pnpm 12.6 and Bun 1.3.
+
+To sign your client in with a token instead of your password, see [Personal Access Tokens](../getting-started/personal-access-tokens/). A personal access token reaches every repository you can reach, narrowed to the scopes you pick; a [deploy token](../getting-started/creating-a-deploy-token/) reaches one repository.

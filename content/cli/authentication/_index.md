@@ -78,7 +78,7 @@ Tokens are removed from error messages and from `--debug` output.
 
 ## Personal Access Tokens
 
-A personal access token belongs to your user and signs `rp` and panel API requests with the scopes you give it:
+A personal access token belongs to your user and signs `rp`, package clients and panel API requests with the scopes you give it. [Personal Access Tokens](../../getting-started/personal-access-tokens/) shows how to create, rotate and revoke one in the panel and how to use it in each package client:
 
 | Scope | Allows |
 | --- | --- |

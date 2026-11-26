@@ -22,3 +22,5 @@ The address of a Helm repository is the address of your instance's repository po
 - [Publishing and Pulling Charts over OCI](publishing-and-pulling-charts-over-oci/): `helm registry login`, `helm push`, `helm pull oci://` and `helm install oci://`, and how the two protocols see each other's charts.
 - [Managing Chart Versions](managing-chart-versions/): the rules Repsy applies to an upload, the Package Override setting, and deleting a version or a chart and what your clients see afterwards.
 - [Using Helm in CI](using-helm-in-ci/): deploy tokens and secrets in a pipeline that publishes or installs charts.
+
+To sign your client in with a token instead of your password, see [Personal Access Tokens](../getting-started/personal-access-tokens/). A personal access token reaches every repository you can reach, narrowed to the scopes you pick; a [deploy token](../getting-started/creating-a-deploy-token/) reaches one repository.

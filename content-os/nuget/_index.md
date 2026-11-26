@@ -30,3 +30,5 @@ The address of a repository is the repository address of your instance followed 
 - The service index is served without credentials, also for a private repository. Everything else needs a login, unless the repository is public and the request only reads. Pushing, unlisting and relisting always need credentials.
 - Repsy stores package ids in lower case and versions in their normalized form. NuGet ids are case-insensitive, so clients are not affected.
 - These pages were checked with the .NET SDK 10.0.401, and where noted with 8.0.425.
+
+To sign your client in with a token instead of your password, see [Personal Access Tokens](../getting-started/personal-access-tokens/). A personal access token reaches every repository you can reach, narrowed to the scopes you pick; a [deploy token](../getting-started/creating-a-deploy-token/) reaches one repository.

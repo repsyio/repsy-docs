@@ -13,3 +13,5 @@ Repsy supports the full **RubyGems / Bundler Compact Index protocol**, which mea
 
 - A **hosted registry** — push and pull your own gems with `gem push`, `gem install`, and Bundler.
 - A **proxy / cache** — configure Repsy to fetch gems from rubygems.org (or any other upstream source) and cache them locally for faster, more reliable builds.
+
+To sign your client in with a token instead of your password, see [Personal Access Tokens](../getting-started/personal-access-tokens/). A personal access token reaches every repository you can reach, narrowed to the scopes you pick; a [deploy token](../getting-started/creating-a-deploy-token/) reaches one repository.

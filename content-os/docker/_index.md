@@ -25,3 +25,5 @@ The reference of an image is the address of your instance's repository port, the
 ### Managing Images
 
 - [Managing Docker Tags and Manifests](managing-docker-tags-and-manifests/): what a tag and a manifest are, what deleting each does, images without tags, and the clean-up actions.
+
+To sign your client in with a token instead of your password, see [Personal Access Tokens](../getting-started/personal-access-tokens/). A personal access token reaches every repository you can reach, narrowed to the scopes you pick; a [deploy token](../getting-started/creating-a-deploy-token/) reaches one repository.

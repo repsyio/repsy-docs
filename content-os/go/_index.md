@@ -27,3 +27,5 @@ Repsy does not fetch modules from other proxies, and it does not run a checksum 
 ### Managing Modules
 
 - [Deleting Go Module Versions](deleting-go-module-versions/): what deleting a version or a module does in the web UI, and what `go` clients see afterwards.
+
+To sign your client in with a token instead of your password, see [Personal Access Tokens](../getting-started/personal-access-tokens/). A personal access token reaches every repository you can reach, narrowed to the scopes you pick; a [deploy token](../getting-started/creating-a-deploy-token/) reaches one repository.

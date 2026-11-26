@@ -20,3 +20,5 @@ The address of a PyPI repository is the address of your instance's repository po
 
 - [Publishing a Python Package with twine](publishing-a-python-package-with-twine/): build a package, upload it, credentials, the rules Repsy applies to an upload and what each refusal looks like.
 - [Installing Python Packages with pip](installing-python-packages-with-pip/): the index URL, credentials, `pip.conf`, requirements files, CI jobs and troubleshooting.
+
+To sign your client in with a token instead of your password, see [Personal Access Tokens](../getting-started/personal-access-tokens/). A personal access token reaches every repository you can reach, narrowed to the scopes you pick; a [deploy token](../getting-started/creating-a-deploy-token/) reaches one repository.

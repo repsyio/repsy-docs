@@ -29,6 +29,8 @@ rp version
 
 `rp version --output json` prints `version`, `commit`, `date` and `goVersion`.
 
+In PowerShell, `rp` is a built-in alias of `Remove-ItemProperty`; see [Windows PowerShell: the `rp` Alias](#windows-powershell-the-rp-alias) before you run it there.
+
 ## Supported Servers
 
 `rp` works with Repsy Cloud and with Repsy Open Source **26.11.0 or newer**. Before its first panel API request to a Repsy Open Source host, `rp` asks the server for its version (`GET /api/info`, no credential sent) and refuses an older server, or one that does not answer that route, with exit code 2 (see [Exit Codes](../exit-codes/)). The answer is kept in the profile for a day, so a supported server is asked at most once a day. A development or snapshot build cannot be compared; `rp` warns once and goes on.
@@ -81,6 +83,73 @@ cosign verify-blob \
 
 On Windows, compare `(Get-FileHash .\repsy-cli_<version>_windows_amd64.zip -Algorithm SHA256).Hash` with the line for that file in the checksum list.
 
+## Windows PowerShell: the `rp` Alias
+
+PowerShell has a built-in alias `rp` for `Remove-ItemProperty`, and an alias wins over a program on the `PATH`. So in PowerShell `rp version` runs `Remove-ItemProperty`, not Repsy's `rp`. Remove the alias in your PowerShell profile:
+
+```powershell
+if (-not (Test-Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force | Out-Null }
+Add-Content -Path $PROFILE -Value 'Remove-Item Alias:rp -Force -ErrorAction SilentlyContinue'
+```
+
+Open a new PowerShell window afterwards. Until then, call the program as `rp.exe`. The Command Prompt (`cmd.exe`) has no such alias.
+
 ## Shell Completion
 
-`rp completion` prints a completion script for bash, zsh, fish and PowerShell. See [rp completion](../reference/rp-completion/).
+`rp completion <shell>` prints a completion script for bash, zsh, fish or PowerShell (see [rp completion](../reference/rp-completion/)). Save it where your shell looks for completions, then open a new shell and press Tab after `rp `.
+
+{{< tabs groupId="shell" >}}
+{{% tab name="bash" %}}
+Needs the `bash-completion` package (`apt install bash-completion`, `dnf install bash-completion`, or `brew install bash-completion@2` on macOS, set up as Homebrew describes). It loads the file from your user directory by itself:
+
+```bash
+mkdir -p ~/.local/share/bash-completion/completions
+rp completion bash > ~/.local/share/bash-completion/completions/rp
+```
+{{% /tab %}}
+{{% tab name="zsh" %}}
+Save the script as `_rp` in a directory of your own:
+
+```bash
+mkdir -p ~/.zsh/completions
+rp completion zsh > ~/.zsh/completions/_rp
+```
+
+Then add the directory to `fpath` and load the completion system in `~/.zshrc`:
+
+```bash
+fpath=(~/.zsh/completions $fpath)
+autoload -U compinit
+compinit
+```
+
+If your `~/.zshrc` already runs `compinit` (Oh My Zsh and other frameworks do), only add the `fpath` line, and put it before that call. If completion does not show up in a new shell, remove the cache with `rm -f ~/.zcompdump*` and open a new shell again.
+{{% /tab %}}
+{{% tab name="fish" %}}
+fish loads the file from its completions directory by itself:
+
+```bash
+mkdir -p ~/.config/fish/completions
+rp completion fish > ~/.config/fish/completions/rp.fish
+```
+{{% /tab %}}
+{{% tab name="PowerShell" %}}
+Load the script from your PowerShell profile, after removing the built-in `rp` alias (see [above](#windows-powershell-the-rp-alias)):
+
+```powershell
+if (-not (Test-Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force | Out-Null }
+Add-Content -Path $PROFILE -Value @'
+Remove-Item Alias:rp -Force -ErrorAction SilentlyContinue
+rp completion powershell | Out-String | Invoke-Expression
+'@
+```
+
+If your profile already removes the alias, leave out the `Remove-Item` line.
+{{% /tab %}}
+{{< /tabs >}}
+
+To try completion in the current session only, without saving anything, run `source <(rp completion bash)` in bash or `rp completion fish | source` in fish.
+
+### Packages
+
+The `.deb` and `.rpm` packages of the releases after 0.3.0 install the bash, zsh and fish completion files system-wide, so with them there is nothing to do: open a new shell. For bash, the `bash-completion` package must be installed. The packages of 0.3.0 and earlier, the archives and the install scripts do not install completion; use the steps above.

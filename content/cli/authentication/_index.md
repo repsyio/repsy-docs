@@ -23,7 +23,7 @@ rp auth login
 In a terminal `rp` asks how to sign in. Press Enter for the default, **Sign in with a web browser**:
 
 1. `rp` opens the panel's authorize screen in your browser.
-2. You approve the sign-in there.
+2. You choose the permissions and approve the sign-in there. Read repositories is always given; Publish packages and Manage repositories can be unticked. **High-impact operations for AI agents** is off unless you tick it, and needs Manage repositories: it only decides which tools [`rp mcp`](../mcp/#writes) offers an agent, not what the `rp` commands you type may do.
 3. The panel hands a temporary token back to `rp` on `127.0.0.1`. You paste nothing.
 
 The sign-in lasts 24 hours and is not renewed. When it runs out, commands answer that the sign-in expired; run `rp auth login` again. A new sign-in replaces the previous one, on this machine and on any other.

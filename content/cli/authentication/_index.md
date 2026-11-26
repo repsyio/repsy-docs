@@ -86,6 +86,10 @@ A personal access token belongs to your user and signs `rp` and panel API reques
 | `repo:write` | Also publish packages and start scans. |
 | `repo:manage` | Also delete, change settings, manage deploy tokens and create repositories. |
 
+Every token can also read who it belongs to (`profile:read`); you do not ask for it.
+
+`scan:read` is deprecated: `repo:read` now reads scan results too. The panel and `rp` no longer offer it. A token that already has it keeps working as before, and `rp token create --scope scan:read` is still accepted, with a warning that `repo:read` covers scan results. A `scan:read` token reads scan results only, not the repository itself, so give new tokens `repo:read` instead.
+
 A token never allows more than its owner may do. Create one with the scopes the job needs:
 
 ```bash

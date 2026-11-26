@@ -53,10 +53,43 @@ You can read the scripts before running them: [install.sh](https://cli.repsy.io/
 
 ## Update
 
-Run the installer again with `--force`:
+Run `rp update`. It downloads the latest release from `cli.repsy.io`, checks it the same way as the installer (the
+SHA-256 always, the signature when cosign is installed) and replaces `rp` and `docker-credential-repsy` where they are
+installed. Nothing is changed when a check fails.
+
+```bash
+rp update --check            # only show the installed and the latest version
+rp update                    # install the latest version
+rp update --version 0.3.1    # install a given version, also an older one
+```
+
+| Option | Effect |
+| --- | --- |
+| `--check` | Shows the installed and the latest version and the command that updates this installation. Changes nothing. |
+| `--version <x.y.z>` | Installs that version instead of the latest. |
+| `--require-signature` | Fails when the signature cannot be checked, instead of warning. |
+
+If Homebrew, Scoop, a `.deb` or `.rpm` package, the Docker image or `go install` installed `rp`, `rp update` changes
+nothing and prints the command to use instead, such as `brew upgrade repsy-cli`, `scoop update repsy-cli` or your
+system package manager.
+
+`rp` versions before `rp update` existed update by running the installer again with `--force`:
 
 ```bash
 curl -fsSL https://cli.repsy.io/install.sh | sh -s -- --force
+```
+
+### Update Notice
+
+When a newer version exists, `rp` prints one line after a command, at most once a day. It checks for new versions in
+the background, at most once a day, and never slows a command down. The line appears only in a terminal: never in CI,
+never when the output goes to a pipe or a file, and never with `--no-input`, `--output json`, `--output yaml` or `--jq`.
+
+Turn it off with either of these:
+
+```bash
+export REPSY_NO_UPDATE_NOTICE=1
+rp config set update_notice false
 ```
 
 ## Packages and Manual Download
